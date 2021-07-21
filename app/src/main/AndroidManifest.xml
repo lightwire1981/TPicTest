@@ -17,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TPicTest"
         android:usesCleartextTraffic="true">
+        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".SplashActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
