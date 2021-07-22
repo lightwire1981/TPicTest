@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">TPicTest</string>
-    <string name="splah_logo">Logo\n서비스 대표 문구</string>
+    <string name="splash_logo">Logo\n서비스 대표 문구</string>
+
+<!--    Content Description   -->
+    <string name="cd_app_logo">App Main Logo</string>
+    <string name="cd_main_search">Content Search</string>
+    <string name="cd_main_btn">Go Main</string>
+    <string name="cd_category_btn">Go Category</string>
+    <string name="cd_evaluate_btn">Go Evaluate</string>
+    <string name="cd_ranking_btn">Go Ranking</string>
+    <string name="cd_my_page_btn">Go MyPage</string>
+
+<!--    Home Button Text    -->
+    <string name="btn_home">홈</string>
+    <string name="btn_category">카테고리</string>
+    <string name="btn_evaluate">평가</string>
+    <string name="btn_ranking">랭킹</string>
+    <string name="btn_mypage">마이페이지</string>
 </resources>

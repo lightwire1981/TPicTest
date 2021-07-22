@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorPrimaryDark">@android:color/white</item>
+        <item name="colorPrimaryDark">@android:color/transparent</item>
     </style>
 
     <style name="Widget.AppTheme.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
@@ -12,4 +12,21 @@
         <item name="android:background">@color/black_overlay</item>
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
+
+<!--    Home Button Text Style    -->
+    <style name="HomeButton">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+<!--    Home Button Style   -->
+    <style name="HomeButtonBorderless" parent="Widget.AppCompat.Button.Borderless">
+        <item name="minHeight">-10dp</item>
+        <item name="minWidth">-10dp</item>
+    </style>
+    <style name="HomeButtonLayout">
+        <item name="android:padding">10dp</item>
+    </style>
+
 </resources>

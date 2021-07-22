@@ -4,11 +4,228 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:weightSum="10"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="4.4"
+        android:baselineAligned="false"
+        android:gravity="center"
+        android:orientation="horizontal">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/iBtn_Main_Search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_main_search"
+                android:contentDescription="@string/cd_main_search"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/iVw_Main_Logo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.509" />
+
+            <ImageView
+                android:id="@+id/iVw_Main_Logo"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/cd_app_logo"
+                android:scaleType="centerInside"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/tp_logo01" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.2"
+        android:background="#AED5E4"
+        android:orientation="horizontal">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="4.4"
+        android:background="#FFFFFF"
+        android:baselineAligned="false"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <LinearLayout
+            style="@style/HomeButtonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="5">
+
+            <ImageButton
+                android:id="@+id/iBtn_MHome"
+                style="@style/HomeButtonBorderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/cd_main_btn"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/btn_main_home" />
+
+            <TextView
+                android:id="@+id/tvw_MHome"
+                style="@style/HomeButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:text="@string/btn_home" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/HomeButtonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="5">
+
+            <ImageButton
+                android:id="@+id/iBtn_MCategory"
+                style="@style/HomeButtonBorderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/cd_category_btn"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/btn_main_category" />
+
+            <TextView
+                android:id="@+id/tvw_MCategory"
+                style="@style/HomeButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:text="@string/btn_category" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/HomeButtonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="5">
+
+            <ImageButton
+                android:id="@+id/iBtn_MEvaluate"
+                style="@style/HomeButtonBorderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/cd_evaluate_btn"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/btn_main_evaluate" />
+
+            <TextView
+                android:id="@+id/tvw_MEvaluate"
+                style="@style/HomeButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:text="@string/btn_evaluate" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/HomeButtonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="5">
+
+            <ImageButton
+                android:id="@+id/iBtn_MRank"
+                style="@style/HomeButtonBorderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/cd_ranking_btn"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/btn_main_rank" />
+
+            <TextView
+                android:id="@+id/tvw_MRank"
+                style="@style/HomeButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:text="@string/btn_ranking" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/HomeButtonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="5">
+
+            <ImageButton
+                android:id="@+id/iBtn_Mmypage"
+                style="@style/HomeButtonBorderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/cd_my_page_btn"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/btn_main_mypage" />
+
+            <TextView
+                android:id="@+id/tvw_Mmypage"
+                style="@style/HomeButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:text="@string/btn_mypage" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
