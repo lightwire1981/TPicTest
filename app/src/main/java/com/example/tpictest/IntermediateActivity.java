@@ -11,8 +11,9 @@ public class IntermediateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_blank);
         hideNavigationBar();
+        setContentView(R.layout.activity_blank);
+
 
         getWindow().getDecorView().postDelayed(() -> {
             Intent intent = new Intent(getBaseContext(), MainActivity.class);

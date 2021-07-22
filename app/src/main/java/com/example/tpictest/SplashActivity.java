@@ -12,11 +12,12 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hideNavigationBar();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             getWindow().setDecorFitsSystemWindows(false);
         }
         setContentView(R.layout.activity_splash);
-        hideNavigationBar();
+
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
 //            PreferenceSetting preferenceSetting = new PreferenceSetting(getBaseContext());
