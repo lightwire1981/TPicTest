@@ -10,6 +10,9 @@
     <string name="cd_evaluate_btn">Go Evaluate</string>
     <string name="cd_ranking_btn">Go Ranking</string>
     <string name="cd_my_page_btn">Go MyPage</string>
+    <string name="cd_design_img">none</string>
+    <string name="cd_product_default">기본 상품 이미지</string>
+    <string name="cd_like_img">좋아요 이미지</string>
 
 <!--    Home Button Text    -->
     <string name="btn_home">홈</string>
@@ -17,4 +20,10 @@
     <string name="btn_evaluate">평가</string>
     <string name="btn_ranking">랭킹</string>
     <string name="btn_mypage">마이페이지</string>
+
+<!--    Program Code    -->
+    <string name="temp001">홍길동님을 위한 맞춤 장난감</string>
+    <string name="product_name">테스트 상품 이름</string>
+    <string name="txt_custom_expect">예상</string>
+    <string name="txt_cexpect_grade">0.0</string>
 </resources>
