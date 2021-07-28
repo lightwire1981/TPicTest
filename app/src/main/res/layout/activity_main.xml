@@ -9,69 +9,21 @@
     android:weightSum="10"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/fLyMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="4.4"
-        android:baselineAligned="false"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_weight="1">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageButton
-                android:id="@+id/iBtn_Main_Search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_main_search"
-                android:contentDescription="@string/cd_main_search"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/iVw_Main_Logo"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.509" />
-
-            <ImageView
-                android:id="@+id/iVw_Main_Logo"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:contentDescription="@string/cd_app_logo"
-                android:scaleType="centerInside"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/tp_logo01" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.2"
-        android:background="#AED5E4"
-        android:orientation="horizontal">
-
-        <ScrollView
-            android:id="@+id/scrlVwMain"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="4.4"
+        android:layout_weight="9"
         android:background="#FFFFFF"
         android:baselineAligned="false"
         android:gravity="center"

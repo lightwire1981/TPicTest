@@ -2,7 +2,7 @@
     <string name="app_name">TPicTest</string>
     <string name="splash_logo">Logo\n서비스 대표 문구</string>
 
-<!--    Content Description   -->
+    <!--    Content Description   -->
     <string name="cd_app_logo">App Main Logo</string>
     <string name="cd_main_search">Content Search</string>
     <string name="cd_main_btn">Go Main</string>
@@ -13,17 +13,24 @@
     <string name="cd_design_img">none</string>
     <string name="cd_product_default">기본 상품 이미지</string>
     <string name="cd_like_img">좋아요 이미지</string>
+    <string name="cd_back_btn">Return back</string>
 
-<!--    Home Button Text    -->
+    <!--    Home Button Text    -->
     <string name="btn_home">홈</string>
     <string name="btn_category">카테고리</string>
     <string name="btn_evaluate">평가</string>
     <string name="btn_ranking">랭킹</string>
     <string name="btn_mypage">마이페이지</string>
 
-<!--    Program Code    -->
+    <!--    Program Code    -->
+    <string name="txt_loading00">로딩 중…</string>
     <string name="temp001">홍길동님을 위한 맞춤 장난감</string>
     <string name="product_name">테스트 상품 이름</string>
     <string name="txt_custom_expect">예상</string>
     <string name="txt_cexpect_grade">0.0</string>
+    <string name="txt_test_message">기능 테스트</string>
+    <string name="txt_back_message">뒤로 가기</string>
+
+<!--    EditText Hint    -->
+    <string name="hint_search">검색어를 입력하세요</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.example.tpictest;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +11,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import com.example.tpictest.fragments.HomeFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -16,10 +20,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        HomeFragment homeFragment = new HomeFragment();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fLyMain, homeFragment).commit();
 
-        ScrollView scrollView = findViewById(R.id.scrlVwMain);
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.layout_main, scrollView, true);
+//        ScrollView scrollView = findViewById(R.id.scrlVwMain);
+//        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        inflater.inflate(R.layout.layout_main, scrollView, true);
     }
 
     @Override
