@@ -1,7 +1,6 @@
 package com.example.tpictest.fragments;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -22,7 +21,6 @@ import com.example.tpictest.code.ListAdapterCustomToy;
 import com.example.tpictest.code.ListItemCustomToy;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,17 +81,25 @@ public class HomeFragment extends Fragment {
         ScrollView scrollView = view.findViewById(R.id.scrlVwMain);
         scrollView.addView(inflater.inflate(R.layout.layout_main, scrollView, false));
 
-        ArrayList<ListItemCustomToy> mList = new ArrayList<>();
-        getCustomToyList(mList);
-        RecyclerView recyclerView = view.findViewById(R.id.rcyclVwMainCustomToy);
-        recyclerView.setAdapter(new ListAdapterCustomToy(mList));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        RecyclerView view1 = view.findViewById(R.id.rcyclVwMainCustomToy1);
+        RecyclerView view2 = view.findViewById(R.id.rcyclVwMainCustomToy2);
+
+        setCustomToyList(view1);
+        setCustomToyList(view2);
 
         view.findViewById(R.id.iBtn_Main_Search).setOnClickListener(onClickListener);
 
         return view;
+    }
+
+    private void setCustomToyList(RecyclerView recyclerView) {
+        ArrayList<ListItemCustomToy> mList = new ArrayList<>();
+        getCustomToyList(mList);
+
+        recyclerView.setAdapter(new ListAdapterCustomToy(mList));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
