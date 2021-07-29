@@ -29,6 +29,7 @@
     <string name="txt_custom_expect">예상</string>
     <string name="txt_cexpect_grade">0.0</string>
     <string name="txt_test_message">기능 테스트</string>
+    <string name="txt_test_message2">기능 테스트2</string>
     <string name="txt_back_message">뒤로 가기</string>
 
 <!--    EditText Hint    -->

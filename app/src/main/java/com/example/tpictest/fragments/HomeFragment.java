@@ -2,11 +2,14 @@ package com.example.tpictest.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,11 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.example.tpictest.R;
+import com.example.tpictest.code.ListAdapterCustomToy;
+import com.example.tpictest.code.ListItemCustomToy;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,9 +83,38 @@ public class HomeFragment extends Fragment {
         ScrollView scrollView = view.findViewById(R.id.scrlVwMain);
         scrollView.addView(inflater.inflate(R.layout.layout_main, scrollView, false));
 
+        ArrayList<ListItemCustomToy> mList = new ArrayList<>();
+        getCustomToyList(mList);
+        RecyclerView recyclerView = view.findViewById(R.id.rcyclVwMainCustomToy);
+        recyclerView.setAdapter(new ListAdapterCustomToy(mList));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
         view.findViewById(R.id.iBtn_Main_Search).setOnClickListener(onClickListener);
 
         return view;
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void getCustomToyList(ArrayList<ListItemCustomToy> mList) {
+
+        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb03), "테스트 상품1", "5.0"));
+        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb03), "테스트 상품2", "4.8"));
+        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb03), "테스트 상품3", "4.0"));
+        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb03), "테스트 상품4", "4.2"));
+        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb03), "테스트 상품5", "3.8"));
+
+    }
+
+    private ListItemCustomToy addItem(Drawable img, String pName, String predict) {
+        ListItemCustomToy item = new ListItemCustomToy();
+
+        item.setImgDrawable(img);
+        item.setProductName(pName);
+        item.setPredictNumber(predict);
+
+        return item;
     }
 
     View.OnClickListener onClickListener = v -> {
