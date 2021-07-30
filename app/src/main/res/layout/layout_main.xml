@@ -132,13 +132,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cLyRankBoy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/cLyRankOutdoor"
             app:layout_constraintEnd_toStartOf="@+id/cLyRankGirl"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -189,7 +189,7 @@
             android:id="@+id/cLyRankGirl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/cLyRankLego"
             app:layout_constraintEnd_toStartOf="@+id/cLyRankBaby"
             app:layout_constraintStart_toEndOf="@+id/cLyRankBoy"
             app:layout_constraintTop_toTopOf="parent">
@@ -240,7 +240,7 @@
             android:id="@+id/cLyRankBaby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/cLyRankStuffedToy"
             app:layout_constraintEnd_toStartOf="@+id/cLyRankBoard"
             app:layout_constraintStart_toEndOf="@+id/cLyRankGirl"
             app:layout_constraintTop_toTopOf="parent">
@@ -289,7 +289,7 @@
             android:id="@+id/cLyRankBoard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cLyRankBaby"
             app:layout_constraintTop_toTopOf="parent">
