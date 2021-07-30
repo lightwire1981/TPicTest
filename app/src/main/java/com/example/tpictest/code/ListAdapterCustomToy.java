@@ -9,14 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.tpictest.R;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ListAdapterCustomToy extends RecyclerView.Adapter<ListAdapterCustomToy.ViewHolder> {
     private final ArrayList<ListItemCustomToy> mData;
