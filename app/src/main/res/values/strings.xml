@@ -12,7 +12,9 @@
     <string name="cd_my_page_btn">Go MyPage</string>
     <string name="cd_design_img">none</string>
     <string name="cd_product_default">기본 상품 이미지</string>
+    <string name="cd_product_new">신규 표기</string>
     <string name="cd_like_img">좋아요 이미지</string>
+    <string name="cd_more_btn">더보기 이미지</string>
     <string name="cd_back_btn">Return back</string>
 
     <!--    Home Button Text    -->
@@ -21,10 +23,20 @@
     <string name="btn_evaluate">평가</string>
     <string name="btn_ranking">랭킹</string>
     <string name="btn_mypage">마이페이지</string>
+    <string name="btn_rank_boy">남아 완구</string>
+    <string name="btn_rank_girl">여아 완구</string>
+    <string name="btn_rank_baby">영유아 완구</string>
+    <string name="btn_rank_board">교육 보드</string>
+    <string name="btn_rank_outdoor">아웃도어</string>
+    <string name="btn_rank_lego">레고</string>
+    <string name="btn_rank_stuffedtoy">봉제인형</string>
+    <string name="btn_rank_character">캐릭터</string>
+
 
     <!--    Program Code    -->
     <string name="txt_loading00">로딩 중…</string>
     <string name="temp001">홍길동님을 위한 맞춤 장난감</string>
+    <string name="txt_main_category_ranking">분야별 랭킹</string>
     <string name="product_name">테스트 상품 이름</string>
     <string name="txt_custom_expect">예상</string>
     <string name="txt_cexpect_grade">0.0</string>

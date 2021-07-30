@@ -68,8 +68,6 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
 
     @Override
@@ -83,9 +81,11 @@ public class HomeFragment extends Fragment {
 
         RecyclerView view1 = view.findViewById(R.id.rcyclVwMainCustomToy1);
         RecyclerView view2 = view.findViewById(R.id.rcyclVwMainCustomToy2);
+        RecyclerView view3 = view.findViewById(R.id.rcyclVwMainCustomToy3);
 
         setCustomToyList(view1);
         setCustomToyList(view2);
+        setCustomToyList(view3);
 
         view.findViewById(R.id.iBtn_Main_Search).setOnClickListener(onClickListener);
 
