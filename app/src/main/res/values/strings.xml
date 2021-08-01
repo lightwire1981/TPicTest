@@ -37,12 +37,15 @@
     <string name="txt_loading00">로딩 중…</string>
     <string name="temp001">홍길동님을 위한 맞춤 장난감</string>
     <string name="txt_main_category_ranking">분야별 랭킹</string>
-    <string name="product_name">테스트 상품 이름</string>
+    <string name="product_name">특가상품 헬로카봇 구급차 댄디 옐로우 테스트 텍스트</string>
     <string name="txt_custom_expect">예상</string>
     <string name="txt_cexpect_grade">0.0</string>
     <string name="txt_test_message">기능 테스트</string>
     <string name="txt_test_message2">기능 테스트2</string>
     <string name="txt_back_message">뒤로 가기</string>
+    <string name="txt_rating">평점</string>
+    <string name="txt_rating_default">0.0</string>
+    <string name="txt_rank_default">0</string>
 
 <!--    EditText Hint    -->
     <string name="hint_search">검색어를 입력하세요</string>

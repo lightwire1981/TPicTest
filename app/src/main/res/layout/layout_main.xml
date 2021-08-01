@@ -53,6 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
+                android:layout_marginBottom="10dp"
                 android:background="#CD7878"
                 android:text="@string/txt_test_message"
                 android:textSize="16sp"
@@ -71,6 +72,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
                 android:background="#CD7878"
                 android:text="@string/txt_test_message"
                 android:textSize="16sp"
@@ -87,6 +90,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
                 android:background="#CD7878"
                 android:text="@string/txt_test_message"
                 android:textSize="16sp" />
@@ -138,6 +143,7 @@
             android:id="@+id/cLyRankBoy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             app:layout_constraintBottom_toTopOf="@+id/cLyRankOutdoor"
             app:layout_constraintEnd_toStartOf="@+id/cLyRankGirl"
             app:layout_constraintStart_toStartOf="parent"
@@ -338,6 +344,8 @@
             android:id="@+id/cLyRankOutdoor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/cLyRankLego"
             app:layout_constraintStart_toStartOf="parent"
@@ -537,5 +545,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcyclVwMainRankingToy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
