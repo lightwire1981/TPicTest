@@ -16,6 +16,7 @@
     <string name="cd_like_img">좋아요 이미지</string>
     <string name="cd_more_btn">더보기 이미지</string>
     <string name="cd_back_btn">Return back</string>
+    <string name="cd_banner_img">Banner image</string>
 
     <!--    Home Button Text    -->
     <string name="btn_home">홈</string>
@@ -35,9 +36,13 @@
 
     <!--    Program Code    -->
     <string name="txt_loading00">로딩 중…</string>
-    <string name="temp001">홍길동님을 위한 맞춤 장난감</string>
-    <string name="txt_main_category_ranking">분야별 랭킹</string>
-    <string name="product_name">특가상품 헬로카봇 구급차 댄디 옐로우 테스트 텍스트</string>
+    <string name="txt_main_custom_toy">홍길동님을 위한 맞춤 장난감</string>
+    <string name="txt_main_new_toy">새로 나온 장난감</string>
+    <string name="txt_main_ranking_toy">분야별 랭킹</string>
+    <string name="txt_main_review_toy">인기 리뷰</string>
+    <string name="txt_main_custom_product_name1">특가상품 헬로카봇 구급차 댄디 옐로우 테스트 텍스트</string>
+    <string name="txt_main_new_product_name1">자석퍼즐 신비아파트3 더블X 신비와 친구들 만들기 </string>
+    <string name="txt_main_new_product_name2">자석퍼즐 신비아파트3 더블X 합체 고스트 만들기 </string>
     <string name="txt_custom_expect">예상</string>
     <string name="txt_cexpect_grade">0.0</string>
     <string name="txt_test_message">기능 테스트</string>
@@ -46,6 +51,11 @@
     <string name="txt_rating">평점</string>
     <string name="txt_rating_default">0.0</string>
     <string name="txt_rank_default">0</string>
+    <string name="txt_new_tag">신제품</string>
+    <string name="txt_more_info">더보기&#160;</string>
+    <string name="txt_review_sample">특가상품 헬로카봇 구급차댄디 옐로우 리뷰입니다. 아이가 엄청 좋아합니다. 친구 로보트장난감보며 부러워 하던 아이를 위해 구입했어요. 마트를 가서 구매하려고 했지만 금액도 금액이거니와</string>
+    <string name="txt_like_default">&#160;999</string>
+
 
 <!--    EditText Hint    -->
     <string name="hint_search">검색어를 입력하세요</string>

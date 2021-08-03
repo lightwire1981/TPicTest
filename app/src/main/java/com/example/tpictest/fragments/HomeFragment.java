@@ -18,9 +18,13 @@ import android.widget.Toast;
 
 import com.example.tpictest.R;
 import com.example.tpictest.code.ListAdapterCustomToy;
+import com.example.tpictest.code.ListAdapterNewToy;
 import com.example.tpictest.code.ListAdapterRankingToy;
+import com.example.tpictest.code.ListAdapterReviewToy;
 import com.example.tpictest.code.ListItemCustomToy;
+import com.example.tpictest.code.ListItemNewToy;
 import com.example.tpictest.code.ListItemRankingToy;
+import com.example.tpictest.code.ListItemReviewToy;
 import com.example.tpictest.code.RecyclerDecoration;
 
 import java.util.ArrayList;
@@ -41,6 +45,10 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private enum ListType {
+        CUSTOM, RANK, NEW, REVIEW
+    }
 
     public HomeFragment() {
         // Required empty public constructor
@@ -82,17 +90,22 @@ public class HomeFragment extends Fragment {
         ScrollView scrollView = view.findViewById(R.id.scrlVwMain);
         scrollView.addView(inflater.inflate(R.layout.layout_main, scrollView, false));
 
-        RecyclerView view1 = view.findViewById(R.id.rcyclVwMainCustomToy1);
-        RecyclerView view2 = view.findViewById(R.id.rcyclVwMainCustomToy2);
-        RecyclerView view3 = view.findViewById(R.id.rcyclVwMainCustomToy3);
+        RecyclerView customToy1view = view.findViewById(R.id.rcyclVwMainCustomToy1);
+        RecyclerView customToy2view = view.findViewById(R.id.rcyclVwMainCustomToy2);
+        RecyclerView customToy3view = view.findViewById(R.id.rcyclVwMainCustomToy3);
 
-        setCustomToyList(view1);
-        setCustomToyList(view2);
-        setCustomToyList(view3);
+        setCustomToyList(customToy1view);
+        setCustomToyList(customToy2view);
+        setCustomToyList(customToy3view);
 
-        RecyclerView rankingView = view.findViewById(R.id.rcyclVwMainRankingToy);
-        setRankingToyList(rankingView);
+        RecyclerView rankingToyView = view.findViewById(R.id.rcyclVwMainRankingToy);
+        setRankingToyList(rankingToyView);
 
+        RecyclerView newToyView = view.findViewById(R.id.rcyclVwMainNewToy);
+        setNewToyList(newToyView);
+
+        RecyclerView reviewToyView = view.findViewById(R.id.rcyclVwMainReviewToy);
+        setReviewToyList(reviewToyView);
 
         view.findViewById(R.id.iBtn_Main_Search).setOnClickListener(onClickListener);
 
@@ -102,33 +115,39 @@ public class HomeFragment extends Fragment {
     private void setCustomToyList(RecyclerView recyclerView) {
         ArrayList<ListItemCustomToy> mList = new ArrayList<>();
         getCustomToyList(mList);
-
-        recyclerView.addItemDecoration(new RecyclerDecoration(25, 25));
         recyclerView.setAdapter(new ListAdapterCustomToy(mList));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        setLayoutManager(recyclerView, ListType.CUSTOM);
     }
 
     private void setRankingToyList(RecyclerView recyclerView) {
         ArrayList<ListItemRankingToy> mList = new ArrayList<>();
         getRankingToyList(mList, "boy");
-
-        recyclerView.addItemDecoration(new RecyclerDecoration(0, 25));
         recyclerView.setAdapter(new ListAdapterRankingToy(mList));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        setLayoutManager(recyclerView, ListType.RANK);
+    }
+
+    private void setNewToyList(RecyclerView recyclerView) {
+        ArrayList<ListItemNewToy> mList = new ArrayList<>();
+        getNewToyList(mList);
+        recyclerView.setAdapter(new ListAdapterNewToy(mList));
+        setLayoutManager(recyclerView, ListType.NEW);
+    }
+
+    private void setReviewToyList(RecyclerView recyclerView) {
+        ArrayList<ListItemReviewToy> mList = new ArrayList<>();
+        getReviewToyList(mList);
+        recyclerView.setAdapter(new ListAdapterReviewToy(mList));
+        setLayoutManager(recyclerView, ListType.REVIEW);
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void getCustomToyList(ArrayList<ListItemCustomToy> mList) {
 
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), getString(R.string.product_name), "5.0"));
+        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), getString(R.string.txt_main_custom_product_name1), "5.0"));
         mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), "테스트 상품2", "4.8"));
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), getString(R.string.product_name), "4.0"));
+        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), getString(R.string.txt_main_custom_product_name1), "4.0"));
         mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), "테스트 상품4", "4.2"));
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), getString(R.string.product_name), "3.8"));
+        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), getString(R.string.txt_main_custom_product_name1), "3.8"));
 
     }
 
@@ -147,11 +166,11 @@ public class HomeFragment extends Fragment {
         /*
             get Ranking Data by [category]
          */
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01),getString(R.string.product_name), "1", "5.0"));
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_c001_thumb01),getString(R.string.product_name), "2", "4.8"));
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a004_thumb01),getString(R.string.product_name), "3", "4.7"));
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a005_thumb01),getString(R.string.product_name), "4", "4.5"));
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a002_thumb01),getString(R.string.product_name), "5", "4.2"));
+        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01),getString(R.string.txt_main_custom_product_name1), "1", "5.0"));
+        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_c001_thumb01),getString(R.string.txt_main_custom_product_name1), "2", "4.8"));
+        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a004_thumb01),getString(R.string.txt_main_custom_product_name1), "3", "4.7"));
+        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a005_thumb01),getString(R.string.txt_main_custom_product_name1), "4", "4.5"));
+        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a002_thumb01),getString(R.string.txt_main_custom_product_name1), "5", "4.2"));
     }
 
     private ListItemRankingToy addItem(Drawable img, String pName, String rank, String rate) {
@@ -163,6 +182,65 @@ public class HomeFragment extends Fragment {
         item.setRatingNumber(rate);
 
         return item;
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void getNewToyList(ArrayList<ListItemNewToy> mList) {
+        mList.add(addITem(new Drawable[]{requireContext().getDrawable(R.drawable.tp_prod_d001_thumb02), requireContext().getDrawable(R.drawable.tp_prod_d002_thumb02)},
+                new String[]{requireContext().getString(R.string.txt_main_new_product_name1), requireContext().getString(R.string.txt_main_new_product_name2)}));
+        mList.add(addITem(new Drawable[]{requireContext().getDrawable(R.drawable.tp_prod_d001_thumb02), requireContext().getDrawable(R.drawable.tp_prod_d002_thumb02)},
+                new String[]{requireContext().getString(R.string.txt_main_new_product_name1), requireContext().getString(R.string.txt_main_new_product_name2)}));
+        mList.add(addITem(new Drawable[]{requireContext().getDrawable(R.drawable.tp_prod_d001_thumb02), requireContext().getDrawable(R.drawable.tp_prod_d002_thumb02)},
+                new String[]{requireContext().getString(R.string.txt_main_new_product_name1), requireContext().getString(R.string.txt_main_new_product_name2)}));
+    }
+
+    private ListItemNewToy addITem(Drawable[] imgs, String[] pNames) {
+        ListItemNewToy item = new ListItemNewToy();
+
+        item.setImgProduct1(imgs[0]);
+        item.setImgProduct2(imgs[1]);
+        item.setNameProduct1(pNames[0]);
+        item.setNameProduct2(pNames[1]);
+
+        return item;
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void getReviewToyList(ArrayList<ListItemReviewToy> mList) {
+        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb03), new String[] {"5.0", "250", requireContext().getString(R.string.txt_review_sample)} ));
+        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_e001_thumb03), new String[] {"4.5", "200", requireContext().getString(R.string.txt_review_sample)} ));
+        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_f001_thumb03), new String[] {"4.0", "180", requireContext().getString(R.string.txt_review_sample)} ));
+    }
+
+    private ListItemReviewToy addItem(Drawable img, String[] values) {
+        ListItemReviewToy item = new ListItemReviewToy();
+
+        item.setImgProduct(img);
+        item.setNumberRate(values[0]);
+        item.setNumberLike(values[1]);
+        item.setCommentReview(values[2]);
+        return item;
+    }
+
+    private void setLayoutManager(RecyclerView recyclerView, ListType type) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        switch (type) {
+            case CUSTOM:
+                recyclerView.addItemDecoration(new RecyclerDecoration(25, 25));
+                linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                break;
+            case RANK:
+            case NEW:
+            case REVIEW:
+                recyclerView.addItemDecoration(new RecyclerDecoration(0, 25));
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                recyclerView.addItemDecoration(new RecyclerDecoration(0, 25));
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                break;
+            default:
+                break;
+        }
+        recyclerView.setLayoutManager(linearLayoutManager);
     }
 
     View.OnClickListener onClickListener = v -> {

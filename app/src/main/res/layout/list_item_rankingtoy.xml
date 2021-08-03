@@ -26,7 +26,7 @@
         android:layout_marginStart="24dp"
         android:maxEms="11"
         android:maxLines="2"
-        android:text="@string/product_name"
+        android:text="@string/txt_main_custom_product_name1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iVwRankProductImg"

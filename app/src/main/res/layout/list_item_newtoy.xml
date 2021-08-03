@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iVwMainNewToyItem1"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/cd_product_default"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toTopOf="@+id/tVwMainNewToyItem1"
+        app:layout_constraintEnd_toStartOf="@+id/iVwMainNewToyItem2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/tp_prod_d001_thumb02" />
+
+    <ImageView
+        android:id="@+id/iVwMainNewToyItem2"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/cd_product_default"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toTopOf="@+id/tVwMainNewToyItem2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iVwMainNewToyItem1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/tp_prod_d002_thumb02" />
+
+    <TextView
+        android:id="@+id/tVwMainNewToyItem1"
+        style="@style/MainNewItemTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:maxLines="2"
+        android:text="@string/txt_main_new_product_name1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/iVwMainNewToyItem1"
+        app:layout_constraintStart_toStartOf="@+id/iVwMainNewToyItem1"
+        app:layout_constraintTop_toBottomOf="@+id/iVwMainNewToyItem1" />
+
+    <TextView
+        android:id="@+id/tVwMainNewToyItem2"
+        style="@style/MainNewItemTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:maxLines="2"
+        android:text="@string/txt_main_new_product_name2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/iVwMainNewToyItem2"
+        app:layout_constraintStart_toStartOf="@+id/iVwMainNewToyItem2"
+        app:layout_constraintTop_toBottomOf="@+id/iVwMainNewToyItem2" />
+
+    <TextView
+        android:id="@+id/textView21"
+        style="@style/MainNewItemTagTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/img_new_tag"
+        android:text="@string/txt_new_tag"
+        app:layout_constraintBottom_toBottomOf="@+id/iVwMainNewToyItem1"
+        app:layout_constraintEnd_toEndOf="@+id/iVwMainNewToyItem1"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="@+id/iVwMainNewToyItem1"
+        app:layout_constraintTop_toTopOf="@+id/iVwMainNewToyItem1"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <TextView
+        android:id="@+id/textView22"
+        style="@style/MainNewItemTagTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/img_new_tag"
+        android:text="@string/txt_new_tag"
+        app:layout_constraintBottom_toBottomOf="@+id/iVwMainNewToyItem2"
+        app:layout_constraintEnd_toEndOf="@+id/iVwMainNewToyItem2"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="@+id/iVwMainNewToyItem2"
+        app:layout_constraintTop_toTopOf="@+id/iVwMainNewToyItem2"
+        app:layout_constraintVertical_bias="0.05" />
+</androidx.constraintlayout.widget.ConstraintLayout>

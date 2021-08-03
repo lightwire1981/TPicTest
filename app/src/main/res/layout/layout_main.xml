@@ -6,6 +6,7 @@
     android:layout_margin="10dp"
     android:background="#FFFFFF"
     android:contentDescription="@string/cd_product_new"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <ImageView
@@ -34,7 +35,7 @@
         style="@style/HomeCategoryTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/temp001" />
+        android:text="@string/txt_main_custom_toy" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -56,6 +57,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="#CD7878"
                 android:text="@string/txt_test_message"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -76,6 +78,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="#CD7878"
                 android:text="@string/txt_test_message"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -94,6 +97,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="#CD7878"
                 android:text="@string/txt_test_message"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -122,7 +126,7 @@
         style="@style/HomeCategoryTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/txt_main_category_ranking" />
+        android:text="@string/txt_main_ranking_toy" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -549,6 +553,90 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcyclVwMainRankingToy"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/cd_banner_img"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/tp_main_banner2_01" />
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:contentDescription="@string/cd_design_img"
+        android:scaleType="center"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        app:srcCompat="@drawable/tp_pont_line02" />
+
+    <TextView
+        android:id="@+id/textView17"
+        style="@style/HomeCategoryTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_main_new_toy" />
+
+    <ImageButton
+        android:id="@+id/imageButton6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/cd_more_btn"
+        android:scaleType="centerInside"
+        android:scaleX="0.4"
+        android:scaleY="0.4"
+        app:srcCompat="@drawable/btn_main_more_red" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcyclVwMainNewToy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp" />
+
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:contentDescription="@string/cd_design_img"
+        android:scaleType="center"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        app:srcCompat="@drawable/tp_pont_line01" />
+
+    <TextView
+        android:id="@+id/textView19"
+        style="@style/HomeCategoryTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_main_review_toy" />
+
+    <TextView
+        android:id="@+id/textView20"
+        style="@style/MainMoreInfoTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/img_more_info_green"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/txt_more_info" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcyclVwMainReviewToy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp" />
 
 </LinearLayout>

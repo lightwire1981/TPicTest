@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="#D13939">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/iVwCustomListItem"
@@ -75,13 +74,12 @@
         style="@style/MainCustomItemTextStyle"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:background="#91EEFF"
         android:ellipsize="end"
         android:ems="9"
         android:gravity="center"
         android:lines="2"
         android:maxLines="2"
-        android:text="@string/product_name"
+        android:text="@string/txt_main_custom_product_name1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
