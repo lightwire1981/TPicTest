@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
 import com.example.tpictest.code.ListAdapterCustomToy;
 import com.example.tpictest.code.ListAdapterNewToy;
@@ -108,6 +109,7 @@ public class HomeFragment extends Fragment {
         setReviewToyList(reviewToyView);
 
         view.findViewById(R.id.iBtn_Main_Search).setOnClickListener(onClickListener);
+        view.findViewById(R.id.btnMainScrollUp).setOnClickListener(v -> scrollView.fullScroll(ScrollView.FOCUS_UP));
 
         return view;
     }
@@ -250,6 +252,7 @@ public class HomeFragment extends Fragment {
                 SearchFragment searchFragment = new SearchFragment();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(getId(), searchFragment).commit();
+                MainActivity.CURRENT_PAGE = MainActivity.PAGES.SEARCH;
                 break;
             case R.id.iBtnSearchBack:
                 Toast.makeText(getContext(), R.string.txt_back_message, Toast.LENGTH_SHORT).show();

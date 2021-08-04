@@ -55,8 +55,18 @@
     <string name="txt_more_info">더보기&#160;</string>
     <string name="txt_review_sample">특가상품 헬로카봇 구급차댄디 옐로우 리뷰입니다. 아이가 엄청 좋아합니다. 친구 로보트장난감보며 부러워 하던 아이를 위해 구입했어요. 마트를 가서 구매하려고 했지만 금액도 금액이거니와</string>
     <string name="txt_like_default">&#160;999</string>
+    <string name="txt_main_scroll_up">⋀ 맨위로</string>
+    <string name="txt_main_terms">이용약관</string>
+    <string name="txt_main_privacy_policy">개인정보처리방침</string>
+    <string name="txt_main_certificate_business">사업자정보확인</string>
+    <string name="txt_company_info1">오로라월드(주) 대표:홍기선 | 고객센터 : 02 3420 4025</string>
+    <string name="txt_company_info2">주소 : 서울특별시 강남구 테헤란로 624 오로라빌딩</string>
+    <string name="txt_company_info3">사업자등록번호 : 215&#8211;81&#8211;02803 | 통신판매업신고번호 : 강남&#8211;303</string>
+    <string name="txt_copyright">COPYRIGHTⓒ AURORAWORLD CORP,. ALL RIGHTS RESERVED.</string>
 
 
-<!--    EditText Hint    -->
+    <!--    EditText Hint    -->
     <string name="hint_search">검색어를 입력하세요</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
