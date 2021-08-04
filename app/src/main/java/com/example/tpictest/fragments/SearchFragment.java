@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
 
 /**
@@ -81,6 +82,7 @@ public class SearchFragment extends Fragment {
                 HomeFragment homeFragment = new HomeFragment();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(getId(), homeFragment).commit();
+                MainActivity.CURRENT_PAGE = MainActivity.PAGES.HOME;
                 break;
             default:
                 break;
