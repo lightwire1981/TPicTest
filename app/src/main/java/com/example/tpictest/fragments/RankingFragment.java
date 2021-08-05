@@ -1,14 +1,27 @@
 package com.example.tpictest.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
+import com.example.tpictest.code.ListAdapterRCategory;
+import com.example.tpictest.code.ListAdptRankingToy;
+import com.example.tpictest.code.ListItemRCategory;
+import com.example.tpictest.code.ListItemRankingToy;
+import com.example.tpictest.code.RecyclerDecoration;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +74,94 @@ public class RankingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ranking, container, false);
+        View view = inflater.inflate(R.layout.fragment_ranking, container, false);
+
+        RecyclerView rankingCategory = view.findViewById(R.id.rcyclVwRankCategory);
+        setRankCategory(rankingCategory);
+        RecyclerView rankingProduct = view.findViewById(R.id.rcyclVwRankToyList);
+        setRankProduct(rankingProduct);
+
+        view.findViewById(R.id.iBtnRankingBack).setOnClickListener(onClickListener);
+
+        return view;
     }
+
+    private void setRankCategory(RecyclerView recyclerView) {
+        ArrayList<ListItemRCategory> mList = new ArrayList<>();
+
+        String[] categoryList = {
+                getString(R.string.btn_rank_total),
+                getString(R.string.btn_rank_boy),
+                getString(R.string.btn_rank_girl),
+                getString(R.string.btn_rank_baby),
+                getString(R.string.btn_rank_board),
+                getString(R.string.btn_rank_outdoor),
+                getString(R.string.btn_rank_lego),
+                getString(R.string.btn_rank_stuffedtoy),
+                getString(R.string.btn_rank_character)
+        };
+
+        for (String list : categoryList) {
+            ListItemRCategory item = new ListItemRCategory();
+            item.setRankCategory(list);
+            mList.add(item);
+        }
+        recyclerView.setAdapter(new ListAdapterRCategory(mList));
+        setLayoutManager(recyclerView);
+    }
+
+    private void setRankProduct(RecyclerView recyclerView) {
+        ArrayList<ListItemRankingToy> mList = new ArrayList<>();
+        getRankingToyList(mList);
+        recyclerView.setAdapter(new ListAdptRankingToy(mList));
+        setLayoutManager(recyclerView);
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void getRankingToyList(ArrayList<ListItemRankingToy> mList) {
+        for (int index=0; index < 30; index++) {
+            ListItemRankingToy item = new ListItemRankingToy();
+
+            item.setNumberRank(String.valueOf(index+1));
+            item.setImgProduct(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01));
+            item.setRankCategory(getString(R.string.btn_rank_boy));
+            item.setNameProduct(getString(R.string.txt_rank_product_name1));
+            item.setPriceProduct(getString(R.string.txt_rank_product_price1));
+            item.setNumberRate(getString(R.string.txt_rating_default));
+            item.setReviewCount(getString(R.string.txt_rank_product_reviewcount));
+
+            mList.add(item);
+        }
+    }
+
+
+    @SuppressLint("NonConstantResourceId")
+    private void setLayoutManager(RecyclerView recyclerView) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        switch(recyclerView.getId()) {
+            case R.id.rcyclVwRankCategory:
+                recyclerView.addItemDecoration(new RecyclerDecoration(25, 25));
+                linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                break;
+            case R.id.rcyclVwRankToyList:
+                recyclerView.addItemDecoration(new RecyclerDecoration(0, 25));
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                break;
+            default:
+                break;
+        }
+        recyclerView.setLayoutManager(linearLayoutManager);
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    private final View.OnClickListener onClickListener = v -> {
+        switch (v.getId()) {
+            case R.id.iBtnRankingBack:
+                getParentFragmentManager().popBackStack();
+                MainActivity.CURRENT_PAGE = MainActivity.PAGES.HOME;
+                break;
+            default:
+                break;
+        }
+    };
 }

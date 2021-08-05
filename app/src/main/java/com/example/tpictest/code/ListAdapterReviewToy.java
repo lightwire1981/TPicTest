@@ -27,7 +27,7 @@ public class ListAdapterReviewToy extends RecyclerView.Adapter<ListAdapterReview
     @NonNull
     @NotNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public ListAdapterReviewToy.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         View view = ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_item_reviewtoy, parent, false);
         return new ViewHolder(view);

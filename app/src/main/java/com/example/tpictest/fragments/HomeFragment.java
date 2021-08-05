@@ -20,11 +20,11 @@ import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
 import com.example.tpictest.code.ListAdapterCustomToy;
 import com.example.tpictest.code.ListAdapterNewToy;
-import com.example.tpictest.code.ListAdapterRankingToy;
+import com.example.tpictest.code.ListAdptMainRankingToy;
 import com.example.tpictest.code.ListAdapterReviewToy;
 import com.example.tpictest.code.ListItemCustomToy;
 import com.example.tpictest.code.ListItemNewToy;
-import com.example.tpictest.code.ListItemRankingToy;
+import com.example.tpictest.code.ListItemMainRankingToy;
 import com.example.tpictest.code.ListItemReviewToy;
 import com.example.tpictest.code.RecyclerDecoration;
 
@@ -122,9 +122,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void setRankingToyList(RecyclerView recyclerView) {
-        ArrayList<ListItemRankingToy> mList = new ArrayList<>();
+        ArrayList<ListItemMainRankingToy> mList = new ArrayList<>();
         getRankingToyList(mList, "boy");
-        recyclerView.setAdapter(new ListAdapterRankingToy(mList));
+        recyclerView.setAdapter(new ListAdptMainRankingToy(mList));
         setLayoutManager(recyclerView, ListType.RANK);
     }
 
@@ -164,7 +164,7 @@ public class HomeFragment extends Fragment {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void getRankingToyList(ArrayList<ListItemRankingToy> mList, String category) {
+    private void getRankingToyList(ArrayList<ListItemMainRankingToy> mList, String category) {
         /*
             get Ranking Data by [category]
          */
@@ -175,8 +175,8 @@ public class HomeFragment extends Fragment {
         mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a002_thumb01),getString(R.string.txt_main_custom_product_name1), "5", "4.2"));
     }
 
-    private ListItemRankingToy addItem(Drawable img, String pName, String rank, String rate) {
-        ListItemRankingToy item = new ListItemRankingToy();
+    private ListItemMainRankingToy addItem(Drawable img, String pName, String rank, String rate) {
+        ListItemMainRankingToy item = new ListItemMainRankingToy();
 
         item.setImgDrawable(img);
         item.setProductName(pName);
@@ -251,7 +251,9 @@ public class HomeFragment extends Fragment {
                 FragmentManager fragmentManager = getParentFragmentManager();
                 SearchFragment searchFragment = new SearchFragment();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(getId(), searchFragment).commit();
+//                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.add(getId(), searchFragment).commit();
                 MainActivity.CURRENT_PAGE = MainActivity.PAGES.SEARCH;
                 break;
             case R.id.iBtnSearchBack:

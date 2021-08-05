@@ -19,11 +19,13 @@
     <string name="cd_banner_img">Banner image</string>
 
     <!--    Home Button Text    -->
+    <string name="btn_dummy">내용 없음</string>
     <string name="btn_home">홈</string>
     <string name="btn_category">카테고리</string>
     <string name="btn_evaluate">평가</string>
     <string name="btn_ranking">랭킹</string>
     <string name="btn_mypage">마이페이지</string>
+    <string name="btn_rank_total">전체</string>
     <string name="btn_rank_boy">남아 완구</string>
     <string name="btn_rank_girl">여아 완구</string>
     <string name="btn_rank_baby">영유아 완구</string>
@@ -43,6 +45,9 @@
     <string name="txt_main_custom_product_name1">특가상품 헬로카봇 구급차 댄디 옐로우 테스트 텍스트</string>
     <string name="txt_main_new_product_name1">자석퍼즐 신비아파트3 더블X 신비와 친구들 만들기 </string>
     <string name="txt_main_new_product_name2">자석퍼즐 신비아파트3 더블X 합체 고스트 만들기 </string>
+    <string name="txt_rank_product_name1">헬로카봇 삼총사 루크</string>
+    <string name="txt_rank_product_price1">10,000</string>
+    <string name="txt_rank_product_reviewcount">(1,000)</string>
     <string name="txt_custom_expect">예상</string>
     <string name="txt_cexpect_grade">0.0</string>
     <string name="txt_test_message">기능 테스트</string>
@@ -51,6 +56,7 @@
     <string name="txt_rating">평점</string>
     <string name="txt_rating_default">0.0</string>
     <string name="txt_rank_default">0</string>
+    <string name="txt_rank_pricewon">원</string>
     <string name="txt_new_tag">신제품</string>
     <string name="txt_more_info">더보기&#160;</string>
     <string name="txt_review_sample">특가상품 헬로카봇 구급차댄디 옐로우 리뷰입니다. 아이가 엄청 좋아합니다. 친구 로보트장난감보며 부러워 하던 아이를 위해 구입했어요. 마트를 가서 구매하려고 했지만 금액도 금액이거니와</string>

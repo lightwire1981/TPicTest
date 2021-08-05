@@ -58,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 RankingFragment rankingFragment = new RankingFragment();
-                fragmentTransaction.replace(R.id.fLyMain, rankingFragment).commit();
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.add(R.id.fLyMain, rankingFragment).commit();
                 CURRENT_PAGE = PAGES.RANKING;
                 break;
             default:

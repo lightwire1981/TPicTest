@@ -3,49 +3,67 @@ package com.example.tpictest.code;
 import android.graphics.drawable.Drawable;
 
 public class ListItemRankingToy {
-    private Drawable imgDrawable;
-    private String productName;
-    private String ratingNumber;
-    private String ranking;
-    private String imgUrl;
+    private String numberRank;
+    private Drawable imgProduct;
+    private String rankCategory;
+    private String nameProduct;
+    private String priceProduct;
+    private String numberRate, reviewCount;
 
-    public Drawable getImgDrawable() {
-        return imgDrawable;
+
+    public String getNumberRank() {
+        return numberRank;
     }
 
-    public void setImgDrawable(Drawable imgDrawable) {
-        this.imgDrawable = imgDrawable;
+    public void setNumberRank(String numberRank) {
+        this.numberRank = numberRank;
     }
 
-    public String getProductName() {
-        return productName;
+    public Drawable getImgProduct() {
+        return imgProduct;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setImgProduct(Drawable imgProduct) {
+        this.imgProduct = imgProduct;
     }
 
-    public String getRatingNumber() {
-        return ratingNumber;
+    public String getRankCategory() {
+        return rankCategory;
     }
 
-    public void setRatingNumber(String ratingNumber) {
-        this.ratingNumber = ratingNumber;
+    public void setRankCategory(String rankCategory) {
+        this.rankCategory = rankCategory;
     }
 
-    public String getRanking() {
-        return ranking;
+    public String getNameProduct() {
+        return nameProduct;
     }
 
-    public void setRanking(String ranking) {
-        this.ranking = ranking;
+    public void setNameProduct(String nameProduct) {
+        this.nameProduct = nameProduct;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public String getPriceProduct() {
+        return priceProduct;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setPriceProduct(String priceProduct) {
+        this.priceProduct = priceProduct;
+    }
+
+    public String getNumberRate() {
+        return numberRate;
+    }
+
+    public void setNumberRate(String numberRate) {
+        this.numberRate = numberRate;
+    }
+
+    public String getReviewCount() {
+        return reviewCount;
+    }
+
+    public void setReviewCount(String reviewCount) {
+        this.reviewCount = reviewCount;
     }
 }

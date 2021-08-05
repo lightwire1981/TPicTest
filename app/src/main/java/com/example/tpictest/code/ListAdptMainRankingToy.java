@@ -18,25 +18,25 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class ListAdapterRankingToy extends RecyclerView.Adapter<ListAdapterRankingToy.ViewHolder> {
-    private final ArrayList<ListItemRankingToy> mData;
+public class ListAdptMainRankingToy extends RecyclerView.Adapter<ListAdptMainRankingToy.ViewHolder> {
+    private final ArrayList<ListItemMainRankingToy> mData;
 
-    public ListAdapterRankingToy(ArrayList<ListItemRankingToy> list) {
+    public ListAdptMainRankingToy(ArrayList<ListItemMainRankingToy> list) {
         mData = list;
     }
 
     @NonNull
     @NotNull
     @Override
-    public ListAdapterRankingToy.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public ListAdptMainRankingToy.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        View view = ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_item_rankingtoy, parent, false);
+        View view = ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_item_mrankingtoy, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-        ListItemRankingToy item = mData.get(position);
+        ListItemMainRankingToy item = mData.get(position);
 
         holder.productImg.setImageDrawable(item.getImgDrawable());
         holder.productName.setText(item.getProductName());
