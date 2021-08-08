@@ -18,15 +18,15 @@ import android.widget.Toast;
 
 import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
-import com.example.tpictest.code.ListAdapterCustomToy;
-import com.example.tpictest.code.ListAdapterNewToy;
-import com.example.tpictest.code.ListAdptMainRankingToy;
-import com.example.tpictest.code.ListAdapterReviewToy;
-import com.example.tpictest.code.ListItemCustomToy;
-import com.example.tpictest.code.ListItemNewToy;
-import com.example.tpictest.code.ListItemMainRankingToy;
-import com.example.tpictest.code.ListItemReviewToy;
-import com.example.tpictest.code.RecyclerDecoration;
+import com.example.tpictest.list_code.ListAdapterCustomToy;
+import com.example.tpictest.list_code.ListAdapterNewToy;
+import com.example.tpictest.list_code.ListAdptMainRankingToy;
+import com.example.tpictest.list_code.ListAdapterReviewToy;
+import com.example.tpictest.list_code.ListItemCustomToy;
+import com.example.tpictest.list_code.ListItemNewToy;
+import com.example.tpictest.list_code.ListItemMainRankingToy;
+import com.example.tpictest.list_code.ListItemReviewToy;
+import com.example.tpictest.list_code.RecyclerDecoration;
 
 import java.util.ArrayList;
 

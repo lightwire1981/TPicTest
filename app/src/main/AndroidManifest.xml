@@ -20,7 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:ignore="AllowBackup">
+        android:name=".utils.GlobalApplication"
+        tools:ignore="AllowBackup"
+        tools:replace="android:appComponentFactory"
+        android:appComponentFactory="whateverString">
         <activity android:name=".IntermediateActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SplashActivity">
@@ -31,6 +34,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="oauth"
+                    android:scheme="@string/kakao_native_appkey"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

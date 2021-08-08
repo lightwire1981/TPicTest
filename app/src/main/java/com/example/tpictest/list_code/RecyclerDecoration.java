@@ -1,4 +1,4 @@
-package com.example.tpictest.code;
+package com.example.tpictest.list_code;
 
 import android.graphics.Rect;
 import android.view.View;

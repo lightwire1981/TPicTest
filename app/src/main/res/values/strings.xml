@@ -17,6 +17,9 @@
     <string name="cd_more_btn">더보기 이미지</string>
     <string name="cd_back_btn">Return back</string>
     <string name="cd_banner_img">Banner image</string>
+    <string name="cd_kakao_login">카카오 로그인 버튼</string>
+
+
 
     <!--    Home Button Text    -->
     <string name="btn_dummy">내용 없음</string>
@@ -75,4 +78,12 @@
     <string name="hint_search">검색어를 입력하세요</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+<!--  KAKAO NATIVE APP KEY  -->
+    <string name="kakao_native_appkey">658704b697f8ed991e142e40d859e38d</string>
+
+<!--  NAVER Login INFO  -->
+    <string name="naver_client_id">F4hW0qayLXGsz_QATg7V</string>
+    <string name="naver_client_secret">fqygVCwzdP</string>
+    <string name="naver_client_name">Tpic test</string>
 </resources>

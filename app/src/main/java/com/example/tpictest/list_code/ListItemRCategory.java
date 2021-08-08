@@ -1,4 +1,4 @@
-package com.example.tpictest.code;
+package com.example.tpictest.list_code;
 
 public class ListItemRCategory {
     private String rankCategory;

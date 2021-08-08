@@ -1,4 +1,4 @@
-package com.example.tpictest.code;
+package com.example.tpictest.list_code;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,11 +13,11 @@ import android.view.ViewGroup;
 
 import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
-import com.example.tpictest.code.ListAdapterRCategory;
-import com.example.tpictest.code.ListAdptRankingToy;
-import com.example.tpictest.code.ListItemRCategory;
-import com.example.tpictest.code.ListItemRankingToy;
-import com.example.tpictest.code.RecyclerDecoration;
+import com.example.tpictest.list_code.ListAdapterRCategory;
+import com.example.tpictest.list_code.ListAdptRankingToy;
+import com.example.tpictest.list_code.ListItemRCategory;
+import com.example.tpictest.list_code.ListItemRankingToy;
+import com.example.tpictest.list_code.RecyclerDecoration;
 
 import java.util.ArrayList;
 
