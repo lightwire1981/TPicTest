@@ -36,6 +36,15 @@
         app:layout_constraintTop_toBottomOf="@+id/btnNaverLogin"
         app:srcCompat="@drawable/kakao_login_large_wide" />
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/btnFacebookLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/btnKakaoLogoutTest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iBtnKakaoLogin" />
+
     <Button
         android:id="@+id/btnKakaoLogoutTest"
         android:layout_width="wrap_content"

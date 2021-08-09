@@ -1,5 +1,6 @@
 package com.example.tpictest;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -11,7 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.tpictest.utils.FacebookLoginCallback;
 import com.example.tpictest.utils.RequestApiTask;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.login.widget.LoginButton;
 import com.google.gson.JsonObject;
 import com.kakao.sdk.user.UserApiClient;
 import com.nhn.android.naverlogin.OAuthLogin;
@@ -21,6 +26,7 @@ import com.nhn.android.naverlogin.ui.view.OAuthLoginButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -33,6 +39,9 @@ public class LoginActivity extends AppCompatActivity {
     OAuthLoginButton mOAuthLoginButton;
     Button logout;
 
+    private CallbackManager callbackManager;
+    private FacebookLoginCallback facebookLoginCallback;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +53,26 @@ public class LoginActivity extends AppCompatActivity {
                 getString(R.string.naver_client_secret),
                 getString(R.string.naver_client_name));
 
+        callbackManager = CallbackManager.Factory.create();
+        facebookLoginCallback = new FacebookLoginCallback();
+
+        LoginButton floginBtn = (LoginButton)findViewById(R.id.btnFacebookLogin);
+        floginBtn.setReadPermissions(Arrays.asList("public_profile", "email"));
+        floginBtn.registerCallback(callbackManager, facebookLoginCallback);
+
+
         findViewById(R.id.btnNaverLogin).setOnClickListener(onClickListener);
 
 //        kakaoLogin();
 
         findViewById(R.id.iBtnKakaoLogin).setOnClickListener(onClickListener);
         findViewById(R.id.btnKakaoLogoutTest).setOnClickListener(onClickListener);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @SuppressLint("HandlerLeak")

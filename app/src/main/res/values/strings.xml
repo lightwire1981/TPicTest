@@ -86,4 +86,9 @@
     <string name="naver_client_id">F4hW0qayLXGsz_QATg7V</string>
     <string name="naver_client_secret">fqygVCwzdP</string>
     <string name="naver_client_name">Tpic test</string>
+
+<!--  facebook Login INFO  -->
+    <string name="facebook_app_id">393843192200505</string>
+    <string name="fb_login_protocol_scheme">fb393843192200505</string>
+
 </resources>
