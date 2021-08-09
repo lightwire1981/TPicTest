@@ -12,10 +12,14 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.tpictest.utils.RequestApiTask;
+import com.google.gson.JsonObject;
 import com.kakao.sdk.user.UserApiClient;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 import com.nhn.android.naverlogin.ui.view.OAuthLoginButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,22 +52,35 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.btnKakaoLogoutTest).setOnClickListener(onClickListener);
     }
 
-    private final OAuthLoginHandler mOAuthLoginHandler;
-    {
-        mOAuthLoginHandler = new OAuthLoginHandler() {
-            @SuppressLint("HandlerLeak")
-            @Override
-            public void run(boolean success) {
-                if (success) {
-                    String accessToken = mOAuthLoginInstance.getAccessToken(getBaseContext());
-                    String refreshToken = mOAuthLoginInstance.getRefreshToken(getBaseContext());
-                    long expiresAt = mOAuthLoginInstance.getExpiresAt(getBaseContext());
-                    String tokenType = mOAuthLoginInstance.getTokenType(getBaseContext());
-                    new RequestApiTask(getBaseContext(), mOAuthLoginInstance).execute();
-                }
+    @SuppressLint("HandlerLeak")
+    private final OAuthLoginHandler mOAuthLoginHandler = new OAuthLoginHandler() {
+
+        @Override
+        public void run(boolean success) {
+            if (success) {
+//                String accessToken = mOAuthLoginInstance.getAccessToken(getBaseContext());
+//                String refreshToken = mOAuthLoginInstance.getRefreshToken(getBaseContext());
+//                long expiresAt = mOAuthLoginInstance.getExpiresAt(getBaseContext());
+//                String tokenType = mOAuthLoginInstance.getTokenType(getBaseContext());
+                new RequestApiTask(getBaseContext(), mOAuthLoginInstance, naverLoginResult).execute();
             }
-        };
-    }
+        }
+    };
+
+    RequestApiTask.NaverLoginResult naverLoginResult = jsonObject -> {
+        JSONObject response;
+        try {
+            response = jsonObject.getJSONObject("response");
+            String id = response.getString("id");
+            String email = response.getString("email");
+            Toast.makeText(getBaseContext(), "id : "+id +" email : "+email, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getBaseContext(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    };
 
     @SuppressLint("NonConstantResourceId")
     private final View.OnClickListener onClickListener = v -> {
@@ -115,11 +132,8 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     return null;
                 });
-
             }
             return null;
         }));
     }
-
-
 }
