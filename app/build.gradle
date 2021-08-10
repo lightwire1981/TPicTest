@@ -42,7 +42,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation "com.kakao.sdk:v2-user:2.4.2" // 카카오 로그인
     implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6' // 네이버 로그인
-    implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
-    implementation 'androidx.browser:browser:1.3.0'
-    implementation 'com.facebook.android:facebook-login:5.15.3'
+    implementation 'androidx.legacy:legacy-support-core-utils:1.0.0' // 네이버 로그인 관련 라이브러리
+    implementation 'androidx.browser:browser:1.3.0' // 네이버 로그인 관련 라이브러리
+    implementation 'com.facebook.android:facebook-login:5.15.3' // 페이스북 로그인
 }

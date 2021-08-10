@@ -1,43 +1,43 @@
 package com.example.tpictest;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.tpictest.utils.FacebookLoginCallback;
+import com.example.tpictest.utils.PreferenceSetting;
 import com.example.tpictest.utils.RequestApiTask;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
+import com.facebook.GraphRequest;
+import com.facebook.LoginStatusCallback;
+import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
-import com.google.gson.JsonObject;
 import com.kakao.sdk.user.UserApiClient;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
-import com.nhn.android.naverlogin.ui.view.OAuthLoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String NAVER = "NAVER_LOGIN";
     private static final String KAKAO = "KAKAO_LOGIN";
+    private static final String FACEBOOK = "FACEBOOK_LOGIN";
     private static OAuthLogin mOAuthLoginInstance;
-    public static String accessToken;
-    OAuthLoginButton mOAuthLoginButton;
-    Button logout;
+//    public static String accessToken;
+//    OAuthLoginButton mOAuthLoginButton;
+//    Button logout;
 
     private CallbackManager callbackManager;
     private FacebookLoginCallback facebookLoginCallback;
@@ -46,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        LoginCheck();
 
         mOAuthLoginInstance = OAuthLogin.getInstance();
         mOAuthLoginInstance.init(LoginActivity.this,
@@ -56,8 +58,8 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
         facebookLoginCallback = new FacebookLoginCallback();
 
-        LoginButton floginBtn = (LoginButton)findViewById(R.id.btnFacebookLogin);
-        floginBtn.setReadPermissions(Arrays.asList("public_profile", "email"));
+        LoginButton floginBtn = findViewById(R.id.btnFacebookLogin);
+        floginBtn.setPermissions(Arrays.asList("public_profile", "email"));
         floginBtn.registerCallback(callbackManager, facebookLoginCallback);
 
 
@@ -69,10 +71,65 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.btnKakaoLogoutTest).setOnClickListener(onClickListener);
     }
 
+    private void LoginCheck() {
+        String loginType = new PreferenceSetting(getBaseContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE);
+
+        switch (loginType) {
+            case NAVER:
+                break;
+            case KAKAO:
+                break;
+            case FACEBOOK:
+                AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+                if (isLoggedIn) {
+//                    LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
+
+                    LoginManager.getInstance().retrieveLoginStatus(this, new LoginStatusCallback() {
+                        @Override public void onCompleted(AccessToken accessToken) {
+                            // User was previously logged in, can log them in directly here.
+                            // If this callback is called, a popup notification appears that says
+                            // "Logged in as <User Name>" }
+                            GraphRequest.newMeRequest(accessToken,
+                                    (object, response) -> Log.e("result", object.toString()));
+                            Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            // No access token could be retrieved for the user
+                            Toast.makeText(getBaseContext(), "Facebook reLogin Fail", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onError(Exception exception) {
+                            // An error occurred
+                            Toast.makeText(getBaseContext(), "Facebook reLogin Error", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                break;
+            default:
+                break;
+        }
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+        new PreferenceSetting(getBaseContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, FACEBOOK);
+
+        assert data != null;
+//        Log.i(FACEBOOK, data.get;
+//        Toast.makeText(getBaseContext(), data.toString(), Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     @SuppressLint("HandlerLeak")
@@ -96,7 +153,9 @@ public class LoginActivity extends AppCompatActivity {
             response = jsonObject.getJSONObject("response");
             String id = response.getString("id");
             String email = response.getString("email");
-            Toast.makeText(getBaseContext(), "id : "+id +" email : "+email, Toast.LENGTH_SHORT).show();
+
+            new PreferenceSetting(getBaseContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, NAVER);
+//            Toast.makeText(getBaseContext(), "id : "+id +" email : "+email, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getBaseContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
@@ -148,6 +207,9 @@ public class LoginActivity extends AppCompatActivity {
                                 "\n회원번호 : "+user.getId() +
                                 "\n이메일 : "+ Objects.requireNonNull(user.getKakaoAccount()).getEmail() +
                                 "\n닉네임 : "+ Objects.requireNonNull(user.getProperties()).get("nickname"));
+                        PreferenceSetting preferenceSetting = new PreferenceSetting(getBaseContext());
+                        preferenceSetting.savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, KAKAO);
+
                         Toast.makeText(getApplicationContext(), Objects.requireNonNull(user.getProperties()).get("nickname")+" 님 로그인", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getBaseContext(), MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

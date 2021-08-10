@@ -3,35 +3,61 @@ package com.example.tpictest.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 public class PreferenceSetting {
-    private Context context;
+    private final Context context;
     //    private static final String DEFAULT_SERVER_IP = "127.0.0.1";
-    private static final String DEFAULT_SERVER_IP = "210.105.232.237";
+    private static final String DEFAULT_SERVER_IP = "211.38.3.53";
+    private static final String DEFAULT_LOGIN_TYPE = "none";
+    public enum PREFERENCE_KEY {
+        SERVER_ADDRESS,
+        USER_INFO,
+        LOGIN_TYPE
+    }
+    private static final String TAG = "PreferenceSetting";
 
     public PreferenceSetting(Context context) {this.context = context;}
 
-    public String loadPreference(int category) {
+    public String loadPreference(PREFERENCE_KEY category) {
         String returnValue;
+
         SharedPreferences preferences = context.getSharedPreferences("prefInfo", Activity.MODE_PRIVATE);
         switch (category) {
+            case USER_INFO:
+                returnValue = preferences.getString(PREFERENCE_KEY.USER_INFO.name(), "");
+                break;
+            case SERVER_ADDRESS:
+                returnValue = preferences.getString(PREFERENCE_KEY.SERVER_ADDRESS.name(), DEFAULT_SERVER_IP);
+                break;
+            case LOGIN_TYPE:
+                returnValue = preferences.getString(PREFERENCE_KEY.LOGIN_TYPE.name(), DEFAULT_LOGIN_TYPE);
+                break;
             default:
-                returnValue = preferences.getString("ServerAddress", DEFAULT_SERVER_IP);
+                returnValue = null;
                 break;
         }
         return returnValue;
     }
 
-    public void savePreference(int category, String value) {
+    public void savePreference(PREFERENCE_KEY category, String value) {
         SharedPreferences preferences = context.getSharedPreferences("prefInfo", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        switch (category) {
-            default:
-                editor.putString("ServerAddress", value);
-                break;
-        }
+        editor.putString(category.name(), value);
+//        switch (category) {
+//            case USER_INFO:
+//                editor.putString(PREFERENCE_KEY.USER_INFO.name(), value);
+//                break;
+//            case SERVER_ADDRESS:
+//                editor.putString(PREFERENCE_KEY.USER_INFO.name(), value);
+//                break;
+//            default:
+//                editor.putString("ServerAddress", value);
+//                break;
+//        }
         editor.apply();
-        Toast.makeText(context, "서버 IP 정보 변경됨", Toast.LENGTH_SHORT).show();
+        Log.i(TAG, "정보 반영 됨");
+//        Toast.makeText(context, "정보 반영 됨", Toast.LENGTH_SHORT).show();
     }
 }
