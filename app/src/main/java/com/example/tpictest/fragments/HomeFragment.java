@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tpictest.MainActivity;
@@ -27,6 +28,10 @@ import com.example.tpictest.list_code.ListItemNewToy;
 import com.example.tpictest.list_code.ListItemMainRankingToy;
 import com.example.tpictest.list_code.ListItemReviewToy;
 import com.example.tpictest.list_code.RecyclerDecoration;
+import com.example.tpictest.utils.PreferenceSetting;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -91,14 +96,31 @@ public class HomeFragment extends Fragment {
         ScrollView scrollView = view.findViewById(R.id.scrlVwMain);
         scrollView.addView(inflater.inflate(R.layout.layout_main, scrollView, false));
 
-        RecyclerView customToy1view = view.findViewById(R.id.rcyclVwMainCustomToy1);
-        RecyclerView customToy2view = view.findViewById(R.id.rcyclVwMainCustomToy2);
-        RecyclerView customToy3view = view.findViewById(R.id.rcyclVwMainCustomToy3);
+        String isLogin = new PreferenceSetting(getContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE);
 
-        setCustomToyList(customToy1view);
-        setCustomToyList(customToy2view);
-        setCustomToyList(customToy3view);
+        switch (isLogin) {
+            case "none":
+                view.findViewById(R.id.cLyHomeCustomLabel).setVisibility(View.GONE);
+                view.findViewById(R.id.lLyCustomToyList).setVisibility(View.GONE);
+                break;
+            default:
+                try {
+                    JSONObject jsonObject = new JSONObject(new PreferenceSetting(getContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO));
+                    String userName = jsonObject.get("name").toString();
+                    ((TextView)view.findViewById(R.id.tVwHomeCustomUsername)).setText( userName + getString(R.string.txt_main_custom_toy));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
+                RecyclerView customToy1view = view.findViewById(R.id.rcyclVwMainCustomToy1);
+                RecyclerView customToy2view = view.findViewById(R.id.rcyclVwMainCustomToy2);
+                RecyclerView customToy3view = view.findViewById(R.id.rcyclVwMainCustomToy3);
+
+                setCustomToyList(customToy1view);
+                setCustomToyList(customToy2view);
+                setCustomToyList(customToy3view);
+                break;
+        }
         RecyclerView rankingToyView = view.findViewById(R.id.rcyclVwMainRankingToy);
         setRankingToyList(rankingToyView);
 

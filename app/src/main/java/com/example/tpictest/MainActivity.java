@@ -6,7 +6,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -14,6 +16,7 @@ import android.widget.ScrollView;
 
 import com.example.tpictest.fragments.HomeFragment;
 import com.example.tpictest.fragments.RankingFragment;
+import com.example.tpictest.utils.PreferenceSetting;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,11 +25,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static PAGES CURRENT_PAGE;
+    private static final String TAG = "TAG-MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.i(TAG, new PreferenceSetting(getBaseContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO));
 
         CURRENT_PAGE = PAGES.HOME;
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -38,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.iBtn_MHome).setOnClickListener(onClickListener);
         findViewById(R.id.iBtn_MRank).setOnClickListener(onClickListener);
 
+
+        findViewById(R.id.iBtn_Mmypage).setOnClickListener(onClickListener);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -61,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.add(R.id.fLyMain, rankingFragment).commit();
                 CURRENT_PAGE = PAGES.RANKING;
+                break;
+            case R.id.iBtn_Mmypage:
+                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 break;
             default:
                 break;

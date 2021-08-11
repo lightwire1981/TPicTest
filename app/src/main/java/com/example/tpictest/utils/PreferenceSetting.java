@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class PreferenceSetting {
     private final Context context;
@@ -16,6 +18,9 @@ public class PreferenceSetting {
         USER_INFO,
         LOGIN_TYPE
     }
+    private final String[] USER_INFO_TYPE = {
+            "id", "name", "email", "phone"
+    };
     private static final String TAG = "PreferenceSetting";
 
     public PreferenceSetting(Context context) {this.context = context;}
@@ -59,5 +64,25 @@ public class PreferenceSetting {
         editor.apply();
         Log.i(TAG, "정보 반영 됨");
 //        Toast.makeText(context, "정보 반영 됨", Toast.LENGTH_SHORT).show();
+    }
+
+    public void saveUserInfo(String... values) {
+        Log.i(TAG, "user information count : " + values.length);
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            int index = 0;
+            for (String info : values) {
+                jsonObject.put(USER_INFO_TYPE[index], info);
+                index++;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        savePreference(PREFERENCE_KEY.USER_INFO, jsonObject.toString());
+    }
+
+    public void saveUserInfo(JSONObject jsonObject) {
+        savePreference(PREFERENCE_KEY.USER_INFO, jsonObject.toString());
     }
 }

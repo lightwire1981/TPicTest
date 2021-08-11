@@ -20,7 +20,6 @@
     <string name="cd_kakao_login">카카오 로그인 버튼</string>
 
 
-
     <!--    Home Button Text    -->
     <string name="btn_dummy">내용 없음</string>
     <string name="btn_home">홈</string>
@@ -41,7 +40,7 @@
 
     <!--    Program Code    -->
     <string name="txt_loading00">로딩 중…</string>
-    <string name="txt_main_custom_toy">홍길동님을 위한 맞춤 장난감</string>
+    <string name="txt_main_custom_toy">님을 위한 맞춤 장난감</string>
     <string name="txt_main_new_toy">새로 나온 장난감</string>
     <string name="txt_main_ranking_toy">분야별 랭킹</string>
     <string name="txt_main_review_toy">인기 리뷰</string>
@@ -72,6 +71,8 @@
     <string name="txt_company_info2">주소 : 서울특별시 강남구 테헤란로 624 오로라빌딩</string>
     <string name="txt_company_info3">사업자등록번호 : 215&#8211;81&#8211;02803 | 통신판매업신고번호 : 강남&#8211;303</string>
     <string name="txt_copyright">COPYRIGHTⓒ AURORAWORLD CORP,. ALL RIGHTS RESERVED.</string>
+    <string name="txt_my_page_sir">홍길동 님</string>
+    <string name="txt_my_page_email">test@gmail.com</string>
 
 
     <!--    EditText Hint    -->
@@ -79,15 +80,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-<!--  KAKAO NATIVE APP KEY  -->
+    <!--  KAKAO NATIVE APP KEY  -->
     <string name="kakao_native_appkey">658704b697f8ed991e142e40d859e38d</string>
 
-<!--  NAVER Login INFO  -->
+    <!--  NAVER Login INFO  -->
     <string name="naver_client_id">F4hW0qayLXGsz_QATg7V</string>
     <string name="naver_client_secret">fqygVCwzdP</string>
     <string name="naver_client_name">Tpic test</string>
 
-<!--  facebook Login INFO  -->
+    <!--  facebook Login INFO  -->
     <string name="facebook_app_id">393843192200505</string>
     <string name="fb_login_protocol_scheme">fb393843192200505</string>
 

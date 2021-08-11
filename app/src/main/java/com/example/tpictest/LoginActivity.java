@@ -1,14 +1,18 @@
 package com.example.tpictest;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.tpictest.utils.FacebookLoginCallback;
 import com.example.tpictest.utils.PreferenceSetting;
@@ -31,22 +35,40 @@ import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String NAVER = "NAVER_LOGIN";
-    private static final String KAKAO = "KAKAO_LOGIN";
-    private static final String FACEBOOK = "FACEBOOK_LOGIN";
+    public static final String NAVER = "NAVER_LOGIN";
+    public static final String KAKAO = "KAKAO_LOGIN";
+    public static final String FACEBOOK = "FACEBOOK_LOGIN";
     private static OAuthLogin mOAuthLoginInstance;
 //    public static String accessToken;
 //    OAuthLoginButton mOAuthLoginButton;
 //    Button logout;
 
     private CallbackManager callbackManager;
-    private FacebookLoginCallback facebookLoginCallback;
+    private String phoneNumber;
 
+    @SuppressLint("HardwareIds")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        phoneNumber = telephonyManager.getLine1Number();
+        if (phoneNumber != null && phoneNumber.startsWith("+82")) {
+            phoneNumber = phoneNumber.replace("+82", "0");
+        } else {
+            phoneNumber = "";
+        }
         LoginCheck();
 
         mOAuthLoginInstance = OAuthLogin.getInstance();
@@ -56,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                 getString(R.string.naver_client_name));
 
         callbackManager = CallbackManager.Factory.create();
-        facebookLoginCallback = new FacebookLoginCallback();
+        FacebookLoginCallback facebookLoginCallback = new FacebookLoginCallback();
 
         LoginButton floginBtn = findViewById(R.id.btnFacebookLogin);
         floginBtn.setPermissions(Arrays.asList("public_profile", "email"));
@@ -64,9 +86,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
         findViewById(R.id.btnNaverLogin).setOnClickListener(onClickListener);
-
-//        kakaoLogin();
-
         findViewById(R.id.iBtnKakaoLogin).setOnClickListener(onClickListener);
         findViewById(R.id.btnKakaoLogoutTest).setOnClickListener(onClickListener);
     }
@@ -76,8 +95,10 @@ public class LoginActivity extends AppCompatActivity {
 
         switch (loginType) {
             case NAVER:
+                mOAuthLoginInstance.startOauthLoginActivity(LoginActivity.this, mOAuthLoginHandler);
                 break;
             case KAKAO:
+                kakaoLogin();
                 break;
             case FACEBOOK:
                 AccessToken accessToken = AccessToken.getCurrentAccessToken();
@@ -90,11 +111,23 @@ public class LoginActivity extends AppCompatActivity {
                             // User was previously logged in, can log them in directly here.
                             // If this callback is called, a popup notification appears that says
                             // "Logged in as <User Name>" }
-                            GraphRequest.newMeRequest(accessToken,
-                                    (object, response) -> Log.e("result", object.toString()));
-                            Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
+
+                            GraphRequest graphRequest = GraphRequest.newMeRequest(accessToken, (object, response) -> {
+                                        Log.e("result", object.toString());
+                                try {
+                                    object.put("phone", phoneNumber);
+                                    new PreferenceSetting(getBaseContext()).saveUserInfo(object);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+//                                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                        startActivity(intent);
+                                    });
+                            Bundle parameters = new Bundle();
+                            parameters.putString("fields", "id,name,email,gender,birthday");
+                            graphRequest.setParameters(parameters);
+                            graphRequest.executeAsync();
                         }
 
                         @Override
@@ -127,9 +160,9 @@ public class LoginActivity extends AppCompatActivity {
 //        Log.i(FACEBOOK, data.get;
 //        Toast.makeText(getBaseContext(), data.toString(), Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(getBaseContext(), MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+//        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
     }
 
     @SuppressLint("HandlerLeak")
@@ -154,8 +187,9 @@ public class LoginActivity extends AppCompatActivity {
             String id = response.getString("id");
             String email = response.getString("email");
 
+            Log.i(NAVER, "id : "+id +" email : "+email);
+
             new PreferenceSetting(getBaseContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, NAVER);
-//            Toast.makeText(getBaseContext(), "id : "+id +" email : "+email, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getBaseContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
@@ -210,10 +244,20 @@ public class LoginActivity extends AppCompatActivity {
                         PreferenceSetting preferenceSetting = new PreferenceSetting(getBaseContext());
                         preferenceSetting.savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, KAKAO);
 
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("id", user.getId());
+                            jsonObject.put("name", user.getProperties().get("nickname"));
+                            jsonObject.put("email", user.getKakaoAccount().getEmail());
+                            jsonObject.put("phone", phoneNumber);
+                            preferenceSetting.saveUserInfo(jsonObject);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         Toast.makeText(getApplicationContext(), Objects.requireNonNull(user.getProperties()).get("nickname")+" 님 로그인", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
+//                        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        startActivity(intent);
                     }
                     return null;
                 });

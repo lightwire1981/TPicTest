@@ -13,29 +13,44 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/cd_design_img"
         android:cropToPadding="true"
         app:srcCompat="@drawable/tp_main_banner1_01" />
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cLyHomeCustomLabel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="5dp"
-        android:contentDescription="@string/cd_design_img"
-        android:scaleType="center"
-        android:scaleX="0.5"
-        android:scaleY="0.5"
-        app:srcCompat="@drawable/tp_pont_line02" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textView2"
-        style="@style/HomeCategoryTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_main_custom_toy" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:contentDescription="@string/cd_design_img"
+            android:scaleType="center"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            app:layout_constraintBottom_toTopOf="@+id/tVwHomeCustomUsername"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/tp_pont_line02" />
+
+        <TextView
+            android:id="@+id/tVwHomeCustomUsername"
+            style="@style/HomeCategoryTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_main_custom_toy"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/lLyCustomToyList"

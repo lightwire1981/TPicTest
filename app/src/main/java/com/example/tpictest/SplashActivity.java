@@ -1,7 +1,6 @@
 package com.example.tpictest;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -11,6 +10,8 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -37,13 +38,13 @@ public class SplashActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }, 3000);
     }
-
     private void hideNavigationBar(){
         View decorView = getWindow().getDecorView();
 //        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
+    @SuppressLint("PackageManagerGetSignatures")
     private void getHashKey() {
         PackageInfo packageInfo = null;
         try {
@@ -54,15 +55,16 @@ public class SplashActivity extends AppCompatActivity {
         if (packageInfo == null)
             Log.e("KeyHash", "KeyHash:null");
 
-        for (Signature signature : packageInfo.signatures) {
-            try {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            } catch (NoSuchAlgorithmException e) {
-                Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
+        if (packageInfo != null) {
+            for (Signature signature : packageInfo.signatures) {
+                try {
+                    MessageDigest md = MessageDigest.getInstance("SHA");
+                    md.update(signature.toByteArray());
+                    Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                } catch (NoSuchAlgorithmException e) {
+                    Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
+                }
             }
         }
     }
-
 }
