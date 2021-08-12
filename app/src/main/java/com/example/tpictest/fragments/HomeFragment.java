@@ -17,6 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tpictest.LoginActivity;
 import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
 import com.example.tpictest.list_code.ListAdapterCustomToy;
@@ -99,15 +100,14 @@ public class HomeFragment extends Fragment {
         String isLogin = new PreferenceSetting(getContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE);
 
         switch (isLogin) {
-            case "none":
+            case LoginActivity.NO_LOGIN:
                 view.findViewById(R.id.cLyHomeCustomLabel).setVisibility(View.GONE);
                 view.findViewById(R.id.lLyCustomToyList).setVisibility(View.GONE);
                 break;
             default:
                 try {
                     JSONObject jsonObject = new JSONObject(new PreferenceSetting(getContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO));
-                    String userName = jsonObject.get("name").toString();
-                    ((TextView)view.findViewById(R.id.tVwHomeCustomUsername)).setText( userName + getString(R.string.txt_main_custom_toy));
+                    ((TextView)view.findViewById(R.id.tVwHomeCustomUsername)).setText( getString(R.string.txt_main_custom_toy, jsonObject.get("name").toString()));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -134,6 +134,12 @@ public class HomeFragment extends Fragment {
         view.findViewById(R.id.btnMainScrollUp).setOnClickListener(v -> scrollView.fullScroll(ScrollView.FOCUS_UP));
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MainActivity.CURRENT_PAGE = MainActivity.PAGES.HOME;
     }
 
     private void setCustomToyList(RecyclerView recyclerView) {
@@ -276,7 +282,6 @@ public class HomeFragment extends Fragment {
 //                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.add(getId(), searchFragment).commit();
-                MainActivity.CURRENT_PAGE = MainActivity.PAGES.SEARCH;
                 break;
             case R.id.iBtnSearchBack:
                 Toast.makeText(getContext(), R.string.txt_back_message, Toast.LENGTH_SHORT).show();

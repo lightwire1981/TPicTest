@@ -84,6 +84,12 @@ public class RankingFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        MainActivity.CURRENT_PAGE = MainActivity.PAGES.RANKING;
+    }
+
     private void setRankCategory(RecyclerView recyclerView) {
         ArrayList<ListItemRCategory> mList = new ArrayList<>();
 

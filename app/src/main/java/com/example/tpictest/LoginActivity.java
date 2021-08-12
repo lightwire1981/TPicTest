@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     public static final String NAVER = "NAVER_LOGIN";
     public static final String KAKAO = "KAKAO_LOGIN";
     public static final String FACEBOOK = "FACEBOOK_LOGIN";
+    public static final String NO_LOGIN = "NO_LOGIN";
     private static OAuthLogin mOAuthLoginInstance;
 //    public static String accessToken;
 //    OAuthLoginButton mOAuthLoginButton;

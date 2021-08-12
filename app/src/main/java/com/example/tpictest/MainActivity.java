@@ -15,13 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.example.tpictest.fragments.HomeFragment;
+import com.example.tpictest.fragments.MyPageFragment;
 import com.example.tpictest.fragments.RankingFragment;
+import com.example.tpictest.utils.CustomDialog;
 import com.example.tpictest.utils.PreferenceSetting;
 
 public class MainActivity extends AppCompatActivity {
 
     public enum PAGES {
-        HOME, CATEGORY, EVALUATE, RANKING, MY_PAGE, SEARCH
+        HOME, CATEGORY, EVALUATE, RANKING, MY_PAGE, MY_PAGE_SUB, SEARCH
     }
 
     public static PAGES CURRENT_PAGE;
@@ -34,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i(TAG, new PreferenceSetting(getBaseContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO));
 
-        CURRENT_PAGE = PAGES.HOME;
         FragmentManager fragmentManager = getSupportFragmentManager();
         HomeFragment homeFragment = new HomeFragment();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -59,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 HomeFragment homeFragment = new HomeFragment();
                 fragmentTransaction.replace(R.id.fLyMain, homeFragment).commit();
-                CURRENT_PAGE = PAGES.HOME;
                 break;
             case R.id.iBtn_MRank:
                 if (CURRENT_PAGE.equals(PAGES.RANKING)) {
@@ -68,12 +68,27 @@ public class MainActivity extends AppCompatActivity {
                 RankingFragment rankingFragment = new RankingFragment();
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.add(R.id.fLyMain, rankingFragment).commit();
-                CURRENT_PAGE = PAGES.RANKING;
                 break;
             case R.id.iBtn_Mmypage:
-                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                if (CURRENT_PAGE.equals(PAGES.MY_PAGE)) {
+                    return;
+                }
+                if (new PreferenceSetting(getBaseContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE).equals(LoginActivity.NO_LOGIN)) {
+                    new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.LOGIN, (response, data) -> {
+                        if (response) {
+                            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                    }).show();
+                } else {
+                    MyPageFragment myPageFragment = new MyPageFragment();
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.add(R.id.fLyMain, myPageFragment).commit();
+//                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(intent);
+                }
                 break;
             default:
                 break;

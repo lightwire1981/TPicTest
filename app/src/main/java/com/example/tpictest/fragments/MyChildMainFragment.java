@@ -1,27 +1,21 @@
 package com.example.tpictest.fragments;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SearchFragment#newInstance} factory method to
+ * Use the {@link MyChildMainFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-@SuppressLint("NonConstantResourceId")
-public class SearchFragment extends Fragment {
+public class MyChildMainFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,7 +26,7 @@ public class SearchFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public SearchFragment() {
+    public MyChildMainFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +36,11 @@ public class SearchFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SearchFragment.
+     * @return A new instance of fragment MyChildMainFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SearchFragment newInstance(String param1, String param2) {
-        SearchFragment fragment = new SearchFragment();
+    public static MyChildMainFragment newInstance(String param1, String param2) {
+        MyChildMainFragment fragment = new MyChildMainFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,30 +61,6 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
-        view.findViewById(R.id.iBtnSearchBack).setOnClickListener(onClickListener);
-        return view;
+        return inflater.inflate(R.layout.fragment_my_child_main, container, false);
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        MainActivity.CURRENT_PAGE = MainActivity.PAGES.SEARCH;
-    }
-
-    View.OnClickListener onClickListener = v -> {
-        switch (v.getId()) {
-            case R.id.iBtn_Main_Search:
-                Toast.makeText(getContext(), R.string.txt_test_message, Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.iBtnSearchBack:
-                FragmentManager fragmentManager = getParentFragmentManager();
-                HomeFragment homeFragment = new HomeFragment();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(getId(), homeFragment).commit();
-                break;
-            default:
-                break;
-        }
-    };
 }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
 
 /**
@@ -62,5 +63,11 @@ public class MyInfoChangeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_info_change, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MainActivity.CURRENT_PAGE = MainActivity.PAGES.MY_PAGE_SUB;
     }
 }

@@ -1,14 +1,23 @@
 package com.example.tpictest.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
+import com.example.tpictest.utils.PreferenceSetting;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,8 +71,37 @@ public class MyPageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_page, container, false);
-
+        try {
+            JSONObject jsonObject = new JSONObject(new PreferenceSetting(getContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO));
+            ((TextView)view.findViewById(R.id.tVwMyPageUserName)).setText(getString(R.string.txt_my_page_sir, jsonObject.get("name")));
+            ((TextView)view.findViewById(R.id.tVwMyPageUserMail)).setText(jsonObject.get("email").toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        view.findViewById(R.id.iBtnMyPageChangeInfo).setOnClickListener(onClickListener);
 
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MainActivity.CURRENT_PAGE = MainActivity.PAGES.MY_PAGE;
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    private final View.OnClickListener onClickListener = v -> {
+        switch (v.getId()) {
+            case R.id.iBtnMyPageChangeInfo:
+                FragmentManager fragmentManager = getParentFragmentManager();
+                MyInfoChangeFragment myInfoChangeFragment = new MyInfoChangeFragment();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.add(getId(), myInfoChangeFragment).commit();
+                break;
+            default:
+                break;
+        }
+    };
 }

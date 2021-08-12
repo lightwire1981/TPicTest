@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true"
+        android:drawable="@drawable/tp_btn_set_on"/>
+    <item android:drawable="@drawable/tp_btn_set_off"/>
+</layer-list>

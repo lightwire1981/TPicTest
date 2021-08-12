@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.tpictest.LoginActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,7 +14,6 @@ public class PreferenceSetting {
     private final Context context;
     //    private static final String DEFAULT_SERVER_IP = "127.0.0.1";
     private static final String DEFAULT_SERVER_IP = "211.38.3.53";
-    private static final String DEFAULT_LOGIN_TYPE = "none";
     public enum PREFERENCE_KEY {
         SERVER_ADDRESS,
         USER_INFO,
@@ -37,7 +38,7 @@ public class PreferenceSetting {
                 returnValue = preferences.getString(PREFERENCE_KEY.SERVER_ADDRESS.name(), DEFAULT_SERVER_IP);
                 break;
             case LOGIN_TYPE:
-                returnValue = preferences.getString(PREFERENCE_KEY.LOGIN_TYPE.name(), DEFAULT_LOGIN_TYPE);
+                returnValue = preferences.getString(PREFERENCE_KEY.LOGIN_TYPE.name(), LoginActivity.NO_LOGIN);
                 break;
             default:
                 returnValue = null;

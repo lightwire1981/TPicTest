@@ -112,7 +112,7 @@ public class IntermediateActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    new PreferenceSetting(getBaseContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, "none");
+                    new PreferenceSetting(getBaseContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, LoginActivity.NO_LOGIN);
                     LoadMainPage();
                 }
                 break;
