@@ -73,7 +73,7 @@
                 android:drawableStart="@drawable/img_my_info_like"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
-                android:text="@string/btn_my_page_like"
+                android:text="@string/txt_my_page_like"
                 android:textAlignment="viewStart" />
 
             <Button
@@ -87,7 +87,7 @@
                 android:drawableStart="@drawable/img_my_info_review"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
-                android:text="@string/btn_my_page_review"
+                android:text="@string/txt_my_page_review"
                 android:textAlignment="viewStart" />
         </LinearLayout>
 
@@ -101,7 +101,7 @@
             android:drawableStart="@drawable/img_my_info_kids"
             android:paddingStart="32dp"
             android:paddingEnd="30dp"
-            android:text="@string/btn_my_page_kids"
+            android:text="@string/txt_my_page_kid"
             android:textAlignment="viewStart" />
 
         <Button
@@ -114,7 +114,7 @@
             android:drawableEnd="@drawable/btn_my_info_enter"
             android:paddingStart="30dp"
             android:paddingEnd="10dp"
-            android:text="@string/btn_my_page_notice"
+            android:text="@string/txt_my_page_notice"
             android:textAlignment="viewStart" />
 
         <Button
@@ -127,8 +127,14 @@
             android:drawableEnd="@drawable/btn_my_info_enter"
             android:paddingStart="30dp"
             android:paddingEnd="10dp"
-            android:text="@string/btn_my_page_setting"
+            android:text="@string/txt_my_page_setting"
             android:textAlignment="viewStart" />
+
+        <Button
+            android:id="@+id/btnLoginCall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_test_message" />
 
     </LinearLayout>
 

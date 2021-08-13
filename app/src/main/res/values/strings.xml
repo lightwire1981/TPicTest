@@ -74,11 +74,26 @@
 
     <string name="txt_my_page_sir">%s 님</string>
     <string name="txt_my_page_email">test@gmail.com</string>
-    <string name="btn_my_page_like">좋아요</string>
-    <string name="btn_my_page_review">내가 쓴 리뷰</string>
-    <string name="btn_my_page_kids">아이 관리</string>
-    <string name="btn_my_page_notice">공지사항</string>
-    <string name="btn_my_page_setting">환경설정</string>
+    <string name="txt_my_page_like">좋아요</string>
+    <string name="txt_my_page_review">내가 쓴 리뷰</string>
+    <string name="txt_my_page_kid">아이 관리</string>
+    <string name="txt_my_page_notice">공지사항</string>
+    <string name="txt_my_page_setting">환경설정</string>
+
+    <string name="txt_kids_count">첫째</string>
+    <string name="txt_kids_nick">장남이</string>
+    <string-array name="txt_my_kids_count">
+        <item>첫째</item>
+        <item>둘째</item>
+        <item>셋째</item>
+        <item>넷째</item>
+        <item>다섯째</item>
+        <item>여섯째</item>
+        <item>일곱째</item>
+        <item>여덟째</item>
+        <item>아홉째</item>
+    </string-array>
+
 
     <string name="txt_dlg_login_title">로그인 안내</string>
     <string name="txt_dlg_login_confirm">로그인 후 사용 가능합니다.\n로그인 하시겠습니까?</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true"
-        android:drawable="@drawable/tp_arrow_left01_on"/>
-    <item android:drawable="@drawable/tp_arrow_left01_off"/>
+        android:drawable="@drawable/tp_btn_child02_on"/>
+    <item android:drawable="@drawable/tp_btn_child02_off"/>
 </selector>

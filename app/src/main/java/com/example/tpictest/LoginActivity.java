@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             phoneNumber = "";
         }
-        LoginCheck();
+//        LoginCheck();
 
         mOAuthLoginInstance = OAuthLogin.getInstance();
         mOAuthLoginInstance.init(LoginActivity.this,
@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                 getString(R.string.naver_client_name));
 
         callbackManager = CallbackManager.Factory.create();
-        FacebookLoginCallback facebookLoginCallback = new FacebookLoginCallback();
+        FacebookLoginCallback facebookLoginCallback = new FacebookLoginCallback(getFacebookResponse);
 
         LoginButton floginBtn = findViewById(R.id.btnFacebookLogin);
         floginBtn.setPermissions(Arrays.asList("public_profile", "email"));
@@ -265,5 +265,38 @@ public class LoginActivity extends AppCompatActivity {
             }
             return null;
         }));
+    }
+
+    FacebookLoginCallback.GetFacebookResponse getFacebookResponse = accessToken -> {
+        GraphRequest graphRequest;
+        graphRequest = GraphRequest.newMeRequest(accessToken,(object, response) -> {
+            Log.e("result",object.toString());
+            try {
+                object.put("phone", phoneNumber);
+                new PreferenceSetting(getBaseContext()).saveUserInfo(object);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        });
+
+
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,email,gender,birthday");
+        graphRequest.setParameters(parameters);
+        graphRequest.executeAsync();
+    };
+
+
+    private void UploadUserInfo() {
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getBaseContext(), IntermediateActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

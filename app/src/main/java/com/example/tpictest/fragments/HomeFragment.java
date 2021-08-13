@@ -280,8 +280,8 @@ public class HomeFragment extends Fragment {
                 SearchFragment searchFragment = new SearchFragment();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 //                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.add(getId(), searchFragment).commit();
+//                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(getId(), searchFragment).commit();
                 break;
             case R.id.iBtnSearchBack:
                 Toast.makeText(getContext(), R.string.txt_back_message, Toast.LENGTH_SHORT).show();

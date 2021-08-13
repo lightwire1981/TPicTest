@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.iBtn_Mmypage).setOnClickListener(onClickListener);
     }
 
-    @SuppressLint("NonConstantResourceId")
+    @SuppressLint({"NonConstantResourceId", "UseCompatLoadingForDrawables"})
     View.OnClickListener onClickListener = v -> {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 HomeFragment homeFragment = new HomeFragment();
+//                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.replace(R.id.fLyMain, homeFragment).commit();
                 break;
             case R.id.iBtn_MRank:
@@ -66,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 RankingFragment rankingFragment = new RankingFragment();
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.add(R.id.fLyMain, rankingFragment).commit();
+//                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(R.id.fLyMain, rankingFragment).commit();
                 break;
             case R.id.iBtn_Mmypage:
                 if (CURRENT_PAGE.equals(PAGES.MY_PAGE)) {
@@ -83,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
                     }).show();
                 } else {
                     MyPageFragment myPageFragment = new MyPageFragment();
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.add(R.id.fLyMain, myPageFragment).commit();
+//                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.replace(R.id.fLyMain, myPageFragment).commit();
 //                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                startActivity(intent);

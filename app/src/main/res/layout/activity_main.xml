@@ -47,6 +47,7 @@
                 android:layout_weight="2.5"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/cd_main_btn"
+                android:focusable="auto"
                 android:scaleType="centerInside"
                 app:srcCompat="@drawable/btn_main_home" />
 

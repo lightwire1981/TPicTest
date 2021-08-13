@@ -1,6 +1,7 @@
 package com.example.tpictest.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.tpictest.LoginActivity;
 import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
 import com.example.tpictest.utils.PreferenceSetting;
@@ -79,6 +81,8 @@ public class MyPageFragment extends Fragment {
             e.printStackTrace();
         }
         view.findViewById(R.id.iBtnMyPageChangeInfo).setOnClickListener(onClickListener);
+        view.findViewById(R.id.btnMyPageKidsManager).setOnClickListener(onClickListener);
+        view.findViewById(R.id.btnLoginCall).setOnClickListener(onClickListener);
 
         return view;
     }
@@ -91,14 +95,26 @@ public class MyPageFragment extends Fragment {
 
     @SuppressLint("NonConstantResourceId")
     private final View.OnClickListener onClickListener = v -> {
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
         switch (v.getId()) {
             case R.id.iBtnMyPageChangeInfo:
-                FragmentManager fragmentManager = getParentFragmentManager();
                 MyInfoChangeFragment myInfoChangeFragment = new MyInfoChangeFragment();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 //                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.add(getId(), myInfoChangeFragment).commit();
+//                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(getId(), myInfoChangeFragment).commit();
+                break;
+            case R.id.btnMyPageKidsManager:
+                MyChildMainFragment myChildMainFragment = new MyChildMainFragment();
+//                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+//                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(getId(), myChildMainFragment).commit();
+                break;
+            case R.id.btnLoginCall:
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 break;
             default:
                 break;
