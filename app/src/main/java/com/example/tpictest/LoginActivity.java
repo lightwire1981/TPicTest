@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.tpictest.db.DBRequestType;
+import com.example.tpictest.db.DatabaseRequest;
 import com.example.tpictest.utils.FacebookLoginCallback;
 import com.example.tpictest.utils.PreferenceSetting;
 import com.example.tpictest.utils.RequestApiTask;
@@ -68,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         if (phoneNumber != null && phoneNumber.startsWith("+82")) {
             phoneNumber = phoneNumber.replace("+82", "0");
         } else {
-            phoneNumber = "";
+            phoneNumber = "NULL";
         }
 //        LoginCheck();
 
@@ -209,16 +211,19 @@ public class LoginActivity extends AppCompatActivity {
                 kakaoLogin();
                 break;
             case R.id.btnKakaoLogoutTest:
-                UserApiClient.getInstance().logout(error -> {
-                    if (error != null) {
-                        Log.e(KAKAO, "로그아웃 실패", error);
-                        Toast.makeText(getApplicationContext(), "로그아웃 실패", Toast.LENGTH_SHORT).show();
-                    }else {
-                        Log.e(KAKAO, "로그아웃 성공, SDK에서 토큰 삭제됨");
-                        Toast.makeText(getApplicationContext(), "로그아웃 성공", Toast.LENGTH_SHORT).show();
-                    }
-                    return null;
-                });
+//                UserApiClient.getInstance().logout(error -> {
+//                    if (error != null) {
+//                        Log.e(KAKAO, "로그아웃 실패", error);
+//                        Toast.makeText(getApplicationContext(), "로그아웃 실패", Toast.LENGTH_SHORT).show();
+//                    }else {
+//                        Log.e(KAKAO, "로그아웃 성공, SDK에서 토큰 삭제됨");
+//                        Toast.makeText(getApplicationContext(), "로그아웃 성공", Toast.LENGTH_SHORT).show();
+//                    }
+//                    return null;
+//                });
+                DatabaseRequest.ExecuteListener listener = result -> Log.i("Test Result>>>> ", result[0]);
+
+                new DatabaseRequest(getBaseContext(), listener).execute(DBRequestType.TEST.name(), null);
                 break;
             default:
                 break;
@@ -274,6 +279,7 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 object.put("phone", phoneNumber);
                 new PreferenceSetting(getBaseContext()).saveUserInfo(object);
+                UserJoin(object);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -287,9 +293,14 @@ public class LoginActivity extends AppCompatActivity {
     };
 
 
-    private void UploadUserInfo() {
-
+    private void UserJoin(JSONObject object) {
+        new DatabaseRequest(getBaseContext(), executeListener).execute(DBRequestType.JOIN.name(), object.toString());
     }
+
+    DatabaseRequest.ExecuteListener executeListener = result -> {
+        Log.i("Join Result", result[0]);
+
+    };
 
 
     @Override

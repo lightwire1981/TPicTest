@@ -4,5 +4,6 @@ public enum DBRequestType {
     JOIN,
     CREATE_KID,
     LIKE,
-    WRITE_REVIEW
+    WRITE_REVIEW,
+    TEST
 }

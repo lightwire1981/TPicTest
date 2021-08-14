@@ -6,6 +6,9 @@ import android.util.Log;
 
 import com.example.tpictest.utils.PreferenceSetting;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,14 +21,13 @@ import java.nio.charset.StandardCharsets;
 public class DatabaseRequest extends AsyncTask<String, String, String> {
 
     private static String SERVER_IP;
-    private static final String PHP_URL = "/TpicTest/res/php/request_handler.php";
+    private static final String PHP_URL = "/TPicTest/res/php/request_handler.php";
 
     public interface ExecuteListener {
         void onResult(String... result);
     }
     private final ExecuteListener executeListener;
 
-    private final String USE = "USE=";
     private DBRequestType requestType;
 
     private String TAG = "DatabaseRequest";
@@ -46,7 +48,7 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
 
         switch (requestType) {
             case JOIN:
-                parameters = MakeParameter(requestType, params);
+                parameters = MakeParameter(params);
                 Log.i(TAG, "Parameter Check ::" + parameters);
                 break;
             case CREATE_KID:
@@ -55,12 +57,18 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                 break;
             case WRITE_REVIEW:
                 break;
+            case TEST:
+                parameters = MakeParameter(params);
+                Log.i(TAG, "Parameter Check ::" + parameters);
+                break;
             default:
                 break;
         }
 
         try {
-            HttpURLConnection httpURLConnection = (HttpURLConnection)(new URL("http://"+SERVER_IP+PHP_URL)).openConnection();
+            String url = "http://"+SERVER_IP+PHP_URL;
+            Log.d(TAG, "<<<<<<<<<<<<<  " + url);
+            HttpURLConnection httpURLConnection = (HttpURLConnection)(new URL(url)).openConnection();
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setUseCaches(false);
@@ -76,6 +84,8 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
 
             if (httpURLConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 Log.e(TAG, "Http Connection Fail");
+                Log.d(TAG, httpURLConnection.getResponseMessage());
+                Log.d(TAG, httpURLConnection.getResponseCode()+"");
                 return null;
             }
             response = (new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), StandardCharsets.UTF_8))).readLine();
@@ -94,6 +104,10 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
 
     @Override
     protected void onPostExecute(String response) {
+        if (response == null) {
+            Log.e(TAG, "<<<<<<<<<<Result Error");
+            return;
+        }
         switch (requestType) {
             case JOIN:
                 Log.d(TAG, response);
@@ -111,15 +125,40 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
         super.onPostExecute(response);
     }
 
-    private String MakeParameter(DBRequestType type, String... params) {
+    private String MakeParameter(String... params) {
+        String USE = "USE=";
+        String USER_ID = "USER_ID=";
+        String USER_NAME = "USER_NAME=";
+        String USER_EMAIL = "USER_EMAIL=";
+        String USER_PHONE = "USER_PHONE=";
+        String AND = "&";
 
-        switch (type) {
-            case JOIN:
-                break;
-            default:
-                break;
+        String parameterValue;
+        try {
+            JSONObject jsonObject = new JSONObject();
+            if (params[1] != null) {
+                jsonObject = new JSONObject(params[1]);
+            }
+            switch (requestType) {
+                case JOIN:
+                    parameterValue = USE + params[0] + AND +
+                            USER_ID +jsonObject.get("id").toString() + AND +
+                            USER_NAME +jsonObject.get("name").toString() + AND +
+                            USER_EMAIL +jsonObject.get("email").toString() + AND +
+                            USER_PHONE +jsonObject.get("phone").toString()
+                    ;
+                    break;
+                case TEST:
+                    parameterValue = USE + params[0];
+                    break;
+                default:
+                    parameterValue = null;
+                    break;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            parameterValue = null;
         }
-
-        return null;
+        return parameterValue;
     }
 }
