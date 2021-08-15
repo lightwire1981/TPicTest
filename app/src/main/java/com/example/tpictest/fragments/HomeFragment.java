@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.tpictest.LoginActivity;
 import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
+import com.example.tpictest.db.ImageRequest;
 import com.example.tpictest.list_code.ListAdapterCustomToy;
 import com.example.tpictest.list_code.ListAdapterNewToy;
 import com.example.tpictest.list_code.ListAdptMainRankingToy;
@@ -143,6 +144,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void setCustomToyList(RecyclerView recyclerView) {
+        ImageRequest imageRequest = new ImageRequest(getContext(), "");
+        imageRequest.loadInBackground();
+
         ArrayList<ListItemCustomToy> mList = new ArrayList<>();
         getCustomToyList(mList);
         recyclerView.setAdapter(new ListAdapterCustomToy(mList));
