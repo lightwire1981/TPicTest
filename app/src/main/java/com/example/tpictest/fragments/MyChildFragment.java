@@ -3,32 +3,26 @@ package com.example.tpictest.fragments;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.Toast;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 
 import com.example.tpictest.ChildRegistActivity;
 import com.example.tpictest.R;
-import com.example.tpictest.utils.CustomDialog;
-
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MyChildMainFragment#newInstance} factory method to
+ * Use the {@link MyChildFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyChildMainFragment extends Fragment {
+public class MyChildFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,7 +35,7 @@ public class MyChildMainFragment extends Fragment {
 
     String TAG = "MyChildMainFragment";
 
-    public MyChildMainFragment() {
+    public MyChildFragment() {
         // Required empty public constructor
     }
 
@@ -54,8 +48,8 @@ public class MyChildMainFragment extends Fragment {
      * @return A new instance of fragment MyChildMainFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MyChildMainFragment newInstance(String param1, String param2) {
-        MyChildMainFragment fragment = new MyChildMainFragment();
+    public static MyChildFragment newInstance(String param1, String param2) {
+        MyChildFragment fragment = new MyChildFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -77,7 +71,7 @@ public class MyChildMainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_my_child_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_child, container, false);
 
         TableLayout tableLayout = view.findViewById(R.id.tLyKidsTable);
         Log.i(TAG, tableLayout.getChildCount()+"");

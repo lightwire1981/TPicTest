@@ -106,10 +106,10 @@ public class MyPageFragment extends Fragment {
                 fragmentTransaction.replace(getId(), myInfoChangeFragment).commit();
                 break;
             case R.id.btnMyPageKidsManager:
-                MyChildMainFragment myChildMainFragment = new MyChildMainFragment();
+                MyChildFragment myChildFragment = new MyChildFragment();
 //                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 //                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(getId(), myChildMainFragment).commit();
+                fragmentTransaction.replace(getId(), myChildFragment).commit();
                 break;
             case R.id.btnLoginCall:
                 Intent intent = new Intent(getContext(), LoginActivity.class);

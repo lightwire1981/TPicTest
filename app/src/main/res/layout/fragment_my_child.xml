@@ -7,7 +7,7 @@
     android:background="#FFFFFF"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context=".fragments.MyChildMainFragment">
+    tools:context=".fragments.MyChildFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
