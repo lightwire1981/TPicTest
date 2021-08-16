@@ -80,6 +80,11 @@
     <string name="txt_my_page_notice">공지사항</string>
     <string name="txt_my_page_setting">환경설정</string>
 
+    <string name="txt_kids_add">아이 등록</string>
+    <string name="txt_kids_add_next">다음</string>
+    <string name="hint_kids_nick">아이 애칭 입력</string>
+    <string name="txt_kids_gender">아이 성별</string>
+    <string name="txt_kids_birth">아이 생년월일</string>
     <string name="txt_kids_count">첫째</string>
     <string name="txt_kids_nick">장남이</string>
     <string-array name="txt_my_kids_count">

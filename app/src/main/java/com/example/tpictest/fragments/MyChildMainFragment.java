@@ -1,14 +1,27 @@
 package com.example.tpictest.fragments;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.Toast;
 
+import com.example.tpictest.ChildRegistActivity;
 import com.example.tpictest.R;
+import com.example.tpictest.utils.CustomDialog;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +38,8 @@ public class MyChildMainFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    String TAG = "MyChildMainFragment";
 
     public MyChildMainFragment() {
         // Required empty public constructor
@@ -57,10 +72,35 @@ public class MyChildMainFragment extends Fragment {
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_child_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_child_main, container, false);
+
+        TableLayout tableLayout = view.findViewById(R.id.tLyKidsTable);
+        Log.i(TAG, tableLayout.getChildCount()+"");
+
+        for (int index = 0; index < 4; index++) {
+
+        }
+        TableRow tableRow = (TableRow)tableLayout.getChildAt(0);
+        Log.i(TAG, tableRow.getChildCount()+"");
+        ConstraintLayout constraintLayout = (ConstraintLayout)tableRow.getChildAt(0);
+        Log.i(TAG, constraintLayout.getChildCount()+"");
+        ImageButton imageButton = (ImageButton) constraintLayout.getChildAt(0);
+        imageButton.setImageDrawable(requireContext().getDrawable(R.drawable.btn_kids_add));
+        imageButton.setOnClickListener(onClickListener);
+        return view;
     }
+
+    private final View.OnClickListener onClickListener = v -> {
+        if (v.getTag() == null){
+                Intent intent = new Intent(getContext(), ChildRegistActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+//            new CustomDialog(getContext(), CustomDialog.DIALOG_CATEGORY.ADD_CHILD).show();
+        }
+    };
 }
