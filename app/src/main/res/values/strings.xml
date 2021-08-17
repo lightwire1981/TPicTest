@@ -85,6 +85,13 @@
     <string name="hint_kids_nick">아이 애칭 입력</string>
     <string name="txt_kids_gender">아이 성별</string>
     <string name="txt_kids_birth">아이 생년월일</string>
+    <string name="txt_kids_favorite_character">좋아하는 캐릭터를 선택해 주세요</string>
+    <string name="txt_kids_char_3over">3개 이상</string>
+    <string name="txt_kids_char_choice1">&#160;선택 해 주세요</string>
+    <string name="txt_kids_char_3max">최대 3개</string>
+    <string name="txt_kids_char_choice2">까지 선택 해 주세요</string>
+    <string name="txt_kids_char_name">캐릭터</string>
+
     <string name="txt_kids_count">첫째</string>
     <string name="txt_kids_nick">장남이</string>
     <string-array name="txt_my_kids_count">
@@ -97,6 +104,19 @@
         <item>일곱째</item>
         <item>여덟째</item>
         <item>아홉째</item>
+    </string-array>
+    <string-array name="txt_kids_char">
+        <item>캐릭터 A</item>
+        <item>캐릭터 B</item>
+        <item>캐릭터 C</item>
+        <item>캐릭터 D</item>
+        <item>캐릭터 E</item>
+        <item>캐릭터 F</item>
+        <item>캐릭터 G</item>
+        <item>캐릭터 H</item>
+        <item>캐릭터 I</item>
+        <item>캐릭터 J</item>
+        <item>캐릭터 K</item>
     </string-array>
 
 
