@@ -67,7 +67,8 @@
         app:layout_constraintStart_toStartOf="@+id/iVwCustomListItem"
         app:layout_constraintTop_toTopOf="@+id/iVwCustomListItem"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/tp_liked_tag_off" />
+        app:srcCompat="@drawable/tp_liked_tag_off"
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:id="@+id/tVwCustomListItem"

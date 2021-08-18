@@ -104,4 +104,17 @@
         <item name="android:textColor">#CC4747</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+
+    <style name="CharSelectNormalStyle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="CharSelectFocusStyle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
 </resources>

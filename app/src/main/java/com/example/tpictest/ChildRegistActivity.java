@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.tpictest.fragments.CharacterSelectFragment;
 import com.example.tpictest.fragments.ChildRegistFragment;
 import com.example.tpictest.fragments.HomeFragment;
 
@@ -45,7 +46,9 @@ public class ChildRegistActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         switch(registryStep) {
             case ADD:
-
+                CharacterSelectFragment characterSelectFragment = new CharacterSelectFragment();
+                fragmentTransaction.addToBackStack(CHILD_REGISTRY_STEP.ADD.name());
+                fragmentTransaction.add(R.id.fLyChildRegistMain, characterSelectFragment).commit();
                 break;
             case CHARACTER:
                 break;
