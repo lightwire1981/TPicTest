@@ -19,6 +19,8 @@ public class CustomDialog extends Dialog {
     public enum DIALOG_CATEGORY {
         LOGIN,
         PASSWORD,
+        FORM_INVALID,
+        EXIT
     }
 
     private final DIALOG_CATEGORY dialog_category;
@@ -53,6 +55,15 @@ public class CustomDialog extends Dialog {
                 break;
             case PASSWORD:
                 break;
+            case FORM_INVALID:
+                setContentView(R.layout.dialog_form_invalid);
+                findViewById(R.id.btnRegistryConfirm).setOnClickListener(onClickListener);
+                break;
+            case EXIT:
+                setContentView(R.layout.dialog_exit_confirm);
+                findViewById(R.id.btnDlgExitNo).setOnClickListener(onClickListener);
+                findViewById(R.id.btnDlgExitYes).setOnClickListener(onClickListener);
+                break;
             default:
                 break;
         }
@@ -70,6 +81,15 @@ public class CustomDialog extends Dialog {
                 dialogResponseListener.getResponse(true, null);
                 dismiss();
                 break;
+            case R.id.btnDlgExitNo:
+            case R.id.btnRegistryConfirm:
+                dismiss();
+                break;
+            case R.id.btnDlgExitYes:
+                getOwnerActivity().moveTaskToBack(true);
+                getOwnerActivity().finishAndRemoveTask();
+                System.exit(0);
+                break;
             default:
                 break;
         }
@@ -84,6 +104,8 @@ public class CustomDialog extends Dialog {
 
         switch (dialog_category) {
             case LOGIN:
+            case FORM_INVALID:
+            case EXIT:
                 layoutParams.height = displayMetrics.heightPixels;
                 layoutParams.width = (int) (displayMetrics.widthPixels * 0.9);
                 break;

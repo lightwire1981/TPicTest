@@ -3,32 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
     android:background="@drawable/tp_popup_bg01">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView40"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/txt_dlg_login_title"
-        android:textColor="@color/black"
+        android:text="@string/txt_dlg_registry_title"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView28"
+        android:id="@+id/textView41"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="@string/txt_dlg_login_confirm"
-        android:textAlignment="center"
-        android:textColor="@color/black"
+        android:text="@string/txt_dlg_registry_invalid"
+        android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView40" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -39,24 +37,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView28">
+        app:layout_constraintTop_toBottomOf="@+id/textView41">
 
         <Button
-            android:id="@+id/btnDlgLoginNo"
+            android:id="@+id/btnRegistryConfirm"
             style="@style/HomeButtonBorderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/img_dialog_cancel"
-            android:text="@string/txt_dlg_no" />
-
-        <Button
-            android:id="@+id/btnDlgLoginYes"
-            style="@style/HomeButtonBorderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/img_dialog_confirm"
+            android:background="@drawable/img_dialog_registry_confirm"
             android:text="@string/txt_dlg_yes" />
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

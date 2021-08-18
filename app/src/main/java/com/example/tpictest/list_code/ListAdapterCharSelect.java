@@ -17,6 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tpictest.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 public class ListAdapterCharSelect extends RecyclerView.Adapter<ListAdapterCharSelect.ViewHolder>{
 
@@ -26,11 +30,14 @@ public class ListAdapterCharSelect extends RecyclerView.Adapter<ListAdapterCharS
         mData = list;
     }
 
+    private static Map<String, String> selectedChar;
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         View view = ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_item_char_select, parent, false);
+        selectedChar = new HashMap<>();
         return new ViewHolder(view);
     }
 
@@ -69,8 +76,6 @@ public class ListAdapterCharSelect extends RecyclerView.Adapter<ListAdapterCharS
             default:
                 break;
         }
-
-
     }
 
     @Override
@@ -79,11 +84,11 @@ public class ListAdapterCharSelect extends RecyclerView.Adapter<ListAdapterCharS
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
         ConstraintLayout characterCly2, characterCly3;
         ImageView characterImg1, characterImg2, characterImg3;
         TextView characterName1, characterName2, characterName3;
         CheckBox characterCkb1, characterCkb2, characterCkb3;
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -109,27 +114,33 @@ public class ListAdapterCharSelect extends RecyclerView.Adapter<ListAdapterCharS
                 case R.id.cKbCharSelect1:
                     if (isChecked) {
                         // do tag write work
+                        selectedChar.put(characterName1.getText().toString(), characterName1.getText().toString());
                         textViewStyleChange(true, characterName1);
                     } else {
                         // do tag delete work
+                        selectedChar.remove(characterName1.getText().toString());
                         textViewStyleChange(false, characterName1);
                     }
                     break;
                 case R.id.cKbCharSelect2:
                     if (isChecked) {
                         // do tag write work
+                        selectedChar.put(characterName2.getText().toString(), characterName2.getText().toString());
                         textViewStyleChange(true,characterName2);
                     } else {
                         // do tag delete work
+                        selectedChar.remove(characterName2.getText().toString());
                         textViewStyleChange(false, characterName2);
                     }
                     break;
                 case R.id.cKbCharSelect3:
                     if (isChecked) {
                         // do tag write work
+                        selectedChar.put(characterName3.getText().toString(), characterName3.getText().toString());
                         textViewStyleChange(true,characterName3);
                     } else {
                         // do tag delete work
+                        selectedChar.remove(characterName3.getText().toString());
                         textViewStyleChange(false, characterName3);
                     }
                     break;
@@ -145,5 +156,9 @@ public class ListAdapterCharSelect extends RecyclerView.Adapter<ListAdapterCharS
                 textView.setTextAppearance(R.style.CharSelectNormalStyle);
             }
         }
+    }
+
+    public Map<String, String> getSelectedChar () {
+        return selectedChar;
     }
 }

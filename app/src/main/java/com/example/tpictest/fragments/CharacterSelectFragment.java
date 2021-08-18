@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.tpictest.ChildRegistActivity;
 import com.example.tpictest.R;
 import com.example.tpictest.list_code.ListAdapterCharSelect;
 import com.example.tpictest.list_code.ListItemCharSelect;
@@ -21,6 +22,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +40,9 @@ public class CharacterSelectFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    public static RecyclerView characterList;
+    private ListAdapterCharSelect listAdapterCharSelect;
 
     public CharacterSelectFragment() {
         // Required empty public constructor
@@ -75,10 +81,16 @@ public class CharacterSelectFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_character_select, container, false);
 
-        RecyclerView characterList = view.findViewById(R.id.rcyclVwCharacterList);
+        characterList = view.findViewById(R.id.rcyclVwCharacterList);
 //        setCharacterList(characterList);
         setCharacterListTemp(characterList);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ChildRegistActivity.RegistryStep = ChildRegistActivity.CHILD_REGISTRY_STEP.CHARACTER;
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -98,8 +110,8 @@ public class CharacterSelectFragment extends Fragment {
             item.setCharDrawable2(requireContext().getDrawable(R.drawable.tp_icon_brand09_off));
             item.setCharName2(name[index]);
             index++;
-            item.setCharDrawable2(requireContext().getDrawable(R.drawable.tp_icon_brand09_off));
-            item.setCharName2(name[index]);
+            item.setCharDrawable3(requireContext().getDrawable(R.drawable.tp_icon_brand09_off));
+            item.setCharName3(name[index]);
             index++;
             mList.add(item);
         }
@@ -112,7 +124,8 @@ public class CharacterSelectFragment extends Fragment {
         item.setCharName2(name[index]);
         mList.add(item);
 
-        recyclerView.setAdapter(new ListAdapterCharSelect(mList));
+        listAdapterCharSelect = new ListAdapterCharSelect(mList);
+        recyclerView.setAdapter(listAdapterCharSelect);
         setLayoutManager(recyclerView);
     }
 
@@ -198,7 +211,27 @@ public class CharacterSelectFragment extends Fragment {
         return new JSONArray();
     }
 
+    public static void getSelectedChar() {
+        Map<String, String> data =  ((ListAdapterCharSelect) Objects.requireNonNull(characterList.getAdapter())).getSelectedChar();
+        if (data.size() < 1) {
+            return;
+        }
+        StringBuilder selectedChar= new StringBuilder();
+        int index =0;
+        for (String key : data.keySet()) {
+            selectedChar.append(data.get(key));
+            index++;
+            if (index < data.size()) {
+                selectedChar.append(",");
+            }
+        }
 
+        try {
+            ChildRegistActivity.CHILD_DATA.put("child_character", selectedChar.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
     private void setLayoutManager(RecyclerView recyclerView) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.addItemDecoration(new RecyclerDecoration(0, 25));

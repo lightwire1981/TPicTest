@@ -103,6 +103,11 @@ public class MainActivity extends AppCompatActivity {
         hideNavigationBar();
     }
 
+    @Override
+    public void onBackPressed() {
+        new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.EXIT).show();
+    }
+
     private void hideNavigationBar(){
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);

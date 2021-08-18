@@ -120,10 +120,16 @@
     </string-array>
 
 
+    <string name="txt_dlg_yes">확인</string>
+    <string name="txt_dlg_no">취소</string>
     <string name="txt_dlg_login_title">로그인 안내</string>
     <string name="txt_dlg_login_confirm">로그인 후 사용 가능합니다.\n로그인 하시겠습니까?</string>
-    <string name="txt_dlg_login_yes">확인</string>
-    <string name="txt_dlg_login_no">취소</string>
+
+    <string name="txt_dlg_registry_title">등록 안내</string>
+    <string name="txt_dlg_registry_invalid">모든 정보를 입력하셔야 합니다</string>
+
+    <string name="txt_dlg_exit_title">종료 안내</string>
+    <string name="txt_dlg_exit_confirm">앱을 종료하시겠습니까?\n</string>
 
 
     <!--    EditText Hint    -->

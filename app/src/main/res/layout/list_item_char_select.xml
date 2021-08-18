@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/iVwCharImage1"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/cd_design_img"
             android:scaleType="centerInside"
@@ -61,8 +61,8 @@
 
         <ImageView
             android:id="@+id/iVwCharImage2"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/cd_design_img"
             android:scaleType="centerInside"
@@ -105,8 +105,8 @@
 
         <ImageView
             android:id="@+id/iVwCharImage3"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/cd_design_img"
             android:scaleType="centerInside"

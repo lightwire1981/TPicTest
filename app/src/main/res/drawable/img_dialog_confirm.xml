@@ -4,5 +4,9 @@
         android:drawable="@drawable/btn_dialog_confirm"
         android:width="130dp"
         android:height="45dp"
+        android:start="1dp"
+        android:end="1dp"
+        android:top="1dp"
+        android:bottom="1dp"
         />
 </layer-list>
