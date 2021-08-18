@@ -1,6 +1,5 @@
 package com.example.tpictest.fragments;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,8 +12,8 @@ import android.view.ViewGroup;
 
 import com.example.tpictest.ChildRegistActivity;
 import com.example.tpictest.R;
-import com.example.tpictest.list_code.ListAdapterCharSelect;
-import com.example.tpictest.list_code.ListItemCharSelect;
+import com.example.tpictest.list_code.ListAdapterPersonSelect;
+import com.example.tpictest.list_code.ListItemPersonSelect;
 import com.example.tpictest.list_code.RecyclerDecoration;
 
 import org.json.JSONArray;
@@ -27,10 +26,10 @@ import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CharacterSelectFragment#newInstance} factory method to
+ * Use the {@link PersonalSelectFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CharacterSelectFragment extends Fragment {
+public class PersonalSelectFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,10 +40,10 @@ public class CharacterSelectFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public static RecyclerView characterList;
-    private ListAdapterCharSelect listAdapterCharSelect;
+    public static RecyclerView personalityList;
+    private ListAdapterPersonSelect listAdapterPersonSelect;
 
-    public CharacterSelectFragment() {
+    public PersonalSelectFragment() {
         // Required empty public constructor
     }
 
@@ -54,11 +53,11 @@ public class CharacterSelectFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CharacterSelectFragment.
+     * @return A new instance of fragment PersonalSelectFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CharacterSelectFragment newInstance(String param1, String param2) {
-        CharacterSelectFragment fragment = new CharacterSelectFragment();
+    public static PersonalSelectFragment newInstance(String param1, String param2) {
+        PersonalSelectFragment fragment = new PersonalSelectFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -79,60 +78,50 @@ public class CharacterSelectFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_character_select, container, false);
+        View view = inflater.inflate(R.layout.fragment_personal_select, container, false);
 
-        characterList = view.findViewById(R.id.rcyclVwCharacterList);
-//        setCharacterList(characterList);
-        setCharacterListTemp(characterList);
+        personalityList = view.findViewById(R.id.rcyclVwPersonalityList);
+
+        setPersonalityListTemp(personalityList);
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        ChildRegistActivity.RegistryStep = ChildRegistActivity.CHILD_REGISTRY_STEP.CHARACTER;
-    }
+    private void setPersonalityListTemp(RecyclerView recyclerView) {
+        ArrayList<ListItemPersonSelect> mList = new ArrayList<>();
+        String[] name = getResources().getStringArray(R.array.txt_kids_personal);
 
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private void setCharacterListTemp(RecyclerView recyclerView) {
-        ArrayList<ListItemCharSelect> mList = new ArrayList<>();
-        String[] name = getResources().getStringArray(R.array.txt_kids_char);
+        // 성향 7개 가정하여 셋팅
+        int index=0;
 
-        // 캐릭터 11개 가정하여 셋팅
-        int index = 0;
-
-        for (int i = 0; i < 3; i++) {
-            ListItemCharSelect item = new ListItemCharSelect();
+        for (int i=0; i < 3; i++) {
+            ListItemPersonSelect item = new ListItemPersonSelect();
             item.setItemCount(3);
-            item.setCharDrawable1(requireContext().getDrawable(R.drawable.tp_icon_brand09_off));
-            item.setCharName1(name[index]);
+//            item.setPsnlDrawable1(requireContext().getDrawable(R.drawable.tp_icon_brand09_off));
+            item.setPsnlName1(name[index]);
             index++;
-            item.setCharDrawable2(requireContext().getDrawable(R.drawable.tp_icon_brand09_off));
-            item.setCharName2(name[index]);
+            // do set drawable2
+            item.setPsnlName2(name[index]);
             index++;
-            item.setCharDrawable3(requireContext().getDrawable(R.drawable.tp_icon_brand09_off));
-            item.setCharName3(name[index]);
+            // do set drawable3
+            item.setPsnlName3(name[index]);
             index++;
             mList.add(item);
         }
-        ListItemCharSelect item = new ListItemCharSelect();
-        item.setItemCount(2);
-        item.setCharDrawable1(requireContext().getDrawable(R.drawable.tp_icon_brand09_off));
-        item.setCharName1(name[index]);
-        index++;
-        item.setCharDrawable2(requireContext().getDrawable(R.drawable.tp_icon_brand09_off));
-        item.setCharName2(name[index]);
+        ListItemPersonSelect item = new ListItemPersonSelect();
+        item.setItemCount(1);
+        item.setPsnlName1(name[index]);
         mList.add(item);
 
-        listAdapterCharSelect = new ListAdapterCharSelect(mList);
-        recyclerView.setAdapter(listAdapterCharSelect);
+        listAdapterPersonSelect = new ListAdapterPersonSelect(mList);
+        recyclerView.setAdapter(listAdapterPersonSelect);
         setLayoutManager(recyclerView);
     }
 
-    private void setCharacterList(RecyclerView recyclerView) {
-        ArrayList<ListItemCharSelect> mList = new ArrayList<>();
 
-        JSONArray jsonArray = getCharacterData();
+    private void setPersonalityList(RecyclerView recyclerView) {
+        ArrayList<ListItemPersonSelect> mList = new ArrayList<>();
+
+        JSONArray jsonArray = getPersonalityData();
         int count = jsonArray.length();
 
         int quotient = count/3;
@@ -142,10 +131,9 @@ public class CharacterSelectFragment extends Fragment {
             for (int index=0; index < jsonArray.length(); index++) {
                 try {
                     JSONObject jsonObject = jsonArray.getJSONObject(index);
-                    ListItemCharSelect item = new ListItemCharSelect();
+                    ListItemPersonSelect item = new ListItemPersonSelect();
                     item.setItemCount(count);
                     // do ListItem work
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -153,7 +141,7 @@ public class CharacterSelectFragment extends Fragment {
         } else {
             int index = 0;
             for (int x = 0; x < quotient; x++) {
-                ListItemCharSelect item = new ListItemCharSelect();
+                ListItemPersonSelect item = new ListItemPersonSelect();
                 item.setItemCount(3);
                 try {
                     JSONObject jsonObject = jsonArray.getJSONObject(index);
@@ -173,7 +161,7 @@ public class CharacterSelectFragment extends Fragment {
 
             // after quotient work index is full of 3x value -> ex) 3, 6, 9, 12 ...
             // remainder is only 0 or 1 or 2
-            ListItemCharSelect item = new ListItemCharSelect();
+            ListItemPersonSelect item = new ListItemPersonSelect();
             switch (remainder) {
                 case 1:
                     item.setItemCount(1);
@@ -204,31 +192,31 @@ public class CharacterSelectFragment extends Fragment {
         }
     }
 
-    private JSONArray getCharacterData() {
+    private JSONArray getPersonalityData() {
 
         // do Database Work;
 
         return new JSONArray();
     }
 
-    public static void getSelectedChar() {
-        Map<String, String> data =  ((ListAdapterCharSelect) Objects.requireNonNull(characterList.getAdapter())).getSelectedChar();
+    public static void getSelectedPerson() {
+        Map<String, String> data = ((ListAdapterPersonSelect) Objects.requireNonNull(personalityList.getAdapter())).getSelectedPerson();
         if (data.size() < 1) {
-            ChildRegistActivity.CHILD_DATA.remove("child_character");
+            ChildRegistActivity.CHILD_DATA.remove("child_personality");
             return;
         }
-        StringBuilder selectedChar= new StringBuilder();
-        int index =0;
+        StringBuilder selectedPerson = new StringBuilder();
+        int index = 0;
         for (String key : data.keySet()) {
-            selectedChar.append(data.get(key));
+            selectedPerson.append(data.get(key));
             index++;
             if (index < data.size()) {
-                selectedChar.append(",");
+                selectedPerson.append(",");
             }
         }
 
         try {
-            ChildRegistActivity.CHILD_DATA.put("child_character", selectedChar.toString());
+            ChildRegistActivity.CHILD_DATA.put("child_personality", selectedPerson.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.tpictest.fragments.CharacterSelectFragment;
 import com.example.tpictest.fragments.ChildRegistFragment;
+import com.example.tpictest.fragments.PersonalSelectFragment;
 import com.example.tpictest.utils.CustomDialog;
 
 import org.json.JSONObject;
@@ -68,8 +69,22 @@ public class ChildRegistActivity extends AppCompatActivity {
             case CHARACTER:
                 CharacterSelectFragment.getSelectedChar();
                 Log.i(TAG, CHILD_DATA.toString());
+                if (!CHILD_DATA.has("child_character")) {
+                    // Alert Dialog Show
+                    return;
+                }
+                PersonalSelectFragment personalSelectFragment = new PersonalSelectFragment();
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.add(R.id.fLyChildRegistMain, personalSelectFragment).commit();
                 break;
             case PERSONALITY:
+                PersonalSelectFragment.getSelectedPerson();
+                Log.i(TAG, CHILD_DATA.toString());
+                if (!CHILD_DATA.has("child_personality")) {
+                    // Alert Dialog show
+                    return;
+                }
+
                 break;
             default:
                 break;
@@ -79,8 +94,6 @@ public class ChildRegistActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         switch (RegistryStep) {
-            case ADD:
-                break;
             case CHARACTER:
                 CHILD_DATA.remove("child_character");
                 RegistryStep = CHILD_REGISTRY_STEP.ADD;

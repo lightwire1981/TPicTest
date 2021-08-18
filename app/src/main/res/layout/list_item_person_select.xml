@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:weightSum="3"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    android:weightSum="3">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cLyCharSelect1"
+        android:id="@+id/cLyPersonSelect1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1">
 
         <ImageView
-            android:id="@+id/iVwCharImage1"
+            android:id="@+id/iVwPersonImage1"
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:adjustViewBounds="true"
@@ -25,10 +24,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/tp_icon_brand09_off" />
+            tools:srcCompat="@tools:sample/avatars" />
 
         <CheckBox
-            android:id="@+id/cKbCharSelect1"
+            android:id="@+id/cKbPersonSelect1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/img_select_cursor"
@@ -40,11 +39,11 @@
             tools:ignore="DuplicateSpeakableTextCheck" />
 
         <TextView
-            android:id="@+id/tVwCharName1"
+            android:id="@+id/tVwPersonName1"
             style="@style/SelectTextNormalStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_rank_character"
+            android:text="@string/txt_kids_personal_name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,14 +52,14 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cLyCharSelect2"
+        android:id="@+id/cLyPersonSelect2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:visibility="invisible">
 
         <ImageView
-            android:id="@+id/iVwCharImage2"
+            android:id="@+id/iVwPersonImage2"
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:adjustViewBounds="true"
@@ -70,10 +69,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/tp_icon_brand09_off" />
+            tools:srcCompat="@tools:sample/avatars" />
 
         <CheckBox
-            android:id="@+id/cKbCharSelect2"
+            android:id="@+id/cKbPersonSelect2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/img_select_cursor"
@@ -84,27 +83,28 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tVwCharName2"
+            android:id="@+id/tVwPersonName2"
             style="@style/SelectTextNormalStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_rank_character"
+            android:text="@string/txt_kids_personal_name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.95" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cLyCharSelect3"
+        android:id="@+id/cLyPersonSelect3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:visibility="invisible">
 
         <ImageView
-            android:id="@+id/iVwCharImage3"
+            android:id="@+id/iVwPersonImage3"
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:adjustViewBounds="true"
@@ -114,10 +114,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/tp_icon_brand09_off" />
+            tools:srcCompat="@tools:sample/avatars" />
 
         <CheckBox
-            android:id="@+id/cKbCharSelect3"
+            android:id="@+id/cKbPersonSelect3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/img_select_cursor"
@@ -128,16 +128,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tVwCharName3"
+            android:id="@+id/tVwPersonName3"
             style="@style/SelectTextNormalStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_rank_character"
+            android:text="@string/txt_kids_personal_name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.95" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

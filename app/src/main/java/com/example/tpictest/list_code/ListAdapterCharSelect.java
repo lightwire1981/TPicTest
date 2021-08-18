@@ -18,8 +18,6 @@ import com.example.tpictest.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 
 public class ListAdapterCharSelect extends RecyclerView.Adapter<ListAdapterCharSelect.ViewHolder>{
@@ -151,9 +149,9 @@ public class ListAdapterCharSelect extends RecyclerView.Adapter<ListAdapterCharS
 
         private void textViewStyleChange(boolean checked, TextView textView) {
             if (checked) {
-                textView.setTextAppearance(R.style.CharSelectFocusStyle);
+                textView.setTextAppearance(R.style.SelectTextFocusStyle);
             } else {
-                textView.setTextAppearance(R.style.CharSelectNormalStyle);
+                textView.setTextAppearance(R.style.SelectTextNormalStyle);
             }
         }
     }

@@ -106,12 +106,12 @@
     </style>
 
 
-    <style name="CharSelectNormalStyle">
+    <style name="SelectTextNormalStyle">
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/black</item>
     </style>
-    <style name="CharSelectFocusStyle">
+    <style name="SelectTextFocusStyle">
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#FFFFFF</item>
