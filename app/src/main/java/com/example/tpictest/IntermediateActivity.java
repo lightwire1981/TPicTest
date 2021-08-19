@@ -141,15 +141,15 @@ public class IntermediateActivity extends AppCompatActivity {
         JSONObject response;
         try {
             response = jsonObject.getJSONObject("response");
-            String id = response.getString("id");
-            String email = response.getString("email");
+//            String id = response.getString("id");
+//            String email = response.getString("email");
+            response.put("phone", phoneNumber);
+            new PreferenceSetting(getBaseContext()).saveUserInfo(response);
 
-            Log.i(NAVER, "id : "+id +" email : "+email);
+//            Log.i(NAVER, "id : "+id +" email : "+email);
 
             new PreferenceSetting(getBaseContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, NAVER);
-            Intent intent = new Intent(getBaseContext(), MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            LoadMainPage();
         } catch (JSONException e) {
             e.printStackTrace();
         }

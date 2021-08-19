@@ -75,6 +75,12 @@ public class PersonalSelectFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        ChildRegistActivity.RegistryStep = ChildRegistActivity.CHILD_REGISTRY_STEP.PERSONALITY;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -93,7 +99,7 @@ public class PersonalSelectFragment extends Fragment {
         // 성향 7개 가정하여 셋팅
         int index=0;
 
-        for (int i=0; i < 3; i++) {
+        for (int i=0; i < 2; i++) {
             ListItemPersonSelect item = new ListItemPersonSelect();
             item.setItemCount(3);
 //            item.setPsnlDrawable1(requireContext().getDrawable(R.drawable.tp_icon_brand09_off));
@@ -199,11 +205,11 @@ public class PersonalSelectFragment extends Fragment {
         return new JSONArray();
     }
 
-    public static void getSelectedPerson() {
+    public static int getSelectedPerson() {
         Map<String, String> data = ((ListAdapterPersonSelect) Objects.requireNonNull(personalityList.getAdapter())).getSelectedPerson();
         if (data.size() < 1) {
             ChildRegistActivity.CHILD_DATA.remove("child_personality");
-            return;
+            return 0;
         }
         StringBuilder selectedPerson = new StringBuilder();
         int index = 0;
@@ -220,6 +226,7 @@ public class PersonalSelectFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return data.size();
     }
 
     private void setLayoutManager(RecyclerView recyclerView) {

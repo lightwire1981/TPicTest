@@ -48,10 +48,9 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
 
         switch (requestType) {
             case JOIN:
+            case CREATE_KID:
                 parameters = MakeParameter(params);
                 Log.i(TAG, "Parameter Check ::" + parameters);
-                break;
-            case CREATE_KID:
                 break;
             case LIKE:
                 break;
@@ -110,10 +109,9 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
         }
         switch (requestType) {
             case JOIN:
+            case CREATE_KID:
                 Log.d(TAG, response);
                 executeListener.onResult(response);
-                break;
-            case CREATE_KID:
                 break;
             case LIKE:
                 break;
@@ -126,12 +124,26 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
     }
 
     private String MakeParameter(String... params) {
+        //region Parameter Value
+
         String USE = "USE=";
+        String AND = "&";
+
         String USER_ID = "USER_ID=";
         String USER_NAME = "USER_NAME=";
         String USER_EMAIL = "USER_EMAIL=";
         String USER_PHONE = "USER_PHONE=";
-        String AND = "&";
+
+
+        String CHILD_ORDER = "CHILD_ORDER=";
+        String CHILD_GENDER = "CHILD_GENDER=";
+        String CHILD_NICK = "CHILD_NICK=";
+        String CHILD_BIRTH = "CHILD_BIRTH=";
+        String CHILD_CHAR = "CHILD_CHAR=";
+        String CHILD_PERSON = "CHILD_PERSON=";
+
+
+        //endregion
 
         String parameterValue;
         try {
@@ -147,6 +159,16 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                             USER_EMAIL +jsonObject.get("email").toString() + AND +
                             USER_PHONE +jsonObject.get("phone").toString()
                     ;
+                    break;
+                case CREATE_KID:
+                    parameterValue = USE + params[0] + AND +
+                            USER_ID +jsonObject.get("id").toString() + AND +
+                            CHILD_ORDER +jsonObject.get("child_order").toString() + AND +
+                            CHILD_GENDER +jsonObject.get("child_gender").toString() + AND +
+                            CHILD_NICK +jsonObject.get("child_nick").toString() + AND +
+                            CHILD_BIRTH +jsonObject.get("child_birth").toString() + AND +
+                            CHILD_CHAR +jsonObject.get("child_character").toString() + AND +
+                            CHILD_PERSON +jsonObject.get("child_personality").toString();
                     break;
                 case TEST:
                     parameterValue = USE + params[0];

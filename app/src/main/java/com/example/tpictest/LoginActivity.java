@@ -189,10 +189,15 @@ public class LoginActivity extends AppCompatActivity {
             response = jsonObject.getJSONObject("response");
             String id = response.getString("id");
             String email = response.getString("email");
+            response.put("phone", phoneNumber);
+            UserJoin(response);
+            PreferenceSetting preferenceSetting = new PreferenceSetting(getBaseContext());
+            preferenceSetting.saveUserInfo(response);
+
 
             Log.i(NAVER, "id : "+id +" email : "+email);
 
-            new PreferenceSetting(getBaseContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, NAVER);
+            preferenceSetting.savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, NAVER);
             Intent intent = new Intent(getBaseContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
@@ -297,10 +302,7 @@ public class LoginActivity extends AppCompatActivity {
         new DatabaseRequest(getBaseContext(), executeListener).execute(DBRequestType.JOIN.name(), object.toString());
     }
 
-    DatabaseRequest.ExecuteListener executeListener = result -> {
-        Log.i("Join Result", result[0]);
-
-    };
+    DatabaseRequest.ExecuteListener executeListener = result -> Log.i("Join Result", result[0]);
 
 
     @Override

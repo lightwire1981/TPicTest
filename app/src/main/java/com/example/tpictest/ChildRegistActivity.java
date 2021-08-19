@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.tpictest.db.DBRequestType;
+import com.example.tpictest.db.DatabaseRequest;
 import com.example.tpictest.fragments.CharacterSelectFragment;
 import com.example.tpictest.fragments.ChildRegistFragment;
 import com.example.tpictest.fragments.PersonalSelectFragment;
@@ -55,6 +57,7 @@ public class ChildRegistActivity extends AppCompatActivity {
         Log.d(TAG, RegistryStep.name());
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        int selectCount;
         switch(RegistryStep) {
             case ADD:
                 Log.i(TAG, CHILD_DATA.toString());
@@ -67,10 +70,15 @@ public class ChildRegistActivity extends AppCompatActivity {
                 fragmentTransaction.add(R.id.fLyChildRegistMain, characterSelectFragment).commit();
                 break;
             case CHARACTER:
-                CharacterSelectFragment.getSelectedChar();
+                selectCount = CharacterSelectFragment.getSelectedChar();
                 Log.i(TAG, CHILD_DATA.toString());
-                if (!CHILD_DATA.has("child_character")) {
+//                if (!CHILD_DATA.has("child_character")) {
+//                    // Alert Dialog Show
+//                    return;
+//                }
+                if (selectCount < 3) {
                     // Alert Dialog Show
+                    new CustomDialog(ChildRegistActivity.this, CustomDialog.DIALOG_CATEGORY.SELECT_INVALID).show();
                     return;
                 }
                 PersonalSelectFragment personalSelectFragment = new PersonalSelectFragment();
@@ -78,18 +86,25 @@ public class ChildRegistActivity extends AppCompatActivity {
                 fragmentTransaction.add(R.id.fLyChildRegistMain, personalSelectFragment).commit();
                 break;
             case PERSONALITY:
-                PersonalSelectFragment.getSelectedPerson();
+                selectCount = PersonalSelectFragment.getSelectedPerson();
                 Log.i(TAG, CHILD_DATA.toString());
-                if (!CHILD_DATA.has("child_personality")) {
+                if (!CHILD_DATA.has("child_personality")||selectCount > 3) {
                     // Alert Dialog show
+                    new CustomDialog(ChildRegistActivity.this, CustomDialog.DIALOG_CATEGORY.SELECT_INVALID).show();
                     return;
                 }
-
+                ChildRegistration(CHILD_DATA);
                 break;
             default:
                 break;
         }
     };
+
+    private void ChildRegistration(JSONObject object) {
+        new DatabaseRequest(getBaseContext(), executeListener).execute(DBRequestType.CREATE_KID.name(), object.toString());
+    }
+
+    private DatabaseRequest.ExecuteListener executeListener = result -> Log.i("Join Result", result[0]);
 
     @Override
     public void onBackPressed() {
@@ -99,6 +114,7 @@ public class ChildRegistActivity extends AppCompatActivity {
                 RegistryStep = CHILD_REGISTRY_STEP.ADD;
                 break;
             case PERSONALITY:
+                CHILD_DATA.remove("child_personality");
                 RegistryStep = CHILD_REGISTRY_STEP.CHARACTER;
                 break;
             default:

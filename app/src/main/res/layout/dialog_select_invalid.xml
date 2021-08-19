@@ -7,27 +7,26 @@
     android:background="@drawable/tp_popup_bg01">
 
     <TextView
-        android:id="@+id/textView40"
+        android:id="@+id/textView45"
         style="@style/DialogTitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/txt_dlg_registry_title"
+        android:text="@string/txt_dlg_select_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView41"
+        android:id="@+id/textView46"
+        style="@style/DialogContentTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="@string/txt_dlg_registry_invalid"
-        android:textColor="#000000"
-        android:textSize="16sp"
+        android:text="@string/txt_dlg_select_invalid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView40" />
+        app:layout_constraintTop_toBottomOf="@+id/textView45" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -38,10 +37,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView41">
+        app:layout_constraintTop_toBottomOf="@+id/textView46">
 
         <Button
-            android:id="@+id/btnRegistryConfirm"
+            android:id="@+id/btnSelectConfirm"
             style="@style/HomeButtonBorderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

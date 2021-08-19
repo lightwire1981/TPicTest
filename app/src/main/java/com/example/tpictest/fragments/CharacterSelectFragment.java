@@ -211,11 +211,11 @@ public class CharacterSelectFragment extends Fragment {
         return new JSONArray();
     }
 
-    public static void getSelectedChar() {
+    public static int getSelectedChar() {
         Map<String, String> data =  ((ListAdapterCharSelect) Objects.requireNonNull(characterList.getAdapter())).getSelectedChar();
         if (data.size() < 1) {
             ChildRegistActivity.CHILD_DATA.remove("child_character");
-            return;
+            return 0;
         }
         StringBuilder selectedChar= new StringBuilder();
         int index =0;
@@ -232,6 +232,7 @@ public class CharacterSelectFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return data.size();
     }
 
     private void setLayoutManager(RecyclerView recyclerView) {

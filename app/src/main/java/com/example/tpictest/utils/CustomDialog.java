@@ -20,6 +20,7 @@ public class CustomDialog extends Dialog {
         LOGIN,
         PASSWORD,
         FORM_INVALID,
+        SELECT_INVALID,
         EXIT
     }
 
@@ -59,6 +60,10 @@ public class CustomDialog extends Dialog {
                 setContentView(R.layout.dialog_form_invalid);
                 findViewById(R.id.btnRegistryConfirm).setOnClickListener(onClickListener);
                 break;
+            case SELECT_INVALID:
+                setContentView(R.layout.dialog_select_invalid);
+                findViewById(R.id.btnSelectConfirm).setOnClickListener(onClickListener);
+                break;
             case EXIT:
                 setContentView(R.layout.dialog_exit_confirm);
                 findViewById(R.id.btnDlgExitNo).setOnClickListener(onClickListener);
@@ -83,6 +88,7 @@ public class CustomDialog extends Dialog {
                 break;
             case R.id.btnDlgExitNo:
             case R.id.btnRegistryConfirm:
+            case R.id.btnSelectConfirm:
                 dismiss();
                 break;
             case R.id.btnDlgExitYes:
@@ -105,6 +111,7 @@ public class CustomDialog extends Dialog {
         switch (dialog_category) {
             case LOGIN:
             case FORM_INVALID:
+            case SELECT_INVALID:
             case EXIT:
                 layoutParams.height = displayMetrics.heightPixels;
                 layoutParams.width = (int) (displayMetrics.widthPixels * 0.9);

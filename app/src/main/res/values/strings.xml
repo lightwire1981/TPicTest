@@ -139,6 +139,9 @@
     <string name="txt_dlg_registry_title">등록 안내</string>
     <string name="txt_dlg_registry_invalid">모든 정보를 입력하셔야 합니다</string>
 
+    <string name="txt_dlg_select_title">선택 안내</string>
+    <string name="txt_dlg_select_invalid">지정된 갯수만큼 선택하셔야 합니다</string>
+
     <string name="txt_dlg_exit_title">종료 안내</string>
     <string name="txt_dlg_exit_confirm">앱을 종료하시겠습니까?\n</string>
 
