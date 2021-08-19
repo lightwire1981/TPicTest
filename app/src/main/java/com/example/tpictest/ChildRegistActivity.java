@@ -114,7 +114,10 @@ public class ChildRegistActivity extends AppCompatActivity {
         new DatabaseRequest(getBaseContext(), executeListener).execute(DBRequestType.CREATE_KID.name(), object.toString());
     }
 
-    private DatabaseRequest.ExecuteListener executeListener = result -> Log.i("Join Result", result[0]);
+    private DatabaseRequest.ExecuteListener executeListener = result -> {
+        Log.i("Join Result", result[0]);
+//        finish();
+    };
 
     @Override
     public void onBackPressed() {
