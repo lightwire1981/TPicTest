@@ -15,7 +15,9 @@ import com.example.tpictest.fragments.CharacterSelectFragment;
 import com.example.tpictest.fragments.ChildRegistFragment;
 import com.example.tpictest.fragments.PersonalSelectFragment;
 import com.example.tpictest.utils.CustomDialog;
+import com.example.tpictest.utils.PreferenceSetting;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ChildRegistActivity extends AppCompatActivity {
@@ -101,6 +103,14 @@ public class ChildRegistActivity extends AppCompatActivity {
     };
 
     private void ChildRegistration(JSONObject object) {
+        String userInfo = new PreferenceSetting(getBaseContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO);
+        try {
+            JSONObject jsonObject = new JSONObject(userInfo);
+            object.put("id", jsonObject.get("id"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         new DatabaseRequest(getBaseContext(), executeListener).execute(DBRequestType.CREATE_KID.name(), object.toString());
     }
 
