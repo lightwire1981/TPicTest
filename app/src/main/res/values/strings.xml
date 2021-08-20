@@ -22,7 +22,7 @@
 
     <!--    Home Button Text    -->
     <string name="btn_dummy">내용 없음</string>
-    <string name="btn_home">홈</string>
+    <string name="btn_home">홈화면</string>
     <string name="btn_category">카테고리</string>
     <string name="btn_evaluate">평가</string>
     <string name="btn_ranking">랭킹</string>
@@ -38,7 +38,11 @@
     <string name="btn_rank_character">캐릭터</string>
 
 
+    <string name="txt_category_brand">브랜드</string>
+
+
     <!--    Program Code    -->
+    <string name="txt_null"></string>
     <string name="txt_loading00">로딩 중…</string>
     <string name="txt_main_custom_toy">%s님을 위한 맞춤 장난감</string>
     <string name="txt_main_new_toy">새로 나온 장난감</string>

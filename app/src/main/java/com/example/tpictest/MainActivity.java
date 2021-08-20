@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import com.example.tpictest.fragments.CategoryFragment;
 import com.example.tpictest.fragments.HomeFragment;
 import com.example.tpictest.fragments.MyPageFragment;
 import com.example.tpictest.fragments.RankingFragment;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.iBtn_MHome).setOnClickListener(onClickListener);
         findViewById(R.id.iBtn_MRank).setOnClickListener(onClickListener);
-
+        findViewById(R.id.iBtn_MCategory).setOnClickListener(onClickListener);
 
         findViewById(R.id.iBtn_Mmypage).setOnClickListener(onClickListener);
     }
@@ -63,13 +64,21 @@ public class MainActivity extends AppCompatActivity {
 //                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.replace(R.id.fLyMain, homeFragment).commit();
                 break;
+            case R.id.iBtn_MCategory:
+                if (CURRENT_PAGE.equals(PAGES.CATEGORY)) {
+                    return;
+                }
+                CategoryFragment categoryFragment = new CategoryFragment();
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.add(R.id.fLyMain, categoryFragment).commit();
+                break;
             case R.id.iBtn_MRank:
                 if (CURRENT_PAGE.equals(PAGES.RANKING)) {
                     return;
                 }
                 RankingFragment rankingFragment = new RankingFragment();
-//                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(R.id.fLyMain, rankingFragment).commit();
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.add(R.id.fLyMain, rankingFragment).commit();
                 break;
             case R.id.iBtn_Mmypage:
                 if (CURRENT_PAGE.equals(PAGES.MY_PAGE)) {

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.tpictest.R;
 
@@ -92,7 +93,7 @@ public class CustomDialog extends Dialog {
                 dismiss();
                 break;
             case R.id.btnDlgExitYes:
-                getOwnerActivity().moveTaskToBack(true);
+//                getOwnerActivity().moveTaskToBack(true);
                 getOwnerActivity().finishAndRemoveTask();
                 System.exit(0);
                 break;
@@ -124,6 +125,11 @@ public class CustomDialog extends Dialog {
 
         getWindow().setAttributes(layoutParams);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    }
+
+    @Override
+    public void setOnDismissListener(@Nullable OnDismissListener listener) {
+        hideNavigationBar();
     }
 
     private void hideNavigationBar() {

@@ -162,7 +162,6 @@ public class RankingFragment extends Fragment {
         switch (v.getId()) {
             case R.id.iBtnRankingBack:
                 getParentFragmentManager().popBackStack();
-                MainActivity.CURRENT_PAGE = MainActivity.PAGES.HOME;
                 break;
             default:
                 break;
