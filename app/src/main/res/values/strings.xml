@@ -36,13 +36,15 @@
     <string name="btn_rank_lego">레고</string>
     <string name="btn_rank_stuffedtoy">봉제인형</string>
     <string name="btn_rank_character">캐릭터</string>
+    <string name="btn_ad_current">00</string>
+    <string name="btn_ad_page_slicer">/</string>
 
 
     <string name="txt_category_brand">브랜드</string>
 
 
     <!--    Program Code    -->
-    <string name="txt_null"></string>
+    <string name="txt_null">%s</string>
     <string name="txt_loading00">로딩 중…</string>
     <string name="txt_main_custom_toy">%s님을 위한 맞춤 장난감</string>
     <string name="txt_main_new_toy">새로 나온 장난감</string>

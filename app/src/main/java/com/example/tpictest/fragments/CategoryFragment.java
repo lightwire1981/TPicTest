@@ -145,7 +145,7 @@ public class CategoryFragment extends Fragment {
         int quotient = count/4;
         int remainder = count%4;
 
-        // 나누어 떨어지면 4개에 나눠담고
+        // 나누어 떨어지면 4개씩 작업
         int index = 0;
         if (quotient > 0) {
             for (int x=0; x<quotient; x++) {
@@ -170,6 +170,7 @@ public class CategoryFragment extends Fragment {
                 }
             }
         }
+        // 4개 이하 작업
         ListItemCategoryBrand item = new ListItemCategoryBrand();
         if (remainder > 0) item.setItemCount(remainder);
         JSONObject brandInfo;

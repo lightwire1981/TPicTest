@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.example.tpictest.LoginActivity;
 import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
 import com.example.tpictest.db.ImageRequest;
+import com.example.tpictest.list_code.ListAdapterADSlider;
 import com.example.tpictest.list_code.ListAdapterCustomToy;
 import com.example.tpictest.list_code.ListAdapterNewToy;
 import com.example.tpictest.list_code.ListAdptMainRankingToy;
@@ -31,11 +33,13 @@ import com.example.tpictest.list_code.ListItemMainRankingToy;
 import com.example.tpictest.list_code.ListItemReviewToy;
 import com.example.tpictest.list_code.RecyclerDecoration;
 import com.example.tpictest.utils.PreferenceSetting;
+import com.example.tpictest.utils.ZoomOutPageTransformer;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -98,6 +102,24 @@ public class HomeFragment extends Fragment {
         ScrollView scrollView = view.findViewById(R.id.scrlVwMain);
         scrollView.addView(inflater.inflate(R.layout.layout_main, scrollView, false));
 
+        ViewPager2 adView = view.findViewById(R.id.vwPgrHomeAD);
+        TextView adPages = view.findViewById(R.id.tVwADtotalPage);
+        TextView adCurrentPage = view.findViewById(R.id.tVwADcurrentPage);
+
+        adView.setAdapter(new ListAdapterADSlider(setADPages(adPages)));
+        adView.setPageTransformer(new ZoomOutPageTransformer());
+        adView.setCurrentItem(1000);
+        setCurrentADPage(adCurrentPage, 0);
+        adView.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                setCurrentADPage(adCurrentPage, position%2);
+            }
+        });
+
+
+
         String isLogin = new PreferenceSetting(getContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE);
 
         switch (isLogin) {
@@ -143,8 +165,20 @@ public class HomeFragment extends Fragment {
         MainActivity.CURRENT_PAGE = MainActivity.PAGES.HOME;
     }
 
+    private int[] setADPages(TextView view) {
+        int[] adImages = {R.drawable.tp_main_banner1_01,R.drawable.tp_main_banner1_02};
+
+        ((TextView)view.findViewById(R.id.tVwADtotalPage)).setText(getString(R.string.txt_null, adImages.length+""));
+
+        return adImages;
+    }
+    private void setCurrentADPage(TextView pageCounter, int position) {
+        pageCounter.setText(getString(R.string.txt_null, (position+1)+""));
+    }
+
+
     private void setCustomToyList(RecyclerView recyclerView) {
-        ImageRequest imageRequest = new ImageRequest(getContext(), "");
+        ImageRequest imageRequest = new ImageRequest(requireContext(), "");
         imageRequest.loadInBackground();
 
         ArrayList<ListItemCustomToy> mList = new ArrayList<>();
