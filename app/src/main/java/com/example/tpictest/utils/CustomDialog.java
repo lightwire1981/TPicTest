@@ -127,11 +127,6 @@ public class CustomDialog extends Dialog {
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
-    @Override
-    public void setOnDismissListener(@Nullable OnDismissListener listener) {
-        hideNavigationBar();
-    }
-
     private void hideNavigationBar() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);

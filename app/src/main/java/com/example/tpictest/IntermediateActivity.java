@@ -194,7 +194,7 @@ public class IntermediateActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        }, 1000);
+        }, 100);
     }
 
     private String LoginCheck() {

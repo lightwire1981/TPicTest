@@ -5,22 +5,23 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
+import com.example.tpictest.db.DBRequestType;
+import com.example.tpictest.db.DatabaseRequest;
 import com.example.tpictest.fragments.CategoryFragment;
 import com.example.tpictest.fragments.HomeFragment;
 import com.example.tpictest.fragments.MyPageFragment;
 import com.example.tpictest.fragments.RankingFragment;
 import com.example.tpictest.utils.CustomDialog;
 import com.example.tpictest.utils.PreferenceSetting;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static PAGES CURRENT_PAGE;
     private static final String TAG = "TAG-MainActivity";
+    public static String ALL_GOODS_INFO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.iBtn_MHome).setOnClickListener(onClickListener);
         findViewById(R.id.iBtn_MRank).setOnClickListener(onClickListener);
         findViewById(R.id.iBtn_MCategory).setOnClickListener(onClickListener);
-
         findViewById(R.id.iBtn_Mmypage).setOnClickListener(onClickListener);
     }
 
@@ -65,19 +66,21 @@ public class MainActivity extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.fLyMain, homeFragment).commit();
                 break;
             case R.id.iBtn_MCategory:
+                Log.i(TAG, CURRENT_PAGE.name());
                 if (CURRENT_PAGE.equals(PAGES.CATEGORY)) {
                     return;
                 }
                 CategoryFragment categoryFragment = new CategoryFragment();
-                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
                 fragmentTransaction.add(R.id.fLyMain, categoryFragment).commit();
                 break;
             case R.id.iBtn_MRank:
+                Log.i(TAG, CURRENT_PAGE.name());
                 if (CURRENT_PAGE.equals(PAGES.RANKING)) {
                     return;
                 }
                 RankingFragment rankingFragment = new RankingFragment();
-                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
                 fragmentTransaction.add(R.id.fLyMain, rankingFragment).commit();
                 break;
             case R.id.iBtn_Mmypage:
@@ -109,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        getGoodsInfo();
         hideNavigationBar();
     }
 
@@ -116,6 +120,21 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.EXIT).show();
     }
+
+    private void getGoodsInfo() {
+        new DatabaseRequest(getBaseContext(), executeListener).execute(DBRequestType.GET_ALL_GOODS.name());
+    }
+
+    DatabaseRequest.ExecuteListener executeListener = result -> {
+        ALL_GOODS_INFO = result[0];
+//        try {
+//            JSONArray goodsArray = new JSONArray(result[0]);
+//            JSONObject goodsInfo = goodsArray.getJSONObject(0);
+//            Log.i(TAG, goodsInfo.get("goodsNm").toString());
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+    };
 
     private void hideNavigationBar(){
         View decorView = getWindow().getDecorView();

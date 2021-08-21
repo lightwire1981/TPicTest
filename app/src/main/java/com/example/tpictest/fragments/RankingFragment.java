@@ -161,6 +161,7 @@ public class RankingFragment extends Fragment {
     private final View.OnClickListener onClickListener = v -> {
         switch (v.getId()) {
             case R.id.iBtnRankingBack:
+                MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(0).getName());
                 getParentFragmentManager().popBackStack();
                 break;
             default:

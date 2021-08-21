@@ -7,9 +7,10 @@
 
     <ImageButton
         android:id="@+id/iBtnBrandImage1"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/cd_design_img"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,9 +22,10 @@
 
     <ImageButton
         android:id="@+id/iBtnBrandImage2"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/cd_design_img"
         android:scaleType="centerInside"
         android:visibility="invisible"
@@ -35,9 +37,10 @@
 
     <ImageButton
         android:id="@+id/iBtnBrandImage3"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/cd_design_img"
         android:scaleType="centerInside"
         android:visibility="invisible"
@@ -49,9 +52,10 @@
 
     <ImageButton
         android:id="@+id/iBtnBrandImage4"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/cd_design_img"
         android:scaleType="centerInside"
         android:visibility="invisible"

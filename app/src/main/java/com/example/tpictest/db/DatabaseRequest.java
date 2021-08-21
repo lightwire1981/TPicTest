@@ -49,6 +49,8 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
         switch (requestType) {
             case JOIN:
             case CREATE_KID:
+            case GET_ALL_GOODS:
+            case GET_ALL_BRAND:
                 parameters = MakeParameter(params);
                 Log.i(TAG, "Parameter Check ::" + parameters);
                 break;
@@ -110,6 +112,8 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
         switch (requestType) {
             case JOIN:
             case CREATE_KID:
+            case GET_ALL_GOODS:
+            case GET_ALL_BRAND:
                 Log.d(TAG, response);
                 executeListener.onResult(response);
                 break;
@@ -148,7 +152,7 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
         String parameterValue;
         try {
             JSONObject jsonObject = new JSONObject();
-            if (params[1] != null) {
+            if (params.length > 1) {
                 jsonObject = new JSONObject(params[1]);
             }
             switch (requestType) {
@@ -170,6 +174,8 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                             CHILD_CHAR +jsonObject.get("child_character").toString() + AND +
                             CHILD_PERSON +jsonObject.get("child_personality").toString();
                     break;
+                case GET_ALL_GOODS:
+                case GET_ALL_BRAND:
                 case TEST:
                     parameterValue = USE + params[0];
                     break;
