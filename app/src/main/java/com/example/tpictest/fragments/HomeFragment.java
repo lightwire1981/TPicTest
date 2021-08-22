@@ -39,7 +39,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -100,7 +99,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         ScrollView scrollView = view.findViewById(R.id.scrlVwMain);
-        scrollView.addView(inflater.inflate(R.layout.layout_main, scrollView, false));
+        scrollView.addView(inflater.inflate(R.layout.layout_home, scrollView, false));
 
         ViewPager2 adView = view.findViewById(R.id.vwPgrHomeAD);
         TextView adPages = view.findViewById(R.id.tVwADtotalPage);

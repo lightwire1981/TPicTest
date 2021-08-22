@@ -262,6 +262,7 @@ public class LoginActivity extends AppCompatActivity {
                             jsonObject.put("email", user.getKakaoAccount().getEmail());
                             jsonObject.put("phone", phoneNumber);
                             preferenceSetting.saveUserInfo(jsonObject);
+                            UserJoin(jsonObject);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -302,14 +303,21 @@ public class LoginActivity extends AppCompatActivity {
         new DatabaseRequest(getBaseContext(), executeListener).execute(DBRequestType.JOIN.name(), object.toString());
     }
 
-    DatabaseRequest.ExecuteListener executeListener = result -> Log.i("Join Result", result[0]);
+    DatabaseRequest.ExecuteListener executeListener = result -> {
+        Log.i("Join Result", result[0]);
+        LoadMainPage();
+    };
+
+    private void LoadMainPage() {
+        Intent intent = new Intent(getBaseContext(), IntermediateActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(getBaseContext(), IntermediateActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        LoadMainPage();
     }
 }

@@ -8,17 +8,25 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
+import com.example.tpictest.fragments.CategoryListFragment;
 
 import java.util.ArrayList;
 
 public class ListAdapterCategoryBrand extends RecyclerView.Adapter<ListAdapterCategoryBrand.ViewHolder> {
 
     private final ArrayList<ListItemCategoryBrand> mData;
+    private FragmentManager fragmentManager;
 
-    public ListAdapterCategoryBrand(ArrayList<ListItemCategoryBrand> list) { mData = list; }
+    public ListAdapterCategoryBrand(ArrayList<ListItemCategoryBrand> list, FragmentManager fragmentManager) {
+        mData = list;
+        this.fragmentManager = fragmentManager;
+    }
 
     @NonNull
     @Override
@@ -49,17 +57,17 @@ public class ListAdapterCategoryBrand extends RecyclerView.Adapter<ListAdapterCa
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ListItemCategoryBrand item = mData.get(position);
 
-
-
         switch (item.getItemCount()) {
             case 1:
                 holder.brandImg1.setImageDrawable(item.getBrandDrawable1());
                 holder.brandImg1.setTag(new BrandInfo(item.getBrandId1(), item.getImgUrl1()));
+                holder.brandImg1.setOnClickListener(listener);
                 break;
             case 2:
                 holder.brandImg2.setVisibility(View.VISIBLE);
                 holder.brandImg1.setTag(new BrandInfo(item.getBrandId1(), item.getImgUrl1()));
                 holder.brandImg2.setTag(new BrandInfo(item.getBrandId2(), item.getImgUrl2()));
+                holder.brandImg1.setOnClickListener(listener);
 //                holder.brandImg1.setImageDrawable(item.getBrandDrawable1());
 //                holder.brandImg2.setImageDrawable(item.getBrandDrawable2());
                 break;
@@ -69,6 +77,7 @@ public class ListAdapterCategoryBrand extends RecyclerView.Adapter<ListAdapterCa
                 holder.brandImg1.setTag(new BrandInfo(item.getBrandId1(), item.getImgUrl1()));
                 holder.brandImg2.setTag(new BrandInfo(item.getBrandId2(), item.getImgUrl2()));
                 holder.brandImg3.setTag(new BrandInfo(item.getBrandId3(), item.getImgUrl3()));
+                holder.brandImg1.setOnClickListener(listener);
 //                holder.brandImg1.setImageDrawable(item.getBrandDrawable1());
 //                holder.brandImg2.setImageDrawable(item.getBrandDrawable2());
 //                holder.brandImg3.setImageDrawable(item.getBrandDrawable3());
@@ -81,6 +90,7 @@ public class ListAdapterCategoryBrand extends RecyclerView.Adapter<ListAdapterCa
                 holder.brandImg2.setTag(new BrandInfo(item.getBrandId2(), item.getImgUrl2()));
                 holder.brandImg3.setTag(new BrandInfo(item.getBrandId3(), item.getImgUrl3()));
                 holder.brandImg4.setTag(new BrandInfo(item.getBrandId4(), item.getImgUrl4()));
+                holder.brandImg1.setOnClickListener(listener);
 //                holder.brandImg1.setImageDrawable(item.getBrandDrawable1());
 //                holder.brandImg2.setImageDrawable(item.getBrandDrawable2());
 //                holder.brandImg3.setImageDrawable(item.getBrandDrawable3());
@@ -91,6 +101,14 @@ public class ListAdapterCategoryBrand extends RecyclerView.Adapter<ListAdapterCa
         }
 
     }
+    private final View.OnClickListener listener = view -> {
+        Toast.makeText(view.getContext(), ((BrandInfo)view.getTag()).getBranID(), Toast.LENGTH_SHORT).show();
+        FragmentManager fragmentManager = this.fragmentManager;
+        CategoryListFragment categoryListFragment = new CategoryListFragment();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.addToBackStack(MainActivity.PAGES.CATEGORY.name());
+        fragmentTransaction.add(R.id.fLyMain, categoryListFragment).commit();
+    };
 
     @Override
     public int getItemCount() {
@@ -105,19 +123,9 @@ public class ListAdapterCategoryBrand extends RecyclerView.Adapter<ListAdapterCa
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             brandImg1 = itemView.findViewById(R.id.iBtnBrandImage1);
-            brandImg1.setOnClickListener(listener);
             brandImg2 = itemView.findViewById(R.id.iBtnBrandImage2);
-            brandImg2.setOnClickListener(listener);
             brandImg3 = itemView.findViewById(R.id.iBtnBrandImage3);
-            brandImg3.setOnClickListener(listener);
             brandImg4 = itemView.findViewById(R.id.iBtnBrandImage4);
-            brandImg4.setOnClickListener(listener);
         }
-
-        private final View.OnClickListener listener = view -> {
-            Toast.makeText(view.getContext(), ((BrandInfo)view.getTag()).getBranID(), Toast.LENGTH_SHORT).show();
-        };
     }
-
-
 }

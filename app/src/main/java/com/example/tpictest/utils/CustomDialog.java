@@ -94,7 +94,7 @@ public class CustomDialog extends Dialog {
                 break;
             case R.id.btnDlgExitYes:
 //                getOwnerActivity().moveTaskToBack(true);
-                getOwnerActivity().finishAndRemoveTask();
+//                getOwnerActivity().finishAndRemoveTask();
                 System.exit(0);
                 break;
             default:

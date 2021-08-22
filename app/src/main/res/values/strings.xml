@@ -46,6 +46,9 @@
     <!--    Program Code    -->
     <string name="txt_null">%s</string>
     <string name="txt_loading00">로딩 중…</string>
+    <string name="txt_permission_reason">사용자 맞춤 상품 추천 및 상품 쿠폰 발송 등을 위해서는 동의가 필요합니다.</string>
+    <string name="txt_permission_granted">앱 관련 권한이 설정 되었습니다</string>
+    <string name="txt_permission_denied">앱 관련 권한이 거부 되었습니다</string>
     <string name="txt_main_custom_toy">%s님을 위한 맞춤 장난감</string>
     <string name="txt_main_new_toy">새로 나온 장난감</string>
     <string name="txt_main_ranking_toy">분야별 랭킹</string>
@@ -66,6 +69,11 @@
     <string name="txt_rank_default">0</string>
     <string name="txt_rank_pricewon">원</string>
     <string name="txt_new_tag">신제품</string>
+
+    <string name="txt_category_list_title">카테고리 목록 타이틀</string>
+    <string name="txt_category_index">카테고리 항목</string>
+
+
     <string name="txt_more_info">더보기&#160;</string>
     <string name="txt_review_sample">특가상품 헬로카봇 구급차댄디 옐로우 리뷰입니다. 아이가 엄청 좋아합니다. 친구 로보트장난감보며 부러워 하던 아이를 위해 구입했어요. 마트를 가서 구매하려고 했지만 금액도 금액이거니와</string>
     <string name="txt_like_default">&#160;999</string>

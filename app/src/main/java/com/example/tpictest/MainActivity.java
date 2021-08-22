@@ -26,7 +26,7 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
 
     public enum PAGES {
-        HOME, CATEGORY, EVALUATE, RANKING, MY_PAGE, MY_PAGE_SUB, SEARCH
+        HOME, CATEGORY, CATEGORY_LIST, EVALUATE, RANKING, MY_PAGE, MY_PAGE_SUB, SEARCH
     }
 
     public static PAGES CURRENT_PAGE;

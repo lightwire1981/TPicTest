@@ -1,5 +1,6 @@
 package com.example.tpictest;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -23,6 +24,7 @@ import com.kakao.sdk.user.UserApiClient;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,6 +39,8 @@ public class IntermediateActivity extends AppCompatActivity {
     private String phoneNumber;
     private static OAuthLogin mOAuthLoginInstance;
 
+    private static final int PERMISSION_REQUEST = 0x0000001;
+
     @SuppressLint("HardwareIds")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +48,9 @@ public class IntermediateActivity extends AppCompatActivity {
         hideNavigationBar();
         setContentView(R.layout.activity_blank);
 
-        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        phoneNumber = telephonyManager.getLine1Number();
+
+        OnCheckPermission();
+
         if (phoneNumber != null && phoneNumber.startsWith("+82")) {
             phoneNumber = phoneNumber.replace("+82", "0");
         } else {
@@ -122,6 +117,61 @@ public class IntermediateActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("HardwareIds")
+    public void OnCheckPermission() {
+        String[] callPermissionList = new String[0];
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            callPermissionList = new String[]{
+                    Manifest.permission.READ_SMS,
+                    Manifest.permission.READ_PHONE_NUMBERS,
+                    Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+            };
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_NUMBERS)) {
+                Toast.makeText(this, R.string.txt_permission_reason, Toast.LENGTH_SHORT).show();
+                ActivityCompat.requestPermissions(this, callPermissionList, PERMISSION_REQUEST);
+            } else {
+                ActivityCompat.requestPermissions(this, callPermissionList, PERMISSION_REQUEST);
+            }
+        }
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        phoneNumber = telephonyManager.getLine1Number();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case PERMISSION_REQUEST:
+                if (grantResults.length > 0 && grantResults[0]==PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, R.string.txt_permission_granted, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, R.string.txt_permission_denied, Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case 0x0000002:
+                Log.i("null permission", "null");
+                break;
+            default:
+                break;
+        }
+    }
+
     @SuppressLint("HandlerLeak")
     private final OAuthLoginHandler mOAuthLoginHandler = new OAuthLoginHandler() {
 
@@ -174,8 +224,16 @@ public class IntermediateActivity extends AppCompatActivity {
                         PreferenceSetting preferenceSetting = new PreferenceSetting(getBaseContext());
                         preferenceSetting.savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, KAKAO);
 
-
-
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("id", user.getId());
+                            jsonObject.put("name", user.getProperties().get("nickname"));
+                            jsonObject.put("email", user.getKakaoAccount().getEmail());
+                            jsonObject.put("phone", phoneNumber);
+                            preferenceSetting.saveUserInfo(jsonObject);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         Toast.makeText(getApplicationContext(), Objects.requireNonNull(user.getProperties()).get("nickname")+" 님 로그인", Toast.LENGTH_SHORT).show();
                         LoadMainPage();
                     }
