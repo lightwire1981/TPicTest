@@ -82,6 +82,7 @@ public class MyPageFragment extends Fragment {
         }
         view.findViewById(R.id.iBtnMyPageChangeInfo).setOnClickListener(onClickListener);
         view.findViewById(R.id.btnMyPageKidsManager).setOnClickListener(onClickListener);
+        view.findViewById(R.id.btnMyPageSetting).setOnClickListener(onClickListener);
         view.findViewById(R.id.btnLoginCall).setOnClickListener(onClickListener);
 
         return view;
@@ -108,8 +109,13 @@ public class MyPageFragment extends Fragment {
             case R.id.btnMyPageKidsManager:
                 MyChildFragment myChildFragment = new MyChildFragment();
 //                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(getId(), myChildFragment).commit();
+                fragmentTransaction.addToBackStack(MainActivity.CURRENT_PAGE.name());
+                fragmentTransaction.add(getId(), myChildFragment).commit();
+                break;
+            case R.id.btnMyPageSetting:
+                SettingFragment settingFragment = new SettingFragment();
+                fragmentTransaction.addToBackStack(MainActivity.CURRENT_PAGE.name());
+                fragmentTransaction.add(getId(), settingFragment).commit();
                 break;
             case R.id.btnLoginCall:
                 Intent intent = new Intent(getContext(), LoginActivity.class);

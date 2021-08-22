@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tpictest.ChildRegistActivity;
+import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
 import com.example.tpictest.utils.MakeDate;
 
@@ -90,6 +91,8 @@ public class ChildRegistFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_child_regist, container, false);
 
+        view.findViewById(R.id.iBtnAddChildBack).setOnClickListener(onClickListener);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 getContext(),
                 R.layout.spinner_kid_order,
@@ -124,6 +127,11 @@ public class ChildRegistFragment extends Fragment {
 
         return view;
     }
+
+    private View.OnClickListener onClickListener = view -> {
+        MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(0).getName());
+        getParentFragmentManager().popBackStack();
+    };
 
     private final TextWatcher watcher = new TextWatcher() {
         @Override

@@ -148,7 +148,9 @@
     <string name="txt_dlg_yes">확인</string>
     <string name="txt_dlg_no">취소</string>
     <string name="txt_dlg_login_title">로그인 안내</string>
+    <string name="txt_dlg_logout_title">로그아웃 안내</string>
     <string name="txt_dlg_login_confirm">로그인 후 사용 가능합니다.\n로그인 하시겠습니까?</string>
+    <string name="txt_dlg_logout_confirm">로그아웃 하시겠습니까?</string>
 
     <string name="txt_dlg_registry_title">등록 안내</string>
     <string name="txt_dlg_registry_invalid">모든 정보를 입력하셔야 합니다</string>
@@ -159,6 +161,25 @@
     <string name="txt_dlg_exit_title">종료 안내</string>
     <string name="txt_dlg_exit_confirm">앱을 종료하시겠습니까?\n</string>
 
+    <string name="txt_login">로그인</string>
+    <string name="txt_login_auto">자동로그인</string>
+    <string name="txt_login_id">아이디</string>
+    <string name="txt_login_at">==</string>
+    <string name="txt_login_password">비밀번호</string>
+    <string name="txt_login_hold">로그인 유지</string>
+    <string name="txt_email_join">이메일 회원가입</string>
+    <string name="txt_find_password">비밀번호 찾기</string>
+
+    <string name="txt_setting">설정</string>
+    <string name="txt_sample_email">test@mail.com</string>
+    <string name="txt_logout">로그아웃</string>
+    <string name="txt_alarm">알림 설정</string>
+    <string name="txt_push_alarm">푸시 알림 설정</string>
+    <string name="txt_night_alarm">야간 알림 (21~08시)</string>
+    <string name="txt_information">정보</string>
+    <string name="txt_version_info">버전정보</string>
+    <string name="txt_version_code">ver 1.0.0</string>
+
 
     <!--    EditText Hint    -->
     <string name="hint_search">검색어를 입력하세요</string>
@@ -167,14 +188,17 @@
 
     <!--  KAKAO NATIVE APP KEY  -->
     <string name="kakao_native_appkey">658704b697f8ed991e142e40d859e38d</string>
+    <string name="kakao_logout">카카오 로그아웃</string>
 
     <!--  NAVER Login INFO  -->
     <string name="naver_client_id">F4hW0qayLXGsz_QATg7V</string>
     <string name="naver_client_secret">fqygVCwzdP</string>
     <string name="naver_client_name">Tpic test</string>
+    <string name="naver_logout">네이버 로그아웃</string>
 
     <!--  facebook Login INFO  -->
     <string name="facebook_app_id">393843192200505</string>
     <string name="fb_login_protocol_scheme">fb393843192200505</string>
+    <string name="facebook_logout">페이스북 로그아웃</string>
 
 </resources>

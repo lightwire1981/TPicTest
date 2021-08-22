@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.tpictest.ChildRegistActivity;
+import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
 
 /**
@@ -73,6 +74,8 @@ public class MyChildFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_child, container, false);
 
+        view.findViewById(R.id.iBtnChildManagerBack).setOnClickListener(onClickListener);
+
         TableLayout tableLayout = view.findViewById(R.id.tLyKidsTable);
         Log.i(TAG, tableLayout.getChildCount()+"");
 
@@ -89,12 +92,22 @@ public class MyChildFragment extends Fragment {
         return view;
     }
 
+    @SuppressLint("NonConstantResourceId")
     private final View.OnClickListener onClickListener = v -> {
-        if (v.getTag() == null){
-                Intent intent = new Intent(getContext(), ChildRegistActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+        switch (v.getId()) {
+            case R.id.iBtnChildManagerBack:
+                MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(0).getName());
+                getParentFragmentManager().popBackStack();
+                break;
+            default:
+                if (v.getTag() == null){
+                    Intent intent = new Intent(getContext(), ChildRegistActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
 //            new CustomDialog(getContext(), CustomDialog.DIALOG_CATEGORY.ADD_CHILD).show();
+                }
+                break;
         }
+
     };
 }

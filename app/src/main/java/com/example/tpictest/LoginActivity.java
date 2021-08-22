@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -23,11 +25,13 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.GraphRequest;
 import com.facebook.LoginStatusCallback;
+import com.facebook.login.Login;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.kakao.sdk.user.UserApiClient;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
+import com.nhn.android.naverlogin.ui.view.OAuthLoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,9 +47,10 @@ public class LoginActivity extends AppCompatActivity {
     public static final String NO_LOGIN = "NO_LOGIN";
     private static OAuthLogin mOAuthLoginInstance;
 //    public static String accessToken;
-//    OAuthLoginButton mOAuthLoginButton;
+    OAuthLoginButton mOAuthLoginButton;
 //    Button logout;
 
+    private FacebookLoginCallback facebookLoginCallback;
     private CallbackManager callbackManager;
     private String phoneNumber;
 
@@ -56,7 +61,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -79,13 +86,21 @@ public class LoginActivity extends AppCompatActivity {
                 getString(R.string.naver_client_id),
                 getString(R.string.naver_client_secret),
                 getString(R.string.naver_client_name));
+        mOAuthLoginButton = findViewById(R.id.btnNaverLogin);
+        mOAuthLoginButton.setOAuthLoginHandler(mOAuthLoginHandler);
+        mOAuthLoginButton.setBgResourceId(R.drawable.tp_btn02);
 
-        callbackManager = CallbackManager.Factory.create();
-        FacebookLoginCallback facebookLoginCallback = new FacebookLoginCallback(getFacebookResponse);
 
-        LoginButton floginBtn = findViewById(R.id.btnFacebookLogin);
-        floginBtn.setPermissions(Arrays.asList("public_profile", "email"));
-        floginBtn.registerCallback(callbackManager, facebookLoginCallback);
+//        callbackManager = CallbackManager.Factory.create();
+//        FacebookLoginCallback facebookLoginCallback = new FacebookLoginCallback(getFacebookResponse);
+
+//        LoginButton floginBtn = findViewById(R.id.btnFacebookLogin);
+//        floginBtn.setPermissions(Arrays.asList("public_profile", "email"));
+//        floginBtn.registerCallback(callbackManager, facebookLoginCallback);
+
+        facebookLoginCallback = new FacebookLoginCallback(getFacebookResponse);
+        ImageButton floginbBtn = findViewById(R.id.btnFacebookLogin);
+        floginbBtn.setOnClickListener(onClickListener);
 
 
         findViewById(R.id.btnNaverLogin).setOnClickListener(onClickListener);
@@ -215,6 +230,12 @@ public class LoginActivity extends AppCompatActivity {
             case R.id.iBtnKakaoLogin:
                 kakaoLogin();
                 break;
+            case R.id.btnFacebookLogin:
+                callbackManager = CallbackManager.Factory.create();
+                LoginManager loginManager = LoginManager.getInstance();
+                loginManager.logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
+                loginManager.registerCallback(callbackManager, facebookLoginCallback);
+                break;
             case R.id.btnKakaoLogoutTest:
 //                UserApiClient.getInstance().logout(error -> {
 //                    if (error != null) {
@@ -226,9 +247,9 @@ public class LoginActivity extends AppCompatActivity {
 //                    }
 //                    return null;
 //                });
-                DatabaseRequest.ExecuteListener listener = result -> Log.i("Test Result>>>> ", result[0]);
-
-                new DatabaseRequest(getBaseContext(), listener).execute(DBRequestType.TEST.name(), null);
+//                DatabaseRequest.ExecuteListener listener = result -> Log.i("Test Result>>>> ", result[0]);
+//
+//                new DatabaseRequest(getBaseContext(), listener).execute(DBRequestType.TEST.name(), null);
                 break;
             default:
                 break;

@@ -19,6 +19,7 @@ public class CustomDialog extends Dialog {
 
     public enum DIALOG_CATEGORY {
         LOGIN,
+        LOGOUT,
         PASSWORD,
         FORM_INVALID,
         SELECT_INVALID,
@@ -55,6 +56,11 @@ public class CustomDialog extends Dialog {
                 findViewById(R.id.btnDlgLoginNo).setOnClickListener(onClickListener);
                 findViewById(R.id.btnDlgLoginYes).setOnClickListener(onClickListener);
                 break;
+            case LOGOUT:
+                setContentView(R.layout.dialog_logout_confirm);
+                findViewById(R.id.btnDlgLogoutNo).setOnClickListener(onClickListener);
+                findViewById(R.id.btnDlgLogoutYes).setOnClickListener(onClickListener);
+                break;
             case PASSWORD:
                 break;
             case FORM_INVALID:
@@ -80,10 +86,12 @@ public class CustomDialog extends Dialog {
     private final View.OnClickListener onClickListener = v -> {
         switch (v.getId()) {
             case R.id.btnDlgLoginNo:
+            case R.id.btnDlgLogoutNo:
                 dialogResponseListener.getResponse(false, null);
                 dismiss();
                 break;
             case R.id.btnDlgLoginYes:
+            case R.id.btnDlgLogoutYes:
                 dialogResponseListener.getResponse(true, null);
                 dismiss();
                 break;
