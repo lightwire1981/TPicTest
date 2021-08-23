@@ -118,7 +118,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.EXIT).show();
+        new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.EXIT, (isAppFinish, data) -> {
+            if (!isAppFinish) {
+                hideNavigationBar();
+            }
+        }).show();
     }
 
     private void getGoodsInfo() {

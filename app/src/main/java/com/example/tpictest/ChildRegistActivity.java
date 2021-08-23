@@ -68,7 +68,7 @@ public class ChildRegistActivity extends AppCompatActivity {
                     return;
                 }
                 CharacterSelectFragment characterSelectFragment = new CharacterSelectFragment();
-                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.addToBackStack(CHILD_REGISTRY_STEP.ADD.name());
                 fragmentTransaction.add(R.id.fLyChildRegistMain, characterSelectFragment).commit();
                 break;
             case CHARACTER:
@@ -84,7 +84,7 @@ public class ChildRegistActivity extends AppCompatActivity {
                     return;
                 }
                 PersonalSelectFragment personalSelectFragment = new PersonalSelectFragment();
-                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.addToBackStack(CHILD_REGISTRY_STEP.CHARACTER.name());
                 fragmentTransaction.add(R.id.fLyChildRegistMain, personalSelectFragment).commit();
                 break;
             case PERSONALITY:
@@ -111,12 +111,20 @@ public class ChildRegistActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        new DatabaseRequest(getBaseContext(), executeListener).execute(DBRequestType.CREATE_KID.name(), object.toString());
+        new DatabaseRequest(getBaseContext(), executeListener).execute(DBRequestType.CREATE_CHILD.name(), object.toString());
     }
 
     private DatabaseRequest.ExecuteListener executeListener = result -> {
         Log.i("Join Result", result[0]);
-//        finish();
+        if (result[0].equals("OK")) {
+            Toast.makeText(getBaseContext(), "자녀가 등록되었습니다.", Toast.LENGTH_SHORT).show();
+            while (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                getSupportFragmentManager().popBackStackImmediate();
+            }
+            finish();
+        } else {
+            Toast.makeText(getBaseContext(), "자녀가 등록되지 못했습니다.", Toast.LENGTH_SHORT).show();
+        }
     };
 
     @Override
@@ -131,6 +139,7 @@ public class ChildRegistActivity extends AppCompatActivity {
                 RegistryStep = CHILD_REGISTRY_STEP.CHARACTER;
                 break;
             default:
+                Log.i(TAG, "<<<<<<<<<<<< check RegistryStep");
                 break;
         }
         super.onBackPressed();

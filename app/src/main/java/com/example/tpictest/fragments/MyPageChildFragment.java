@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -17,13 +18,22 @@ import androidx.fragment.app.Fragment;
 import com.example.tpictest.ChildRegistActivity;
 import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
+import com.example.tpictest.db.DBRequestType;
+import com.example.tpictest.db.DatabaseRequest;
+import com.example.tpictest.list_code.ListItemChildInfo;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MyChildFragment#newInstance} factory method to
+ * Use the {@link MyPageChildFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyChildFragment extends Fragment {
+public class MyPageChildFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,9 +44,10 @@ public class MyChildFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    public ArrayList<ListItemChildInfo> childList = new ArrayList<>();
     String TAG = "MyChildMainFragment";
 
-    public MyChildFragment() {
+    public MyPageChildFragment() {
         // Required empty public constructor
     }
 
@@ -49,8 +60,8 @@ public class MyChildFragment extends Fragment {
      * @return A new instance of fragment MyChildMainFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MyChildFragment newInstance(String param1, String param2) {
-        MyChildFragment fragment = new MyChildFragment();
+    public static MyPageChildFragment newInstance(String param1, String param2) {
+        MyPageChildFragment fragment = new MyPageChildFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,29 +78,64 @@ public class MyChildFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Toast.makeText(getContext(), "액티비티 복귀", Toast.LENGTH_SHORT).show();
+    }
+
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_my_child, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_page_child, container, false);
 
         view.findViewById(R.id.iBtnChildManagerBack).setOnClickListener(onClickListener);
 
-        TableLayout tableLayout = view.findViewById(R.id.tLyKidsTable);
-        Log.i(TAG, tableLayout.getChildCount()+"");
+        setChildInfo(view);
 
-        for (int index = 0; index < 4; index++) {
-
-        }
-        TableRow tableRow = (TableRow)tableLayout.getChildAt(0);
-        Log.i(TAG, tableRow.getChildCount()+"");
-        ConstraintLayout constraintLayout = (ConstraintLayout)tableRow.getChildAt(0);
-        Log.i(TAG, constraintLayout.getChildCount()+"");
-        ImageButton imageButton = (ImageButton) constraintLayout.getChildAt(0);
-        imageButton.setImageDrawable(requireContext().getDrawable(R.drawable.btn_kids_add));
-        imageButton.setOnClickListener(onClickListener);
         return view;
+    }
+
+    private void setChildInfo(View view) {
+//        TableLayout tableLayout = view.findViewById(R.id.rcyclVwChildList);
+//        Log.i(TAG, tableLayout.getChildCount()+"");
+//        TableRow tableRow = (TableRow)tableLayout.getChildAt(0);
+//        Log.i(TAG, tableRow.getChildCount()+"");
+//
+//        ConstraintLayout constraintLayout = (ConstraintLayout)tableRow.getChildAt(0);
+//        Log.i(TAG, constraintLayout.getChildCount()+"");
+
+        getChild();
+
+        if (childList.size() > 0) {
+
+        } else {
+
+//            ImageButton imageButton = (ImageButton) constraintLayout.getChildAt(0);
+//            imageButton.setImageDrawable(requireContext().getDrawable(R.drawable.btn_kids_add));
+//            imageButton.setOnClickListener(onClickListener);
+        }
+    }
+
+    private void getChild() {
+        new DatabaseRequest(getContext(), result -> {
+            if (result[0].equals("NO_CHILD")) {
+                return;
+            }
+            try {
+                JSONArray childList = new JSONArray(result[0]);
+                for (int i=0; i<childList.length(); i++) {
+                    JSONObject chilInfo = childList.getJSONObject(i);
+                    ListItemChildInfo item = new ListItemChildInfo();
+                    item.setUserId(chilInfo.get("user_id").toString());
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }).execute(DBRequestType.GET_CHILD.name());
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -101,7 +147,7 @@ public class MyChildFragment extends Fragment {
                 break;
             default:
                 if (v.getTag() == null){
-                    Intent intent = new Intent(getContext(), ChildRegistActivity.class);
+                    Intent intent = new Intent(requireContext(), ChildRegistActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 //            new CustomDialog(getContext(), CustomDialog.DIALOG_CATEGORY.ADD_CHILD).show();

@@ -48,7 +48,8 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
 
         switch (requestType) {
             case JOIN:
-            case CREATE_KID:
+            case CREATE_CHILD:
+            case GET_CHILD:
             case GET_ALL_GOODS:
             case GET_ALL_BRAND:
                 parameters = MakeParameter(params);
@@ -111,7 +112,8 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
         }
         switch (requestType) {
             case JOIN:
-            case CREATE_KID:
+            case CREATE_CHILD:
+            case GET_CHILD:
             case GET_ALL_GOODS:
             case GET_ALL_BRAND:
                 Log.d(TAG, response);
@@ -164,7 +166,7 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                             USER_PHONE +jsonObject.get("phone").toString()
                     ;
                     break;
-                case CREATE_KID:
+                case CREATE_CHILD:
                     parameterValue = USE + params[0] + AND +
                             USER_ID +jsonObject.get("id").toString() + AND +
                             CHILD_ORDER +jsonObject.get("child_order").toString() + AND +
@@ -174,6 +176,7 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                             CHILD_CHAR +jsonObject.get("child_character").toString() + AND +
                             CHILD_PERSON +jsonObject.get("child_personality").toString();
                     break;
+                case GET_CHILD:
                 case GET_ALL_GOODS:
                 case GET_ALL_BRAND:
                 case TEST:

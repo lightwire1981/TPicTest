@@ -87,6 +87,7 @@ public class CustomDialog extends Dialog {
         switch (v.getId()) {
             case R.id.btnDlgLoginNo:
             case R.id.btnDlgLogoutNo:
+            case R.id.btnDlgExitNo:
                 dialogResponseListener.getResponse(false, null);
                 dismiss();
                 break;
@@ -95,7 +96,7 @@ public class CustomDialog extends Dialog {
                 dialogResponseListener.getResponse(true, null);
                 dismiss();
                 break;
-            case R.id.btnDlgExitNo:
+
             case R.id.btnRegistryConfirm:
             case R.id.btnSelectConfirm:
                 dismiss();

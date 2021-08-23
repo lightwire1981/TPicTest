@@ -128,10 +128,7 @@ public class ChildRegistFragment extends Fragment {
         return view;
     }
 
-    private View.OnClickListener onClickListener = view -> {
-        MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(0).getName());
-        getParentFragmentManager().popBackStack();
-    };
+    private View.OnClickListener onClickListener = view -> requireActivity().finish();
 
     private final TextWatcher watcher = new TextWatcher() {
         @Override
