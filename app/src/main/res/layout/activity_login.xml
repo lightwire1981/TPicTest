@@ -31,10 +31,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.01"
         app:srcCompat="@drawable/img_activity_close"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iVwLoginAppLogo"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -48,61 +48,62 @@
         app:srcCompat="@drawable/tp_logo01" />
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/lLyLoginEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/lLyLoginSNS"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/iVwLoginAppLogo">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/eTxtEmailID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/txt_login_id"
-                android:inputType="textPersonName"
+                android:importantForAutofill="no"
+                android:inputType="textWebEmailAddress|text"
                 android:textColor="#989898"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textView50"
+                app:layout_constraintEnd_toStartOf="@+id/tVwEmailAt"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:autofillHints="" />
+                tools:ignore="TouchTargetSizeCheck" />
 
             <TextView
-                android:id="@+id/textView50"
+                android:id="@+id/tVwEmailAt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/txt_login_at"
                 android:textColor="#989898"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName"
+                app:layout_constraintStart_toEndOf="@+id/eTxtEmailID"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName2"
+                android:id="@+id/eTxtEmailLoginDotnet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:autofillHints=""
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:importantForAutofill="no"
+                android:inputType="text|textEmailAddress"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView50"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/tVwEmailAt"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/eTxtEmailLoginPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -110,10 +111,11 @@
             android:inputType="textPassword"
             android:textColor="#000000"
             android:textColorHint="#989898"
-            android:autofillHints="" />
+            tools:ignore="TouchTargetSizeCheck,TextContrastCheck"
+            android:importantForAutofill="no" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/cBxHoldLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -121,23 +123,25 @@
             android:gravity="center_vertical|end"
             android:text="@string/txt_login_hold"
             android:textAlignment="viewEnd"
-            android:textColor="#000000"/>
+            android:textColor="#000000"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <Button
-            android:id="@+id/btn_email_login"
+            android:id="@+id/btnLoginEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/img_email_login"
             android:text="@string/txt_login"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/btnJoinEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -146,10 +150,11 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TextContrastCheck" />
 
             <Button
-                android:id="@+id/button7"
+                android:id="@+id/btnFindPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -158,13 +163,14 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TextContrastCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/lLyLoginSNS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
@@ -172,14 +178,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/lLyLoginEmail">
 
         <com.nhn.android.naverlogin.ui.view.OAuthLoginButton
             android:id="@+id/btnNaverLogin"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerInside">
+            android:scaleType="centerInside"
+            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck">
 
         </com.nhn.android.naverlogin.ui.view.OAuthLoginButton>
 
@@ -203,15 +210,4 @@
             android:scaleType="centerInside"
             android:src="@drawable/tp_btn04"/>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btnKakaoLogoutTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_test_message"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
