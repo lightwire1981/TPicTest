@@ -110,7 +110,7 @@
 
     <string name="txt_kids_count">첫째</string>
     <string name="txt_kids_nick">장남이</string>
-    <string-array name="txt_my_kids_count">
+    <string-array name="txt_my_kids_order">
         <item>첫째</item>
         <item>둘째</item>
         <item>셋째</item>
@@ -120,6 +120,7 @@
         <item>일곱째</item>
         <item>여덟째</item>
         <item>아홉째</item>
+        <item>열째</item>
     </string-array>
     <string-array name="txt_kids_char">
         <item>캐릭터 A</item>

@@ -3,7 +3,6 @@ package com.example.tpictest.fragments;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
@@ -14,23 +13,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tpictest.ChildRegistActivity;
-import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
 import com.example.tpictest.utils.MakeDate;
 
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Date;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -96,7 +88,7 @@ public class ChildRegistFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 getContext(),
                 R.layout.spinner_kid_order,
-                (requireContext().getResources().getStringArray(R.array.txt_my_kids_count))
+                (requireContext().getResources().getStringArray(R.array.txt_my_kids_order))
         );
         adapter.setDropDownViewResource(R.layout.spinner_kid_order);
         Spinner spinner = view.findViewById(R.id.sPnrKidOrder);

@@ -7,9 +7,10 @@ import com.example.tpictest.R;
 
 public class ListItemChildInfo {
     private int itemCount;
-    private boolean isAddAction1, isAddAction2, isAddAction3;
+    private boolean isAddAction1 = false, isAddAction2 = false, isAddAction3 = false;
     private Drawable drawableAddChild;
     private String userId;
+    private String childIdx1, childIdx2, childIdx3;
     private String childOrder1, childOrder2, childOrder3;
     private String childNick1, childNick2, childNick3;
 
@@ -108,5 +109,29 @@ public class ListItemChildInfo {
 
     public void setChildNick3(String childNick3) {
         this.childNick3 = childNick3;
+    }
+
+    public String getChildIdx1() {
+        return childIdx1;
+    }
+
+    public void setChildIdx1(String childIdx1) {
+        this.childIdx1 = childIdx1;
+    }
+
+    public String getChildIdx2() {
+        return childIdx2;
+    }
+
+    public void setChildIdx2(String childIdx2) {
+        this.childIdx2 = childIdx2;
+    }
+
+    public String getChildIdx3() {
+        return childIdx3;
+    }
+
+    public void setChildIdx3(String childIdx3) {
+        this.childIdx3 = childIdx3;
     }
 }

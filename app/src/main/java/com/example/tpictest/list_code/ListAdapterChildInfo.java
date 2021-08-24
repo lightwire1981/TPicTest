@@ -1,6 +1,8 @@
 package com.example.tpictest.list_code;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tpictest.ChildRegistActivity;
 import com.example.tpictest.R;
+import com.example.tpictest.fragments.MyPageChildFragment;
 
 import java.util.ArrayList;
 
@@ -21,10 +25,13 @@ public class ListAdapterChildInfo extends RecyclerView.Adapter<ListAdapterChildI
 
     public ListAdapterChildInfo(ArrayList<ListItemChildInfo> list) {mData = list;}
 
+    private Context context;
+
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        context = parent.getContext();
         View view = ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_item_child, parent, false);
         return new ViewHolder(view);
     }
@@ -40,16 +47,65 @@ public class ListAdapterChildInfo extends RecyclerView.Adapter<ListAdapterChildI
                 } else {
                     holder.childOrder1.setText(item.getChildOrder1());
                     holder.childNick1.setText(item.getChildNick1());
+                    holder.childBtn1.setTag(item.getChildIdx1());
                 }
+                holder.childBtn1.setOnClickListener(onClickListener);
                 break;
             case 2:
+                holder.childOrder1.setText(item.getChildOrder1());
+                holder.childNick1.setText(item.getChildNick1());
+                holder.childBtn1.setTag(item.getChildIdx1());
+
+                holder.childCly2.setVisibility(View.VISIBLE);
+                if (item.isAddAction2()) {
+                    holder.childBtn2.setImageDrawable(item.getDrawableAddChild());
+                } else {
+                    holder.childOrder2.setText(item.getChildOrder2());
+                    holder.childNick2.setText(item.getChildNick2());
+                    holder.childBtn2.setTag(item.getChildIdx2());
+                }
+                holder.childBtn1.setOnClickListener(onClickListener);
+                holder.childBtn2.setOnClickListener(onClickListener);
                 break;
             case 3:
+                holder.childOrder1.setText(item.getChildOrder1());
+                holder.childNick1.setText(item.getChildNick1());
+                holder.childBtn1.setTag(item.getChildIdx1());
+
+                holder.childCly2.setVisibility(View.VISIBLE);
+                holder.childOrder2.setText(item.getChildOrder2());
+                holder.childNick2.setText(item.getChildNick2());
+                holder.childBtn2.setTag(item.getChildIdx2());
+
+                holder.childCly3.setVisibility(View.VISIBLE);
+                if (item.isAddAction3()) {
+                    holder.childBtn3.setImageDrawable(item.getDrawableAddChild());
+                } else {
+                    holder.childOrder3.setText(item.getChildOrder3());
+                    holder.childNick3.setText(item.getChildNick3());
+                    holder.childBtn3.setTag(item.getChildIdx3());
+                }
+                holder.childBtn1.setOnClickListener(onClickListener);
+                holder.childBtn2.setOnClickListener(onClickListener);
+                holder.childBtn3.setOnClickListener(onClickListener);
                 break;
             default:
                 break;
         }
     }
+
+    private final View.OnClickListener onClickListener = view -> {
+        if (view.getTag()==null) { // 아이 신규 등록
+            Intent intent = new Intent(view.getContext(), ChildRegistActivity.class);
+//            intent.putExtra(MyPageChildFragment.CHILD_ID, view.getTag().toString());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        } else {
+
+        }
+    };
+
+
 
     @Override
     public int getItemCount() {

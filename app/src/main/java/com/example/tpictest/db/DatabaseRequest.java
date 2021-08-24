@@ -177,6 +177,9 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                             CHILD_PERSON +jsonObject.get("child_personality").toString();
                     break;
                 case GET_CHILD:
+                    parameterValue = USE + params[0] + AND +
+                            USER_ID +jsonObject.get("id").toString();
+                    break;
                 case GET_ALL_GOODS:
                 case GET_ALL_BRAND:
                 case TEST:
