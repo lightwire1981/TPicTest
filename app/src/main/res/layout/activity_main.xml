@@ -35,7 +35,7 @@
             android:weightSum="5">
 
             <ImageButton
-                android:id="@+id/iBtn_MHome"
+                android:id="@+id/iBtnMainHome"
                 style="@style/HomeButtonBorderless"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -65,7 +65,7 @@
             android:weightSum="5">
 
             <ImageButton
-                android:id="@+id/iBtn_MCategory"
+                android:id="@+id/iBtnMainCategory"
                 style="@style/HomeButtonBorderless"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -94,7 +94,7 @@
             android:weightSum="5">
 
             <ImageButton
-                android:id="@+id/iBtn_MEvaluate"
+                android:id="@+id/iBtnMainEvaluate"
                 style="@style/HomeButtonBorderless"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -123,7 +123,7 @@
             android:weightSum="5">
 
             <ImageButton
-                android:id="@+id/iBtn_MRank"
+                android:id="@+id/iBtnMainRank"
                 style="@style/HomeButtonBorderless"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -152,7 +152,7 @@
             android:weightSum="5">
 
             <ImageButton
-                android:id="@+id/iBtn_Mmypage"
+                android:id="@+id/iBtnMainMypage"
                 style="@style/HomeButtonBorderless"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

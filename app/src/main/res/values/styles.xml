@@ -152,6 +152,26 @@
         <item name="android:textColor">#1C1C1C</item>
         <item name="android:textStyle">bold</item>
     </style>
+    
+
+    <style name="EvalChildOrderSelectStyle">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#CC4747</item>
+    </style>
+    <style name="EvalChildOrderDeselectStyle">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#A6A6A6</item>
+    </style>
+    <style name="EvalChildNickSelectStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="EvalChildNickDeselectStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#989898</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 
 
