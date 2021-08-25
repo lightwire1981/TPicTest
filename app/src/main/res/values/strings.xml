@@ -97,19 +97,28 @@
     <string name="txt_kids_add">아이 등록</string>
     <string name="txt_kids_add_next">다음</string>
     <string name="hint_kids_nick">아이 애칭 입력</string>
+    <string name="txt_kids_nick">애칭</string>
     <string name="txt_kids_gender">아이 성별</string>
     <string name="txt_kids_birth">아이 생년월일</string>
     <string name="txt_kids_favorite_character">좋아하는 캐릭터를 선택해 주세요</string>
     <string name="txt_kids_personality">아이의 성향을 선택 해 주세요</string>
+    <string name="txt_kids_person">성향</string>
+    <string name="txt_kids_person_template"><u>성향</u></string>
+    <string name="txt_kids_favor_char">좋아하는 캐릭터</string>
+    <string name="txt_kids_favor_char_count"><u>%s개</u></string>
+    <string name="txt_kids_evaluate_toy">평가한 장난감</string>
+    <string name="txt_kids_evaluate_template"><u>평균 : %s점 / %S개</u></string>
     <string name="txt_kids_char_3over">3개 이상</string>
     <string name="txt_kids_char_choice1">&#160;선택 해 주세요</string>
     <string name="txt_kids_char_3max">최대 3개</string>
     <string name="txt_kids_char_choice2">까지 선택 해 주세요</string>
     <string name="txt_kids_char_name">캐릭터</string>
-    <string name="txt_kids_personal_name">성향</string>
+    <string name="txt_kids_order_suffix">%s 아이</string>
+    <string name="txt_kids_info_change">정보 변경</string>
+    <string name="txt_kids_info_delete">삭제</string>
 
-    <string name="txt_kids_count">첫째</string>
-    <string name="txt_kids_nick">장남이</string>
+    <string name="txt_kids_order_sample">첫째</string>
+    <string name="txt_kids_nick_sample">장남이</string>
     <string-array name="txt_my_kids_order">
         <item>첫째</item>
         <item>둘째</item>

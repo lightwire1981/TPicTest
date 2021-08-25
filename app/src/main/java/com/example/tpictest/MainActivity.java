@@ -26,7 +26,7 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
 
     public enum PAGES {
-        HOME, CATEGORY, CATEGORY_LIST, EVALUATE, RANKING, MY_PAGE, MY_PAGE_SUB, SEARCH, SETTING
+        HOME, CATEGORY, CATEGORY_LIST, EVALUATE, RANKING, MY_PAGE, MY_CHILD, MY_CHILD_EDIT, MY_PAGE_SUB, SEARCH, SETTING
     }
 
     public static PAGES CURRENT_PAGE;
@@ -93,12 +93,14 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                        } else {
+                            hideNavigationBar();
                         }
                     }).show();
                 } else {
                     MyPageFragment myPageFragment = new MyPageFragment();
-//                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.replace(R.id.fLyMain, myPageFragment).commit();
+                    fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
+                    fragmentTransaction.add(R.id.fLyMain, myPageFragment).commit();
 //                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                startActivity(intent);

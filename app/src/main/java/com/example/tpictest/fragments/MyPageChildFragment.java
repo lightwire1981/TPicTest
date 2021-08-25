@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -88,6 +89,7 @@ public class MyPageChildFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        MainActivity.CURRENT_PAGE = MainActivity.PAGES.MY_CHILD;
         setChildInfo();
     }
 
@@ -99,7 +101,8 @@ public class MyPageChildFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_page_child, container, false);
 
         view.findViewById(R.id.iBtnChildManagerBack).setOnClickListener(v -> {
-            MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(0).getName());
+            int fragmentCount = getParentFragmentManager().getBackStackEntryCount();
+            MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(fragmentCount-1).getName());
             getParentFragmentManager().popBackStack();
         });
         childListView = view.findViewById(R.id.rcyclVwChildList);
@@ -120,14 +123,22 @@ public class MyPageChildFragment extends Fragment {
         try {
             JSONObject object = new JSONObject();
             object.put("id", (new JSONObject(userInfo)).get("id"));
-            new DatabaseRequest(getContext(),
-                    result -> childListView.setAdapter(getChildInfo(result[0]))).execute(DBRequestType.GET_CHILD.name(),
+            new DatabaseRequest(getContext(), result -> {
+                ListAdapterChildInfo listAdapterChildInfo = getChildInfo(result[0]);
+                listAdapterChildInfo.setBackStackListener(backStackListener);
+                childListView.setAdapter(listAdapterChildInfo);
+            }).execute(DBRequestType.GET_CHILD.name(),
                     object.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
+
+    private final ListAdapterChildInfo.BackStackListener backStackListener = () -> {
+        if (MainActivity.CURRENT_PAGE.name().equals(MainActivity.PAGES.MY_CHILD.name())) {
+            setChildInfo();
+        }
+    };
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private ListAdapterChildInfo getChildInfo(String data) {
@@ -212,7 +223,7 @@ public class MyPageChildFragment extends Fragment {
             }
         }
         Log.i(TAG, "<<<<<<<<<<<< child info setup done");
-        return new ListAdapterChildInfo(mList);
+        return new ListAdapterChildInfo(mList, getParentFragmentManager(), data);
     }
 
     private void setLayoutManager(RecyclerView recyclerView) {

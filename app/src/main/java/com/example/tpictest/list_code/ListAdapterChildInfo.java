@@ -2,7 +2,6 @@ package com.example.tpictest.list_code;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,22 +10,34 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tpictest.ChildRegistActivity;
+import com.example.tpictest.MainActivity;
 import com.example.tpictest.R;
-import com.example.tpictest.fragments.MyPageChildFragment;
+import com.example.tpictest.fragments.MyPageChildEditFragment;
 
 import java.util.ArrayList;
 
 public class ListAdapterChildInfo extends RecyclerView.Adapter<ListAdapterChildInfo.ViewHolder> {
 
     private final ArrayList<ListItemChildInfo> mData;
+    private FragmentManager fragmentManager;
+    private String childData;
+    public ListAdapterChildInfo(ArrayList<ListItemChildInfo> list, FragmentManager fragmentManager, String childData) {
+        mData = list;
+        this.fragmentManager = fragmentManager;
+        this.childData = childData;
+    }
 
-    public ListAdapterChildInfo(ArrayList<ListItemChildInfo> list) {mData = list;}
+    public interface BackStackListener {
+        void OnFragmentBack();
+    }
+    private BackStackListener backStackListener;
 
     private Context context;
-
 
     @NonNull
     @Override
@@ -34,6 +45,10 @@ public class ListAdapterChildInfo extends RecyclerView.Adapter<ListAdapterChildI
         context = parent.getContext();
         View view = ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_item_child, parent, false);
         return new ViewHolder(view);
+    }
+
+    public final void setBackStackListener(BackStackListener backStackListener) {
+        this.backStackListener = backStackListener;
     }
 
     @Override
@@ -101,7 +116,15 @@ public class ListAdapterChildInfo extends RecyclerView.Adapter<ListAdapterChildI
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } else {
-
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.addToBackStack(MainActivity.CURRENT_PAGE.name());
+            fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+                @Override
+                public void onBackStackChanged() {
+                    backStackListener.OnFragmentBack();
+                }
+            });
+            fragmentTransaction.add(R.id.fLyMain, MyPageChildEditFragment.newInstance(view.getTag().toString(), childData)).commit();
         }
     };
 

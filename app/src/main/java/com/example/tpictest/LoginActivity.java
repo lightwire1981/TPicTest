@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
 
         findViewById(R.id.btnNaverLogin).setOnClickListener(onClickListener);
         findViewById(R.id.iBtnKakaoLogin).setOnClickListener(onClickListener);
-        findViewById(R.id.btnKakaoLogoutTest).setOnClickListener(onClickListener);
+//        findViewById(R.id.btnKakaoLogoutTest).setOnClickListener(onClickListener);
     }
 
     private void LoginCheck() {
@@ -236,7 +236,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginManager.logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
                 loginManager.registerCallback(callbackManager, facebookLoginCallback);
                 break;
-            case R.id.btnKakaoLogoutTest:
+//            case R.id.btnKakaoLogoutTest:
 //                UserApiClient.getInstance().logout(error -> {
 //                    if (error != null) {
 //                        Log.e(KAKAO, "로그아웃 실패", error);
@@ -250,7 +250,7 @@ public class LoginActivity extends AppCompatActivity {
 //                DatabaseRequest.ExecuteListener listener = result -> Log.i("Test Result>>>> ", result[0]);
 //
 //                new DatabaseRequest(getBaseContext(), listener).execute(DBRequestType.TEST.name(), null);
-                break;
+//                break;
             default:
                 break;
         }

@@ -30,7 +30,7 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
 
     private DBRequestType requestType;
 
-    private String TAG = "DatabaseRequest";
+    private final String TAG = "DatabaseRequest";
 
     public DatabaseRequest(Context context, ExecuteListener executeListener) {
         SERVER_IP = new PreferenceSetting(context).loadPreference(PreferenceSetting.PREFERENCE_KEY.SERVER_ADDRESS);
@@ -50,14 +50,12 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
             case JOIN:
             case CREATE_CHILD:
             case GET_CHILD:
+            case UPDATE_CHILD:
+            case DELETE_CHILD:
             case GET_ALL_GOODS:
             case GET_ALL_BRAND:
                 parameters = MakeParameter(params);
                 Log.i(TAG, "Parameter Check ::" + parameters);
-                break;
-            case LIKE:
-                break;
-            case WRITE_REVIEW:
                 break;
             case TEST:
                 parameters = MakeParameter(params);
@@ -114,6 +112,8 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
             case JOIN:
             case CREATE_CHILD:
             case GET_CHILD:
+            case UPDATE_CHILD:
+            case DELETE_CHILD:
             case GET_ALL_GOODS:
             case GET_ALL_BRAND:
                 Log.d(TAG, response);
@@ -140,7 +140,7 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
         String USER_EMAIL = "USER_EMAIL=";
         String USER_PHONE = "USER_PHONE=";
 
-
+        String CHILD_IDX = "CHILD_IDX=";
         String CHILD_ORDER = "CHILD_ORDER=";
         String CHILD_GENDER = "CHILD_GENDER=";
         String CHILD_NICK = "CHILD_NICK=";
@@ -179,6 +179,16 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                 case GET_CHILD:
                     parameterValue = USE + params[0] + AND +
                             USER_ID +jsonObject.get("id").toString();
+                    break;
+                case UPDATE_CHILD:
+                    parameterValue = USE + params[0] + AND +
+                            CHILD_IDX +jsonObject.getString("idx") + AND +
+                            CHILD_NICK +jsonObject.get("child_nick").toString() + AND +
+                            CHILD_BIRTH +jsonObject.get("child_birth").toString();
+                    break;
+                case DELETE_CHILD:
+                    parameterValue = USE + params[0] + AND +
+                            CHILD_IDX +jsonObject.getString("idx");
                     break;
                 case GET_ALL_GOODS:
                 case GET_ALL_BRAND:
