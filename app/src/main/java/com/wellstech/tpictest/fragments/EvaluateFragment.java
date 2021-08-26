@@ -16,7 +16,9 @@ import com.wellstech.tpictest.R;
 import com.wellstech.tpictest.db.DBRequestType;
 import com.wellstech.tpictest.db.DatabaseRequest;
 import com.wellstech.tpictest.list_code.ListAdapterEvalChild;
+import com.wellstech.tpictest.list_code.ListAdapterEvalGoods;
 import com.wellstech.tpictest.list_code.ListItemEvalChild;
+import com.wellstech.tpictest.list_code.ListItemEvalGoods;
 import com.wellstech.tpictest.list_code.RecyclerDecoration;
 import com.wellstech.tpictest.utils.ChildOrderConvert;
 import com.wellstech.tpictest.utils.PreferenceSetting;
@@ -114,7 +116,6 @@ public class EvaluateFragment extends Fragment {
     public void onResume() {
         super.onResume();
         setChildList();
-        setGoodsList();
     }
 
     private void setChildList() {
@@ -151,8 +152,7 @@ public class EvaluateFragment extends Fragment {
     }
 
     private final ListAdapterEvalChild.CheckBoxSelectListener checkBoxSelectListener = position -> {
-        int boxCount = ChildBoxList.size();
-        Log.i("<<<<<<<< 체크 박스 갯수", boxCount+"");
+        // region RadioButton Action
         int index = 0;
         for (CheckBox checkBox : ChildBoxList) {
             if (index != position) {
@@ -160,20 +160,42 @@ public class EvaluateFragment extends Fragment {
             }
             index++;
         }
+        //endregion
+        String childId = ChildBoxList.get(position).getTag().toString();
+        setGoodsList(childId);
     };
 
-    private void setGoodsList() {
-//        new DatabaseRequest(getContext(), executeListener).execute(DBRequestType.GET_ALL_GOODS.name());
-    }
+    /**
+     * 평가할 상품 리스트 설정
+     * @param childId 자녀가 평가하지 않은 상품을 선택하기 위한 자녀 ID
+     */
+    private void setGoodsList(String childId) {
 
-    DatabaseRequest.ExecuteListener executeListener = result -> {
-        String ALL_GOODS_INFO = result[0];
         try {
-            JSONArray goodsArray = new JSONArray(result[0]);
-            JSONObject goodsInfo = goodsArray.getJSONObject(0);
-            Log.i(TAG, goodsInfo.get("goodsNm").toString());
+            new DatabaseRequest(getContext(), executeListener).execute(DBRequestType.GET_EVALUATE_GOODS.name(),
+                    (new JSONObject().put("idx", childId)).toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    DatabaseRequest.ExecuteListener executeListener = result -> {
+        ArrayList<ListItemEvalGoods> mList = new ArrayList<>();
+        try {
+            JSONArray goodsArray = new JSONArray(result[0]);
+            for (int index=0; index<goodsArray.length(); index++) {
+                JSONObject goodsInfo = goodsArray.getJSONObject(index);
+                ListItemEvalGoods item = new ListItemEvalGoods();
+                item.setImgUrl(goodsInfo.getString("detailImageData"));
+                item.setCategory(null);
+                item.setGoodsName(goodsInfo.getString("goodsNm"));
+                item.setRatingPoint(null);
+                mList.add(item);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ListAdapterEvalGoods listAdapterEvalGoods = new ListAdapterEvalGoods(mList);
+        evaluateGoodsList.setAdapter(listAdapterEvalGoods);
     };
 }

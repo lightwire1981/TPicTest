@@ -54,6 +54,7 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
             case DELETE_CHILD:
             case GET_ALL_GOODS:
             case GET_ALL_BRAND:
+            case GET_EVALUATE_GOODS:
                 parameters = MakeParameter(params);
                 Log.i(TAG, "Parameter Check ::" + parameters);
                 break;
@@ -116,6 +117,7 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
             case DELETE_CHILD:
             case GET_ALL_GOODS:
             case GET_ALL_BRAND:
+            case GET_EVALUATE_GOODS:
                 Log.d(TAG, response);
                 executeListener.onResult(response);
                 break;
@@ -186,6 +188,7 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                             CHILD_NICK +jsonObject.get("child_nick").toString() + AND +
                             CHILD_BIRTH +jsonObject.get("child_birth").toString();
                     break;
+                case GET_EVALUATE_GOODS:
                 case DELETE_CHILD:
                     parameterValue = USE + params[0] + AND +
                             CHILD_IDX +jsonObject.getString("idx");

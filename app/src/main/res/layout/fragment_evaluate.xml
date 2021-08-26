@@ -46,8 +46,7 @@
         android:id="@+id/rcyclVwEvaluateChild"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="4.3"
-        android:background="#C8F4F0" />
+        android:layout_weight="4.3" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcyclVwEvaluateGoods"

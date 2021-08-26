@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,13 +17,12 @@ import java.util.ArrayList;
 public class ListAdapterEvalChild extends RecyclerView.Adapter<ListAdapterEvalChild.ViewHolder> {
 
     private final ArrayList<ListItemEvalChild> childList;
-    private ArrayList<CheckBox> ChildBoxList = new ArrayList<>();
-    private static int selectedIndex = 0;
+    private final ArrayList<CheckBox> ChildBoxList = new ArrayList<>();
 
     public interface CheckBoxSelectListener {
         void onSelected(int position);
     }
-    private CheckBoxSelectListener checkBoxSelectListener;
+    private final CheckBoxSelectListener checkBoxSelectListener;
 
     public ListAdapterEvalChild(ArrayList<ListItemEvalChild> childList, String childData, CheckBoxSelectListener checkBoxSelectListener) {
         this.childList = childList;

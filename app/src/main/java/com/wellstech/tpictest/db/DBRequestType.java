@@ -8,6 +8,7 @@ public enum DBRequestType {
     DELETE_CHILD,
     GET_ALL_GOODS,
     GET_ALL_BRAND,
+    GET_EVALUATE_GOODS,
     LIKE,
     WRITE_REVIEW,
     TEST

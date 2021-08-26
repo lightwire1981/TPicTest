@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#FFFFFF">
 
     <ImageButton
         android:id="@+id/iBtnEvaluateGood"
-        android:layout_width="150dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:adjustViewBounds="true"
@@ -39,7 +40,8 @@
             android:background="@drawable/img_eval_category_tag"
             android:text="@string/btn_rank_boy"
             android:textAlignment="center"
-            android:textColor="#F86666" />
+            android:textColor="#F86666"
+            tools:ignore="TextContrastCheck" />
 
         <TextView
             android:id="@+id/tVwEvalGoodName"
@@ -52,14 +54,15 @@
 
         <RatingBar
             android:id="@+id/rtngBrEvalGoodPoint"
-            style="@style/Widget.AppCompat.RatingBar"
+            style="@android:style/Widget.DeviceDefault.RatingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:progressBackgroundTint="#636363"
             android:progressTint="#FFC307"
-            android:rating="3"
+            android:rating="0"
             android:secondaryProgressTint="#FFECB0"
-            android:stepSize="0.5" />
+            android:stepSize="0.5"
+            tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
