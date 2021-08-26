@@ -34,6 +34,7 @@ import java.util.ArrayList;
  */
 public class EvaluateFragment extends Fragment {
 
+    //region ValueSetting
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -43,8 +44,11 @@ public class EvaluateFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private RecyclerView evaluateChildList;
+    private RecyclerView evaluateChildList, evaluateGoodsList;
     private ArrayList<CheckBox> ChildBoxList;
+
+    private final String TAG = getClass().getName();
+    //endregion
 
     public EvaluateFragment() {
         // Required empty public constructor
@@ -83,7 +87,9 @@ public class EvaluateFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_evaluate, container, false);
         evaluateChildList = view.findViewById(R.id.rcyclVwEvaluateChild);
+        evaluateGoodsList = view.findViewById(R.id.rcyclVwEvaluateGoods);
         setLayoutManager(evaluateChildList);
+        setLayoutManager(evaluateGoodsList);
 
         view.findViewById(R.id.iBtnEvaluateBack).setOnClickListener(button -> {
             int fragmentCount = getParentFragmentManager().getBackStackEntryCount();
@@ -94,8 +100,13 @@ public class EvaluateFragment extends Fragment {
     }
     private void setLayoutManager(RecyclerView recyclerView) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.addItemDecoration(new RecyclerDecoration(15, 15));
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        if (recyclerView.getId() == R.id.rcyclVwEvaluateChild) {
+            recyclerView.addItemDecoration(new RecyclerDecoration(15, 15));
+            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        } else {
+            recyclerView.addItemDecoration(new RecyclerDecoration(0, 15));
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        }
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 
@@ -103,6 +114,7 @@ public class EvaluateFragment extends Fragment {
     public void onResume() {
         super.onResume();
         setChildList();
+        setGoodsList();
     }
 
     private void setChildList() {
@@ -138,7 +150,7 @@ public class EvaluateFragment extends Fragment {
         }
     }
 
-    private ListAdapterEvalChild.CheckBoxSelectListener checkBoxSelectListener = position -> {
+    private final ListAdapterEvalChild.CheckBoxSelectListener checkBoxSelectListener = position -> {
         int boxCount = ChildBoxList.size();
         Log.i("<<<<<<<< 체크 박스 갯수", boxCount+"");
         int index = 0;
@@ -147,6 +159,21 @@ public class EvaluateFragment extends Fragment {
                 checkBox.setChecked(false);
             }
             index++;
+        }
+    };
+
+    private void setGoodsList() {
+//        new DatabaseRequest(getContext(), executeListener).execute(DBRequestType.GET_ALL_GOODS.name());
+    }
+
+    DatabaseRequest.ExecuteListener executeListener = result -> {
+        String ALL_GOODS_INFO = result[0];
+        try {
+            JSONArray goodsArray = new JSONArray(result[0]);
+            JSONObject goodsInfo = goodsArray.getJSONObject(0);
+            Log.i(TAG, goodsInfo.get("goodsNm").toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     };
 }

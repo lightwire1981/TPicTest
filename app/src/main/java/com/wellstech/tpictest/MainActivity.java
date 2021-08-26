@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 HomeFragment homeFragment = new HomeFragment();
-//                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 fragmentTransaction.replace(R.id.fLyMain, homeFragment).commit();
                 break;
             case R.id.iBtnMainCategory:
@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 CategoryFragment categoryFragment = new CategoryFragment();
                 fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 fragmentTransaction.add(R.id.fLyMain, categoryFragment).commit();
                 break;
             case R.id.iBtnMainEvaluate:
@@ -77,10 +78,22 @@ public class MainActivity extends AppCompatActivity {
                 if (CURRENT_PAGE.equals(PAGES.EVALUATE)) {
                     return;
                 }
-                EvaluateFragment evaluateFragment = new EvaluateFragment();
-                fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                fragmentTransaction.add(R.id.fLyMain, evaluateFragment).commit();
+                if (new PreferenceSetting(getBaseContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE).equals(LoginActivity.NO_LOGIN)) {
+                    new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.LOGIN, (response, data) -> {
+                        if (response) {
+                            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        } else {
+                            hideNavigationBar();
+                        }
+                    }).show();
+                } else {
+                    EvaluateFragment evaluateFragment = new EvaluateFragment();
+                    fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
+                    fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    fragmentTransaction.add(R.id.fLyMain, evaluateFragment).commit();
+                }
                 break;
             case R.id.iBtnMainRank:
                 Log.i(TAG, CURRENT_PAGE.name());
@@ -89,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 RankingFragment rankingFragment = new RankingFragment();
                 fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 fragmentTransaction.add(R.id.fLyMain, rankingFragment).commit();
                 break;
             case R.id.iBtnMainMypage:
@@ -108,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     MyPageFragment myPageFragment = new MyPageFragment();
                     fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
+                    fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                     fragmentTransaction.add(R.id.fLyMain, myPageFragment).commit();
 //                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
