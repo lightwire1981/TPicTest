@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint({"NonConstantResourceId", "UseCompatLoadingForDrawables"})
     View.OnClickListener onClickListener = v -> {
+        Log.i(TAG, CURRENT_PAGE.name());
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         switch (v.getId()) {

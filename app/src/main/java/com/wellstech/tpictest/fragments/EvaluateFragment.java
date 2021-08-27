@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.wellstech.tpictest.MainActivity;
 import com.wellstech.tpictest.R;
@@ -47,7 +48,9 @@ public class EvaluateFragment extends Fragment {
     private String mParam2;
 
     private RecyclerView evaluateChildList, evaluateGoodsList;
+    private SwipeRefreshLayout refreshLayout;
     private ArrayList<CheckBox> ChildBoxList;
+    private String childId;
 
     private final String TAG = getClass().getName();
     //endregion
@@ -93,6 +96,14 @@ public class EvaluateFragment extends Fragment {
         setLayoutManager(evaluateChildList);
         setLayoutManager(evaluateGoodsList);
 
+        refreshLayout = view.findViewById(R.id.swRefEvaluateGoods);
+        refreshLayout.setColorSchemeResources(
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_red_dark,
+                android.R.color.holo_green_dark
+        );
+        refreshLayout.setOnRefreshListener(onRefreshListener);
+
         view.findViewById(R.id.iBtnEvaluateBack).setOnClickListener(button -> {
             int fragmentCount = getParentFragmentManager().getBackStackEntryCount();
             MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(fragmentCount-1).getName());
@@ -117,6 +128,10 @@ public class EvaluateFragment extends Fragment {
         super.onResume();
         setChildList();
     }
+
+    private final SwipeRefreshLayout.OnRefreshListener onRefreshListener = () -> {
+        setGoodsList(childId);
+    };
 
     private void setChildList() {
         String userInfo = new PreferenceSetting(getContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO);
@@ -161,7 +176,7 @@ public class EvaluateFragment extends Fragment {
             index++;
         }
         //endregion
-        String childId = ChildBoxList.get(position).getTag().toString();
+        childId = ChildBoxList.get(position).getTag().toString();
         setGoodsList(childId);
     };
 
@@ -198,5 +213,10 @@ public class EvaluateFragment extends Fragment {
         }
         ListAdapterEvalGoods listAdapterEvalGoods = new ListAdapterEvalGoods(mList);
         evaluateGoodsList.setAdapter(listAdapterEvalGoods);
+        refreshLayout.setRefreshing(false);
     };
+
+    private void saveEvaluatedGoods() {
+
+    }
 }

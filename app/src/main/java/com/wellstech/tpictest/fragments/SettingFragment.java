@@ -76,6 +76,12 @@ public class SettingFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        MainActivity.CURRENT_PAGE = MainActivity.PAGES.SETTING;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -138,7 +144,8 @@ public class SettingFragment extends Fragment {
                 })).show();
                 break;
             case R.id.iBtnSettingBack:
-                MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(0).getName());
+                int fragmentCount = getParentFragmentManager().getBackStackEntryCount();
+                MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(fragmentCount-1).getName());
                 getParentFragmentManager().popBackStack();
                 break;
             default:
