@@ -181,9 +181,10 @@
         <item name="android:layout_marginBottom">5dp</item>
     </style>
 
-
-    <style name="EvaluateRatingBar" parent="@android:style/Widget.RatingBar">
-
+    <style name="EvaluateRatingbarStyle" parent="@style/Widget.AppCompat.RatingBar">
+        <item name="android:progressDrawable">@drawable/rtnbr_evaluate</item>
+        <item name="android:minHeight">15dip</item>
+        <item name="android:maxHeight">47dip</item>
     </style>
 
 </resources>

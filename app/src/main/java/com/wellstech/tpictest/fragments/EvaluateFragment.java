@@ -186,10 +186,11 @@ public class EvaluateFragment extends Fragment {
             for (int index=0; index<goodsArray.length(); index++) {
                 JSONObject goodsInfo = goodsArray.getJSONObject(index);
                 ListItemEvalGoods item = new ListItemEvalGoods();
+                item.setGoodsId(goodsInfo.getString("goodsNo"));
                 item.setImgUrl(goodsInfo.getString("detailImageData"));
                 item.setCategory(null);
                 item.setGoodsName(goodsInfo.getString("goodsNm"));
-                item.setRatingPoint(null);
+                item.setRatingPoint(0f);
                 mList.add(item);
             }
         } catch (JSONException e) {

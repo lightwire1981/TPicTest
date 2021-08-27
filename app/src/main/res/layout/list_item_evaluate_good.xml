@@ -54,15 +54,16 @@
 
         <RatingBar
             android:id="@+id/rtngBrEvalGoodPoint"
-            style="@android:style/Widget.DeviceDefault.RatingBar"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:progressBackgroundTint="#636363"
-            android:progressTint="#FFC307"
-            android:rating="0"
-            android:secondaryProgressTint="#FFECB0"
-            android:stepSize="0.5"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:layout_gravity="center"
+            android:isIndicator="false"
+            android:max="5"
+            android:numStars="5"
+            android:progressBackgroundTint="#323232"
+            android:progressTint="#FFBF00"
+            android:stepSize="0.5" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,11 @@
 package com.wellstech.tpictest.list_code;
 
 public class ListItemEvalGoods {
+    private String goodsId;
     private String imgUrl;
     private String category;
     private String goodsName;
-    private String ratingPoint;
+    private Float ratingPoint;
 
     public String getImgUrl() {
         return imgUrl;
@@ -30,11 +31,19 @@ public class ListItemEvalGoods {
         this.goodsName = goodsName;
     }
 
-    public String getRatingPoint() {
+    public Float getRatingPoint() {
         return ratingPoint;
     }
 
-    public void setRatingPoint(String ratingPoint) {
+    public void setRatingPoint(Float ratingPoint) {
         this.ratingPoint = ratingPoint;
+    }
+
+    public String getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
     }
 }

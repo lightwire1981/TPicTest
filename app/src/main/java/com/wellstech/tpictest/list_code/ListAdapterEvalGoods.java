@@ -1,6 +1,7 @@
 package com.wellstech.tpictest.list_code;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,14 @@ import com.bumptech.glide.Glide;
 import com.wellstech.tpictest.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ListAdapterEvalGoods extends RecyclerView.Adapter<ListAdapterEvalGoods.ViewHolder> {
     private final ArrayList<ListItemEvalGoods> goodsList;
     private Context context;
-
+//    private final ArrayList<Float> ratingPoint = new ArrayList<>();
+    private Map<String, Float> ratingData = new HashMap<>();
     /**
      * ListAdapterEvalGoods Constructor Method by Multiple Arguments
      * @param params 0 : ArrayList<ListItemEvalGoods>
@@ -46,7 +50,22 @@ public class ListAdapterEvalGoods extends RecyclerView.Adapter<ListAdapterEvalGo
         Glide.with(context).load(item.getImgUrl()).into(holder.goodsImg);
         if (item.getCategory()!=null) holder.categoryTag.setText(item.getCategory());
         holder.goodsName.setText(item.getGoodsName());
-        if (item.getRatingPoint()!=null) holder.goodsRating.setRating(Float.parseFloat(item.getRatingPoint()));
+//        if (item.getRatingPoint()!=null) {
+//            ratingPoint.add(Float.parseFloat(item.getRatingPoint()));
+//            holder.goodsRating.setRating(ratingPoint.get(position));
+//        }
+        holder.goodsRating.setRating(item.getRatingPoint());
+        holder.goodsRating.setTag(item.getGoodsId());
+        holder.goodsRating.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+            item.setRatingPoint(rating);
+            ratingData.put(ratingBar.getTag().toString(), rating);
+            Log.i("<<<<<<<<<<", ratingData.size() + ratingData.toString());
+        });
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     @Override
