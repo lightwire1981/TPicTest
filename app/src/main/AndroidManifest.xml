@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.wellstech.tpictest">
+    package="com.wellstech.tpictest" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -20,7 +20,7 @@
     </queries>
 
     <application
-        android:name="com.wellstech.tpictest.utils.GlobalApplication"
+        android:name=".utils.GlobalApplication"
         android:allowBackup="true"
         android:appComponentFactory="whateverString"
         android:icon="@mipmap/ic_launcher"
@@ -31,19 +31,22 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup"
         tools:replace="android:appComponentFactory"
-        tools:targetApi="p">
-        <activity android:name="com.wellstech.tpictest.ChildRegistActivity"/>
-        <activity android:name="com.wellstech.tpictest.IntermediateActivity" />
-        <activity android:name="com.wellstech.tpictest.LoginActivity" />
-        <activity android:name="com.wellstech.tpictest.SplashActivity">
+        tools:targetApi="p" >
+        <activity
+            android:name=".GoodsInfoActivity"
+            android:exported="true" />
+        <activity android:name=".ChildRegistActivity" />
+        <activity android:name=".IntermediateActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SplashActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.wellstech.tpictest.MainActivity" />
-        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
+        <activity android:name=".MainActivity" />
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -66,7 +69,7 @@
             android:label="@string/app_name" />
         <activity
             android:name="com.facebook.CustomTabActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
