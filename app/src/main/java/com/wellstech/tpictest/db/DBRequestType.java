@@ -7,6 +7,7 @@ public enum DBRequestType {
     UPDATE_CHILD,
     DELETE_CHILD,
     GET_ALL_GOODS,
+    GET_GOODS_INFO,
     GET_ALL_BRAND,
     GET_EVALUATE_GOODS,
     LIKE,

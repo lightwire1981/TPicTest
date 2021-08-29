@@ -28,8 +28,6 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
     }
     private final ExecuteListener executeListener;
 
-    private DBRequestType requestType;
-
     private final String TAG = "DatabaseRequest";
 
     public DatabaseRequest(Context context, ExecuteListener executeListener) {
@@ -41,31 +39,29 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params) {
         String response;
-        String parameters = "";
-        String dbUse = params[0];
+        String parameters;
 
-        requestType = DBRequestType.valueOf(dbUse);
-
-        switch (requestType) {
-            case JOIN:
-            case CREATE_CHILD:
-            case GET_CHILD:
-            case UPDATE_CHILD:
-            case DELETE_CHILD:
-            case GET_ALL_GOODS:
-            case GET_ALL_BRAND:
-            case GET_EVALUATE_GOODS:
-                parameters = MakeParameter(params);
-                Log.i(TAG, "Parameter Check ::" + parameters);
-                break;
-            case TEST:
-                parameters = MakeParameter(params);
-                Log.i(TAG, "Parameter Check ::" + parameters);
-                break;
-            default:
-                break;
-        }
-
+        parameters = MakeParameter(params);
+        Log.i(TAG, "Parameter Check ::" + parameters);
+//        switch (requestType) {
+//            case JOIN:
+//            case CREATE_CHILD:
+//            case GET_CHILD:
+//            case UPDATE_CHILD:
+//            case DELETE_CHILD:
+//            case GET_ALL_GOODS:
+//            case GET_ALL_BRAND:
+//            case GET_EVALUATE_GOODS:
+//                parameters = MakeParameter(params);
+//                Log.i(TAG, "Parameter Check ::" + parameters);
+//                break;
+//            case TEST:
+//                parameters = MakeParameter(params);
+//                Log.i(TAG, "Parameter Check ::" + parameters);
+//                break;
+//            default:
+//                break;
+//        }
         try {
             String url = "http://"+SERVER_IP+PHP_URL;
             Log.d(TAG, "<<<<<<<<<<<<<  " + url);
@@ -109,33 +105,42 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
             Log.e(TAG, "<<<<<<<<<<Result Error");
             return;
         }
-        switch (requestType) {
-            case JOIN:
-            case CREATE_CHILD:
-            case GET_CHILD:
-            case UPDATE_CHILD:
-            case DELETE_CHILD:
-            case GET_ALL_GOODS:
-            case GET_ALL_BRAND:
-            case GET_EVALUATE_GOODS:
-                Log.d(TAG, response);
-                executeListener.onResult(response);
-                break;
-            case LIKE:
-                break;
-            case WRITE_REVIEW:
-                break;
-            default:
-                break;
-        }
+        Log.d(TAG, response);
+        executeListener.onResult(response);
+//        switch (requestType) {
+//            case JOIN:
+//            case CREATE_CHILD:
+//            case GET_CHILD:
+//            case UPDATE_CHILD:
+//            case DELETE_CHILD:
+//            case GET_ALL_GOODS:
+//            case GET_ALL_BRAND:
+//            case GET_EVALUATE_GOODS:
+//                Log.d(TAG, response);
+//                executeListener.onResult(response);
+//                break;
+//            case LIKE:
+//                break;
+//            case WRITE_REVIEW:
+//                break;
+//            default:
+//                break;
+//        }
         super.onPostExecute(response);
     }
 
+    /**
+     * DB 데이터 획득을 위한 파라메터 생성
+     * @param params 0 : USE 타입, 1 : JSONObject 형식 파라메터, 2 ... 기타 정의
+     * @return "USE=질의 종류&키=값& ..."
+     */
     private String MakeParameter(String... params) {
         //region Parameter Value
 
         String USE = "USE=";
         String AND = "&";
+
+        String GOODS_NO = "GOODS_NO=";
 
         String USER_ID = "USER_ID=";
         String USER_NAME = "USER_NAME=";
@@ -159,7 +164,7 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
             if (params.length > 1) {
                 jsonObject = new JSONObject(params[1]);
             }
-            switch (requestType) {
+            switch (DBRequestType.valueOf(params[0])) {
                 case JOIN:
                     parameterValue = USE + params[0] + AND +
                             USER_ID +jsonObject.get("id").toString() + AND +
@@ -192,6 +197,10 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                 case DELETE_CHILD:
                     parameterValue = USE + params[0] + AND +
                             CHILD_IDX +jsonObject.getString("idx");
+                    break;
+                case GET_GOODS_INFO:
+                    parameterValue = USE + params[0] + AND +
+                            GOODS_NO + jsonObject.getString("goodsNo");
                     break;
                 case GET_ALL_GOODS:
                 case GET_ALL_BRAND:
