@@ -38,7 +38,8 @@
         <activity android:name=".ChildRegistActivity" />
         <activity android:name=".IntermediateActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".SplashActivity" >
+        <activity android:name=".SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,7 +47,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity" >
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

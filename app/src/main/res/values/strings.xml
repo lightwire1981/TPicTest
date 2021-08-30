@@ -70,6 +70,11 @@
     <string name="txt_rank_pricewon">원</string>
     <string name="txt_new_tag">신제품</string>
 
+    <string name="txt_search_toy">검색</string>
+    <string name="txt_search_result_none">&#160;에 대한 검색 결과가 없습니다.</string>
+    <string name="txt_search_result_get">&#160;&#160;검색 결과 총&#160;</string>
+    <string name="txt_search_result_suffix">&#160;건</string>
+
     <string name="txt_category_list_title">카테고리 목록 타이틀</string>
     <string name="txt_category_index">카테고리 항목</string>
 

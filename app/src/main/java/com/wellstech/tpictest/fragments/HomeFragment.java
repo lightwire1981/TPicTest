@@ -3,6 +3,13 @@ package com.wellstech.tpictest.fragments;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -11,13 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.wellstech.tpictest.LoginActivity;
 import com.wellstech.tpictest.MainActivity;
 import com.wellstech.tpictest.R;
@@ -25,11 +25,11 @@ import com.wellstech.tpictest.db.ImageRequest;
 import com.wellstech.tpictest.list_code.ListAdapterADSlider;
 import com.wellstech.tpictest.list_code.ListAdapterCustomToy;
 import com.wellstech.tpictest.list_code.ListAdapterNewToy;
-import com.wellstech.tpictest.list_code.ListAdptMainRankingToy;
 import com.wellstech.tpictest.list_code.ListAdapterReviewToy;
+import com.wellstech.tpictest.list_code.ListAdptMainRankingToy;
 import com.wellstech.tpictest.list_code.ListItemCustomToy;
-import com.wellstech.tpictest.list_code.ListItemNewToy;
 import com.wellstech.tpictest.list_code.ListItemMainRankingToy;
+import com.wellstech.tpictest.list_code.ListItemNewToy;
 import com.wellstech.tpictest.list_code.ListItemReviewToy;
 import com.wellstech.tpictest.list_code.RecyclerDecoration;
 import com.wellstech.tpictest.utils.PreferenceSetting;
@@ -39,6 +39,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,11 +61,15 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    //endregion
-
     private enum ListType {
         CUSTOM, RANK, NEW, REVIEW
     }
+
+    final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
+    final long PERIOD_MS = 3000; // time in milliseconds between successive task executions.
+
+    //endregion
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -120,31 +127,43 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        Handler handler = new Handler();
+        Runnable update = () -> {
+            int currentPage = adView.getCurrentItem()+1;  // 페이지 갯수는 0부터 시작 하므로 보완
+            if (currentPage == Objects.requireNonNull(adView.getAdapter()).getItemCount()) {
+                currentPage = 1000;
+            }
+            adView.setCurrentItem(currentPage);
+        };
 
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(update);
+            }
+        }, DELAY_MS, PERIOD_MS);
 
         String isLogin = new PreferenceSetting(getContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE);
 
-        switch (isLogin) {
-            case LoginActivity.NO_LOGIN:
-                view.findViewById(R.id.cLyHomeCustomLabel).setVisibility(View.GONE);
-                view.findViewById(R.id.lLyCustomToyList).setVisibility(View.GONE);
-                break;
-            default:
-                try {
-                    JSONObject jsonObject = new JSONObject(new PreferenceSetting(getContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO));
-                    ((TextView)view.findViewById(R.id.tVwHomeCustomUsername)).setText( getString(R.string.txt_main_custom_toy, jsonObject.get("name").toString()));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+        if (LoginActivity.NO_LOGIN.equals(isLogin)) {
+            view.findViewById(R.id.cLyHomeCustomLabel).setVisibility(View.GONE);
+            view.findViewById(R.id.lLyCustomToyList).setVisibility(View.GONE);
+        } else {
+            try {
+                JSONObject jsonObject = new JSONObject(new PreferenceSetting(getContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO));
+                ((TextView) view.findViewById(R.id.tVwHomeCustomUsername)).setText(getString(R.string.txt_main_custom_toy, jsonObject.get("name").toString()));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-                RecyclerView customToy1view = view.findViewById(R.id.rcyclVwMainCustomToy1);
-                RecyclerView customToy2view = view.findViewById(R.id.rcyclVwMainCustomToy2);
-                RecyclerView customToy3view = view.findViewById(R.id.rcyclVwMainCustomToy3);
+            RecyclerView customToy1view = view.findViewById(R.id.rcyclVwMainCustomToy1);
+            RecyclerView customToy2view = view.findViewById(R.id.rcyclVwMainCustomToy2);
+            RecyclerView customToy3view = view.findViewById(R.id.rcyclVwMainCustomToy3);
 
-                setCustomToyList(customToy1view);
-                setCustomToyList(customToy2view);
-                setCustomToyList(customToy3view);
-                break;
+            setCustomToyList(customToy1view);
+            setCustomToyList(customToy2view);
+            setCustomToyList(customToy3view);
         }
         RecyclerView rankingToyView = view.findViewById(R.id.rcyclVwMainRankingToy);
         setRankingToyList(rankingToyView);
