@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import com.wellstech.tpictest.list_code.ListItemEvalChild;
 import com.wellstech.tpictest.list_code.ListItemEvalGoods;
 import com.wellstech.tpictest.list_code.RecyclerDecoration;
 import com.wellstech.tpictest.utils.ChildOrderConvert;
+import com.wellstech.tpictest.utils.CustomDialog;
 import com.wellstech.tpictest.utils.PreferenceSetting;
 
 import org.json.JSONArray;
@@ -29,6 +31,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +57,13 @@ public class EvaluateFragment extends Fragment {
     private SwipeRefreshLayout refreshLayout;
     private ArrayList<CheckBox> ChildBoxList;
     private String childId;
+    private ListAdapterEvalGoods listAdapterEvalGoods;
+    private static Map<String, Float> ratingData = new HashMap<>();
+
+    private enum RefreshType {
+        REFRESH,
+        CHANGE_CHILD
+    }
 
     private final String TAG = getClass().getName();
     //endregion
@@ -130,7 +143,18 @@ public class EvaluateFragment extends Fragment {
     }
 
     private final SwipeRefreshLayout.OnRefreshListener onRefreshListener = () -> {
-        setGoodsList(childId);
+        ratingData = listAdapterEvalGoods.getRatingData();
+        if (!ratingData.isEmpty()) {
+            new CustomDialog(getContext(), CustomDialog.DIALOG_CATEGORY.EVALUATE_CONFIRM, (response, data) -> {
+                if (response) {
+                    saveEvaluatedGoods(RefreshType.REFRESH, 0);
+                } else {
+                    setGoodsList(childId);
+                }
+            }).show();
+        } else {
+            setGoodsList(childId);
+        }
     };
 
     private void setChildList() {
@@ -159,6 +183,7 @@ public class EvaluateFragment extends Fragment {
                 ListAdapterEvalChild listAdapterEvalChild = new ListAdapterEvalChild(mList, result[0], checkBoxSelectListener);
                 ChildBoxList = listAdapterEvalChild.getCheckBoxes();
                 evaluateChildList.setAdapter(listAdapterEvalChild);
+//                ChildBoxList.get(0).performClick();
             }).execute(DBRequestType.GET_CHILD.name(),
                     object.toString());
         } catch (JSONException e) {
@@ -167,6 +192,7 @@ public class EvaluateFragment extends Fragment {
     }
 
     private final ListAdapterEvalChild.CheckBoxSelectListener checkBoxSelectListener = position -> {
+
         // region RadioButton Action
         int index = 0;
         for (CheckBox checkBox : ChildBoxList) {
@@ -176,8 +202,25 @@ public class EvaluateFragment extends Fragment {
             index++;
         }
         //endregion
-        childId = ChildBoxList.get(position).getTag().toString();
-        setGoodsList(childId);
+        if (listAdapterEvalGoods == null) {
+            childId = ChildBoxList.get(position).getTag().toString();
+            setGoodsList(childId);
+            return;
+        }
+        ratingData = listAdapterEvalGoods.getRatingData();
+        if (!ratingData.isEmpty()) {
+            new CustomDialog(getContext(), CustomDialog.DIALOG_CATEGORY.EVALUATE_CONFIRM, (response, data) -> {
+                if (response) {
+                    saveEvaluatedGoods(RefreshType.CHANGE_CHILD, position);
+                } else {
+                    childId = ChildBoxList.get(position).getTag().toString();
+                    setGoodsList(childId);
+                }
+            }).show();
+        } else {
+            childId = ChildBoxList.get(position).getTag().toString();
+            setGoodsList(childId);
+        }
     };
 
     /**
@@ -185,7 +228,6 @@ public class EvaluateFragment extends Fragment {
      * @param childId 자녀가 평가하지 않은 상품을 선택하기 위한 자녀 ID
      */
     private void setGoodsList(String childId) {
-
         try {
             new DatabaseRequest(getContext(), executeListener).execute(DBRequestType.GET_EVALUATE_GOODS.name(),
                     (new JSONObject().put("idx", childId)).toString());
@@ -211,12 +253,54 @@ public class EvaluateFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        ListAdapterEvalGoods listAdapterEvalGoods = new ListAdapterEvalGoods(mList);
+        listAdapterEvalGoods = new ListAdapterEvalGoods(mList);
         evaluateGoodsList.setAdapter(listAdapterEvalGoods);
         refreshLayout.setRefreshing(false);
     };
 
-    private void saveEvaluatedGoods() {
+    /**
+     * 리스트 갱신 진행 시 현재 별점 평가 서버 저장 시도
+     */
+    private void saveEvaluatedGoods(RefreshType type, int position) {
 
+//        ratingData = listAdapterEvalGoods.getRatingData();
+        Set<String> temp = ratingData.keySet();
+        JSONArray dataArray = new JSONArray();
+
+        for (String key : temp) {
+            try {
+                JSONObject evalData = new JSONObject();
+                evalData.put("goods_id", key);
+                evalData.put("goods_evaluate", ratingData.get(key));
+                dataArray.put(evalData);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        JSONObject packetData = new JSONObject();
+        try {
+            packetData.put("idx", childId);
+            packetData.put("data", dataArray.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new DatabaseRequest(getContext(), result -> {
+            if (result[0].equals("INSERT_OK")) {
+                Toast.makeText(getContext(), "평가가 반영되었습니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "평가가 처리되지 못했습니다.", Toast.LENGTH_SHORT).show();
+            }
+            switch (type) {
+                case REFRESH:
+                    setGoodsList(childId);
+                    break;
+                case CHANGE_CHILD:
+                    childId = ChildBoxList.get(position).getTag().toString();
+                    setGoodsList(childId);
+                    break;
+                default:
+                    break;
+            }
+        }).execute(DBRequestType.INSERT_EVALUATE_GOODS.name(), packetData.toString());
     }
 }

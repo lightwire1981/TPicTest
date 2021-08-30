@@ -88,4 +88,8 @@ public class ListAdapterEvalGoods extends RecyclerView.Adapter<ListAdapterEvalGo
             goodsRating = itemView.findViewById(R.id.rtngBrEvalGoodPoint);
         }
     }
+
+    public Map<String, Float> getRatingData() {
+        return ratingData;
+    }
 }

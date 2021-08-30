@@ -8,27 +8,26 @@
     android:background="@drawable/tp_popup_bg01">
 
     <TextView
-        android:id="@+id/textView38"
+        android:id="@+id/textView68"
+        style="@style/DialogTitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/txt_dlg_exit_title"
-        android:textColor="#000000"
+        android:text="@string/txt_dlg_evaluate_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView39"
+        android:id="@+id/textView70"
+        style="@style/DialogContentTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="@string/txt_dlg_exit_confirm"
-        android:textColor="#000000"
-        android:textSize="18sp"
+        android:text="@string/txt_dlg_evaluate_confirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView38" />
+        app:layout_constraintTop_toBottomOf="@+id/textView68" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -39,10 +38,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView39">
+        app:layout_constraintTop_toBottomOf="@+id/textView70">
 
         <Button
-            android:id="@+id/btnDlgExitNo"
+            android:id="@+id/btnDlgEvaluateNo"
             style="@style/HomeButtonBorderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +51,7 @@
             tools:ignore="TextContrastCheck" />
 
         <Button
-            android:id="@+id/btnDlgExitYes"
+            android:id="@+id/btnDlgEvaluateYes"
             style="@style/HomeButtonBorderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

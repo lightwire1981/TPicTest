@@ -73,6 +73,8 @@
     <string name="txt_category_list_title">카테고리 목록 타이틀</string>
     <string name="txt_category_index">카테고리 항목</string>
 
+
+
     <string name="txt_goods_info">상품상세</string>
 
     <string name="txt_more_info">더보기&#160;</string>
@@ -162,6 +164,9 @@
     <string name="txt_dlg_logout_title">로그아웃 안내</string>
     <string name="txt_dlg_login_confirm">로그인 후 사용 가능합니다.\n로그인 하시겠습니까?</string>
     <string name="txt_dlg_logout_confirm">로그아웃 하시겠습니까?</string>
+
+    <string name="txt_dlg_evaluate_title">평가 확인</string>
+    <string name="txt_dlg_evaluate_confirm">상품 평가를 저장하시겠습니까?\n</string>
 
     <string name="txt_dlg_registry_title">등록 안내</string>
     <string name="txt_dlg_registry_invalid">모든 정보를 입력하셔야 합니다</string>

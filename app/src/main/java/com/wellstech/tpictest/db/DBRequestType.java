@@ -10,6 +10,7 @@ public enum DBRequestType {
     GET_GOODS_INFO,
     GET_ALL_BRAND,
     GET_EVALUATE_GOODS,
+    INSERT_EVALUATE_GOODS,
     LIKE,
     WRITE_REVIEW,
     TEST
