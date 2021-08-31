@@ -148,9 +148,15 @@ public class KeywordFragment extends Fragment {
 
     private void getRecentKeyword() {
         try {
-            JSONObject data = new JSONObject(new PreferenceSetting(getContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO));
-            String userId = data.getString("id");
-            if (userId.isEmpty()) userId = "guest";
+            String info = new PreferenceSetting(getContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO);
+            String userId;
+            JSONObject data;
+            if (info.equals("")) {
+                userId = "guest";
+            } else {
+                data  = new JSONObject(info);
+                userId = data.getString("id");
+            }
             JSONObject userData = new JSONObject();
             userData.put("id", userId);
             new DatabaseRequest(getContext(), result -> {

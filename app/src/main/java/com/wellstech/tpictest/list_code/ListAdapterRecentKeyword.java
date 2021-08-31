@@ -55,7 +55,11 @@ public class ListAdapterRecentKeyword extends RecyclerView.Adapter<ListAdapterRe
     @Override
     public int getItemCount() {
 //        return mData.size();
-        return 5;
+        if (mData.size() > 5) {
+            return 5;
+        } else {
+            return mData.size();
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -114,6 +114,7 @@ public class SettingFragment extends Fragment {
                                 mOAuthLoginModule.logout(getContext());
                                 Log.e(KAKAO, "로그아웃, 로컬 토큰 삭제됨");
                                 new PreferenceSetting(getContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, NO_LOGIN);
+                                new PreferenceSetting(getContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO, null);
                                 Toast.makeText(getApplicationContext(), getString(R.string.naver_logout), Toast.LENGTH_SHORT).show();
                                 break;
                             case KAKAO:
@@ -124,6 +125,7 @@ public class SettingFragment extends Fragment {
                                     } else {
                                         Log.e(KAKAO, "로그아웃 성공, SDK에서 토큰 삭제됨");
                                         new PreferenceSetting(getContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, NO_LOGIN);
+                                        new PreferenceSetting(getContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO, null);
                                         Toast.makeText(getApplicationContext(), getString(R.string.kakao_logout), Toast.LENGTH_SHORT).show();
                                     }
                                     return null;
@@ -133,6 +135,7 @@ public class SettingFragment extends Fragment {
                                 LoginManager.getInstance().logOut();
                                 Log.e(KAKAO, "로그아웃 성공, SDK에서 토큰 삭제됨");
                                 new PreferenceSetting(getContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, NO_LOGIN);
+                                new PreferenceSetting(getContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO, null);
                                 Toast.makeText(getApplicationContext(), getString(R.string.facebook_logout), Toast.LENGTH_SHORT).show();
                                 break;
                             default:

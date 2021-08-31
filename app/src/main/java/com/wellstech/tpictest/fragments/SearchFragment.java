@@ -146,11 +146,14 @@ public class SearchFragment extends Fragment {
                 String userId;
                 if (keyWord.isEmpty()) return;
                 try {
-                    JSONObject data = new JSONObject(new PreferenceSetting(getContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO));
-                    userId = data.getString("id");
-
-                    if (userId.isEmpty()) userId = "guest";
-
+                    String info = new PreferenceSetting(getContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO);
+                    JSONObject data;
+                    if (info.equals("")) {
+                        userId = "guest";
+                    } else {
+                        data  = new JSONObject(info);
+                        userId = data.getString("id");
+                    }
                     data = new JSONObject();
                     data.put("id", userId);
                     data.put("key_word", keyWord);
