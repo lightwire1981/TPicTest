@@ -74,10 +74,11 @@
     <string name="txt_search_result_none">&#160;에 대한 검색 결과가 없습니다.</string>
     <string name="txt_search_result_get">&#160;&#160;검색 결과 총&#160;</string>
     <string name="txt_search_result_suffix">&#160;건</string>
+    <string name="txt_search_favorite_keyword">인기 검색어</string>
+    <string name="txt_search_recently_keyword">최근 검색어</string>
 
     <string name="txt_category_list_title">카테고리 목록 타이틀</string>
     <string name="txt_category_index">카테고리 항목</string>
-
 
 
     <string name="txt_goods_info">상품상세</string>
@@ -169,6 +170,9 @@
     <string name="txt_dlg_logout_title">로그아웃 안내</string>
     <string name="txt_dlg_login_confirm">로그인 후 사용 가능합니다.\n로그인 하시겠습니까?</string>
     <string name="txt_dlg_logout_confirm">로그아웃 하시겠습니까?</string>
+
+    <string name="txt_dlg_no_child_title">자녀 등록 필요</string>
+    <string name="txt_dlg_no_child_inform">평가를 위해서는 자녀등록이 요구됩니다.\n[마이페이지] 메뉴에서 자녀 등록을 진행해 주세요</string>
 
     <string name="txt_dlg_evaluate_title">평가 확인</string>
     <string name="txt_dlg_evaluate_confirm">상품 평가를 저장하시겠습니까?\n</string>

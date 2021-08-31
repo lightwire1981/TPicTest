@@ -22,6 +22,7 @@ public class CustomDialog extends Dialog {
         PASSWORD,
         FORM_INVALID,
         SELECT_INVALID,
+        NO_CHILD_INFORM,
         EVALUATE_CONFIRM,
         EXIT
     }
@@ -71,6 +72,10 @@ public class CustomDialog extends Dialog {
                 setContentView(R.layout.dialog_select_invalid);
                 findViewById(R.id.btnSelectConfirm).setOnClickListener(onClickListener);
                 break;
+            case NO_CHILD_INFORM:
+                setContentView(R.layout.dialog_no_child_inform);
+                findViewById(R.id.btnNoChildConfirm).setOnClickListener(onClickListener);
+                break;
             case EVALUATE_CONFIRM:
                 setContentView(R.layout.dialog_evaluate_confirm);
                 findViewById(R.id.btnDlgEvaluateNo).setOnClickListener(onClickListener);
@@ -100,6 +105,7 @@ public class CustomDialog extends Dialog {
             case R.id.btnDlgLoginYes:
             case R.id.btnDlgLogoutYes:
             case R.id.btnDlgEvaluateYes:
+            case R.id.btnNoChildConfirm:
                 dialogResponseListener.getResponse(true, null);
                 dismiss();
                 break;
@@ -129,6 +135,7 @@ public class CustomDialog extends Dialog {
             case LOGIN:
             case FORM_INVALID:
             case SELECT_INVALID:
+            case NO_CHILD_INFORM:
             case EVALUATE_CONFIRM:
             case EXIT:
                 layoutParams.height = displayMetrics.heightPixels;

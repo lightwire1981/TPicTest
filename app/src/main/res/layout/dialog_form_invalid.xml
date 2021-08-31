@@ -45,7 +45,7 @@
             style="@style/HomeButtonBorderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/img_dialog_registry_confirm"
+            android:background="@drawable/img_dialog_accept"
             android:text="@string/txt_dlg_yes"
             tools:ignore="TextContrastCheck" />
     </LinearLayout>

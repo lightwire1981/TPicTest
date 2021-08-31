@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="30dp"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:weightSum="10"
+    tools:context=".fragments.KeywordFragment">
+
+    <TextView
+        android:id="@+id/textView74"
+        style="@style/MainNewItemTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="3.1"
+        android:gravity="center_vertical"
+        android:text="@string/txt_search_favorite_keyword"
+        tools:ignore="TextContrastCheck" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cLyFavoriteKeyword"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2.5">
+
+        <RadioButton
+            android:id="@+id/cKbFKeyword1"
+            style="@style/FavoriteKeywordNormalStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/img_favorite_keword"
+            android:button="@android:color/transparent"
+            android:text="@string/txt_search_favorite_keyword"
+            app:layout_constraintBottom_toTopOf="@+id/cKbFKeyword4"
+            app:layout_constraintEnd_toStartOf="@+id/cKbFKeyword2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <RadioButton
+            android:id="@+id/cKbFKeyword2"
+            style="@style/FavoriteKeywordNormalStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/img_favorite_keword"
+            android:button="@android:color/transparent"
+            android:text="@string/txt_search_favorite_keyword"
+            app:layout_constraintBottom_toTopOf="@+id/cKbFKeyword5"
+            app:layout_constraintEnd_toStartOf="@+id/cKbFKeyword3"
+            app:layout_constraintStart_toEndOf="@+id/cKbFKeyword1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <RadioButton
+            android:id="@+id/cKbFKeyword3"
+            style="@style/FavoriteKeywordNormalStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/img_favorite_keword"
+            android:button="@android:color/transparent"
+            android:text="@string/txt_search_favorite_keyword"
+            app:layout_constraintBottom_toTopOf="@+id/cKbFKeyword6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cKbFKeyword2"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <RadioButton
+            android:id="@+id/cKbFKeyword4"
+            style="@style/FavoriteKeywordNormalStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/img_favorite_keword"
+            android:button="@android:color/transparent"
+            android:text="@string/txt_search_favorite_keyword"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cKbFKeyword5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cKbFKeyword1"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <RadioButton
+            android:id="@+id/cKbFKeyword5"
+            style="@style/FavoriteKeywordNormalStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/img_favorite_keword"
+            android:button="@android:color/transparent"
+            android:text="@string/txt_search_favorite_keyword"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cKbFKeyword6"
+            app:layout_constraintStart_toEndOf="@+id/cKbFKeyword4"
+            app:layout_constraintTop_toBottomOf="@+id/cKbFKeyword2"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <RadioButton
+            android:id="@+id/cKbFKeyword6"
+            style="@style/FavoriteKeywordNormalStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/img_favorite_keword"
+            android:button="@android:color/transparent"
+            android:text="@string/txt_search_favorite_keyword"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cKbFKeyword5"
+            app:layout_constraintTop_toBottomOf="@+id/cKbFKeyword3"
+            tools:ignore="TouchTargetSizeCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView81"
+        style="@style/MainNewItemTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="3.1"
+        android:gravity="center_vertical"
+        android:text="@string/txt_search_recently_keyword" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcyclVwRecentKeyword"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.3">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

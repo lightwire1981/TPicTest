@@ -164,7 +164,12 @@ public class EvaluateFragment extends Fragment {
             object.put("id", (new JSONObject(userInfo)).get("id"));
             new DatabaseRequest(getContext(), result -> {
                 if(result[0].equals("NO_CHILD")){
-                    // do no child action
+                    new CustomDialog(getActivity(), CustomDialog.DIALOG_CATEGORY.NO_CHILD_INFORM, (response, data) -> {
+                        int fragmentCount = getParentFragmentManager().getBackStackEntryCount();
+                        MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(fragmentCount-1).getName());
+                        getParentFragmentManager().popBackStack();
+                    }).show();
+                    return;
                 }
                 ArrayList<ListItemEvalChild> mList = new ArrayList<>();
                 try {

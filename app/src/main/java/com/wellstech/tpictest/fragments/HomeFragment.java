@@ -65,8 +65,11 @@ public class HomeFragment extends Fragment {
         CUSTOM, RANK, NEW, REVIEW
     }
 
-    final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
-    final long PERIOD_MS = 3000; // time in milliseconds between successive task executions.
+    ViewPager2 adView;
+    private Timer timer = new Timer();
+
+    private final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
+    private final long PERIOD_MS = 3000; // time in milliseconds between successive task executions.
 
     //endregion
 
@@ -111,13 +114,13 @@ public class HomeFragment extends Fragment {
         ScrollView scrollView = view.findViewById(R.id.scrlVwMain);
         scrollView.addView(inflater.inflate(R.layout.layout_home, scrollView, false));
 
-        ViewPager2 adView = view.findViewById(R.id.vwPgrHomeAD);
+        adView = view.findViewById(R.id.vwPgrHomeAD);
         TextView adPages = view.findViewById(R.id.tVwADtotalPage);
         TextView adCurrentPage = view.findViewById(R.id.tVwADcurrentPage);
 
         adView.setAdapter(new ListAdapterADSlider(setADPages(adPages)));
         adView.setPageTransformer(new ZoomOutPageTransformer());
-        adView.setCurrentItem(1000);
+        adView.setCurrentItem(999);
         setCurrentADPage(adCurrentPage, 0);
         adView.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -126,23 +129,6 @@ public class HomeFragment extends Fragment {
                 setCurrentADPage(adCurrentPage, position%2);
             }
         });
-
-        Handler handler = new Handler();
-        Runnable update = () -> {
-            int currentPage = adView.getCurrentItem()+1;  // 페이지 갯수는 0부터 시작 하므로 보완
-            if (currentPage == Objects.requireNonNull(adView.getAdapter()).getItemCount()) {
-                currentPage = 1000;
-            }
-            adView.setCurrentItem(currentPage);
-        };
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(update);
-            }
-        }, DELAY_MS, PERIOD_MS);
 
         String isLogin = new PreferenceSetting(getContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE);
 
@@ -184,6 +170,13 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         MainActivity.CURRENT_PAGE = MainActivity.PAGES.HOME;
+        setAdSlider();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        timer.cancel();
     }
 
     private int[] setADPages(TextView view) {
@@ -335,18 +328,35 @@ public class HomeFragment extends Fragment {
     View.OnClickListener onClickListener = v -> {
         switch (v.getId()) {
             case R.id.iBtn_Main_Search:
+                timer.cancel();
                 FragmentManager fragmentManager = getParentFragmentManager();
                 SearchFragment searchFragment = new SearchFragment();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 //                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(getId(), searchFragment).commit();
-                break;
-            case R.id.iBtnSearchBack:
-                Toast.makeText(getContext(), R.string.txt_back_message, Toast.LENGTH_SHORT).show();
+                fragmentTransaction.addToBackStack(MainActivity.CURRENT_PAGE.name());
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                fragmentTransaction.add(getId(), searchFragment).commit();
                 break;
             default:
                 break;
         }
     };
+
+    public void setAdSlider() {
+        Handler handler = new Handler();
+        Runnable update = () -> {
+            int currentPage = adView.getCurrentItem()+1;  // 페이지 갯수는 0부터 시작 하므로 보완
+            if (currentPage == Objects.requireNonNull(adView.getAdapter()).getItemCount()) {
+                currentPage = 1000;
+            }
+            adView.setCurrentItem(currentPage);
+        };
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(update);
+            }
+        }, DELAY_MS, PERIOD_MS);
+    }
 }

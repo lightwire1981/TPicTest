@@ -46,74 +46,100 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:layout_weight="4.3"
+        android:layout_weight="4.2"
         android:background="#EAEAEA"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/tp_search_bg">
 
             <EditText
                 android:id="@+id/eTxtSearchKeywords"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:autofillHints="@string/hint_search"
                 android:ems="10"
                 android:hint="@string/hint_search"
                 android:inputType="text|textAutoComplete"
+                android:textAlignment="center"
                 android:textColor="@color/black"
+                android:textColorHint="#777777"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/iBtnWordDelete"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
             <ImageButton
-                android:id="@+id/iBtnSearchGo"
+                android:id="@+id/iBtnWordDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="false"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/cd_design_img"
+                android:src="@drawable/img_main_search_word_delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/iBtnSearchStart"
+                app:layout_constraintStart_toEndOf="@+id/eTxtSearchKeywords"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck,ImageContrastCheck" />
+
+            <ImageButton
+                android:id="@+id/iBtnSearchStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/cd_main_search"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
-                android:src="@drawable/btn_main_search"
+                android:scaleType="centerInside"
+                android:src="@drawable/img_main_search"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/eTxtSearchKeywords"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iBtnWordDelete"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="TouchTargetSizeCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp">
 
             <TextView
                 android:id="@+id/tVwSearchKeyword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:textColor="#F86666"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tVwSearchMiddleText"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TextContrastCheck" />
 
             <TextView
                 android:id="@+id/tVwSearchMiddleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="@string/txt_search_result_get"
+                android:textColor="#9C9C9C"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tVwSearchResultCount"
                 app:layout_constraintStart_toEndOf="@+id/tVwSearchKeyword"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TextContrastCheck" />
 
             <TextView
                 android:id="@+id/tVwSearchResultCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:textColor="#F86666"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tVwSearchResultSuffix"
                 app:layout_constraintStart_toEndOf="@+id/tVwSearchMiddleText"
@@ -123,18 +149,24 @@
                 android:id="@+id/tVwSearchResultSuffix"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="@string/txt_search_result_suffix"
+                android:textColor="#9C9C9C"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tVwSearchResultCount"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TextContrastCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
     <FrameLayout
+        android:id="@+id/fLySearchMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.2" />
+        android:layout_weight="1.3"
+        android:clickable="true"
+        android:focusable="true"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </LinearLayout>

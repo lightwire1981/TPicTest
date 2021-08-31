@@ -7,9 +7,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.wellstech.tpictest.MainActivity;
@@ -69,6 +72,14 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         view.findViewById(R.id.iBtnSearchBack).setOnClickListener(onClickListener);
+
+        ((EditText)view.findViewById(R.id.eTxtSearchKeywords)).setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) hideNavigationBar();
+        });
+
+        KeywordFragment keywordFragment = new KeywordFragment();
+        getParentFragmentManager().beginTransaction().replace(R.id.fLySearchMain, keywordFragment).commit();
+
         return view;
     }
 
@@ -80,17 +91,28 @@ public class SearchFragment extends Fragment {
 
     View.OnClickListener onClickListener = v -> {
         switch (v.getId()) {
-            case R.id.iBtn_Main_Search:
+            case R.id.iBtnSearchStart:
                 Toast.makeText(getContext(), R.string.txt_test_message, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.iBtnSearchBack:
-                FragmentManager fragmentManager = getParentFragmentManager();
-                HomeFragment homeFragment = new HomeFragment();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(getId(), homeFragment).commit();
+//                FragmentManager fragmentManager = getParentFragmentManager();
+//                HomeFragment homeFragment = new HomeFragment();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(getId(), homeFragment).commit();
+                int fragmentCount = getParentFragmentManager().getBackStackEntryCount();
+                MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(fragmentCount-1).getName());
+//                if (getParentFragment() != null) {
+//                    ((HomeFragment)getParentFragment()).setAdSlider();
+//                }
+                getParentFragmentManager().popBackStack();
                 break;
             default:
                 break;
         }
     };
+
+    private void hideNavigationBar(){
+        View decorView = requireActivity().getWindow().getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
 }
