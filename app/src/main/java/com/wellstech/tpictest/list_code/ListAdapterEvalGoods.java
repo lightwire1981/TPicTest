@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.wellstech.tpictest.R;
 
 import java.util.ArrayList;
@@ -47,7 +48,8 @@ public class ListAdapterEvalGoods extends RecyclerView.Adapter<ListAdapterEvalGo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ListItemEvalGoods item = goodsList.get(position);
 
-        Glide.with(context).load(item.getImgUrl()).into(holder.goodsImg);
+
+        Glide.with(context).load(item.getImgUrl()).placeholder(R.drawable.tp_icon_brand01_on).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(holder.goodsImg);
         if (item.getCategory()!=null) holder.categoryTag.setText(item.getCategory());
         holder.goodsName.setText(item.getGoodsName());
 //        if (item.getRatingPoint()!=null) {

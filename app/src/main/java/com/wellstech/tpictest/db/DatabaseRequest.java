@@ -142,6 +142,9 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
 
         String GOODS_NO = "GOODS_NO=";
 
+        String KEY_WORD = "KEY_WORD=";
+        String KEY_WORD_ID = "KEY_WORD_ID=";
+
         String EVALUATE_DATA = "EVALUATE_DATA=";
 
         String USER_ID = "USER_ID=";
@@ -186,6 +189,7 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                             CHILD_PERSON +jsonObject.get("child_personality").toString();
                     break;
                 case GET_CHILD:
+                case GET_RECENT_KEYWORD:
                     parameterValue = USE + params[0] + AND +
                             USER_ID +jsonObject.get("id").toString();
                     break;
@@ -211,8 +215,18 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                     break;
                 case GET_ALL_GOODS:
                 case GET_ALL_BRAND:
+                case GET_FAVORITE_KEYWORD:
                 case TEST:
                     parameterValue = USE + params[0];
+                    break;
+                case DELETE_RECENT_KEYWORD:
+                    parameterValue = USE + params[0] + AND +
+                            KEY_WORD_ID + jsonObject.getString("keyword_id");
+                    break;
+                case SEARCH_GOODS:
+                    parameterValue = USE + params[0] + AND +
+                            USER_ID + jsonObject.getString("id") + AND +
+                            KEY_WORD + jsonObject.getString("key_word");
                     break;
                 default:
                     parameterValue = null;

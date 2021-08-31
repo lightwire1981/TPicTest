@@ -9,14 +9,25 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wellstech.tpictest.MainActivity;
 import com.wellstech.tpictest.R;
+import com.wellstech.tpictest.db.DBRequestType;
+import com.wellstech.tpictest.db.DatabaseRequest;
+import com.wellstech.tpictest.utils.PreferenceSetting;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +45,12 @@ public class SearchFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private EditText etxtSearchKeyword;
+    private TextView tvwKeyword, tvwMiddle, tvwSearchResult, tvwSuffix;
+
+    private final String TAG = getClass().getName();
+
 
     public SearchFragment() {
         // Required empty public constructor
@@ -66,18 +83,27 @@ public class SearchFragment extends Fragment {
         }
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         view.findViewById(R.id.iBtnSearchBack).setOnClickListener(onClickListener);
+        view.findViewById(R.id.iBtnWordDelete).setOnClickListener(onClickListener);
+        view.findViewById(R.id.iBtnSearchStart).setOnClickListener(onClickListener);
+        tvwKeyword = view.findViewById(R.id.tVwSearchKeyword);
+        tvwMiddle = view.findViewById(R.id.tVwSearchMiddleText);
+        tvwSearchResult = view.findViewById(R.id.tVwSearchResultCount);
+        tvwSuffix = view.findViewById(R.id.tVwSearchResultSuffix);
 
-        ((EditText)view.findViewById(R.id.eTxtSearchKeywords)).setOnFocusChangeListener((v, hasFocus) -> {
+        etxtSearchKeyword = view.findViewById(R.id.eTxtSearchKeywords);
+        etxtSearchKeyword.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) hideNavigationBar();
         });
 
-        KeywordFragment keywordFragment = new KeywordFragment();
+        KeywordFragment keywordFragment = new KeywordFragment(keyword -> etxtSearchKeyword.setText(keyword));
         getParentFragmentManager().beginTransaction().replace(R.id.fLySearchMain, keywordFragment).commit();
 
         return view;
@@ -89,10 +115,55 @@ public class SearchFragment extends Fragment {
         MainActivity.CURRENT_PAGE = MainActivity.PAGES.SEARCH;
     }
 
+    private final DatabaseRequest.ExecuteListener listener = result -> {
+        if (result[0].equals("INSERT_FAIL")) {
+            return;
+        }
+        if (result[0].equals("NOT_FOUND")) {
+            tvwSearchResult.setVisibility(View.INVISIBLE);
+            tvwSuffix.setVisibility(View.INVISIBLE);
+            tvwKeyword.setText(getString(R.string.txt_search_keyword_template, etxtSearchKeyword.getText()));
+            tvwMiddle.setText(getString(R.string.txt_search_result_none));
+            return;
+        }
+        try {
+            JSONArray goodsArray = new JSONArray(result[0]);
+            Log.i(TAG, goodsArray.toString());
+            tvwSearchResult.setVisibility(View.VISIBLE);
+            tvwSuffix.setVisibility(View.VISIBLE);
+            tvwKeyword.setText(getString(R.string.txt_search_keyword_template, etxtSearchKeyword.getText()));
+            tvwMiddle.setText(getString(R.string.txt_search_result_get));
+            tvwSearchResult.setText(getString(R.string.txt_null, goodsArray.length()+""));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    };
+
     View.OnClickListener onClickListener = v -> {
         switch (v.getId()) {
             case R.id.iBtnSearchStart:
-                Toast.makeText(getContext(), R.string.txt_test_message, Toast.LENGTH_SHORT).show();
+                String keyWord = etxtSearchKeyword.getText().toString();
+                String userId;
+                if (keyWord.isEmpty()) return;
+                try {
+                    JSONObject data = new JSONObject(new PreferenceSetting(getContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO));
+                    userId = data.getString("id");
+
+                    if (userId.isEmpty()) userId = "guest";
+
+                    data = new JSONObject();
+                    data.put("id", userId);
+                    data.put("key_word", keyWord);
+
+                    new DatabaseRequest(getContext(), listener).execute(DBRequestType.SEARCH_GOODS.name(), data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.iBtnWordDelete:
+                etxtSearchKeyword.setText("");
+                KeywordFragment keywordFragment = new KeywordFragment(keyword -> etxtSearchKeyword.setText(keyword));
+                getParentFragmentManager().beginTransaction().replace(R.id.fLySearchMain, keywordFragment).commit();
                 break;
             case R.id.iBtnSearchBack:
 //                FragmentManager fragmentManager = getParentFragmentManager();
@@ -110,6 +181,8 @@ public class SearchFragment extends Fragment {
                 break;
         }
     };
+
+
 
     private void hideNavigationBar(){
         View decorView = requireActivity().getWindow().getDecorView();

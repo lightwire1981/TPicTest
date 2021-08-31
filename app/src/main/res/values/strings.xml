@@ -71,6 +71,7 @@
     <string name="txt_new_tag">신제품</string>
 
     <string name="txt_search_toy">검색</string>
+    <string name="txt_search_keyword_template">\"%s\"</string>
     <string name="txt_search_result_none">&#160;에 대한 검색 결과가 없습니다.</string>
     <string name="txt_search_result_get">&#160;&#160;검색 결과 총&#160;</string>
     <string name="txt_search_result_suffix">&#160;건</string>
