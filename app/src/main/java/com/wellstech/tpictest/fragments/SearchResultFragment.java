@@ -9,9 +9,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wellstech.tpictest.R;
+import com.wellstech.tpictest.list_code.ListAdapterResultGoods;
+import com.wellstech.tpictest.list_code.ListItemResultGoods;
+import com.wellstech.tpictest.list_code.RecyclerDecoration;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -25,6 +32,7 @@ public class SearchResultFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String SEARCH_RESULT = "searchResult";
+    private RecyclerView resultGoodsView;
 
     // TODO: Rename and change types of parameters
     private String searchResult;
@@ -58,9 +66,18 @@ public class SearchResultFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        setResultGoodsList();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_result, container, false);
+
+        resultGoodsView = view.findViewById(R.id.rcyclVwSearchResultList);
+        setLayoutManager(resultGoodsView);
 
         Spinner resultCategorySpnr = view.findViewById(R.id.sPnrResultCategory);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -98,8 +115,6 @@ public class SearchResultFragment extends Fragment {
             }
         });
 
-        RecyclerView recyclerView = view.findViewById(R.id.rcyclVwSearchResultList);
-
         return view;
     }
 
@@ -110,5 +125,28 @@ public class SearchResultFragment extends Fragment {
 
         temp.add("전체");
         return temp;
+    }
+
+    private void setResultGoodsList() {
+        ArrayList<ListItemResultGoods> mList = new ArrayList<>();
+        try {
+            JSONArray goodsArray = new JSONArray(searchResult);
+            for (int index=0; index<goodsArray.length(); index++) {
+                ListItemResultGoods item = new ListItemResultGoods();
+                item.setItem(goodsArray.getJSONObject(index));
+                mList.add(item);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ListAdapterResultGoods adapter = new ListAdapterResultGoods(mList);
+        resultGoodsView.setAdapter(adapter);
+    }
+
+    private void setLayoutManager(RecyclerView recyclerView) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.addItemDecoration(new RecyclerDecoration(0, 15));
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
     }
 }

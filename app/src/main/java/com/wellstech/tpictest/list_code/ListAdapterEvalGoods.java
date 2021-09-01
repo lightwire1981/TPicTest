@@ -49,7 +49,11 @@ public class ListAdapterEvalGoods extends RecyclerView.Adapter<ListAdapterEvalGo
         ListItemEvalGoods item = goodsList.get(position);
 
 
-        Glide.with(context).load(item.getImgUrl()).placeholder(R.drawable.tp_icon_brand01_on).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(holder.goodsImg);
+        Glide.with(context).
+                load(item.getImgUrl()).
+                placeholder(R.drawable.tp_icon_brand01_on).
+                diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).
+                into(holder.goodsImg);
         if (item.getCategory()!=null) holder.categoryTag.setText(item.getCategory());
         holder.goodsName.setText(item.getGoodsName());
 //        if (item.getRatingPoint()!=null) {

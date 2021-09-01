@@ -1,7 +1,14 @@
 package com.wellstech.tpictest.list_code;
 
+import android.content.Context;
+import android.util.Log;
+
+import com.wellstech.tpictest.R;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.DecimalFormat;
 
 public class ListItemResultGoods {
     private JSONObject item;
@@ -51,7 +58,10 @@ public class ListItemResultGoods {
 
     public void setGoodsPrice() {
         try {
-            this.goodsPrice = item.getString("fixedPrice");
+            int value = (int)Float.parseFloat(item.getString("fixedPrice"));
+            DecimalFormat decimalFormat = new DecimalFormat("###,###");
+            String price = decimalFormat.format(value);
+            this.goodsPrice = price + "원";
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -89,6 +99,18 @@ public class ListItemResultGoods {
         return goodsRate;
     }
 
+    public void setGoodsRate() {
+        try {
+            String temp = item.getString("evaluate_avg");
+            if(temp.equals("null")) {
+                temp = "3.0";
+            }
+            this.goodsRate = temp;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setGoodsRate(String goodsRate) {
         this.goodsRate = goodsRate;
     }
@@ -97,12 +119,36 @@ public class ListItemResultGoods {
         return goodsLike;
     }
 
+    public void setGoodsLike() {
+        try {
+            String temp = item.getString("like_count");
+            if(temp.equals("null")) {
+                temp = "0";
+            }
+            this.goodsLike = temp;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setGoodsLike(String goodsLike) {
         this.goodsLike = goodsLike;
     }
 
     public String getGoodsReviewCount() {
         return goodsReviewCount;
+    }
+
+    public void setGoodsReviewCount() {
+        try {
+            String temp = item.getString("review_count");
+            if(temp.equals("null")) {
+                temp = "0";
+            }
+            this.goodsReviewCount = temp;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setGoodsReviewCount(String goodsReviewCount) {
@@ -115,5 +161,12 @@ public class ListItemResultGoods {
 
     public void setItem(JSONObject item) {
         this.item = item;
+        setGoodsId();
+        setGoodsName();
+        setGoodsPrice();
+        setGoodsImgUrl();
+        setGoodsRate();
+        setGoodsLike();
+        setGoodsReviewCount();
     }
 }
