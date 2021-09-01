@@ -134,6 +134,12 @@ public class SearchFragment extends Fragment {
             tvwKeyword.setText(getString(R.string.txt_search_keyword_template, etxtSearchKeyword.getText()));
             tvwMiddle.setText(getString(R.string.txt_search_result_get));
             tvwSearchResult.setText(getString(R.string.txt_null, goodsArray.length()+""));
+
+            SearchResultFragment searchResultFragment = SearchResultFragment.newInstance(goodsArray.toString());
+            FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+//            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            fragmentTransaction.replace(R.id.fLySearchMain, searchResultFragment).commit();
         } catch (JSONException e) {
             e.printStackTrace();
         }

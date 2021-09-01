@@ -57,15 +57,15 @@
     <string name="txt_main_new_product_name1">자석퍼즐 신비아파트3 더블X 신비와 친구들 만들기 </string>
     <string name="txt_main_new_product_name2">자석퍼즐 신비아파트3 더블X 합체 고스트 만들기 </string>
     <string name="txt_rank_product_name1">헬로카봇 삼총사 루크</string>
-    <string name="txt_rank_product_price1">10,000</string>
-    <string name="txt_rank_product_reviewcount">(1,000)</string>
+    <string name="txt_rank_product_price1">%s원</string>
+    <string name="txt_rank_product_reviewcount">1,000</string>
     <string name="txt_custom_expect">예상</string>
     <string name="txt_cexpect_grade">0.0</string>
     <string name="txt_test_message">기능 테스트</string>
     <string name="txt_test_message2">기능 테스트2</string>
     <string name="txt_back_message">뒤로 가기</string>
     <string name="txt_rating">평점</string>
-    <string name="txt_rating_default">0.0</string>
+    <string name="txt_rating_default">&#160;평점&#160;</string>
     <string name="txt_rank_default">0</string>
     <string name="txt_rank_pricewon">원</string>
     <string name="txt_new_tag">신제품</string>
@@ -77,6 +77,13 @@
     <string name="txt_search_result_suffix">&#160;건</string>
     <string name="txt_search_favorite_keyword">인기 검색어</string>
     <string name="txt_search_recently_keyword">최근 검색어</string>
+    <string name="txt_order_default">인기순</string>
+    <string-array name="array_order_popular">
+        <item>인기순</item>
+        <item>최신순</item>
+        <item>낮은 가격순</item>
+        <item>높은 가격순</item>
+    </string-array>
 
     <string name="txt_category_list_title">카테고리 목록 타이틀</string>
     <string name="txt_category_index">카테고리 항목</string>

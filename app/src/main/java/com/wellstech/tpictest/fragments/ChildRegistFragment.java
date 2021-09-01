@@ -87,10 +87,10 @@ public class ChildRegistFragment extends Fragment {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 getContext(),
-                R.layout.spinner_kid_order,
+                R.layout.spnr_kid_order,
                 (requireContext().getResources().getStringArray(R.array.txt_my_kids_order))
         );
-        adapter.setDropDownViewResource(R.layout.spinner_kid_order);
+        adapter.setDropDownViewResource(R.layout.spnr_kid_order);
         Spinner spinner = view.findViewById(R.id.sPnrKidOrder);
         addChildData("child_order", String.valueOf(0));
         spinner.setAdapter(adapter);

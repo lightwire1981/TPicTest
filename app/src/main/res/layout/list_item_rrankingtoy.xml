@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF">
 
     <TextView
         android:id="@+id/tVwRankingNumber"
@@ -36,24 +38,26 @@
         android:id="@+id/tVwRankListCategoryType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/img_eval_category_tag"
         android:text="@string/btn_rank_boy"
-        android:textColor="#272727"
-        app:layout_constraintBottom_toTopOf="@+id/tVwRankListProductName"
+        android:textAlignment="center"
+        android:textColor="#F86666"
         app:layout_constraintStart_toEndOf="@+id/iVwRankListProductImg"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tVwRankListProductName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:text="@string/txt_rank_product_name1"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tVwRankListProductPrice"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iVwRankListProductImg"
         app:layout_constraintTop_toBottomOf="@+id/tVwRankListCategoryType" />
 
@@ -61,47 +65,46 @@
         android:id="@+id/tVwRankListProductPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:text="@string/txt_rank_product_price1"
-        android:textColor="@color/black"
+        android:textColor="#454545"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tVwRankListRate"
         app:layout_constraintStart_toEndOf="@+id/iVwRankListProductImg"
         app:layout_constraintTop_toBottomOf="@+id/tVwRankListProductName" />
 
     <TextView
-        android:id="@+id/textView32"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_rank_pricewon"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tVwRankListReviewCount"
-        app:layout_constraintStart_toEndOf="@+id/tVwRankListProductPrice"
-        app:layout_constraintTop_toBottomOf="@+id/tVwRankListProductName"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
         android:id="@+id/tVwRankListRate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:text="@string/txt_rating_default"
-        android:textColor="@android:color/holo_red_dark"
+        android:textColor="#000000"
         app:drawableStartCompat="@drawable/img_rate_star"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iVwRankListProductImg"
-        app:layout_constraintTop_toBottomOf="@+id/tVwRankListProductPrice"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toStartOf="@+id/textView32"
+        app:layout_constraintStart_toEndOf="@+id/iVwRankListProductImg" />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_null"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tVwRankListReviewCount"
+        app:layout_constraintStart_toEndOf="@+id/tVwRankListRate" />
 
     <TextView
         android:id="@+id/tVwRankListReviewCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/img_review_count"
+        android:gravity="center"
         android:text="@string/txt_rank_product_reviewcount"
-        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tVwRankListRate"
-        app:layout_constraintTop_toBottomOf="@+id/tVwRankListProductPrice"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toEndOf="@+id/textView32"
+        tools:ignore="TextContrastCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>
