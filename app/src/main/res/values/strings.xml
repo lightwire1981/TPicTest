@@ -92,6 +92,17 @@
     <string name="txt_goods_info">상품상세</string>
     <string name="txt_goods_info_eval_template">&#160;3.0&#160;</string>
     <string name="txt_goods_info_price_template">%s원</string>
+    <string name="txt_goods_info_review">리뷰</string>
+    <string name="txt_goods_info_write_review">리뷰작성</string>
+    <string name="txt_goods_info_review_default">0</string>
+    <string name="txt_goods_info_eval_5">5점</string>
+    <string name="txt_goods_info_eval_4">4점</string>
+    <string name="txt_goods_info_eval_3">3점</string>
+    <string name="txt_goods_info_eval_2">2점</string>
+    <string name="txt_goods_info_eval_1">1점</string>
+    <string name="txt_goods_info_percentage_template">%s \%</string>
+    <string name="txt_goods_info_review_photo">\n%s</string>
+
 
     <string name="txt_more_info">더보기&#160;</string>
     <string name="txt_review_sample">특가상품 헬로카봇 구급차댄디 옐로우 리뷰입니다. 아이가 엄청 좋아합니다. 친구 로보트장난감보며 부러워 하던 아이를 위해 구입했어요. 마트를 가서 구매하려고 했지만 금액도 금액이거니와</string>
