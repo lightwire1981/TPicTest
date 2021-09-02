@@ -1,10 +1,5 @@
 package com.wellstech.tpictest.list_code;
 
-import android.content.Context;
-import android.util.Log;
-
-import com.wellstech.tpictest.R;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

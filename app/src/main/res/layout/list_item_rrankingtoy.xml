@@ -38,7 +38,7 @@
         android:id="@+id/tVwRankListCategoryType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/img_eval_category_tag"
+        android:background="@drawable/img_category_tag"
         android:text="@string/btn_rank_boy"
         android:textAlignment="center"
         android:textColor="#F86666"
