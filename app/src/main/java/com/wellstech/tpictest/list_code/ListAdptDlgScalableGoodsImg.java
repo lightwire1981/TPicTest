@@ -1,6 +1,7 @@
 package com.wellstech.tpictest.list_code;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,12 @@ import java.util.ArrayList;
 
 public class ListAdptDlgScalableGoodsImg extends RecyclerView.Adapter<ListAdptDlgScalableGoodsImg.ViewHolder> {
     Context context;
-    private final ArrayList<String> imageUrl;
+    private final ArrayList<Bitmap> bitMapList;
 
-    public ListAdptDlgScalableGoodsImg(ArrayList<String> imageUrl) { this.imageUrl = imageUrl; }
+    public ListAdptDlgScalableGoodsImg(ArrayList<Bitmap> bitmapList) {
+        this.bitMapList = bitmapList;
+
+    }
 
     @NonNull
     @Override
@@ -35,12 +39,15 @@ public class ListAdptDlgScalableGoodsImg extends RecyclerView.Adapter<ListAdptDl
 //                placeholder(R.drawable.tp_icon_brand01_on).
 //                diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).
 //                into(holder.goodsImage);
-        holder.goodsImage.setImage(ImageSource.uri(imageUrl.get(position)));
+//        Glide.with(context).asBitmap().load(imageUrl.get(position));
+//        holder.goodsImage.setImage(ImageSource.uri(imageUrl.get(position)));
+
+        holder.goodsImage.setImage(ImageSource.bitmap(bitMapList.get(position)));
     }
 
     @Override
     public int getItemCount() {
-        return imageUrl.size();
+        return bitMapList.size();
     }
 
 

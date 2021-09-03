@@ -6,6 +6,33 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center">
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vPgrDialogGoodsImages"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/indCtrGoodsCurrentImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        android:id="@+id/indCtrGoodsCurrentImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:dotsColor="#9C9C9C"
+        app:dotsCornerRadius="8dp"
+        app:dotsSize="5dp"
+        app:dotsSpacing="4dp"
+        app:dotsWidthFactor="2.5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vPgrDialogGoodsImages"
+        app:progressMode="true"
+        app:selectedDotColor="#FFFFFF" />
+
     <ImageButton
         android:id="@+id/iBtnDialogGoodsImgClose"
         android:layout_width="wrap_content"
@@ -22,31 +49,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/btn_activity_close"
         tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vPgrDialogGoodsImages"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/indCtrGoodsCurrentImage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-        android:id="@+id/indCtrGoodsCurrentImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:dotsColor="#B5B5B5"
-        app:dotsCornerRadius="8dp"
-        app:dotsSize="16dp"
-        app:dotsSpacing="4dp"
-        app:dotsWidthFactor="2.5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vPgrDialogGoodsImages"
-        app:progressMode="true"
-        app:selectedDotColor="#FFFFFF" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,7 +25,6 @@ import java.util.ArrayList;
 public class GoodsInfoActivity extends AppCompatActivity {
 
     private JSONObject GoodsInfo;
-    private static Activity goodsInfoActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +32,6 @@ public class GoodsInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_goods_info);
         getGoodsInfo();
         setWidget();
-        goodsInfoActivity = this;
-    }
-
-    public static Activity getGoodsInfoActivity() {
-        return goodsInfoActivity;
     }
 
     private void getGoodsInfo() {
@@ -71,9 +65,7 @@ public class GoodsInfoActivity extends AppCompatActivity {
         ProgressBar eval2Progress = findViewById(R.id.pgBrGoodsInfoEval2);
         ProgressBar eval1Progress = findViewById(R.id.pgBrGoodsInfoEval1);
 
-        findViewById(R.id.iBtnGoodsInfoBack).setOnClickListener(v -> {
-            finish();
-        });
+        findViewById(R.id.iBtnGoodsInfoBack).setOnClickListener(v -> finish());
 
         ArrayList<String> imgList = setGoodsImages(totalImgPage);
         vpgrGoodsImage.setAdapter(new ListAdapterGoodsImage(imgList));

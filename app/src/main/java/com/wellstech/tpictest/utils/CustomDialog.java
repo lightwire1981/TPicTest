@@ -3,6 +3,7 @@ package com.wellstech.tpictest.utils;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -39,7 +40,7 @@ public class CustomDialog extends Dialog {
     }
     private DialogResponseListener dialogResponseListener;
 
-    private ArrayList<String> imgUrl;
+    private ArrayList<Bitmap> bitmapList;
 
     public CustomDialog(@NonNull Context context, DIALOG_CATEGORY dialog_category) {
         super(context);
@@ -52,11 +53,11 @@ public class CustomDialog extends Dialog {
         this.dialogResponseListener = dialogResponseListener;
     }
 
-    public CustomDialog(Context context, DIALOG_CATEGORY dialog_category, DialogResponseListener dialogResponseListener, ArrayList<String> imgUrl) {
+    public CustomDialog(Context context, DIALOG_CATEGORY dialog_category, DialogResponseListener dialogResponseListener, ArrayList<Bitmap> bitmapList) {
         super(context);
         this.dialog_category = dialog_category;
         this.dialogResponseListener = dialogResponseListener;
-        this.imgUrl = imgUrl;
+        this.bitmapList = bitmapList;
     }
 
     @Override
@@ -78,11 +79,12 @@ public class CustomDialog extends Dialog {
             case GOODS_IMAGE:
                 setContentView(R.layout.dialog_goods_image);
                 findViewById(R.id.iBtnDialogGoodsImgClose).setOnClickListener(onClickListener);
-                ViewPager2 goodsImgView = findViewById(R.id.vPgrDialogGoodsImages);
-                goodsImgView.setAdapter(new ListAdptDlgScalableGoodsImg(imgUrl));
-                goodsImgView.setPageTransformer(new ZoomOutPageTransformer());
                 DotsIndicator viewPagerIndicator = findViewById(R.id.indCtrGoodsCurrentImage);
+                ViewPager2 goodsImgView = findViewById(R.id.vPgrDialogGoodsImages);
+                goodsImgView.setAdapter(new ListAdptDlgScalableGoodsImg(bitmapList));
+                goodsImgView.setOffscreenPageLimit(2);
                 viewPagerIndicator.setViewPager2(goodsImgView);
+                goodsImgView.setPageTransformer(new ZoomOutPageTransformer());
                 break;
             case FORM_INVALID:
                 setContentView(R.layout.dialog_form_invalid);

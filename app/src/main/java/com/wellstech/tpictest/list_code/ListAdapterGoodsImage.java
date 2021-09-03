@@ -1,27 +1,27 @@
 package com.wellstech.tpictest.list_code;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.wellstech.tpictest.GoodsInfoActivity;
 import com.wellstech.tpictest.R;
 import com.wellstech.tpictest.utils.CustomDialog;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class ListAdapterGoodsImage extends RecyclerView.Adapter<ListAdapterGoodsImage.ViewHolder> {
     private Context context;
     private final ArrayList<String> imageUrl;
-    private View view;
+    private ArrayList<Bitmap> bitmapList;
 
     public ListAdapterGoodsImage(ArrayList<String> imageUrl) {
         this.imageUrl = imageUrl;
@@ -31,8 +31,24 @@ public class ListAdapterGoodsImage extends RecyclerView.Adapter<ListAdapterGoods
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        view = ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_item_goods_image, parent, false);
+        View view = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_item_goods_image, parent, false);
+        getBitmapList();
         return new ViewHolder(view);
+    }
+
+    private void getBitmapList() {
+        bitmapList = new ArrayList<>();
+        Runnable runnable = () -> {
+            for (String url : imageUrl) {
+                try {
+                    Bitmap imgBitmap = Glide.with(context).asBitmap().load(url).submit().get();
+                    bitmapList.add(imgBitmap);
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        new Thread(runnable).start();
     }
 
     @Override
@@ -45,9 +61,9 @@ public class ListAdapterGoodsImage extends RecyclerView.Adapter<ListAdapterGoods
                 into(holder.goodsImage);
         holder.goodsImage.setOnClickListener(v -> {
             // Call Goods image Dialog
-            new CustomDialog(GoodsInfoActivity.getGoodsInfoActivity(), CustomDialog.DIALOG_CATEGORY.GOODS_IMAGE, (response, data) -> {
+            new CustomDialog(context, CustomDialog.DIALOG_CATEGORY.GOODS_IMAGE, (response, data) -> {
 
-            }, imageUrl).show();
+            }, bitmapList).show();
         });
     }
 
