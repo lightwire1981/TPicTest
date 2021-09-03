@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sclImgVwGoodsImg"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:layout_gravity="center">
+
+</com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView>

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -66,7 +65,7 @@ public class HomeFragment extends Fragment {
     }
 
     ViewPager2 adView;
-    private Timer timer = new Timer();
+    private Timer timer;
 
     private final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
     private final long PERIOD_MS = 3000; // time in milliseconds between successive task executions.
@@ -114,13 +113,13 @@ public class HomeFragment extends Fragment {
         ScrollView scrollView = view.findViewById(R.id.scrlVwMain);
         scrollView.addView(inflater.inflate(R.layout.layout_home, scrollView, false));
 
-        adView = view.findViewById(R.id.vwPgrHomeAD);
+        adView = view.findViewById(R.id.vPgrHomeAD);
         TextView adPages = view.findViewById(R.id.tVwADtotalPage);
         TextView adCurrentPage = view.findViewById(R.id.tVwADcurrentPage);
 
         adView.setAdapter(new ListAdapterADSlider(setADPages(adPages)));
         adView.setPageTransformer(new ZoomOutPageTransformer());
-        adView.setCurrentItem(999);
+        adView.setCurrentItem(1000);
         setCurrentADPage(adCurrentPage, 0);
         adView.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -182,7 +181,7 @@ public class HomeFragment extends Fragment {
     private int[] setADPages(TextView view) {
         int[] adImages = {R.drawable.tp_main_banner1_01,R.drawable.tp_main_banner1_02};
 
-        ((TextView)view.findViewById(R.id.tVwADtotalPage)).setText(getString(R.string.txt_null, adImages.length+""));
+        view.setText(getString(R.string.txt_null, adImages.length+""));
 
         return adImages;
     }
@@ -351,7 +350,7 @@ public class HomeFragment extends Fragment {
             }
             adView.setCurrentItem(currentPage);
         };
-
+        timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {

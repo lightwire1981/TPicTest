@@ -35,7 +35,7 @@ public class ListAdapterADSlider extends RecyclerView.Adapter<ListAdapterADSlide
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         int index = position % resID.length;
         holder.bindSliderImage(resID[index]);
-        holder.adImage.setOnClickListener(view -> Toast.makeText(view.getContext(), R.string.txt_test_message, Toast.LENGTH_SHORT).show());
+        holder.adImage.setOnClickListener(view -> Toast.makeText(context, R.string.txt_test_message, Toast.LENGTH_SHORT).show());
     }
 
     @Override

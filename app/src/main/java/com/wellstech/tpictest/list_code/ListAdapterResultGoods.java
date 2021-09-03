@@ -1,19 +1,27 @@
 package com.wellstech.tpictest.list_code;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.wellstech.tpictest.GoodsInfoActivity;
 import com.wellstech.tpictest.R;
+import com.wellstech.tpictest.db.DBRequestType;
+import com.wellstech.tpictest.db.DatabaseRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -49,7 +57,24 @@ public class ListAdapterResultGoods extends RecyclerView.Adapter<ListAdapterResu
         holder.goodsPrice.setText(item.getGoodsPrice());
         holder.goodsRate.setText(item.getGoodsRate());
         holder.goodsReviews.setText(item.getGoodsReviewCount());
-        holder.goodsImg.setOnClickListener(view -> Log.i(TAG, holder.goodsName.getTag().toString()));
+        holder.goodsImg.setOnClickListener(view -> {
+            JSONObject goodsData = new JSONObject();
+            try {
+                goodsData.put("goodsNo", holder.goodsName.getTag().toString());
+                new DatabaseRequest(context, result -> {
+                    if (result[0].equals("null")) {
+                        Toast.makeText(context, "상품데이터가 없습니다.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    Intent intent = new Intent(context, GoodsInfoActivity.class);
+                    intent.putExtra("goodsInfo", result[0]);
+                    context.startActivity(intent);
+                }).execute(DBRequestType.GET_GOODS_INFO.name(), goodsData.toString());
+                Log.i(TAG, goodsData.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override

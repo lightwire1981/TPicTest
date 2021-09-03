@@ -11,8 +11,13 @@ import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 import com.wellstech.tpictest.R;
+import com.wellstech.tpictest.list_code.ListAdptDlgScalableGoodsImg;
+
+import java.util.ArrayList;
 
 public class CustomDialog extends Dialog {
 
@@ -20,20 +25,21 @@ public class CustomDialog extends Dialog {
         LOGIN,
         LOGOUT,
         PASSWORD,
+        GOODS_IMAGE,
         FORM_INVALID,
         SELECT_INVALID,
         NO_CHILD_INFORM,
         EVALUATE_CONFIRM,
         EXIT
     }
-
     private final DIALOG_CATEGORY dialog_category;
 
     public interface DialogResponseListener {
         void getResponse(boolean response, Object data);
     }
-
     private DialogResponseListener dialogResponseListener;
+
+    private ArrayList<String> imgUrl;
 
     public CustomDialog(@NonNull Context context, DIALOG_CATEGORY dialog_category) {
         super(context);
@@ -44,6 +50,13 @@ public class CustomDialog extends Dialog {
         super(context);
         this.dialog_category = dialog_category;
         this.dialogResponseListener = dialogResponseListener;
+    }
+
+    public CustomDialog(Context context, DIALOG_CATEGORY dialog_category, DialogResponseListener dialogResponseListener, ArrayList<String> imgUrl) {
+        super(context);
+        this.dialog_category = dialog_category;
+        this.dialogResponseListener = dialogResponseListener;
+        this.imgUrl = imgUrl;
     }
 
     @Override
@@ -62,7 +75,14 @@ public class CustomDialog extends Dialog {
                 findViewById(R.id.btnDlgLogoutNo).setOnClickListener(onClickListener);
                 findViewById(R.id.btnDlgLogoutYes).setOnClickListener(onClickListener);
                 break;
-            case PASSWORD:
+            case GOODS_IMAGE:
+                setContentView(R.layout.dialog_goods_image);
+                findViewById(R.id.iBtnDialogGoodsImgClose).setOnClickListener(onClickListener);
+                ViewPager2 goodsImgView = findViewById(R.id.vPgrDialogGoodsImages);
+                goodsImgView.setAdapter(new ListAdptDlgScalableGoodsImg(imgUrl));
+                goodsImgView.setPageTransformer(new ZoomOutPageTransformer());
+                DotsIndicator viewPagerIndicator = findViewById(R.id.indCtrGoodsCurrentImage);
+                viewPagerIndicator.setViewPager2(goodsImgView);
                 break;
             case FORM_INVALID:
                 setContentView(R.layout.dialog_form_invalid);
@@ -106,6 +126,7 @@ public class CustomDialog extends Dialog {
             case R.id.btnDlgLogoutYes:
             case R.id.btnDlgEvaluateYes:
             case R.id.btnNoChildConfirm:
+            case R.id.iBtnDialogGoodsImgClose:
                 dialogResponseListener.getResponse(true, null);
                 dismiss();
                 break;
@@ -140,8 +161,6 @@ public class CustomDialog extends Dialog {
             case EXIT:
                 layoutParams.height = displayMetrics.heightPixels;
                 layoutParams.width = (int) (displayMetrics.widthPixels * 0.9);
-                break;
-            case PASSWORD:
                 break;
             default:
                 break;

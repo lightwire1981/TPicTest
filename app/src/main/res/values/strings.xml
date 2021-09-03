@@ -100,7 +100,7 @@
     <string name="txt_goods_info_eval_3">3점</string>
     <string name="txt_goods_info_eval_2">2점</string>
     <string name="txt_goods_info_eval_1">1점</string>
-    <string name="txt_goods_info_percentage_template">%s \%</string>
+    <string name="txt_goods_info_percentage_template">%s&#160;\%</string>
     <string name="txt_goods_info_review_photo">\n%s</string>
 
 

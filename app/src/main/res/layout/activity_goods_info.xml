@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
@@ -176,7 +176,9 @@
                         android:layout_marginStart="8dp"
                         android:background="@drawable/img_more_info_green"
                         android:gravity="center"
+                        android:textColor="#FFFFFF"
                         android:textSize="12sp"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/tVwGoodsInfoTotalEval"
                         app:layout_constraintTop_toTopOf="parent"
@@ -262,7 +264,8 @@
                     android:id="@+id/linearLayout4"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_margin="25dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -276,7 +279,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/txt_goods_info_eval_template"
                         android:textColor="#F86666"
-                        android:textSize="20sp"
+                        android:textSize="22sp"
                         android:textStyle="bold"
                         tools:ignore="TextContrastCheck" />
 
@@ -284,14 +287,13 @@
                         android:id="@+id/rtnBrGoodsInfoReviewTotalEval"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:halfstart="false"
-                        app:starImageHeight="20dp"
-                        app:starImageWidth="20dp"
-                        hedgehog:clickable="false"
-                        hedgehog:halfstart="true"
-                        hedgehog:starCount="5"
-                        hedgehog:starEmpty="@drawable/evaluate_rating_false"
-                        hedgehog:starFill="@drawable/evaluate_rating_true" />
+                        app:clickable="false"
+                        app:starCount="5"
+                        app:starEmpty="@drawable/tp_grade04_off"
+                        app:starFill="@drawable/tp_grade04_on"
+                        app:starHalf="@drawable/tp_grade04_half"
+                        app:starImageHeight="23dp"
+                        app:starImageWidth="23dp" />
 
                 </LinearLayout>
 
@@ -299,7 +301,6 @@
                     android:id="@+id/linearLayout3"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="24dp"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -343,6 +344,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
+                            android:ems="3"
+                            android:gravity="end"
                             android:text="@string/txt_goods_info_percentage_template"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -388,6 +391,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
+                            android:ems="3"
+                            android:gravity="end"
                             android:text="@string/txt_goods_info_percentage_template"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -433,6 +438,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
+                            android:ems="3"
+                            android:gravity="end"
                             android:text="@string/txt_goods_info_percentage_template"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -478,6 +485,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
+                            android:ems="3"
+                            android:gravity="end"
                             android:text="@string/txt_goods_info_percentage_template"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -523,6 +532,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
+                            android:ems="3"
+                            android:gravity="end"
                             android:text="@string/txt_goods_info_percentage_template"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -540,6 +551,7 @@
                 android:layout_height="wrap_content">
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcyclVwGoodsInfoReviewPhoto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -555,14 +567,13 @@
                     android:gravity="center_vertical"
                     android:lines="2"
                     android:text="@string/txt_goods_info_review_photo"
-                    android:textAlignment="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/sPnrGoodsInfoReviewOrder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -571,8 +582,9 @@
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcyclVwGoodsInfoReviewList"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
             </androidx.recyclerview.widget.RecyclerView>
 
