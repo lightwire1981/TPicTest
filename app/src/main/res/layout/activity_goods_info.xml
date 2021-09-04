@@ -593,7 +593,7 @@
                 android:layout_height="match_parent">
 
                 <CheckBox
-                    android:id="@+id/checkBox"
+                    android:id="@+id/cKbGoodsInfoLike"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:button="@drawable/img_goods_like"
@@ -603,7 +603,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/button5"
+                    android:id="@+id/btnGoodsInfoWriteReview"
                     style="@style/HomeButtonBorderless"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -613,7 +613,7 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/checkBox"
+                    app:layout_constraintStart_toEndOf="@+id/cKbGoodsInfoLike"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="TextContrastCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>

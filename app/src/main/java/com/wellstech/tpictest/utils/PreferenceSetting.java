@@ -11,7 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PreferenceSetting {
-    private final Context context;
+    private Context context;
     //    private static final String DEFAULT_SERVER_IP = "127.0.0.1";
     private static final String DEFAULT_SERVER_IP = "211.38.3.53";
     public enum PREFERENCE_KEY {
@@ -27,6 +27,33 @@ public class PreferenceSetting {
     public PreferenceSetting(Context context) {this.context = context;}
 
     public String loadPreference(PREFERENCE_KEY category) {
+        String returnValue;
+
+        SharedPreferences preferences = context.getSharedPreferences("prefInfo", Activity.MODE_PRIVATE);
+        switch (category) {
+            case USER_INFO:
+                returnValue = preferences.getString(PREFERENCE_KEY.USER_INFO.name(), "");
+                break;
+            case SERVER_ADDRESS:
+                returnValue = preferences.getString(PREFERENCE_KEY.SERVER_ADDRESS.name(), DEFAULT_SERVER_IP);
+                break;
+            case LOGIN_TYPE:
+                returnValue = preferences.getString(PREFERENCE_KEY.LOGIN_TYPE.name(), LoginActivity.NO_LOGIN);
+                break;
+            default:
+                returnValue = null;
+                break;
+        }
+        return returnValue;
+    }
+
+    /**
+     * Non Constructor Load Method
+     * @param context Current Context
+     * @param category Require Type
+     * @return String value
+     */
+    public static String loadPreference(Context context, PREFERENCE_KEY category) {
         String returnValue;
 
         SharedPreferences preferences = context.getSharedPreferences("prefInfo", Activity.MODE_PRIVATE);

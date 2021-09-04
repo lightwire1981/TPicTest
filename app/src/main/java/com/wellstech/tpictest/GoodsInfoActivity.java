@@ -2,6 +2,7 @@ package com.wellstech.tpictest;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -13,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.wellstech.tpictest.list_code.ListAdapterGoodsImage;
+import com.wellstech.tpictest.utils.CustomDialog;
+import com.wellstech.tpictest.utils.PreferenceSetting;
 import com.wellstech.tpictest.utils.ZoomOutPageTransformer;
 
 import org.json.JSONArray;
@@ -32,6 +35,7 @@ public class GoodsInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_goods_info);
         getGoodsInfo();
         setWidget();
+        hideNavigationBar();
     }
 
     private void getGoodsInfo() {
@@ -156,6 +160,21 @@ public class GoodsInfoActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        findViewById(R.id.btnGoodsInfoWriteReview).setOnClickListener(view -> {
+            if (PreferenceSetting.loadPreference(getBaseContext(), PreferenceSetting.PREFERENCE_KEY.USER_INFO).isEmpty()) {
+                new CustomDialog(GoodsInfoActivity.this, CustomDialog.DIALOG_CATEGORY.LOGIN, (response, data) -> {
+                    if (response) {
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    } else {
+                        hideNavigationBar();
+                    }
+                }).show();
+                return;
+            }
+        });
     }
 
     private ArrayList<String> setGoodsImages(TextView pageCountView) {
@@ -175,5 +194,11 @@ public class GoodsInfoActivity extends AppCompatActivity {
     }
     private void setCurrentImagePage(TextView pageCounter, int position) {
         pageCounter.setText(getString(R.string.txt_null, (position+1)+""));
+    }
+
+
+    private void hideNavigationBar(){
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 }
