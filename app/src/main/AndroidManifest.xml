@@ -35,7 +35,7 @@
         <activity
             android:name=".ReviewActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".GoodsInfoActivity"
             android:exported="true"

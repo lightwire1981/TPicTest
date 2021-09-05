@@ -1,11 +1,22 @@
 package com.wellstech.tpictest;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,9 +26,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.wellstech.tpictest.db.DBRequestType;
 import com.wellstech.tpictest.db.DatabaseRequest;
 import com.wellstech.tpictest.list_code.ListAdapterEvalChild;
+import com.wellstech.tpictest.list_code.ListAdptPhotoForReview;
 import com.wellstech.tpictest.list_code.ListItemEvalChild;
 import com.wellstech.tpictest.list_code.RecyclerDecoration;
+import com.wellstech.tpictest.utils.BitmapToString;
 import com.wellstech.tpictest.utils.ChildOrderConvert;
+import com.wellstech.tpictest.utils.CustomDialog;
 import com.wellstech.tpictest.utils.PreferenceSetting;
 
 import org.json.JSONArray;
@@ -25,11 +39,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class ReviewActivity extends AppCompatActivity {
 
     private JSONObject GoodsInfo;
-    ArrayList<String> useChildId = new ArrayList<>();
+    private final ArrayList<String> useChildId = new ArrayList<>();
+    private Float evalValue;
+    private String reviewString = "";
+    private final ArrayList<Bitmap> photoList = new ArrayList<>();
+    private final ArrayList<Uri> uriList = new ArrayList<>();
+    private Button btnGetPhoto;
+    private RecyclerView photoView;
+
+    private ActivityResultLauncher<Intent> resultLauncher;
+
+    private final String TAG = getClass().getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +88,90 @@ public class ReviewActivity extends AppCompatActivity {
         RecyclerView childListView = findViewById(R.id.rclVwReviewChildList);
         setLayoutManager(childListView);
         getChildInfo(childListView);
+
+        TextView evaluateValue = findViewById(R.id.tVwReviewEvaluatingValue);
+        RatingBar reviewEvaluate = findViewById(R.id.rtnBrReviewEvaluating);
+        reviewEvaluate.setOnRatingBarChangeListener((ratingBar, v, b) -> {
+            evaluateValue.setText(getString(R.string.txt_review_evaluate_template, String.valueOf((int)v)));
+            evalValue = v;
+        });
+        reviewEvaluate.setRating(3f);
+
+        TextView stringCount = findViewById(R.id.tVwReviewStringCount);
+        stringCount.setText(getString(R.string.txt_review_text_limit, String.valueOf(0)));
+        EditText reviewDescription = findViewById(R.id.eTxtReview);
+        reviewDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                stringCount.setText(getString(R.string.txt_review_text_limit, editable.length()+""));
+                reviewString = editable.toString();
+            }
+        });
+
+        photoView = findViewById(R.id.rclVwReviewPhoto);
+        setLayoutManager(photoView);
+        btnGetPhoto = findViewById(R.id.btnAddReviewPhoto);
+        btnGetPhoto.setText(getString(R.string.txt_review_photo_template, uriList.size()+""));
+        btnGetPhoto.setOnClickListener(view -> {
+            if (uriList.size() == 5) {
+                Toast.makeText(getBaseContext(), "이미지가 가득 찼습니다.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            resultLauncher.launch(intent);
+        });
+        resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent intent = result.getData();
+                        Uri uri = intent != null ? intent.getData() : null;
+                        uriList.add(uri);
+                        new Thread(() -> {
+                            try {
+                                photoList.add(Glide.with(getBaseContext()).asBitmap().load(uri).submit().get());
+                            } catch (ExecutionException | InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }).start();
+                        setPhoto();
+                    }
+                });
+
+
+        findViewById(R.id.btnReviewRegistration).setOnClickListener(view -> {
+            if (useChildId.size() < 1) {
+                new CustomDialog(ReviewActivity.this, CustomDialog.DIALOG_CATEGORY.NONE_SELECT_CHILD, (response, data) -> hideNavigationBar()).show();
+                return;
+            }
+
+            if (reviewString.isEmpty()) {
+                Toast.makeText(getBaseContext(), "리뷰 내용을 입력해 주세요", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            StringBuilder childId = new StringBuilder();
+            for (String id : useChildId) {
+                if (useChildId.indexOf(id) > 0) {
+                    childId.append(",");
+                }
+                childId.append(id);
+            }
+            ArrayList<String> bitmapString = new ArrayList<>();
+            for(Bitmap bitmap : photoList) {
+                bitmapString.add(BitmapToString.bitmapToByteArray(bitmap));
+            }
+        });
 
         findViewById(R.id.iBtnReviewExit).setOnClickListener(v -> finish());
     }
@@ -114,6 +223,16 @@ public class ReviewActivity extends AppCompatActivity {
             }
         }
     };
+
+    private void setPhoto() {
+        ListAdptPhotoForReview adapter = new ListAdptPhotoForReview(uriList, position -> {
+            uriList.remove(position);
+            photoList.remove(position);
+            setPhoto();
+        });
+        btnGetPhoto.setText(getString(R.string.txt_review_photo_template, uriList.size()+""));
+        photoView.setAdapter(adapter);
+    }
 
 
     private void setLayoutManager(RecyclerView recyclerView) {

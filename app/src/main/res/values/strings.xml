@@ -104,12 +104,15 @@
     <string name="txt_goods_info_review_photo">\n%s</string>
 
 
+
     <string name="txt_review_write">리뷰 쓰기</string>
     <string name="txt_review_modify">리뷰 수정</string>
     <string name="txt_review_registration">리뷰등록</string>
     <string name="txt_review_evaluate_template">%s점</string>
     <string name="txt_review_eval_total">&#160;\/ 5점</string>
     <string name="txt_review_text_limit">%s / 1,000</string>
+    <string name="txt_review_photo_template">\n\n%s/5</string>
+    <string name="hint_review_write">리뷰 내용을 입력하세요(1,000자 이내)</string>
 
 
     <string name="txt_more_info">더보기&#160;</string>
@@ -195,10 +198,13 @@
 
     <string name="txt_dlg_yes">확인</string>
     <string name="txt_dlg_no">취소</string>
+    <string name="txt_dlg_introduce">안내</string>
     <string name="txt_dlg_login_title">로그인 안내</string>
     <string name="txt_dlg_logout_title">로그아웃 안내</string>
     <string name="txt_dlg_login_confirm">로그인 후 사용 가능합니다.\n로그인 하시겠습니까?</string>
     <string name="txt_dlg_logout_confirm">로그아웃 하시겠습니까?</string>
+
+    <string name="txt_dlg_no_child_select">장난감을 사용한 자녀를\n선택 해 주세요.</string>
 
     <string name="txt_dlg_no_child_title">자녀 등록 필요</string>
     <string name="txt_dlg_no_child_inform">평가를 위해서는 자녀등록이 요구됩니다.\n[마이페이지] 메뉴에서 자녀 등록을 진행해 주세요</string>

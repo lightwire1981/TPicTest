@@ -43,163 +43,205 @@
             tools:ignore="TouchTargetSizeCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.9"
-        android:orientation="vertical">
+        android:layout_weight="1">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/iVwReviewGoodsImg"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:contentDescription="@string/cd_design_img"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/tp_prod_a001_thumb01" />
-
-            <LinearLayout
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/iVwReviewGoodsImg"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.05">
+                android:padding="10dp">
 
-                <TextView
-                    android:id="@+id/tVwReviewGoodsCategory"
+                <ImageView
+                    android:id="@+id/iVwReviewGoodsImg"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:contentDescription="@string/cd_design_img"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/tp_prod_a001_thumb01" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iVwReviewGoodsImg"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.05">
+
+                    <TextView
+                        android:id="@+id/tVwReviewGoodsCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/img_category_tag"
+                        android:text="@string/btn_rank_boy"
+                        android:textAlignment="center"
+                        android:textColor="#F86666"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/tVwReviewGoodsName"
+                        style="@style/GoodsInfoNameTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_main_custom_product_name1"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rclVwReviewChildList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#EFEFEF"
+                android:padding="10dp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <RatingBar
+                    android:id="@+id/rtnBrReviewEvaluating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/img_category_tag"
-                    android:text="@string/btn_rank_boy"
+                    android:numStars="5"
+                    android:progressBackgroundTint="#B3B3B3"
+                    android:progressTint="#FFBF00"
+                    android:rating="4"
+                    android:stepSize="1"
                     android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/tVwReviewEvaluatingValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_review_evaluate_template"
                     android:textColor="#F86666"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textView91"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="TextContrastCheck" />
 
                 <TextView
-                    android:id="@+id/tVwReviewGoodsName"
-                    style="@style/GoodsInfoNameTextStyle"
-                    android:layout_width="match_parent"
+                    android:id="@+id/textView91"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_main_custom_product_name1"
-                    android:textSize="18sp" />
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:text="@string/txt_review_eval_total"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rclVwReviewChildList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#EFEFEF"
-            android:padding="10dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <RatingBar
-                android:id="@+id/rtnBrReviewEvaluating"
-                android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/eTxtReview"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="@string/hint_review_write"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:minLines="7"
+                    android:padding="20dp"
+                    android:textColor="#000000"
+                    android:textColorHint="#9F9F9F"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
+
+                <TextView
+                    android:id="@+id/tVwReviewStringCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/img_review_text_count"
+                    android:gravity="center"
+                    android:text="@string/txt_review_text_limit"
+                    android:textColor="#878787"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.85"
+                    tools:ignore="TextContrastCheck" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:numStars="5"
-                android:progressBackgroundTint="#B3B3B3"
-                android:progressTint="#FFBF00"
-                android:rating="4"
-                android:stepSize="1"
-                android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SpeakableTextPresentCheck" />
+                android:background="#EFEFEF"
+                android:padding="10dp">
 
-            <TextView
-                android:id="@+id/tVwReviewEvaluatingValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_review_evaluate_template"
-                android:textColor="#F86666"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textView91"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TextContrastCheck" />
+                <Button
+                    android:id="@+id/btnAddReviewPhoto"
+                    style="@style/HomeButtonBorderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/img_photo_upload"
+                    android:gravity="center"
+                    android:text="@string/txt_review_photo_template"
+                    android:textAlignment="center"
+                    android:textColor="#AAAAAA"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/rclVwReviewPhoto"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
 
-            <TextView
-                android:id="@+id/textView91"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_review_eval_total"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rclVwReviewPhoto"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btnAddReviewPhoto"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/editTextTextMultiLine"
-                android:layout_width="0dp"
-                android:layout_height="200dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:importantForAutofill="no"
-                android:inputType="textMultiLine"
-                android:minLines="7"
-                android:padding="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <TextView
-                android:id="@+id/textView93"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/img_review_text_count"
-                android:gravity="center"
-                android:text="@string/txt_review_text_limit"
-                android:textColor="#878787"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.9"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.85"
-                tools:ignore="TextContrastCheck" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/btnReviewRegistration"
         style="@style/HomeButtonBorderless"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="4.6"
+        android:layout_weight="4.5"
         android:background="#F86666"
         android:text="@string/txt_review_registration"
         android:textSize="16sp"

@@ -27,6 +27,7 @@ public class CustomDialog extends Dialog {
         LOGOUT,
         PASSWORD,
         GOODS_IMAGE,
+        NONE_SELECT_CHILD,
         FORM_INVALID,
         SELECT_INVALID,
         NO_CHILD_INFORM,
@@ -86,6 +87,10 @@ public class CustomDialog extends Dialog {
                 viewPagerIndicator.setViewPager2(goodsImgView);
                 goodsImgView.setPageTransformer(new ZoomOutPageTransformer());
                 break;
+            case NONE_SELECT_CHILD:
+                setContentView(R.layout.dialog_no_child_select);
+                findViewById(R.id.btnNoChildSelectConfirm).setOnClickListener(onClickListener);
+                break;
             case FORM_INVALID:
                 setContentView(R.layout.dialog_form_invalid);
                 findViewById(R.id.btnRegistryConfirm).setOnClickListener(onClickListener);
@@ -129,6 +134,7 @@ public class CustomDialog extends Dialog {
             case R.id.btnDlgEvaluateYes:
             case R.id.btnNoChildConfirm:
             case R.id.iBtnDialogGoodsImgClose:
+            case R.id.btnNoChildSelectConfirm:
                 dialogResponseListener.getResponse(true, null);
                 dismiss();
                 break;
@@ -156,6 +162,7 @@ public class CustomDialog extends Dialog {
 
         switch (dialog_category) {
             case LOGIN:
+            case NONE_SELECT_CHILD:
             case FORM_INVALID:
             case SELECT_INVALID:
             case NO_CHILD_INFORM:
