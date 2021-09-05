@@ -112,7 +112,6 @@ public class ReviewActivity extends AppCompatActivity {
             } else {
                 useChildId.remove(checkBox.getTag().toString());
             }
-
         }
     };
 
