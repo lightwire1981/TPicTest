@@ -35,6 +35,11 @@ public class GoodsInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_goods_info);
         getGoodsInfo();
         setWidget();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         hideNavigationBar();
     }
 
@@ -174,6 +179,9 @@ public class GoodsInfoActivity extends AppCompatActivity {
                 }).show();
                 return;
             }
+            Intent intent = new Intent(getBaseContext(), ReviewActivity.class);
+            intent.putExtra("goodsInfo", GoodsInfo.toString());
+            startActivity(intent);
         });
     }
 

@@ -20,7 +20,8 @@ public class ListAdapterEvalChild extends RecyclerView.Adapter<ListAdapterEvalCh
     private final ArrayList<CheckBox> ChildBoxList = new ArrayList<>();
 
     public interface CheckBoxSelectListener {
-        void onSelected(int position);
+        void onSelectedPosition(CheckBox checkBox, int position);
+        void onSelectedCheckBox(CheckBox checkBox, boolean isChecked);
     }
     private final CheckBoxSelectListener checkBoxSelectListener;
 
@@ -46,9 +47,10 @@ public class ListAdapterEvalChild extends RecyclerView.Adapter<ListAdapterEvalCh
         holder.ckbChild.setTag(item.getChildIdx());
         holder.ckbChild.setOnCheckedChangeListener((checkBox, isChecked) -> {
             if (isChecked) {
-                checkBoxSelectListener.onSelected(holder.getAdapterPosition());
+                checkBoxSelectListener.onSelectedPosition((CheckBox)checkBox, holder.getAdapterPosition());
                 // do Goods List Work
             }
+            checkBoxSelectListener.onSelectedCheckBox((CheckBox)checkBox, isChecked);
             textViewStyleChange(isChecked, holder.childOrder, holder.childNick);
         });
         ChildBoxList.add(holder.ckbChild);

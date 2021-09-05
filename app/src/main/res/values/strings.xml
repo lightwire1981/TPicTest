@@ -104,6 +104,14 @@
     <string name="txt_goods_info_review_photo">\n%s</string>
 
 
+    <string name="txt_review_write">리뷰 쓰기</string>
+    <string name="txt_review_modify">리뷰 수정</string>
+    <string name="txt_review_registration">리뷰등록</string>
+    <string name="txt_review_evaluate_template">%s점</string>
+    <string name="txt_review_eval_total">&#160;\/ 5점</string>
+    <string name="txt_review_text_limit">%s / 1,000</string>
+
+
     <string name="txt_more_info">더보기&#160;</string>
     <string name="txt_review_sample">특가상품 헬로카봇 구급차댄디 옐로우 리뷰입니다. 아이가 엄청 좋아합니다. 친구 로보트장난감보며 부러워 하던 아이를 위해 구입했어요. 마트를 가서 구매하려고 했지만 금액도 금액이거니와</string>
     <string name="txt_like_default">&#160;999</string>

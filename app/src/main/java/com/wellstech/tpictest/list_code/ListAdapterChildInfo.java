@@ -33,6 +33,9 @@ public class ListAdapterChildInfo extends RecyclerView.Adapter<ListAdapterChildI
         this.childData = childData;
 //        this.backStackListener = backStackListener;
     }
+    public ListAdapterChildInfo(ArrayList<ListItemChildInfo> list) {
+        mData = list;
+    }
 
     public interface BackStackListener {
         void OnFragmentBack();

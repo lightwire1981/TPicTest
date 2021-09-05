@@ -196,35 +196,43 @@ public class EvaluateFragment extends Fragment {
         }
     }
 
-    private final ListAdapterEvalChild.CheckBoxSelectListener checkBoxSelectListener = position -> {
+    private final ListAdapterEvalChild.CheckBoxSelectListener checkBoxSelectListener = new ListAdapterEvalChild.CheckBoxSelectListener() {
 
-        // region RadioButton Action
-        int index = 0;
-        for (CheckBox checkBox : ChildBoxList) {
-            if (index != position) {
-                checkBox.setChecked(false);
-            }
-            index++;
-        }
-        //endregion
-        if (listAdapterEvalGoods == null) {
-            childId = ChildBoxList.get(position).getTag().toString();
-            setGoodsList(childId);
-            return;
-        }
-        ratingData = listAdapterEvalGoods.getRatingData();
-        if (!ratingData.isEmpty()) {
-            new CustomDialog(getContext(), CustomDialog.DIALOG_CATEGORY.EVALUATE_CONFIRM, (response, data) -> {
-                if (response) {
-                    saveEvaluatedGoods(RefreshType.CHANGE_CHILD, position);
-                } else {
-                    childId = ChildBoxList.get(position).getTag().toString();
-                    setGoodsList(childId);
+        @Override
+        public void onSelectedPosition(CheckBox checkBox, int position) {
+            // region RadioButton Action
+            int index = 0;
+            for (CheckBox cbox : ChildBoxList) {
+                if (index != position) {
+                    cbox.setChecked(false);
                 }
-            }).show();
-        } else {
-            childId = ChildBoxList.get(position).getTag().toString();
-            setGoodsList(childId);
+                index++;
+            }
+            //endregion
+            if (listAdapterEvalGoods == null) {
+                childId = ChildBoxList.get(position).getTag().toString();
+                setGoodsList(childId);
+                return;
+            }
+            ratingData = listAdapterEvalGoods.getRatingData();
+            if (!ratingData.isEmpty()) {
+                new CustomDialog(getContext(), CustomDialog.DIALOG_CATEGORY.EVALUATE_CONFIRM, (response, data) -> {
+                    if (response) {
+                        saveEvaluatedGoods(RefreshType.CHANGE_CHILD, position);
+                    } else {
+                        childId = ChildBoxList.get(position).getTag().toString();
+                        setGoodsList(childId);
+                    }
+                }).show();
+            } else {
+                childId = ChildBoxList.get(position).getTag().toString();
+                setGoodsList(childId);
+            }
+        }
+
+        @Override
+        public void onSelectedCheckBox(CheckBox checkBox, boolean isChecked) {
+
         }
     };
 
