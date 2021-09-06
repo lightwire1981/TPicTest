@@ -102,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
 
         findViewById(R.id.btnNaverLogin).setOnClickListener(onClickListener);
         findViewById(R.id.iBtnKakaoLogin).setOnClickListener(onClickListener);
+        findViewById(R.id.iBtnLoginExit).setOnClickListener(onClickListener);
 //        findViewById(R.id.btnKakaoLogoutTest).setOnClickListener(onClickListener);
     }
 
@@ -205,14 +206,12 @@ public class LoginActivity extends AppCompatActivity {
             UserJoin(response);
             PreferenceSetting preferenceSetting = new PreferenceSetting(getBaseContext());
             preferenceSetting.saveUserInfo(response);
-
+            preferenceSetting.savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, NAVER);
 
             Log.i(NAVER, "id : "+id +" email : "+email);
 
-            preferenceSetting.savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, NAVER);
-            Intent intent = new Intent(getBaseContext(), MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+
+//            LoadMainPage();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -248,6 +247,9 @@ public class LoginActivity extends AppCompatActivity {
 //
 //                new DatabaseRequest(getBaseContext(), listener).execute(DBRequestType.TEST.name(), null);
 //                break;
+            case R.id.iBtnLoginExit:
+                LoadMainPage();
+                break;
             default:
                 break;
         }

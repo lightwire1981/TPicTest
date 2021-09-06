@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/activity_login.xml" value="0.21004098360655737" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/dialog_exit_confirm.xml" value="0.21004098360655737" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/dialog_form_invalid.xml" value="0.21004098360655737" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/dialog_insert_confirm.xml" value="0.21004098360655737" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/dialog_login_confirm.xml" value="0.21004098360655737" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/dialog_no_child_select.xml" value="0.21004098360655737" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/drawable/btn_activity_close.xml" value="0.23614864864864865" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/drawable/btn_ad_slide_stop.xml" value="0.23614864864864865" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/drawable/btn_arrow_left.xml" value="0.23614864864864865" />

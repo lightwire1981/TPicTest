@@ -43,25 +43,6 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
 
         parameters = MakeParameter(params);
         Log.i(TAG, "Parameter Check ::" + parameters);
-//        switch (requestType) {
-//            case JOIN:
-//            case CREATE_CHILD:
-//            case GET_CHILD:
-//            case UPDATE_CHILD:
-//            case DELETE_CHILD:
-//            case GET_ALL_GOODS:
-//            case GET_ALL_BRAND:
-//            case GET_EVALUATE_GOODS:
-//                parameters = MakeParameter(params);
-//                Log.i(TAG, "Parameter Check ::" + parameters);
-//                break;
-//            case TEST:
-//                parameters = MakeParameter(params);
-//                Log.i(TAG, "Parameter Check ::" + parameters);
-//                break;
-//            default:
-//                break;
-//        }
         try {
             String url = "http://"+SERVER_IP+PHP_URL;
             Log.d(TAG, "<<<<<<<<<<<<<  " + url);
@@ -145,6 +126,10 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
         String KEY_WORD = "KEY_WORD=";
         String KEY_WORD_ID = "KEY_WORD_ID=";
 
+        String REVIEW = "REVIEW=";
+        String PHOTO_DATA = "PHOTO_DATA=";
+
+        String GOODS_EVALUATE = "GOODS_EVALUATE=";
         String EVALUATE_DATA = "EVALUATE_DATA=";
 
         String USER_ID = "USER_ID=";
@@ -152,6 +137,7 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
         String USER_EMAIL = "USER_EMAIL=";
         String USER_PHONE = "USER_PHONE=";
 
+        String CHILD_IDS = "CHILD_IDS=";
         String CHILD_IDX = "CHILD_IDX=";
         String CHILD_ORDER = "CHILD_ORDER=";
         String CHILD_GENDER = "CHILD_GENDER=";
@@ -227,6 +213,15 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                     parameterValue = USE + params[0] + AND +
                             USER_ID + jsonObject.getString("id") + AND +
                             KEY_WORD + jsonObject.getString("key_word");
+                    break;
+                case INSERT_REVIEW:
+                    parameterValue = USE + params[0] + AND +
+                            USER_ID + jsonObject.getString("id") + AND +
+                            GOODS_NO + jsonObject.getString("goodsNo") + AND +
+                            CHILD_IDS + jsonObject.getString("child_ids") + AND +
+                            GOODS_EVALUATE + jsonObject.getString("goods_evaluate") + AND +
+                            REVIEW + jsonObject.getString("review") + AND +
+                            PHOTO_DATA + jsonObject.getString("photo_data");
                     break;
                 default:
                     parameterValue = null;

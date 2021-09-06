@@ -28,6 +28,7 @@ public class CustomDialog extends Dialog {
         PASSWORD,
         GOODS_IMAGE,
         NONE_SELECT_CHILD,
+        INSERT_CONFIRM,
         FORM_INVALID,
         SELECT_INVALID,
         NO_CHILD_INFORM,
@@ -108,6 +109,10 @@ public class CustomDialog extends Dialog {
                 findViewById(R.id.btnDlgEvaluateNo).setOnClickListener(onClickListener);
                 findViewById(R.id.btnDlgEvaluateYes).setOnClickListener(onClickListener);
                 break;
+            case INSERT_CONFIRM:
+                setContentView(R.layout.dialog_insert_confirm);
+                findViewById(R.id.btnInsertComfirm).setOnClickListener(onClickListener);
+                break;
             case EXIT:
                 setContentView(R.layout.dialog_exit_confirm);
                 findViewById(R.id.btnDlgExitNo).setOnClickListener(onClickListener);
@@ -135,6 +140,7 @@ public class CustomDialog extends Dialog {
             case R.id.btnNoChildConfirm:
             case R.id.iBtnDialogGoodsImgClose:
             case R.id.btnNoChildSelectConfirm:
+            case R.id.btnInsertComfirm:
                 dialogResponseListener.getResponse(true, null);
                 dismiss();
                 break;

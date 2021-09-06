@@ -9,6 +9,7 @@ public enum DBRequestType {
     GET_ALL_GOODS,
     GET_GOODS_INFO,
     GET_REVIEWS,
+    INSERT_REVIEW,
     GET_ALL_BRAND,
     GET_EVALUATE_GOODS,
     INSERT_EVALUATE_GOODS,
@@ -17,6 +18,5 @@ public enum DBRequestType {
     DELETE_RECENT_KEYWORD,
     SEARCH_GOODS,
     LIKE,
-    WRITE_REVIEW,
     TEST
 }

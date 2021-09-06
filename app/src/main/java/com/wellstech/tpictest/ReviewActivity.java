@@ -1,5 +1,6 @@
 package com.wellstech.tpictest;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -29,7 +30,7 @@ import com.wellstech.tpictest.list_code.ListAdapterEvalChild;
 import com.wellstech.tpictest.list_code.ListAdptPhotoForReview;
 import com.wellstech.tpictest.list_code.ListItemEvalChild;
 import com.wellstech.tpictest.list_code.RecyclerDecoration;
-import com.wellstech.tpictest.utils.BitmapToString;
+import com.wellstech.tpictest.utils.BitmapConverter;
 import com.wellstech.tpictest.utils.ChildOrderConvert;
 import com.wellstech.tpictest.utils.CustomDialog;
 import com.wellstech.tpictest.utils.PreferenceSetting;
@@ -149,6 +150,8 @@ public class ReviewActivity extends AppCompatActivity {
                     }
                 });
 
+        ProgressDialog progressDialog = new ProgressDialog(ReviewActivity.this);
+        progressDialog.setMessage("리뷰를 등록 중입니다...");
 
         findViewById(R.id.btnReviewRegistration).setOnClickListener(view -> {
             if (useChildId.size() < 1) {
@@ -160,17 +163,49 @@ public class ReviewActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "리뷰 내용을 입력해 주세요", Toast.LENGTH_SHORT).show();
                 return;
             }
-            StringBuilder childId = new StringBuilder();
+            progressDialog.show();
+            StringBuilder childIds = new StringBuilder();
             for (String id : useChildId) {
                 if (useChildId.indexOf(id) > 0) {
-                    childId.append(",");
+                    childIds.append(",");
                 }
-                childId.append(id);
+                childIds.append(id);
             }
-            ArrayList<String> bitmapString = new ArrayList<>();
-            for(Bitmap bitmap : photoList) {
-                bitmapString.add(BitmapToString.bitmapToByteArray(bitmap));
+
+//            ArrayList<String> bitmapString = new ArrayList<>();
+            JSONArray bitmapArray = new JSONArray();
+            if (photoList.size() > 0) {
+                for(Bitmap bitmap : photoList) {
+                    JSONObject data = new JSONObject();
+                    try {
+                        bitmap = BitmapConverter.resize(getBaseContext(), bitmap);
+                        data.put("img", BitmapConverter.bitmapToByteArray(bitmap));
+                        bitmapArray.put(data);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+//                    bitmapString.add(BitmapToString.bitmapToByteArray(bitmap));
+                }
             }
+            JSONObject data = new JSONObject();
+            try {
+                JSONObject userInfo = new JSONObject(PreferenceSetting.loadPreference(getBaseContext(), PreferenceSetting.PREFERENCE_KEY.USER_INFO));
+                data.put("id", userInfo.getString("id"));
+                data.put("goodsNo", GoodsInfo.getString("goodsNo"));
+                data.put("child_ids", childIds.toString());
+                data.put("goods_evaluate", (evalValue)+"");
+                data.put("review", reviewString);
+                data.put("photo_data", bitmapArray.length() > 0 ? bitmapArray.toString():"");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            new DatabaseRequest(getBaseContext(), result -> {
+                if (result[0].equals("INSERT_OK")) {
+                    progressDialog.dismiss();
+                    new CustomDialog(ReviewActivity.this, CustomDialog.DIALOG_CATEGORY.INSERT_CONFIRM, (response, data1) -> this.finish()).show();
+                }
+            }).execute(DBRequestType.INSERT_REVIEW.name(), data.toString());
         });
 
         findViewById(R.id.iBtnReviewExit).setOnClickListener(v -> finish());
