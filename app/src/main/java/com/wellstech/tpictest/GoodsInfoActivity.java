@@ -1,19 +1,27 @@
 package com.wellstech.tpictest;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.wellstech.tpictest.db.DBRequestType;
+import com.wellstech.tpictest.db.DatabaseRequest;
 import com.wellstech.tpictest.list_code.ListAdapterGoodsImage;
+import com.wellstech.tpictest.list_code.ListAdapterNull;
+import com.wellstech.tpictest.list_code.ListAdapterReview;
+import com.wellstech.tpictest.list_code.ListAdapterReviewToy;
+import com.wellstech.tpictest.list_code.ListItemReviewToy;
+import com.wellstech.tpictest.list_code.RecyclerDecoration;
 import com.wellstech.tpictest.utils.CustomDialog;
 import com.wellstech.tpictest.utils.PreferenceSetting;
 import com.wellstech.tpictest.utils.ZoomOutPageTransformer;
@@ -27,59 +35,125 @@ import java.util.ArrayList;
 
 public class GoodsInfoActivity extends AppCompatActivity {
 
+    //region ValueSetting
     private JSONObject GoodsInfo;
+    private ViewPager2 vpgrGoodsImage;
+    private RecyclerView reviewListView;
+    private TextView totalImgPage, currentImgPage, goodsName;
+    private TextView eval5Percentage, eval4Percentage, eval3Percentage, eval2Percentage, eval1Percentage;
+    private ProgressBar eval5Progress, eval4Progress, eval3Progress, eval2Progress, eval1Progress;
+    private TextView totalEvalCount;
+    private RatingBar rtnbrTotalEval;
+    private TextView goodsReviewCount, reviewTotalEvalCount;
+    private com.hedgehog.ratingbar.RatingBar goodsTotalEval;
+    private TextView goodsPrice, goodsReviewJump;
+
+    private final String TAG = getClass().getSimpleName();
+    //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_info);
-        getGoodsInfo();
         setWidget();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        getGoodsInfo();
+
         hideNavigationBar();
     }
 
     private void getGoodsInfo() {
         try {
             GoodsInfo = new JSONArray(getIntent().getStringExtra("goodsInfo")).getJSONObject(0);
+            setGoodsInfo();
+            getReviews(GoodsInfo.getString("goodsNo"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private void getReviews(String goodsId) {
-
+    private void getReviews(String goodsNo) {
+        JSONObject goodsData = new JSONObject();
+        try {
+            goodsData.put("goodsNo", goodsNo);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new DatabaseRequest(getBaseContext(), result -> {
+            if (result[0].equals("null")) {
+                ListAdapterNull adapterNull = new ListAdapterNull();
+                reviewListView.setAdapter(adapterNull);
+                return;
+            }
+            try {
+                JSONArray reviewList = new JSONArray(result[0]);
+                ArrayList<ListItemReviewToy> list = new ArrayList<>();
+                for (int i=0; i<reviewList.length(); i++) {
+                    ListItemReviewToy item = new ListItemReviewToy();
+                    item.setItem(reviewList.getJSONObject(i));
+                    list.add(item);
+                }
+                ListAdapterReview adapter = new ListAdapterReview(list, reviewData -> Log.i(TAG, reviewData.toString()));
+                reviewListView.setAdapter(adapter);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }).execute(DBRequestType.GET_REVIEW_LIST.name(), goodsData.toString());
     }
+
     private void setWidget() {
-        ViewPager2 vpgrGoodsImage = findViewById(R.id.vPgrGoodsImages);
-        TextView currentImgPage = findViewById(R.id.tVwGoodsInfoCImgPage);
-        TextView totalImgPage = findViewById(R.id.tVwGoodsInfoTImgPage);
-        TextView goodsName = findViewById(R.id.tVwGoodsInfoName);
-        TextView totalEvalCount = findViewById(R.id.tVwGoodsInfoTotalEval);
-        RatingBar rtnbrTotalEval = findViewById(R.id.rtnBrGoodsInfoTotalEval);
-        TextView goodsPrice = findViewById(R.id.tVwGoodsInfoPrice);
-        TextView goodsReviewJump = findViewById(R.id.tVwGoodsInfoJumpReview);
-        TextView goodsReviewCount = findViewById(R.id.tVwGoodsInfoReviewCount);
-        TextView reviewTotalEvalCount = findViewById(R.id.tVwGoodsInfoReviewTotalEval);
-        com.hedgehog.ratingbar.RatingBar goodsTotalEval = findViewById(R.id.rtnBrGoodsInfoReviewTotalEval);
+        vpgrGoodsImage = findViewById(R.id.vPgrGoodsImages);
+        currentImgPage = findViewById(R.id.tVwGoodsInfoCImgPage);
+        totalImgPage = findViewById(R.id.tVwGoodsInfoTImgPage);
+        goodsName = findViewById(R.id.tVwGoodsInfoName);
+        totalEvalCount = findViewById(R.id.tVwGoodsInfoTotalEval);
+        rtnbrTotalEval = findViewById(R.id.rtnBrGoodsInfoTotalEval);
+        goodsPrice = findViewById(R.id.tVwGoodsInfoPrice);
+        goodsReviewJump = findViewById(R.id.tVwGoodsInfoJumpReview);
+        goodsReviewCount = findViewById(R.id.tVwGoodsInfoReviewCount);
+        reviewTotalEvalCount = findViewById(R.id.tVwGoodsInfoReviewTotalEval);
+        goodsTotalEval = findViewById(R.id.rtnBrGoodsInfoReviewTotalEval);
         goodsTotalEval.halfStar(true);
-        TextView eval5Percentage = findViewById(R.id.tVwGoodsInfoEval5);
-        TextView eval4Percentage = findViewById(R.id.tVwGoodsInfoEval4);
-        TextView eval3Percentage = findViewById(R.id.tVwGoodsInfoEval3);
-        TextView eval2Percentage = findViewById(R.id.tVwGoodsInfoEval2);
-        TextView eval1Percentage = findViewById(R.id.tVwGoodsInfoEval1);
-        ProgressBar eval5Progress = findViewById(R.id.pgBrGoodsInfoEval5);
-        ProgressBar eval4Progress = findViewById(R.id.pgBrGoodsInfoEval4);
-        ProgressBar eval3Progress = findViewById(R.id.pgBrGoodsInfoEval3);
-        ProgressBar eval2Progress = findViewById(R.id.pgBrGoodsInfoEval2);
-        ProgressBar eval1Progress = findViewById(R.id.pgBrGoodsInfoEval1);
+        eval5Percentage = findViewById(R.id.tVwGoodsInfoEval5);
+        eval4Percentage = findViewById(R.id.tVwGoodsInfoEval4);
+        eval3Percentage = findViewById(R.id.tVwGoodsInfoEval3);
+        eval2Percentage = findViewById(R.id.tVwGoodsInfoEval2);
+        eval1Percentage = findViewById(R.id.tVwGoodsInfoEval1);
+        eval5Progress = findViewById(R.id.pgBrGoodsInfoEval5);
+        eval4Progress = findViewById(R.id.pgBrGoodsInfoEval4);
+        eval3Progress = findViewById(R.id.pgBrGoodsInfoEval3);
+        eval2Progress = findViewById(R.id.pgBrGoodsInfoEval2);
+        eval1Progress = findViewById(R.id.pgBrGoodsInfoEval1);
+
+        reviewListView = findViewById(R.id.rcyclVwGoodsInfoReviewList);
+        setLayoutManager(reviewListView);
 
         findViewById(R.id.iBtnGoodsInfoBack).setOnClickListener(v -> finish());
 
+        findViewById(R.id.btnGoodsInfoWriteReview).setOnClickListener(view -> {
+            if (PreferenceSetting.loadPreference(getBaseContext(), PreferenceSetting.PREFERENCE_KEY.USER_INFO).isEmpty()) {
+                new CustomDialog(GoodsInfoActivity.this, CustomDialog.DIALOG_CATEGORY.LOGIN, (response, data) -> {
+                    if (response) {
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    } else {
+                        hideNavigationBar();
+                    }
+                }).show();
+                return;
+            }
+            Intent intent = new Intent(getBaseContext(), ReviewActivity.class);
+            intent.putExtra("goodsInfo", GoodsInfo.toString());
+            startActivity(intent);
+        });
+    }
+
+    private void setGoodsInfo() {
         ArrayList<String> imgList = setGoodsImages(totalImgPage);
         vpgrGoodsImage.setAdapter(new ListAdapterGoodsImage(imgList));
         vpgrGoodsImage.setPageTransformer(new ZoomOutPageTransformer());
@@ -169,24 +243,6 @@ public class GoodsInfoActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        findViewById(R.id.btnGoodsInfoWriteReview).setOnClickListener(view -> {
-            if (PreferenceSetting.loadPreference(getBaseContext(), PreferenceSetting.PREFERENCE_KEY.USER_INFO).isEmpty()) {
-                new CustomDialog(GoodsInfoActivity.this, CustomDialog.DIALOG_CATEGORY.LOGIN, (response, data) -> {
-                    if (response) {
-                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                    } else {
-                        hideNavigationBar();
-                    }
-                }).show();
-                return;
-            }
-            Intent intent = new Intent(getBaseContext(), ReviewActivity.class);
-            intent.putExtra("goodsInfo", GoodsInfo.toString());
-            startActivity(intent);
-        });
     }
 
     private ArrayList<String> setGoodsImages(TextView pageCountView) {
@@ -206,6 +262,22 @@ public class GoodsInfoActivity extends AppCompatActivity {
     }
     private void setCurrentImagePage(TextView pageCounter, int position) {
         pageCounter.setText(getString(R.string.txt_null, (position+1)+""));
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    private void setLayoutManager(RecyclerView recyclerView) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
+        switch (recyclerView.getId()) {
+            case R.id.rcyclVwGoodsInfoReviewPhoto:
+                recyclerView.addItemDecoration(new RecyclerDecoration(25, 0));
+                linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                break;
+            case R.id.rcyclVwGoodsInfoReviewList:
+                recyclerView.addItemDecoration(new RecyclerDecoration(0, 25));
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                break;
+        }
+        recyclerView.setLayoutManager(linearLayoutManager);
     }
 
 

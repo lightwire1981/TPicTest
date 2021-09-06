@@ -3,18 +3,18 @@ package com.wellstech.tpictest.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
 import java.io.ByteArrayOutputStream;
 
 public class BitmapConverter {
+
     /**비트맵을 바이너리 바이트배열로 바꾸어주는 메서드 */
     public static String bitmapToByteArray(Bitmap bitmap) {
         String image;
         ByteArrayOutputStream stream = new ByteArrayOutputStream() ;
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream) ;
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream) ;
         byte[] byteArray = stream.toByteArray() ;
         image = byteArrayToBinaryString(byteArray);
         return image;
@@ -52,7 +52,7 @@ public class BitmapConverter {
 
     public static Bitmap StringToBitMap(String image){
         try{
-            byte [] encodeByte= Base64.decode(image,Base64.DEFAULT);
+            byte [] encodeByte = binaryStringToByteArray(image);
             return BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
         }catch(Exception e){
             e.printStackTrace();
@@ -60,6 +60,24 @@ public class BitmapConverter {
         }
     }
 
+    public static byte[] binaryStringToByteArray(String s){
+        int count=s.length()/8;
+        byte[] b=new byte[count];
+        for(int i=1; i<count; ++i){
+            String t=s.substring((i-1)*8, i*8);
+            b[i-1]=binaryStringToByte(t);
+        }
+        return b;
+    }
+
+    public static byte binaryStringToByte(String s){
+        byte ret, total=0;
+        for(int i=0; i<8; ++i){
+            ret = (s.charAt(7-i)=='1') ? (byte)(1 << i) : 0;
+            total = (byte) (ret|total);
+        }
+        return total;
+    }
 //    private Bitmap resize(Bitmap bm){
 //        Configuration config=getResources().getConfiguration();
 //        if(config.smallestScreenWidthDp>=800)

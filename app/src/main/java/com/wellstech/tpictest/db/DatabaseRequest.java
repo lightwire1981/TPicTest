@@ -196,6 +196,7 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                             EVALUATE_DATA +jsonObject.getString("data");
                     break;
                 case GET_GOODS_INFO:
+                case GET_REVIEW_LIST:
                     parameterValue = USE + params[0] + AND +
                             GOODS_NO + jsonObject.getString("goodsNo");
                     break;

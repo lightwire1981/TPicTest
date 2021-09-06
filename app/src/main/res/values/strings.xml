@@ -70,6 +70,8 @@
     <string name="txt_rank_pricewon">원</string>
     <string name="txt_new_tag">신제품</string>
 
+    <string name="txt_result_null">해당 내용이 없습니다</string>
+
     <string name="txt_search_toy">검색</string>
     <string name="txt_search_keyword_template">\"%s\"</string>
     <string name="txt_search_result_none">&#160;에 대한 검색 결과가 없습니다.</string>
@@ -94,7 +96,10 @@
     <string name="txt_goods_info_price_template">%s원</string>
     <string name="txt_goods_info_review">리뷰</string>
     <string name="txt_goods_info_write_review">리뷰작성</string>
+    <string name="txt_goods_info_review_like_template">&#160;%s</string>
     <string name="txt_goods_info_review_default">0</string>
+    <string name="txt_goods_info_review_date_template">2021.09.01</string>
+    <string name="txt_goods_info_reviewer_name">김고객</string>
     <string name="txt_goods_info_eval_5">5점</string>
     <string name="txt_goods_info_eval_4">4점</string>
     <string name="txt_goods_info_eval_3">3점</string>
