@@ -50,6 +50,10 @@ public class GoodsInfoActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    private void getReviews(String goodsId) {
+
+    }
     private void setWidget() {
         ViewPager2 vpgrGoodsImage = findViewById(R.id.vPgrGoodsImages);
         TextView currentImgPage = findViewById(R.id.tVwGoodsInfoCImgPage);
