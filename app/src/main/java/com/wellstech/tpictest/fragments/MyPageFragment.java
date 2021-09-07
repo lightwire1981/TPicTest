@@ -80,6 +80,7 @@ public class MyPageFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        view.findViewById(R.id.btnMyPageReview).setOnClickListener(onClickListener);
         view.findViewById(R.id.iBtnMyPageChangeInfo).setOnClickListener(onClickListener);
         view.findViewById(R.id.btnMyPageChild).setOnClickListener(onClickListener);
         view.findViewById(R.id.btnMyPageSetting).setOnClickListener(onClickListener);
@@ -100,6 +101,12 @@ public class MyPageFragment extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         switch (v.getId()) {
+            case R.id.btnMyPageReview:
+                MyPageReviewFragment myPageReviewFragment = new MyPageReviewFragment();
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                fragmentTransaction.addToBackStack(MainActivity.CURRENT_PAGE.name());
+                fragmentTransaction.add(getId(), myPageReviewFragment).commit();
+                break;
             case R.id.iBtnMyPageChangeInfo:
                 MyInfoChangeFragment myInfoChangeFragment = new MyInfoChangeFragment();
                 fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);

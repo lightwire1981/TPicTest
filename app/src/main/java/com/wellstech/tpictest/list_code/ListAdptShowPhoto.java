@@ -5,23 +5,30 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.wellstech.tpictest.R;
+import com.wellstech.tpictest.utils.BitmapConverter;
 
 import java.util.ArrayList;
 
-public class ListAdptDlgScalableGoodsImg extends RecyclerView.Adapter<ListAdptDlgScalableGoodsImg.ViewHolder> {
-    Context context;
-    private final ArrayList<Bitmap> bitMapList;
+public class ListAdptShowPhoto extends RecyclerView.Adapter<ListAdptShowPhoto.ViewHolder> {
+    private Context context;
+    private final ArrayList<String> photoList;
+    private ArrayList<Bitmap> bitmapList = new ArrayList<>();
 
-    public ListAdptDlgScalableGoodsImg(ArrayList<Bitmap> bitmapList) {
-        this.bitMapList = bitmapList;
-
+    public ListAdptShowPhoto(ArrayList<String> photoList) {
+        this.photoList = photoList;
+        for(String data: photoList) {
+            bitmapList.add(BitmapConverter.StringToBitMap(data));
+        }
     }
 
     @NonNull
@@ -35,29 +42,27 @@ public class ListAdptDlgScalableGoodsImg extends RecyclerView.Adapter<ListAdptDl
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 //        Glide.with(context).
-//                load(imageUrl.get(position)).
-//                placeholder(R.drawable.tp_icon_brand01_on).
+//                load(bitmapList.get(position)).
+//                placeholder(R.drawable.review_img_blank).
 //                diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).
-//                into(holder.goodsImage);
-//        Glide.with(context).asBitmap().load(imageUrl.get(position));
-//        holder.goodsImage.setImage(ImageSource.uri(imageUrl.get(position)));
-
-        holder.goodsImage.setImage(ImageSource.bitmap(bitMapList.get(position)));
+//                into((ImageView)holder.photoView);
+        holder.photoView.setImage(ImageSource.bitmap(bitmapList.get(position)));
     }
 
     @Override
     public int getItemCount() {
-        return bitMapList.size();
+        return photoList.size();
     }
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private final SubsamplingScaleImageView goodsImage;
+        private final SubsamplingScaleImageView photoView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            goodsImage = itemView.findViewById(R.id.sclImgVwImage);
+            photoView = itemView.findViewById(R.id.sclImgVwImage);
         }
     }
+
 }

@@ -65,7 +65,7 @@ public class ListAdptPhotoThumbnail extends RecyclerView.Adapter<ListAdptPhotoTh
                         placeholder(R.drawable.review_img_blank).
                         diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).
                         into(holder.photo1);
-                holder.photo3.setOnClickListener(v -> selectPhotoListener.onSelectPhoto(item.getDataOffset1()));
+                holder.photo1.setOnClickListener(v -> selectPhotoListener.onSelectPhoto(item.getDataOffset1()));
                 break;
         }
     }

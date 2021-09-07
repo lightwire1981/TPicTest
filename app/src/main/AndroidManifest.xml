@@ -33,10 +33,13 @@
         tools:replace="android:appComponentFactory"
         tools:targetApi="p">
         <activity
+            android:name=".ReviewShowActivity"
+            android:exported="true" />
+        <activity
             android:name=".PhotoActivity"
             android:exported="true" />
         <activity
-            android:name=".ReviewActivity"
+            android:name=".ReviewWriteActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan" />
         <activity

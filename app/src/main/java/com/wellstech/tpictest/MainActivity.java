@@ -23,7 +23,7 @@ import com.wellstech.tpictest.utils.PreferenceSetting;
 public class MainActivity extends AppCompatActivity {
 
     public enum PAGES {
-        HOME, CATEGORY, CATEGORY_LIST, EVALUATE, RANKING, MY_PAGE, MY_CHILD, MY_CHILD_EDIT, MY_PAGE_SUB, SEARCH, SETTING
+        HOME, CATEGORY, CATEGORY_LIST, EVALUATE, RANKING, MY_PAGE, MY_CHILD, MY_CHILD_EDIT, MY_REVIEW, MY_PAGE_SUB, SEARCH, SETTING
     }
 
     public static PAGES CURRENT_PAGE;

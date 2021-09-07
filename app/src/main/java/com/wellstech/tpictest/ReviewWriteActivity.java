@@ -42,7 +42,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class ReviewActivity extends AppCompatActivity {
+public class ReviewWriteActivity extends AppCompatActivity {
 
     private JSONObject GoodsInfo;
     private final ArrayList<String> useChildId = new ArrayList<>();
@@ -60,7 +60,7 @@ public class ReviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_review);
+        setContentView(R.layout.activity_review_write);
         getGoodsInfo();
         setWidget();
 
@@ -150,12 +150,12 @@ public class ReviewActivity extends AppCompatActivity {
                     }
                 });
 
-        ProgressDialog progressDialog = new ProgressDialog(ReviewActivity.this);
+        ProgressDialog progressDialog = new ProgressDialog(ReviewWriteActivity.this);
         progressDialog.setMessage("리뷰를 등록 중입니다...");
 
         findViewById(R.id.btnReviewRegistration).setOnClickListener(view -> {
             if (useChildId.size() < 1) {
-                new CustomDialog(ReviewActivity.this, CustomDialog.DIALOG_CATEGORY.NONE_SELECT_CHILD, (response, data) -> hideNavigationBar()).show();
+                new CustomDialog(ReviewWriteActivity.this, CustomDialog.DIALOG_CATEGORY.NONE_SELECT_CHILD, (response, data) -> hideNavigationBar()).show();
                 return;
             }
 
@@ -203,7 +203,7 @@ public class ReviewActivity extends AppCompatActivity {
             new DatabaseRequest(getBaseContext(), result -> {
                 if (result[0].equals("INSERT_OK")) {
                     progressDialog.dismiss();
-                    new CustomDialog(ReviewActivity.this, CustomDialog.DIALOG_CATEGORY.INSERT_CONFIRM, (response, data1) -> this.finish()).show();
+                    new CustomDialog(ReviewWriteActivity.this, CustomDialog.DIALOG_CATEGORY.INSERT_CONFIRM, (response, data1) -> this.finish()).show();
                 }
             }).execute(DBRequestType.INSERT_REVIEW.name(), data.toString());
         });

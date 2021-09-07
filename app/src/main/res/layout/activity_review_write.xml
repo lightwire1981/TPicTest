@@ -7,7 +7,7 @@
     android:background="#FFFFFF"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context=".ReviewActivity">
+    tools:context=".ReviewWriteActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

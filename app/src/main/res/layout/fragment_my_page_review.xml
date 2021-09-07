@@ -7,36 +7,35 @@
     android:background="#FFFFFF"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context=".PhotoActivity">
+    tools:context=".fragments.MyPageReviewFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_weight="9">
 
         <ImageButton
-            android:id="@+id/iBtnPhotoExit"
+            android:id="@+id/iBtnReviewManagerBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
             android:contentDescription="@string/cd_back_btn"
             android:scaleType="centerInside"
             android:scaleX="0.5"
             android:scaleY="0.5"
+            android:src="@drawable/btn_fragment_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/btn_fragment_back"
             tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
-            android:id="@+id/textView84"
+            android:id="@+id/textView89"
             style="@style/FragmentTitleStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_photo_title"
+            android:text="@string/txt_my_page_review"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,8 +43,9 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rclVwPhotoThumbnail"
+        android:id="@+id/rclVwMyReviewList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top" />
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="10dp" />
 </LinearLayout>

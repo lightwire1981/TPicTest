@@ -53,6 +53,7 @@ public class GoodsInfoActivity extends AppCompatActivity {
     public static ArrayList<ListItemReviewToy> reviewInfo;
     public static ArrayList<ListItemReviewImage> imgList;
 
+    public static ListItemReviewToy goodsReview;
 
     private final String TAG = getClass().getSimpleName();
     //endregion
@@ -105,7 +106,12 @@ public class GoodsInfoActivity extends AppCompatActivity {
                     item.setItem(reviewList.getJSONObject(i));
                     reviewInfo.add(item);
                 }
-                ListAdapterReview adapter = new ListAdapterReview(reviewInfo, reviewData -> Log.i(TAG, reviewData.toString()));
+                ListAdapterReview adapter = new ListAdapterReview(reviewInfo, item -> {
+                    goodsReview = item;
+                    Intent intent = new Intent(getBaseContext(), ReviewShowActivity.class);
+                    intent.putExtra("CALL_TYPE", TAG);
+                    startActivity(intent);
+                });
                 reviewListView.setAdapter(adapter);
 
                 imgList = new ArrayList<>();
@@ -142,19 +148,22 @@ public class GoodsInfoActivity extends AppCompatActivity {
                     index++;
                 }
                 reviewPhotoCount.setText(getString(R.string.txt_goods_info_review_photo, imgList.size()+""));
+                reviewPhotoCount.setOnClickListener(view -> {
+                    Intent intent = new Intent(getBaseContext(), PhotoActivity.class);
+                    startActivity(intent);
+                });
                 ListAdptReviewImage adptReviewImage = new ListAdptReviewImage(imgList, () -> {
-                    JSONArray imgArray = new JSONArray();
-                    for (ListItemReviewImage item : imgList) {
-                        JSONObject imgObject = new JSONObject();
-                        try {
-                            imgObject.put("url", item.getPhotoUri());
-                            imgObject.put("offset", item.getDataOffset());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        imgArray.put(imgObject);
-                    }
-
+//                    JSONArray imgArray = new JSONArray();
+//                    for (ListItemReviewImage item : imgList) {
+//                        JSONObject imgObject = new JSONObject();
+//                        try {
+//                            imgObject.put("url", item.getPhotoUri());
+//                            imgObject.put("offset", item.getDataOffset());
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                        imgArray.put(imgObject);
+//                    }
                     Intent intent = new Intent(getBaseContext(), PhotoActivity.class);
 //                    intent.putExtra("photoInfo", imgArray.toString());
 //                    intent.putExtra("reviewInfo", reviewList.toString());
@@ -214,7 +223,7 @@ public class GoodsInfoActivity extends AppCompatActivity {
                 }).show();
                 return;
             }
-            Intent intent = new Intent(getBaseContext(), ReviewActivity.class);
+            Intent intent = new Intent(getBaseContext(), ReviewWriteActivity.class);
             intent.putExtra("goodsInfo", GoodsInfo.toString());
             startActivity(intent);
         });

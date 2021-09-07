@@ -34,7 +34,7 @@ public class ListAdapterReview extends RecyclerView.Adapter<ListAdapterReview.Vi
     private final ArrayList<ListItemReviewToy> mData;
 
     public interface SelectReviewListener {
-        void onSelectReview(JSONObject reviewData);
+        void onSelectReview(ListItemReviewToy item);
     }
     private final SelectReviewListener selectReviewListener;
 
@@ -66,7 +66,8 @@ public class ListAdapterReview extends RecyclerView.Adapter<ListAdapterReview.Vi
         holder.reviewDate.setText(item.getDate());
         holder.photoCount.setText(item.getPhotoCount());
         holder.review.setText(item.getCommentReview());
-        holder.review.setOnClickListener(view -> selectReviewListener.onSelectReview(item.getItem()));
+        holder.review.setOnClickListener(view -> selectReviewListener.onSelectReview(item));
+        holder.imgPhoto.setOnClickListener(view -> selectReviewListener.onSelectReview(item));
     }
 
     @Override

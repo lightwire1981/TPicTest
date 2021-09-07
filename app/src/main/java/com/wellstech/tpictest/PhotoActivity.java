@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -21,6 +22,10 @@ public class PhotoActivity extends AppCompatActivity {
     private ArrayList<ListItemReviewToy> reviewInfo;
     private ArrayList<ListItemReviewImage> photoInfo;
     private RecyclerView photoListView;
+
+    public static ListItemReviewToy goodsReview;
+    private final String TAG = getClass().getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +98,11 @@ public class PhotoActivity extends AppCompatActivity {
         }
         mList.add(item);
         photoListView.setAdapter(new ListAdptPhotoThumbnail(mList, dataOffset -> {
-            ListItemReviewToy goodsReview = reviewInfo.get(dataOffset);
+            goodsReview = reviewInfo.get(dataOffset);
+            Intent intent = new Intent(getBaseContext(), ReviewShowActivity.class);
+            intent.putExtra("CALL_TYPE", TAG);
+            startActivity(intent);
+
             // Call Review Activity
         }));
     }
