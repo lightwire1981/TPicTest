@@ -9,7 +9,7 @@ public class ListItemReviewToy {
     private Drawable imgProduct;
     private String numberRate, numberLike;
     private String commentReview;
-    private String urlImg1;
+    private String urlImg1, urlImg2, urlImg3, urlImg4, urlImg5;
     private String reviewerName;
     private String date;
     private String photoCount;
@@ -22,13 +22,25 @@ public class ListItemReviewToy {
 
     public void setItem(JSONObject item) {
         this.item = item;
-        setUrlImg1();
         setNumberRate();
         setNumberLike();
         setReviewerName();
         setDate();
         setPhotoCount();
         setCommentReview();
+        switch (Integer.parseInt(photoCount)) {
+            case 5:
+                setUrlImg5();
+            case 4:
+                setUrlImg4();
+            case 3:
+                setUrlImg3();
+            case 2:
+                setUrlImg2();
+            case 1:
+                setUrlImg1();
+                break;
+        }
     }
 
     public String getUrlImg1() {
@@ -154,5 +166,61 @@ public class ListItemReviewToy {
 
     public void setImgProduct(Drawable imgProduct) {
         this.imgProduct = imgProduct;
+    }
+
+    public String getUrlImg2() {
+        return urlImg2;
+    }
+    public void setUrlImg2() {
+        try {
+            this.urlImg2 = item.getString("review_img2");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setUrlImg2(String urlImg2) {
+        this.urlImg2 = urlImg2;
+    }
+
+    public String getUrlImg3() {
+        return urlImg3;
+    }
+    public void setUrlImg3() {
+        try {
+            this.urlImg3 = item.getString("review_img3");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setUrlImg3(String urlImg3) {
+        this.urlImg3 = urlImg3;
+    }
+
+    public String getUrlImg4() {
+        return urlImg4;
+    }
+    public void setUrlImg4() {
+        try {
+            this.urlImg4 = item.getString("review_img4");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setUrlImg4(String urlImg4) {
+        this.urlImg4 = urlImg4;
+    }
+
+    public String getUrlImg5() {
+        return urlImg5;
+    }
+    public void setUrlImg5() {
+        try {
+            this.urlImg5 = item.getString("review_img5");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setUrlImg5(String urlImg5) {
+        this.urlImg5 = urlImg5;
     }
 }

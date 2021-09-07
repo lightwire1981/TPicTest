@@ -19,7 +19,8 @@ import com.wellstech.tpictest.db.DatabaseRequest;
 import com.wellstech.tpictest.list_code.ListAdapterGoodsImage;
 import com.wellstech.tpictest.list_code.ListAdapterNull;
 import com.wellstech.tpictest.list_code.ListAdapterReview;
-import com.wellstech.tpictest.list_code.ListAdapterReviewToy;
+import com.wellstech.tpictest.list_code.ListAdptReviewImage;
+import com.wellstech.tpictest.list_code.ListItemReviewImage;
 import com.wellstech.tpictest.list_code.ListItemReviewToy;
 import com.wellstech.tpictest.list_code.RecyclerDecoration;
 import com.wellstech.tpictest.utils.CustomDialog;
@@ -38,7 +39,7 @@ public class GoodsInfoActivity extends AppCompatActivity {
     //region ValueSetting
     private JSONObject GoodsInfo;
     private ViewPager2 vpgrGoodsImage;
-    private RecyclerView reviewListView;
+    private RecyclerView reviewImageListView, reviewListView;
     private TextView totalImgPage, currentImgPage, goodsName;
     private TextView eval5Percentage, eval4Percentage, eval3Percentage, eval2Percentage, eval1Percentage;
     private ProgressBar eval5Progress, eval4Progress, eval3Progress, eval2Progress, eval1Progress;
@@ -47,6 +48,11 @@ public class GoodsInfoActivity extends AppCompatActivity {
     private TextView goodsReviewCount, reviewTotalEvalCount;
     private com.hedgehog.ratingbar.RatingBar goodsTotalEval;
     private TextView goodsPrice, goodsReviewJump;
+    private TextView reviewPhotoCount;
+
+    public static ArrayList<ListItemReviewToy> reviewInfo;
+    public static ArrayList<ListItemReviewImage> imgList;
+
 
     private final String TAG = getClass().getSimpleName();
     //endregion
@@ -85,20 +91,76 @@ public class GoodsInfoActivity extends AppCompatActivity {
         }
         new DatabaseRequest(getBaseContext(), result -> {
             if (result[0].equals("null")) {
-                ListAdapterNull adapterNull = new ListAdapterNull();
+                ListAdapterNull adapterNull = new ListAdapterNull(getString(R.string.txt_review_null));
                 reviewListView.setAdapter(adapterNull);
+                adapterNull = new ListAdapterNull(getString(R.string.txt_image_null));
+                reviewImageListView.setAdapter(adapterNull);
                 return;
             }
             try {
                 JSONArray reviewList = new JSONArray(result[0]);
-                ArrayList<ListItemReviewToy> list = new ArrayList<>();
+                reviewInfo = new ArrayList<>();
                 for (int i=0; i<reviewList.length(); i++) {
                     ListItemReviewToy item = new ListItemReviewToy();
                     item.setItem(reviewList.getJSONObject(i));
-                    list.add(item);
+                    reviewInfo.add(item);
                 }
-                ListAdapterReview adapter = new ListAdapterReview(list, reviewData -> Log.i(TAG, reviewData.toString()));
+                ListAdapterReview adapter = new ListAdapterReview(reviewInfo, reviewData -> Log.i(TAG, reviewData.toString()));
                 reviewListView.setAdapter(adapter);
+
+                imgList = new ArrayList<>();
+                int index = 0;
+                for (ListItemReviewToy item : reviewInfo) {
+                    ListItemReviewImage imgItem = new ListItemReviewImage();
+                    switch (Integer.parseInt(item.getPhotoCount())) {
+                        case 5:
+                            imgItem.setPhotoUri(item.getUrlImg5());
+                            imgItem.setDataOffset(index);
+                            imgList.add(imgItem);
+                        case 4:
+                            imgItem = new ListItemReviewImage();
+                            imgItem.setPhotoUri(item.getUrlImg4());
+                            imgItem.setDataOffset(index);
+                            imgList.add(imgItem);
+                        case 3:
+                            imgItem = new ListItemReviewImage();
+                            imgItem.setPhotoUri(item.getUrlImg3());
+                            imgItem.setDataOffset(index);
+                            imgList.add(imgItem);
+                        case 2:
+                            imgItem = new ListItemReviewImage();
+                            imgItem.setPhotoUri(item.getUrlImg2());
+                            imgItem.setDataOffset(index);
+                            imgList.add(imgItem);
+                        case 1:
+                            imgItem = new ListItemReviewImage();
+                            imgItem.setPhotoUri(item.getUrlImg1());
+                            imgItem.setDataOffset(index);
+                            imgList.add(imgItem);
+                            break;
+                    }
+                    index++;
+                }
+                reviewPhotoCount.setText(getString(R.string.txt_goods_info_review_photo, imgList.size()+""));
+                ListAdptReviewImage adptReviewImage = new ListAdptReviewImage(imgList, () -> {
+                    JSONArray imgArray = new JSONArray();
+                    for (ListItemReviewImage item : imgList) {
+                        JSONObject imgObject = new JSONObject();
+                        try {
+                            imgObject.put("url", item.getPhotoUri());
+                            imgObject.put("offset", item.getDataOffset());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        imgArray.put(imgObject);
+                    }
+
+                    Intent intent = new Intent(getBaseContext(), PhotoActivity.class);
+//                    intent.putExtra("photoInfo", imgArray.toString());
+//                    intent.putExtra("reviewInfo", reviewList.toString());
+                    startActivity(intent);
+                });
+                reviewImageListView.setAdapter(adptReviewImage);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -128,6 +190,11 @@ public class GoodsInfoActivity extends AppCompatActivity {
         eval3Progress = findViewById(R.id.pgBrGoodsInfoEval3);
         eval2Progress = findViewById(R.id.pgBrGoodsInfoEval2);
         eval1Progress = findViewById(R.id.pgBrGoodsInfoEval1);
+        reviewPhotoCount = findViewById(R.id.tVwGoodsInfoPhotoCount);
+        reviewPhotoCount.setText(getString(R.string.txt_goods_info_review_photo, "0"));
+
+        reviewImageListView = findViewById(R.id.rcyclVwGoodsInfoReviewPhoto);
+        setLayoutManager(reviewImageListView);
 
         reviewListView = findViewById(R.id.rcyclVwGoodsInfoReviewList);
         setLayoutManager(reviewListView);

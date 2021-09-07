@@ -12,6 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wellstech.tpictest.R;
 
 public class ListAdapterNull extends RecyclerView.Adapter<ListAdapterNull.ViewHolder> {
+    private final String message;
+
+    public ListAdapterNull (String message) {
+        this.message = message;
+    }
 
     @NonNull
     @Override
@@ -21,7 +26,7 @@ public class ListAdapterNull extends RecyclerView.Adapter<ListAdapterNull.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // do null result message write
+        holder.nullMsgView.setText(message);
     }
 
     @Override
@@ -31,9 +36,11 @@ public class ListAdapterNull extends RecyclerView.Adapter<ListAdapterNull.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        private TextView nullMsgView;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            TextView nullMsgView = itemView.findViewById(R.id.tVwResultNull);
+            nullMsgView = itemView.findViewById(R.id.tVwResultNull);
         }
     }
 }

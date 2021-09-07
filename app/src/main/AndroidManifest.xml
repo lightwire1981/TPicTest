@@ -33,6 +33,9 @@
         tools:replace="android:appComponentFactory"
         tools:targetApi="p">
         <activity
+            android:name=".PhotoActivity"
+            android:exported="true" />
+        <activity
             android:name=".ReviewActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan" />
@@ -40,7 +43,8 @@
             android:name=".GoodsInfoActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".ChildRegistActivity"
+        <activity
+            android:name=".ChildRegistActivity"
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".IntermediateActivity" />
         <activity android:name=".LoginActivity" />
