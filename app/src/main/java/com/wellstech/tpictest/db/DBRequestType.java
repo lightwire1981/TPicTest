@@ -10,6 +10,7 @@ public enum DBRequestType {
     GET_GOODS_INFO,
     GET_REVIEW_LIST,
     GET_MY_REVIEW,
+    DELETE_REVIEW,
     INSERT_REVIEW,
     GET_ALL_BRAND,
     GET_EVALUATE_GOODS,

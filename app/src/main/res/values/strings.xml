@@ -121,6 +121,8 @@
     <string name="txt_review_photo_template">\n\n%s/5</string>
     <string name="hint_review_write">리뷰 내용을 입력하세요(1,000자 이내)</string>
     <string name="txt_review_complete">등록이 완료되었습니다.\n</string>
+    <string name="btn_review_modify">수정</string>
+    <string name="btn_review_delete">삭제</string>
 
     <string name="txt_photo_title">포토 모아 보기</string>
 
@@ -228,6 +230,10 @@
     <string name="txt_dlg_select_title">선택 안내</string>
     <string name="txt_dlg_select_invalid">지정된 갯수만큼 선택하셔야 합니다</string>
 
+    <string name="txt_dlg_delete_title">삭제 안내</string>
+
+    <string name="txt_dlg_review_Delete_confirm">리뷰를 삭제하시겠습니까?\n</string>
+
     <string name="txt_dlg_exit_title">종료 안내</string>
     <string name="txt_dlg_exit_confirm">앱을 종료하시겠습니까?\n</string>
 
@@ -239,6 +245,18 @@
     <string name="txt_login_hold">로그인 유지</string>
     <string name="txt_email_join">이메일 회원가입</string>
     <string name="txt_find_password">비밀번호 찾기</string>
+    <string name="txt_join_title">회원가입</string>
+    <string name="txt_join_terms_agree">회원가입 약관동의</string>
+    <string name="ckb_join_terms_agree">회원가입 및 이용약관 동의</string>
+    <string name="txt_terms">회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용 회원 가입 및 이용약관 동의 내용</string>
+    <string name="txt_terms_must_have">필수동의</string>
+    <string name="txt_terms_optional">선택동의</string>
+    <string name="txt_terms_individual">개인정보 수집 및 이용</string>
+    <string name="txt_terms_3rd_agree">제3자 제공 및 마케팅 안내 동의</string>
+    <string name="txt_terms_show_content">내용보기</string>
+    <string name="txt_terms_close_content">닫기</string>
+    <string name="txt_terms_all_agree">전체 약관에 모두 동의합니다.</string>
+    <string name="btn_next">다음</string>
 
     <string name="txt_setting">설정</string>
     <string name="txt_sample_email">test@mail.com</string>

@@ -33,6 +33,9 @@
         tools:replace="android:appComponentFactory"
         tools:targetApi="p">
         <activity
+            android:name=".JoinActivity"
+            android:exported="true" />
+        <activity
             android:name=".ReviewShowActivity"
             android:exported="true" />
         <activity

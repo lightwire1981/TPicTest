@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
         ImageButton floginbBtn = findViewById(R.id.btnFacebookLogin);
         floginbBtn.setOnClickListener(onClickListener);
 
-
+        findViewById(R.id.btnJoinEmail).setOnClickListener(onClickListener);
         findViewById(R.id.btnNaverLogin).setOnClickListener(onClickListener);
         findViewById(R.id.iBtnKakaoLogin).setOnClickListener(onClickListener);
         findViewById(R.id.iBtnLoginExit).setOnClickListener(onClickListener);
@@ -220,6 +220,10 @@ public class LoginActivity extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     private final View.OnClickListener onClickListener = v -> {
         switch (v.getId()) {
+            case R.id.btnJoinEmail:
+                Intent intent = new Intent(getBaseContext(), JoinActivity.class);
+                startActivity(intent);
+                break;
             case R.id.btnNaverLogin:
                 mOAuthLoginInstance.startOauthLoginActivity(LoginActivity.this, mOAuthLoginHandler);
                 break;

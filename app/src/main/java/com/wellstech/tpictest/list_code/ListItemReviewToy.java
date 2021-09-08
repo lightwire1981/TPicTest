@@ -7,6 +7,8 @@ import org.json.JSONObject;
 
 public class ListItemReviewToy {
     private Drawable imgProduct;
+    private String reviewId;
+    private String reviewerId;
     private String numberRate, numberLike;
     private String commentReview;
     private String urlImg1, urlImg2, urlImg3, urlImg4, urlImg5;
@@ -22,6 +24,8 @@ public class ListItemReviewToy {
 
     public void setItem(JSONObject item) {
         this.item = item;
+        setReviewId();
+        setReviewerId();
         setNumberRate();
         setNumberLike();
         setReviewerName();
@@ -41,6 +45,36 @@ public class ListItemReviewToy {
                 setUrlImg1();
                 break;
         }
+    }
+
+    public String getReviewId() {
+        return reviewId;
+    }
+
+    public void setReviewId() {
+        try {
+            this.reviewId = item.getString("idx");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setReviewId(String reviewId) {
+        this.reviewId = reviewId;
+    }
+
+    public String getReviewerId() {
+        return reviewerId;
+    }
+
+    public void setReviewerId() {
+        try {
+            this.reviewerId = item.getString("user_id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setReviewerId(String reviewerId) {
+        this.reviewerId = reviewerId;
     }
 
     public String getUrlImg1() {

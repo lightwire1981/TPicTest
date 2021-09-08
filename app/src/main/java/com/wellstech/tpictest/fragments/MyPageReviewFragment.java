@@ -1,20 +1,18 @@
 package com.wellstech.tpictest.fragments;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.wellstech.tpictest.MainActivity;
-import com.wellstech.tpictest.PhotoActivity;
 import com.wellstech.tpictest.R;
 import com.wellstech.tpictest.ReviewShowActivity;
 import com.wellstech.tpictest.ReviewWriteActivity;
@@ -22,10 +20,9 @@ import com.wellstech.tpictest.db.DBRequestType;
 import com.wellstech.tpictest.db.DatabaseRequest;
 import com.wellstech.tpictest.list_code.ListAdapterNull;
 import com.wellstech.tpictest.list_code.ListAdapterReview;
-import com.wellstech.tpictest.list_code.ListAdptReviewImage;
-import com.wellstech.tpictest.list_code.ListItemReviewImage;
 import com.wellstech.tpictest.list_code.ListItemReviewToy;
 import com.wellstech.tpictest.list_code.RecyclerDecoration;
+import com.wellstech.tpictest.utils.CustomDialog;
 import com.wellstech.tpictest.utils.PreferenceSetting;
 
 import org.json.JSONArray;
@@ -53,6 +50,7 @@ public class MyPageReviewFragment extends Fragment {
     private RecyclerView myReviewListVw;
     public static ArrayList<ListItemReviewToy> reviewInfo;
     public static ListItemReviewToy goodsReview;
+    public static JSONObject reviewObject;
 
     private ProgressDialog progressDialog;
 
@@ -123,11 +121,49 @@ public class MyPageReviewFragment extends Fragment {
                     item.setItem(reviewList.getJSONObject(i));
                     reviewInfo.add(item);
                 }
-                ListAdapterReview adapter = new ListAdapterReview(reviewInfo, item -> {
-                    goodsReview = item;
-                    Intent intent = new Intent(requireContext(), ReviewShowActivity.class);
-                    intent.putExtra("CALL_TYPE", TAG);
-                    startActivity(intent);
+                ListAdapterReview adapter = new ListAdapterReview(reviewInfo, new ListAdapterReview.SelectReviewListener() {
+                    @Override
+                    public void onSelectReview(ListItemReviewToy item) {
+                        goodsReview = item;
+                        Intent intent = new Intent(requireContext(), ReviewShowActivity.class);
+                        intent.putExtra("CALL_TYPE", TAG);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onModifyReview(JSONObject jsonObject) {
+                        reviewObject = jsonObject;
+                        Intent intent = new Intent(requireContext(), ReviewWriteActivity.class);
+                        intent.putExtra("CALL_TYPE", TAG);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onDeleteReview(String reviewId) {
+                        new CustomDialog(requireActivity(), CustomDialog.DIALOG_CATEGORY.DELETE_REVIEW_CONFIRM, (response, data) -> {
+                            if (response) {
+                                JSONObject object = new JSONObject();
+                                try {
+                                    object.put("review_id", reviewId);
+                                    new DatabaseRequest(requireContext(), result1 -> {
+                                        if (result1[0].equals("UPDATE_OK")) {
+                                            Toast.makeText(requireContext(), "리뷰 삭제 완료", Toast.LENGTH_SHORT).show();
+                                            progressDialog = new ProgressDialog(requireContext());
+                                            progressDialog.setOnDismissListener(dialogInterface -> hideNavigationBar());
+                                            progressDialog.setMessage("리뷰를 조회 중입니다...");
+                                            progressDialog.show();
+                                            getMyReviews();
+                                        } else {
+                                            Toast.makeText(requireContext(), "리뷰 삭제 실패", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).execute(DBRequestType.DELETE_REVIEW.name(), object.toString());
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            hideNavigationBar();
+                        }).show();
+                    }
                 });
                 myReviewListVw.setAdapter(adapter);
                 progressDialog.dismiss();

@@ -3,11 +3,11 @@ package com.wellstech.tpictest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -54,6 +54,7 @@ public class GoodsInfoActivity extends AppCompatActivity {
     public static ArrayList<ListItemReviewImage> imgList;
 
     public static ListItemReviewToy goodsReview;
+    public static JSONObject reviewObject;
 
     private final String TAG = getClass().getSimpleName();
     //endregion
@@ -106,11 +107,45 @@ public class GoodsInfoActivity extends AppCompatActivity {
                     item.setItem(reviewList.getJSONObject(i));
                     reviewInfo.add(item);
                 }
-                ListAdapterReview adapter = new ListAdapterReview(reviewInfo, item -> {
-                    goodsReview = item;
-                    Intent intent = new Intent(getBaseContext(), ReviewShowActivity.class);
-                    intent.putExtra("CALL_TYPE", TAG);
-                    startActivity(intent);
+                ListAdapterReview adapter = new ListAdapterReview(reviewInfo, new ListAdapterReview.SelectReviewListener() {
+                    @Override
+                    public void onSelectReview(ListItemReviewToy item) {
+                        goodsReview = item;
+                        Intent intent = new Intent(getBaseContext(), ReviewShowActivity.class);
+                        intent.putExtra("CALL_TYPE", TAG);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onModifyReview(JSONObject jsonObject) {
+                        reviewObject = jsonObject;
+                        Intent intent = new Intent(getBaseContext(), ReviewWriteActivity.class);
+                        intent.putExtra("CALL_TYPE", TAG);
+                        intent.putExtra("goodsInfo", GoodsInfo.toString());
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onDeleteReview(String reviewId) {
+                        new CustomDialog(GoodsInfoActivity.this, CustomDialog.DIALOG_CATEGORY.DELETE_REVIEW_CONFIRM, (response, data) -> {
+                            if (response) {
+                                JSONObject object = new JSONObject();
+                                try {
+                                    object.put("review_id", reviewId);
+                                    new DatabaseRequest(getBaseContext(), result1 -> {
+                                        if (result1[0].equals("UPDATE_OK")) {
+                                            Toast.makeText(getBaseContext(), "리뷰 삭제 완료", Toast.LENGTH_SHORT).show();
+                                            getGoodsInfo();
+                                        } else {
+                                            Toast.makeText(getBaseContext(), "리뷰 삭제 실패", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).execute(DBRequestType.DELETE_REVIEW.name(), object.toString());
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).show();
+                    }
                 });
                 reviewListView.setAdapter(adapter);
 

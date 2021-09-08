@@ -27,6 +27,7 @@ public class CustomDialog extends Dialog {
         LOGOUT,
         PASSWORD,
         GOODS_IMAGE,
+        DELETE_REVIEW_CONFIRM,
         NONE_SELECT_CHILD,
         INSERT_CONFIRM,
         FORM_INVALID,
@@ -88,6 +89,11 @@ public class CustomDialog extends Dialog {
                 viewPagerIndicator.setViewPager2(goodsImgView);
                 goodsImgView.setPageTransformer(new ZoomOutPageTransformer());
                 break;
+            case DELETE_REVIEW_CONFIRM:
+                setContentView(R.layout.dialog_review_delete_confirm);
+                findViewById(R.id.btnDlgReviewDeleteNo).setOnClickListener(onClickListener);
+                findViewById(R.id.btnDlgReviewDeleteYes).setOnClickListener(onClickListener);
+                break;
             case NONE_SELECT_CHILD:
                 setContentView(R.layout.dialog_no_child_select);
                 findViewById(R.id.btnNoChildSelectConfirm).setOnClickListener(onClickListener);
@@ -131,6 +137,7 @@ public class CustomDialog extends Dialog {
             case R.id.btnDlgLogoutNo:
             case R.id.btnDlgExitNo:
             case R.id.btnDlgEvaluateNo:
+            case R.id.btnDlgReviewDeleteNo:
                 dialogResponseListener.getResponse(false, null);
                 dismiss();
                 break;
@@ -141,6 +148,7 @@ public class CustomDialog extends Dialog {
             case R.id.iBtnDialogGoodsImgClose:
             case R.id.btnNoChildSelectConfirm:
             case R.id.btnInsertComfirm:
+            case R.id.btnDlgReviewDeleteYes:
                 dialogResponseListener.getResponse(true, null);
                 dismiss();
                 break;

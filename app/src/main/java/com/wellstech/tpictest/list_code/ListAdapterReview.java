@@ -24,7 +24,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.wellstech.tpictest.R;
 import com.wellstech.tpictest.utils.BitmapConverter;
+import com.wellstech.tpictest.utils.PreferenceSetting;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -35,6 +37,8 @@ public class ListAdapterReview extends RecyclerView.Adapter<ListAdapterReview.Vi
 
     public interface SelectReviewListener {
         void onSelectReview(ListItemReviewToy item);
+        void onModifyReview(JSONObject jsonObject);
+        void onDeleteReview(String reviewId);
     }
     private final SelectReviewListener selectReviewListener;
 
@@ -68,6 +72,17 @@ public class ListAdapterReview extends RecyclerView.Adapter<ListAdapterReview.Vi
         holder.review.setText(item.getCommentReview());
         holder.review.setOnClickListener(view -> selectReviewListener.onSelectReview(item));
         holder.imgPhoto.setOnClickListener(view -> selectReviewListener.onSelectReview(item));
+        String user_id = PreferenceSetting.loadPreference(context, PreferenceSetting.PREFERENCE_KEY.USER_INFO);
+        try {
+            if (item.getReviewerId().equals(new JSONObject(user_id).getString("id"))){
+                holder.reviewModify.setText(R.string.btn_review_modify);
+                holder.reviewModify.setOnClickListener(v -> selectReviewListener.onModifyReview(item.getItem()));
+                holder.reviewDelete.setText(R.string.btn_review_delete);
+                holder.reviewDelete.setOnClickListener(v -> selectReviewListener.onDeleteReview(item.getReviewId()));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -79,7 +94,7 @@ public class ListAdapterReview extends RecyclerView.Adapter<ListAdapterReview.Vi
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgPhoto;
         RatingBar evaluateBar;
-        TextView evaluate, likeCount, reviewerName, reviewDate, photoCount, review;
+        TextView evaluate, likeCount, reviewerName, reviewDate, reviewModify, reviewDelete, photoCount, review;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,6 +104,8 @@ public class ListAdapterReview extends RecyclerView.Adapter<ListAdapterReview.Vi
             likeCount = itemView.findViewById(R.id.tVwReviewLike);
             reviewerName = itemView.findViewById(R.id.tVwReviewerName);
             reviewDate = itemView.findViewById(R.id.tVwReviewDate);
+            reviewModify = itemView.findViewById(R.id.tVwReviewModify);
+            reviewDelete = itemView.findViewById(R.id.tVwReviewDelete);
             photoCount = itemView.findViewById(R.id.tVwReviewerPhotoSum);
             review = itemView.findViewById(R.id.tVwReviewSummary);
         }

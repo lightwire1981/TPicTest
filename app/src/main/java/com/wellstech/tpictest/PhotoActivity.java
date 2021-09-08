@@ -102,8 +102,6 @@ public class PhotoActivity extends AppCompatActivity {
             Intent intent = new Intent(getBaseContext(), ReviewShowActivity.class);
             intent.putExtra("CALL_TYPE", TAG);
             startActivity(intent);
-
-            // Call Review Activity
         }));
     }
 

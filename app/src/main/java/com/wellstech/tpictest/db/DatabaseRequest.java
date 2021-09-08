@@ -127,6 +127,7 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
         String KEY_WORD_ID = "KEY_WORD_ID=";
 
         String REVIEW = "REVIEW=";
+        String REVIEW_ID = "REVIEW_ID=";
         String PHOTO_DATA = "PHOTO_DATA=";
 
         String GOODS_EVALUATE = "GOODS_EVALUATE=";
@@ -224,6 +225,10 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                             GOODS_EVALUATE + jsonObject.getString("goods_evaluate") + AND +
                             REVIEW + jsonObject.getString("review") + AND +
                             PHOTO_DATA + jsonObject.getString("photo_data");
+                    break;
+                case DELETE_REVIEW:
+                    parameterValue = USE + params[0] + AND +
+                            REVIEW_ID + jsonObject.getString("review_id");
                     break;
                 default:
                     parameterValue = null;

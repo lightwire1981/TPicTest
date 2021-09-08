@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.wellstech.tpictest.db.DBRequestType;
 import com.wellstech.tpictest.db.DatabaseRequest;
+import com.wellstech.tpictest.fragments.MyPageReviewFragment;
 import com.wellstech.tpictest.list_code.ListAdapterEvalChild;
 import com.wellstech.tpictest.list_code.ListAdptPhotoForReview;
 import com.wellstech.tpictest.list_code.ListItemEvalChild;
@@ -45,6 +46,7 @@ import java.util.concurrent.ExecutionException;
 public class ReviewWriteActivity extends AppCompatActivity {
 
     private JSONObject GoodsInfo;
+    private JSONObject ReviewInfo;
     private final ArrayList<String> useChildId = new ArrayList<>();
     private Float evalValue;
     private String reviewString = "";
@@ -62,18 +64,55 @@ public class ReviewWriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_write);
         getGoodsInfo();
-        setWidget();
+        setPhotoButton();
 
         hideNavigationBar();
     }
 
     private void getGoodsInfo() {
+        switch (getIntent().getStringExtra("CALL_TYPE")) {
+            case "GoodsInfoActivity":
+                ReviewInfo = GoodsInfoActivity.reviewObject;
+                try {
+                    GoodsInfo = new JSONObject(getIntent().getStringExtra("goodsInfo"));
+                    setWidget();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "MyPageReviewFragment":
+                ReviewInfo = MyPageReviewFragment.reviewObject;
+                try {
+                    getGoodsInfoFromDB(ReviewInfo.getString("goodsNo"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "PhotoActivity":
+                setWidget();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void getGoodsInfoFromDB(String goodsNo) {
+        JSONObject data =  new JSONObject();
         try {
-            GoodsInfo = new JSONObject(getIntent().getStringExtra("goodsInfo"));
+            data.put("goodsNo", goodsNo);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        new DatabaseRequest(getBaseContext(), result -> {
+            try {
+                GoodsInfo = new JSONArray(result[0]).getJSONObject(0);
+                setWidget();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }).execute(DBRequestType.GET_GOODS_INFO.name(), data.toString());
     }
+
     private void setWidget() {
         try {
             Glide.with(getBaseContext()).
@@ -121,34 +160,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
 
         photoView = findViewById(R.id.rclVwReviewPhoto);
         setLayoutManager(photoView);
-        btnGetPhoto = findViewById(R.id.btnAddReviewPhoto);
-        btnGetPhoto.setText(getString(R.string.txt_review_photo_template, uriList.size()+""));
-        btnGetPhoto.setOnClickListener(view -> {
-            if (uriList.size() == 5) {
-                Toast.makeText(getBaseContext(), "이미지가 가득 찼습니다.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            resultLauncher.launch(intent);
-        });
-        resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK) {
-                        Intent intent = result.getData();
-                        Uri uri = intent != null ? intent.getData() : null;
-                        uriList.add(uri);
-                        new Thread(() -> {
-                            try {
-                                photoList.add(Glide.with(getBaseContext()).asBitmap().load(uri).submit().get());
-                            } catch (ExecutionException | InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }).start();
-                        setPhoto();
-                    }
-                });
+
 
         ProgressDialog progressDialog = new ProgressDialog(ReviewWriteActivity.this);
         progressDialog.setMessage("리뷰를 등록 중입니다...");
@@ -209,6 +221,37 @@ public class ReviewWriteActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.iBtnReviewExit).setOnClickListener(v -> finish());
+    }
+
+    private void setPhotoButton() {
+        btnGetPhoto = findViewById(R.id.btnAddReviewPhoto);
+        btnGetPhoto.setText(getString(R.string.txt_review_photo_template, uriList.size()+""));
+        btnGetPhoto.setOnClickListener(view -> {
+            if (uriList.size() == 5) {
+                Toast.makeText(getBaseContext(), "이미지가 가득 찼습니다.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            resultLauncher.launch(intent);
+        });
+        resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent intent = result.getData();
+                        Uri uri = intent != null ? intent.getData() : null;
+                        uriList.add(uri);
+                        new Thread(() -> {
+                            try {
+                                photoList.add(Glide.with(getBaseContext()).asBitmap().load(uri).submit().get());
+                            } catch (ExecutionException | InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }).start();
+                        setPhoto();
+                    }
+                });
     }
 
     private void getChildInfo(RecyclerView childListView) {

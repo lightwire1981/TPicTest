@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -116,6 +117,7 @@ public class SettingFragment extends Fragment {
                                 new PreferenceSetting(getContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, NO_LOGIN);
                                 new PreferenceSetting(getContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO, null);
                                 Toast.makeText(getApplicationContext(), getString(R.string.naver_logout), Toast.LENGTH_SHORT).show();
+                                LoadHome();
                                 break;
                             case KAKAO:
                                 UserApiClient.getInstance().logout(error -> {
@@ -127,6 +129,7 @@ public class SettingFragment extends Fragment {
                                         new PreferenceSetting(getContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, NO_LOGIN);
                                         new PreferenceSetting(getContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO, null);
                                         Toast.makeText(getApplicationContext(), getString(R.string.kakao_logout), Toast.LENGTH_SHORT).show();
+                                        LoadHome();
                                     }
                                     return null;
                                 });
@@ -137,6 +140,7 @@ public class SettingFragment extends Fragment {
                                 new PreferenceSetting(getContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, NO_LOGIN);
                                 new PreferenceSetting(getContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO, null);
                                 Toast.makeText(getApplicationContext(), getString(R.string.facebook_logout), Toast.LENGTH_SHORT).show();
+                                LoadHome();
                                 break;
                             default:
                                 break;
@@ -155,6 +159,14 @@ public class SettingFragment extends Fragment {
                 break;
         }
     };
+
+    private void LoadHome() {
+        HomeFragment homeFragment = new HomeFragment();
+        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        fragmentTransaction.replace(R.id.fLyMain, homeFragment).commit();
+    }
+
     private void hideNavigationBar() {
         View decorView = this.requireActivity().getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
