@@ -25,6 +25,7 @@ public class CustomDialog extends Dialog {
     public enum DIALOG_CATEGORY {
         LOGIN,
         LOGOUT,
+        JOIN_AGREE_CONFIRM,
         PASSWORD,
         GOODS_IMAGE,
         DELETE_REVIEW_CONFIRM,
@@ -78,6 +79,10 @@ public class CustomDialog extends Dialog {
                 setContentView(R.layout.dialog_logout_confirm);
                 findViewById(R.id.btnDlgLogoutNo).setOnClickListener(onClickListener);
                 findViewById(R.id.btnDlgLogoutYes).setOnClickListener(onClickListener);
+                break;
+            case JOIN_AGREE_CONFIRM:
+                setContentView(R.layout.dialog_join_agree_confirm);
+                findViewById(R.id.btnDlgTermsAgreeConfirm).setOnClickListener(onClickListener);
                 break;
             case GOODS_IMAGE:
                 setContentView(R.layout.dialog_goods_image);
@@ -143,6 +148,7 @@ public class CustomDialog extends Dialog {
                 break;
             case R.id.btnDlgLoginYes:
             case R.id.btnDlgLogoutYes:
+            case R.id.btnDlgTermsAgreeConfirm:
             case R.id.btnDlgEvaluateYes:
             case R.id.btnNoChildConfirm:
             case R.id.iBtnDialogGoodsImgClose:
@@ -181,6 +187,7 @@ public class CustomDialog extends Dialog {
             case SELECT_INVALID:
             case NO_CHILD_INFORM:
             case EVALUATE_CONFIRM:
+            case JOIN_AGREE_CONFIRM:
             case EXIT:
                 layoutParams.height = displayMetrics.heightPixels;
                 layoutParams.width = (int) (displayMetrics.widthPixels * 0.9);
