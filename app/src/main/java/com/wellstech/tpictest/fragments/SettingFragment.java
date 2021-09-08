@@ -143,6 +143,10 @@ public class SettingFragment extends Fragment {
                                 LoadHome();
                                 break;
                             default:
+                                new PreferenceSetting(getContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, NO_LOGIN);
+                                new PreferenceSetting(getContext()).savePreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO, null);
+                                Toast.makeText(getApplicationContext(), getString(R.string.email_logout), Toast.LENGTH_SHORT).show();
+                                LoadHome();
                                 break;
                         }
                     } else {

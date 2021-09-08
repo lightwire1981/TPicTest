@@ -11,7 +11,7 @@ public class MakeDate {
         BIRTH,
         ID
     }
-    public String makeDateString(DATE_TYPE type) {
+    public static String makeDateString(DATE_TYPE type) {
         String form;
         switch (type) {
             case BIRTH:

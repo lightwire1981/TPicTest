@@ -53,13 +53,14 @@
         android:paddingBottom="10dp">
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/eTxtUserNameCheck"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/hint_cert_name"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
+            android:textColor="#000000"
             android:textColorHint="#BDBDBD"
             tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
@@ -68,33 +69,34 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/editTextPhone"
+                android:id="@+id/eTxtUserPhoneCheck"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/hint_cert_phone"
                 android:importantForAutofill="no"
                 android:inputType="phone"
+                android:textColor="#000000"
                 android:textColorHint="#BDBDBD"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button6"
+                app:layout_constraintEnd_toStartOf="@+id/btnUserPhoneCheck"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/btnUserPhoneCheck"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_cert_number"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/editTextPhone"
+                app:layout_constraintStart_toEndOf="@+id/eTxtUserPhoneCheck"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <EditText
-            android:id="@+id/editTextTextPersonName2"
+            android:id="@+id/eTxtCertificationNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -102,7 +104,7 @@
             android:ems="10"
             android:hint="@string/hint_cert_number"
             android:importantForAutofill="no"
-            android:inputType="textPersonName"
+            android:inputType="numberSigned|textPersonName"
             android:textColorHint="#BDBDBD"
             tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
@@ -112,13 +114,14 @@
             android:layout_marginBottom="10dp">
 
             <EditText
-                android:id="@+id/editTextTextEmailAddress"
+                android:id="@+id/eTxtUserEmailCheck"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:ems="9"
                 android:hint="@string/hint_cert_email_id"
                 android:importantForAutofill="no"
                 android:inputType="textEmailAddress"
+                android:textColor="#000000"
                 android:textColorHint="#BDBDBD"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -133,12 +136,13 @@
                 android:text="@string/txt_mail_at"
                 android:textColor="#3C3C3C"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/editTextTextEmailAddress"
+                app:layout_constraintEnd_toStartOf="@+id/sPnrEmailForm"
+                app:layout_constraintStart_toEndOf="@+id/eTxtUserEmailCheck"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="0dp"
+                android:id="@+id/sPnrEmailForm"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -146,7 +150,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView107"
+                android:id="@+id/tVwEmailFormWarning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -156,7 +160,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
+                app:layout_constraintTop_toBottomOf="@+id/eTxtUserEmailCheck"
                 tools:ignore="TextContrastCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -166,21 +170,22 @@
             android:layout_marginBottom="10dp">
 
             <EditText
-                android:id="@+id/editTextTextPassword2"
+                android:id="@+id/eTxtUserPasswordCheck"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/hint_cert_password"
                 android:importantForAutofill="no"
                 android:inputType="textPassword"
+                android:textColor="#000000"
                 android:textColorHint="#BDBDBD"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TextContrastCheck" />
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
             <TextView
-                android:id="@+id/textView108"
+                android:id="@+id/tVwPasswordFormWarning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -190,7 +195,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2"
+                app:layout_constraintTop_toBottomOf="@+id/eTxtUserPasswordCheck"
                 tools:ignore="TextContrastCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -199,21 +204,22 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/editTextTextPassword3"
+                android:id="@+id/eTxtUserPasswordCompare"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/hint_cert_password_confirm"
+                android:importantForAutofill="no"
                 android:inputType="textPassword"
+                android:textColor="#000000"
                 android:textColorHint="#BDBDBD"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TextContrastCheck"
-                android:importantForAutofill="no" />
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
             <TextView
-                android:id="@+id/textView109"
+                android:id="@+id/tVwPasswordCompareWarning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -223,7 +229,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword3"
+                app:layout_constraintTop_toBottomOf="@+id/eTxtUserPasswordCompare"
                 tools:ignore="TextContrastCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

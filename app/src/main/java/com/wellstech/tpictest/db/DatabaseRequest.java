@@ -137,6 +137,9 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
         String USER_NAME = "USER_NAME=";
         String USER_EMAIL = "USER_EMAIL=";
         String USER_PHONE = "USER_PHONE=";
+        String USER_PWD = "USER_PWD=";
+        String USER_AGREE = "USER_AGREE=";
+        String USER_TYPE = "USER_TYPE=";
 
         String CHILD_IDS = "CHILD_IDS=";
         String CHILD_IDX = "CHILD_IDX=";
@@ -162,8 +165,17 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                             USER_ID +jsonObject.get("id").toString() + AND +
                             USER_NAME +jsonObject.get("name").toString() + AND +
                             USER_EMAIL +jsonObject.get("email").toString() + AND +
-                            USER_PHONE +jsonObject.get("phone").toString()
-                    ;
+                            USER_PHONE +jsonObject.get("phone").toString();
+                    break;
+                case JOIN_EMAIL:
+                    parameterValue = USE + params[0] + AND +
+                            USER_ID + jsonObject.getString("id") + AND +
+                            USER_NAME + jsonObject.getString("name") + AND +
+                            USER_EMAIL +jsonObject.getString("email") + AND +
+                            USER_PHONE +jsonObject.getString("phone") + AND +
+                            USER_AGREE + jsonObject.getString("agree") + AND +
+                            USER_PWD + jsonObject.getString("password") + AND +
+                            USER_TYPE + jsonObject.getString("type");
                     break;
                 case CREATE_CHILD:
                     parameterValue = USE + params[0] + AND +

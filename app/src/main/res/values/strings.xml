@@ -206,6 +206,15 @@
         <item>성향 F</item>
         <item>성향 G</item>
     </string-array>
+    <string-array name="txt_email_form">
+        <item>naver.com</item>
+        <item>hanmail.net</item>
+        <item>daum.net</item>
+        <item>gmail.com</item>
+        <item>nate.com</item>
+        <item>hotmail.com</item>
+        <item>yahoo.co.kr</item>
+    </string-array>
 
 
     <string name="txt_dlg_yes">확인</string>
@@ -302,5 +311,7 @@
     <string name="facebook_app_id">393843192200505</string>
     <string name="fb_login_protocol_scheme">fb393843192200505</string>
     <string name="facebook_logout">페이스북 로그아웃</string>
+
+    <string name="email_logout">이메일 로그아웃</string>
 
 </resources>

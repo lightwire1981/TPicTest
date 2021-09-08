@@ -34,7 +34,8 @@
         tools:targetApi="p">
         <activity
             android:name=".JoinActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".ReviewShowActivity"
             android:exported="true" />
@@ -48,10 +49,10 @@
         <activity
             android:name=".GoodsInfoActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ChildRegistActivity"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".IntermediateActivity" />
         <activity android:name=".LoginActivity" />
         <activity
@@ -65,7 +66,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
