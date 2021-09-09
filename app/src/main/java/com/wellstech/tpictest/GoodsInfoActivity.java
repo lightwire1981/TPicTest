@@ -259,6 +259,7 @@ public class GoodsInfoActivity extends AppCompatActivity {
                 return;
             }
             Intent intent = new Intent(getBaseContext(), ReviewWriteActivity.class);
+            intent.putExtra("CALL_TYPE", TAG);
             intent.putExtra("goodsInfo", GoodsInfo.toString());
             startActivity(intent);
         });
