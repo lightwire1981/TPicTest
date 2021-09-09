@@ -177,6 +177,11 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                             USER_PWD + jsonObject.getString("password") + AND +
                             USER_TYPE + jsonObject.getString("type");
                     break;
+                case EMAIL_LOGIN:
+                    parameterValue = USE + params[0] + AND +
+                            USER_EMAIL +jsonObject.getString("email") + AND +
+                            USER_PWD + jsonObject.getString("password");
+                    break;
                 case CREATE_CHILD:
                     parameterValue = USE + params[0] + AND +
                             USER_ID +jsonObject.get("id").toString() + AND +

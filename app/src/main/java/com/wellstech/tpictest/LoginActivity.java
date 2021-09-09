@@ -8,7 +8,12 @@ import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -17,6 +22,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.wellstech.tpictest.db.DBRequestType;
 import com.wellstech.tpictest.db.DatabaseRequest;
+import com.wellstech.tpictest.utils.CustomDialog;
 import com.wellstech.tpictest.utils.FacebookLoginCallback;
 import com.wellstech.tpictest.utils.PreferenceSetting;
 import com.wellstech.tpictest.utils.RequestApiTask;
@@ -30,6 +36,7 @@ import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 import com.nhn.android.naverlogin.ui.view.OAuthLoginButton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,6 +57,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private FacebookLoginCallback facebookLoginCallback;
     private CallbackManager callbackManager;
+
+    private String emailForm;
     private String phoneNumber;
 
     @SuppressLint("HardwareIds")
@@ -57,6 +66,22 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Spinner spnEmailform = findViewById(R.id.sPnrLoginEmailForm);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                getBaseContext(), R.layout.spnr_item_email_form, getResources().getStringArray(R.array.txt_email_form));
+        spnEmailform.setAdapter(adapter);
+        spnEmailform.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                emailForm = (String)parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED
@@ -100,6 +125,7 @@ public class LoginActivity extends AppCompatActivity {
         ImageButton floginbBtn = findViewById(R.id.btnFacebookLogin);
         floginbBtn.setOnClickListener(onClickListener);
 
+        findViewById(R.id.btnLoginEmail).setOnClickListener(onClickListener);
         findViewById(R.id.btnJoinEmail).setOnClickListener(onClickListener);
         findViewById(R.id.btnNaverLogin).setOnClickListener(onClickListener);
         findViewById(R.id.iBtnKakaoLogin).setOnClickListener(onClickListener);
@@ -225,6 +251,55 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), JoinActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.btnLoginEmail:
+                String userid = ((EditText)findViewById(R.id.eTxtLoginEmailId)).getText().toString();
+                String userEmail = userid+"@"+emailForm;
+                String password = ((EditText)findViewById(R.id.eTxtLoginEmailPassword)).getText().toString();
+                if (userid.isEmpty()||password.isEmpty()) {
+                    new CustomDialog(LoginActivity.this, CustomDialog.DIALOG_CATEGORY.FORM_INVALID, new CustomDialog.DialogResponseListener() {
+                        @Override
+                        public void getResponse(boolean response, Object data) {
+
+                        }
+                    }).show();
+                    return;
+                }
+                JSONObject userData = new JSONObject();
+                try {
+                    userData.put("email", userEmail);
+                    userData.put("password", password);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                new DatabaseRequest(getBaseContext(), result -> {
+                    switch (result[0]) {
+                        case "NOT_USER":
+                            new CustomDialog(LoginActivity.this, CustomDialog.DIALOG_CATEGORY.EMAIL, (response, data) -> hideNavigationBar()).show();
+                            break;
+                        case "NOT_PWD":
+                            new CustomDialog(LoginActivity.this, CustomDialog.DIALOG_CATEGORY.PASSWORD, (response, data) -> hideNavigationBar()).show();
+                            break;
+                        default:
+                            JSONObject userInfo = new JSONObject();
+                            try {
+                                JSONArray data = new JSONArray(result[0]);
+                                JSONObject user = data.getJSONObject(0);
+                                userInfo.put("id", user.getString("idx"));
+                                userInfo.put("name", user.getString("user_name"));
+                                userInfo.put("email", user.getString("user_email"));
+                                userInfo.put("phone", user.getString("user_phone"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            PreferenceSetting preferenceSetting = new PreferenceSetting(getBaseContext());
+                            preferenceSetting.saveUserInfo(userInfo);
+                            preferenceSetting.savePreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE, EMAIL);
+
+                            LoadMainPage();
+                            break;
+                    }
+                }).execute(DBRequestType.EMAIL_LOGIN.name(), userData.toString());
+                break;
             case R.id.btnNaverLogin:
                 mOAuthLoginInstance.startOauthLoginActivity(LoginActivity.this, mOAuthLoginHandler);
                 break;
@@ -260,6 +335,12 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideNavigationBar();
+    }
 
     private void kakaoLogin() {
         UserApiClient.getInstance().loginWithKakaoTalk(LoginActivity.this,((oAuthToken, error) -> {
@@ -344,5 +425,10 @@ public class LoginActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         LoadMainPage();
+    }
+
+    private void hideNavigationBar(){
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 }

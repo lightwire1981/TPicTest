@@ -3,6 +3,40 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/drawable/btn_registry_confirm.xml" value="0.23614864864864865" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/drawable/btn_round.xml" value="0.23614864864864865" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/drawable/drw_btn_round_click.xml" value="0.23614864864864865" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/drawable/drw_round_button.xml" value="0.23614864864864865" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/activity_child_regist.xml" value="0.20457650273224043" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/activity_goods_info.xml" value="0.22432432432432434" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/activity_join.xml" value="0.20457650273224043" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/activity_login.xml" value="0.21004098360655737" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/activity_photo.xml" value="0.14189189189189189" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/activity_review.xml" value="0.21004098360655737" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/dialog_exit_confirm.xml" value="0.21004098360655737" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/dialog_form_invalid.xml" value="0.21004098360655737" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/dialog_goods_image.xml" value="0.20457650273224043" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/dialog_insert_confirm.xml" value="0.21004098360655737" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/dialog_join_agree_confirm.xml" value="0.20457650273224043" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/dialog_login_confirm.xml" value="0.21004098360655737" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/dialog_no_child_select.xml" value="0.21004098360655737" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/dialog_not_found_email.xml" value="0.20457650273224043" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/dialog_popup_image.xml" value="0.20184426229508196" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/dialog_review_delete_confirm.xml" value="0.20457650273224043" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/fragment_certification.xml" value="0.20457650273224043" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/fragment_join_terms.xml" value="0.20457650273224043" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/fragment_my_page.xml" value="0.20457650273224043" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/fragment_my_page_child.xml" value="0.20457650273224043" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/fragment_setting.xml" value="0.20184426229508196" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/list_item_char_select.xml" value="0.44387464387464387" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/list_item_child.xml" value="0.21004098360655737" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/list_item_newtoy.xml" value="0.20457650273224043" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/list_item_null.xml" value="0.14189189189189189" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/list_item_photo_thumbnail.xml" value="0.40520694259012013" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/list_item_popup_image.xml" value="0.20184426229508196" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/list_item_review.xml" value="0.75" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/list_item_scalable_image.xml" value="0.20184426229508196" />
+        <entry key="..\:/Androidworks/TPicTest/app/src/main/res/layout/list_item_search_result.xml" value="0.22432432432432434" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/drawable/btn_activity_close.xml" value="0.23614864864864865" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/drawable/btn_ad_slide_stop.xml" value="0.23614864864864865" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/drawable/btn_arrow_left.xml" value="0.23614864864864865" />
@@ -38,7 +72,6 @@
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/drawable/img_index_item.xml" value="0.23614864864864865" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/drawable/img_kids_female.xml" value="0.19256756756756757" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/drawable/img_kids_male.xml" value="0.23614864864864865" />
-        <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/drawable/img_like_heart.xml" value="0.23614864864864865" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/drawable/img_more_info.xml" value="0.23614864864864865" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/drawable/img_my_info_enter.xml" value="0.23614864864864865" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/drawable/img_my_info_kids.xml" value="0.23614864864864865" />
@@ -55,16 +88,11 @@
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/activity_goods_info.xml" value="0.22567567567567567" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/activity_login.xml" value="0.1994535519125683" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/activity_main.xml" value="0.22567567567567567" />
-        <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/activity_photo.xml" value="0.21448087431693988" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/activity_review.xml" value="0.22567567567567567" />
-        <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/activity_review_show.xml" value="0.21448087431693988" />
-        <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/activity_review_write.xml" value="0.21448087431693988" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/activity_splash.xml" value="0.22567567567567567" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/dialog_exit_confirm.xml" value="0.16317567567567567" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/dialog_form_invalid.xml" value="0.2587837837837838" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/dialog_goods_image.xml" value="0.22567567567567567" />
-        <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/dialog_insert_confirm.xml" value="0.21209016393442623" />
-        <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/dialog_join_agree_confirm.xml" value="0.21209016393442623" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/dialog_login_confirm.xml" value="0.2587837837837838" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/dialog_logout_confirm.xml" value="0.22567567567567567" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/dialog_no_child_inform.xml" value="0.22567567567567567" />
@@ -72,23 +100,19 @@
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/dialog_select_invalid.xml" value="0.25" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_category.xml" value="0.22567567567567567" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_category_list.xml" value="0.22567567567567567" />
-        <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_certification.xml" value="0.21209016393442623" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_character_select.xml" value="0.2587837837837838" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_child_mgr_main.xml" value="0.2587837837837838" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_child_regist.xml" value="0.2587837837837838" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_evaluate.xml" value="0.20935792349726776" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_home.xml" value="0.22567567567567567" />
-        <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_join_terms.xml" value="0.21209016393442623" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_keyword.xml" value="0.20662568306010928" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_my_child.xml" value="0.22567567567567567" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_my_child_main.xml" value="0.2537162162162162" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_my_page.xml" value="0.22567567567567567" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_my_page_child.xml" value="0.2587837837837838" />
-        <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_my_page_review.xml" value="0.21448087431693988" />
-        <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_mypage_review.xml" value="0.21448087431693988" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_personal_select.xml" value="0.22567567567567567" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_ranking.xml" value="0.22567567567567567" />
-        <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_search.xml" value="0.33" />
+        <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_search.xml" value="0.20662568306010928" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_search_result.xml" value="0.15675675675675677" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/fragment_setting.xml" value="0.22567567567567567" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/layout_home.xml" value="0.20662568306010928" />
@@ -103,17 +127,12 @@
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/list_item_dialog_goods_image.xml" value="0.11114864864864865" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/list_item_evaluate_good.xml" value="0.41495124593716143" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/list_item_goods_image.xml" value="0.11114864864864865" />
-        <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/list_item_null.xml" value="0.21448087431693988" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/list_item_person_select.xml" value="0.38434982738780205" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/list_item_recent_keyword.xml" value="0.20662568306010928" />
-        <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/list_item_review.xml" value="0.2874354561101549" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/list_item_review_image.xml" value="0.22567567567567567" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/list_item_review_photo.xml" value="0.5427350427350427" />
-        <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/list_item_reviewtoy.xml" value="0.38813349814585907" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/list_item_search_result.xml" value="0.3220338983050847" />
         <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/list_item_slider.xml" value="0.22567567567567567" />
-        <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/spnr_item_email_form.xml" value="0.21209016393442623" />
-        <entry key="..\:/Dev/AndroidWork/TPicTest/app/src/main/res/layout/spnr_item_result_category.xml" value="0.21209016393442623" />
         <entry key="..\:/Users/light/AppData/Local/Android/Sdk/platforms/android-30/data/res/drawable/ratingbar_material.xml" value="0.26925675675675675" />
       </map>
     </option>

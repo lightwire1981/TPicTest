@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#F5F5F5"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context=".fragments.SettingFragment" >
+    tools:context=".fragments.SettingFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -50,18 +50,22 @@
 
         <TextView
             android:id="@+id/textView53"
-            style="@style/FragmentTitleStyle"
+            style="@style/SettingCategoryStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/txt_login" />
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/txt_setting_login" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#FFFFFF">
 
             <TextView
                 android:id="@+id/tVwSettingUserEmail"
-                style="@style/FragmentTitleStyle"
+                style="@style/SettingContentStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_my_page_email"
@@ -81,11 +85,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#FFFFFF">
 
             <TextView
                 android:id="@+id/textView55"
-                style="@style/FragmentTitleStyle"
+                style="@style/SettingContentStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_login_auto"
@@ -105,18 +111,22 @@
 
         <TextView
             android:id="@+id/textView56"
-            style="@style/FragmentTitleStyle"
+            style="@style/SettingCategoryStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:text="@string/txt_alarm" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#FFFFFF">
 
             <TextView
                 android:id="@+id/textView57"
-                style="@style/FragmentTitleStyle"
+                style="@style/SettingContentStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_push_alarm"
@@ -136,11 +146,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#FFFFFF">
 
             <TextView
                 android:id="@+id/textView58"
-                style="@style/FragmentTitleStyle"
+                style="@style/SettingContentStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_night_alarm"
@@ -160,9 +172,11 @@
 
         <TextView
             android:id="@+id/textView59"
-            style="@style/FragmentTitleStyle"
+            style="@style/SettingCategoryStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:text="@string/txt_information" />
 
         <Button
@@ -181,11 +195,12 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
 
             <TextView
                 android:id="@+id/textView60"
-                style="@style/FragmentTitleStyle"
+                style="@style/SettingContentStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_version_info"
@@ -195,7 +210,7 @@
 
             <TextView
                 android:id="@+id/textView61"
-                style="@style/FragmentTitleStyle"
+                style="@style/SettingCategoryStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_version_code"

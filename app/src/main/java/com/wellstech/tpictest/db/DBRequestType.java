@@ -3,6 +3,7 @@ package com.wellstech.tpictest.db;
 public enum DBRequestType {
     JOIN,
     JOIN_EMAIL,
+    EMAIL_LOGIN,
     CREATE_CHILD,
     GET_CHILD,
     UPDATE_CHILD,

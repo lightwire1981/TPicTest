@@ -64,16 +64,16 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/eTxtEmailID"
-                android:layout_width="wrap_content"
+                android:id="@+id/eTxtLoginEmailId"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/txt_login_id"
+                android:ems="8"
+                android:hint="@string/hint_login_id"
                 android:importantForAutofill="no"
                 android:inputType="textWebEmailAddress|text"
-                android:textColor="#989898"
+                android:textColor="#000000"
+                android:textColorHint="#989898"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tVwEmailAt"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="TouchTargetSizeCheck" />
@@ -82,28 +82,28 @@
                 android:id="@+id/tVwEmailAt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#989898"
+                android:text="@string/txt_mail_at"
+                android:textColor="#000000"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/eTxtEmailID"
+                app:layout_constraintEnd_toStartOf="@+id/sPnrLoginEmailForm"
+                app:layout_constraintStart_toEndOf="@+id/eTxtLoginEmailId"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/eTxtEmailLoginDotnet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/sPnrLoginEmailForm"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:importantForAutofill="no"
-                android:inputType="text|textEmailAddress"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tVwEmailAt"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <EditText
-            android:id="@+id/eTxtEmailLoginPassword"
+            android:id="@+id/eTxtLoginEmailPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -130,7 +130,7 @@
             android:id="@+id/btnLoginEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/img_email_login"
+            android:background="@drawable/btn_round"
             android:text="@string/txt_login"
             android:textSize="16sp"
             android:textStyle="bold"

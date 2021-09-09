@@ -7,26 +7,36 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 import com.wellstech.tpictest.R;
+import com.wellstech.tpictest.list_code.ListAdptDlgPopupImage;
 import com.wellstech.tpictest.list_code.ListAdptDlgScalableGoodsImg;
 
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class CustomDialog extends Dialog {
+
+    private Timer timer;
 
     public enum DIALOG_CATEGORY {
         LOGIN,
         LOGOUT,
         JOIN_AGREE_CONFIRM,
+        EMAIL,
         PASSWORD,
+        POPUP_IMAGE,
         GOODS_IMAGE,
         DELETE_REVIEW_CONFIRM,
         NONE_SELECT_CHILD,
@@ -80,9 +90,30 @@ public class CustomDialog extends Dialog {
                 findViewById(R.id.btnDlgLogoutNo).setOnClickListener(onClickListener);
                 findViewById(R.id.btnDlgLogoutYes).setOnClickListener(onClickListener);
                 break;
+            case EMAIL:
+                setContentView(R.layout.dialog_not_found);
+                ((TextView)findViewById(R.id.tVwLoginErrorMessage)).setText(R.string.txt_dlg_not_found_user);
+                findViewById(R.id.btnLoginErrorConfirm).setOnClickListener(onClickListener);
+                break;
+            case PASSWORD:
+                setContentView(R.layout.dialog_not_found);
+                ((TextView)findViewById(R.id.tVwLoginErrorMessage)).setText(R.string.txt_dlg_not_found_pwd);
+                findViewById(R.id.btnLoginErrorConfirm).setOnClickListener(onClickListener);
+                break;
             case JOIN_AGREE_CONFIRM:
                 setContentView(R.layout.dialog_join_agree_confirm);
                 findViewById(R.id.btnDlgTermsAgreeConfirm).setOnClickListener(onClickListener);
+                break;
+            case POPUP_IMAGE:
+                setContentView(R.layout.dialog_popup_image);
+                findViewById(R.id.btnTodayClose).setOnClickListener(onClickListener);
+                findViewById(R.id.btnPopupClose).setOnClickListener(onClickListener);
+                DotsIndicator popupIndicator = findViewById(R.id.indPopupCurrentImage);
+                ViewPager2 popupImgView = findViewById(R.id.vPgrDialogPopupImages);
+                popupImgView.setAdapter(new ListAdptDlgPopupImage(bitmapList));
+                popupIndicator.setViewPager2(popupImgView);
+                popupImgView.setPageTransformer(new ZoomOutPageTransformer());
+                setPopupSlider(popupImgView);
                 break;
             case GOODS_IMAGE:
                 setContentView(R.layout.dialog_goods_image);
@@ -90,7 +121,7 @@ public class CustomDialog extends Dialog {
                 DotsIndicator viewPagerIndicator = findViewById(R.id.indCtrGoodsCurrentImage);
                 ViewPager2 goodsImgView = findViewById(R.id.vPgrDialogGoodsImages);
                 goodsImgView.setAdapter(new ListAdptDlgScalableGoodsImg(bitmapList));
-                goodsImgView.setOffscreenPageLimit(2);
+//                goodsImgView.setOffscreenPageLimit(2);
                 viewPagerIndicator.setViewPager2(goodsImgView);
                 goodsImgView.setPageTransformer(new ZoomOutPageTransformer());
                 break;
@@ -135,6 +166,29 @@ public class CustomDialog extends Dialog {
         setLayoutParameter();
     }
 
+    int currentPage = 0;
+    public void setPopupSlider(ViewPager2 viewPager2) {
+        long DELAY_MS = 500;
+        long PERIOD_MS = 3000;
+
+        Handler handler = new Handler();
+        Runnable update = () -> {
+            if (currentPage == Objects.requireNonNull(viewPager2.getAdapter()).getItemCount()) {
+                currentPage = 0;
+            }
+            viewPager2.setCurrentItem(currentPage);
+            currentPage++;
+        };
+        timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(update);
+            }
+        }, DELAY_MS, PERIOD_MS);
+    }
+
     @SuppressLint("NonConstantResourceId")
     private final View.OnClickListener onClickListener = v -> {
         switch (v.getId()) {
@@ -148,6 +202,7 @@ public class CustomDialog extends Dialog {
                 break;
             case R.id.btnDlgLoginYes:
             case R.id.btnDlgLogoutYes:
+            case R.id.btnLoginErrorConfirm:
             case R.id.btnDlgTermsAgreeConfirm:
             case R.id.btnDlgEvaluateYes:
             case R.id.btnNoChildConfirm:
@@ -158,7 +213,16 @@ public class CustomDialog extends Dialog {
                 dialogResponseListener.getResponse(true, null);
                 dismiss();
                 break;
-
+            case R.id.btnTodayClose:
+                timer.cancel();
+                dialogResponseListener.getResponse(true, "today");
+                dismiss();
+                break;
+            case R.id.btnPopupClose:
+                timer.cancel();
+                dialogResponseListener.getResponse(true, "close");
+                dismiss();
+                break;
             case R.id.btnRegistryConfirm:
             case R.id.btnSelectConfirm:
                 dismiss();
@@ -181,6 +245,7 @@ public class CustomDialog extends Dialog {
         this.setCanceledOnTouchOutside(false);
 
         switch (dialog_category) {
+            case POPUP_IMAGE:
             case LOGIN:
             case NONE_SELECT_CHILD:
             case FORM_INVALID:
@@ -188,6 +253,8 @@ public class CustomDialog extends Dialog {
             case NO_CHILD_INFORM:
             case EVALUATE_CONFIRM:
             case JOIN_AGREE_CONFIRM:
+            case EMAIL:
+            case PASSWORD:
             case EXIT:
                 layoutParams.height = displayMetrics.heightPixels;
                 layoutParams.width = (int) (displayMetrics.widthPixels * 0.9);

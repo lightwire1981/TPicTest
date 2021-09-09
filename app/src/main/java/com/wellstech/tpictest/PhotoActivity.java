@@ -69,11 +69,9 @@ public class PhotoActivity extends AppCompatActivity {
                 item.setPhoto1Url(photoInfo.get(index).getPhotoUri());
                 item.setDataOffset1(photoInfo.get(index).getDataOffset());
                 index++;
-                item = new ListItemPhotoThumbnail();
                 item.setPhoto2Url(photoInfo.get(index).getPhotoUri());
                 item.setDataOffset2(photoInfo.get(index).getDataOffset());
                 index++;
-                item = new ListItemPhotoThumbnail();
                 item.setPhoto3Url(photoInfo.get(index).getPhotoUri());
                 item.setDataOffset3(photoInfo.get(index).getDataOffset());
                 index++;

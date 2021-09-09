@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vPgrDialogPopupImages"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="#EAEAEA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        android:id="@+id/indPopupCurrentImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:dotsColor="#9C9C9C"
+        app:dotsCornerRadius="8dp"
+        app:dotsSize="5dp"
+        app:dotsSpacing="4dp"
+        app:dotsWidthFactor="2.5"
+        app:layout_constraintBottom_toBottomOf="@+id/vPgrDialogPopupImages"
+        app:layout_constraintEnd_toEndOf="@+id/vPgrDialogPopupImages"
+        app:layout_constraintStart_toStartOf="@+id/vPgrDialogPopupImages"
+        app:layout_constraintTop_toTopOf="@+id/vPgrDialogPopupImages"
+        app:layout_constraintVertical_bias="0.95"
+        app:progressMode="true"
+        app:selectedDotColor="#FFFFFF" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vPgrDialogPopupImages">
+
+        <Button
+            android:id="@+id/btnTodayClose"
+            style="@style/HomeButtonBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="#FF6F6F"
+            android:text="@string/txt_dlg_today_close"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnPopupClose"
+            style="@style/HomeButtonBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#989898"
+            android:text="@string/txt_dlg_popup_close"
+            tools:ignore="TextContrastCheck" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

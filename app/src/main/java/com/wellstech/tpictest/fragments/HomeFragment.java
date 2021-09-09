@@ -344,11 +344,13 @@ public class HomeFragment extends Fragment {
     public void setAdSlider() {
         Handler handler = new Handler();
         Runnable update = () -> {
-            int currentPage = adView.getCurrentItem()+1;  // 페이지 갯수는 0부터 시작 하므로 보완
+            int currentPage = adView.getCurrentItem();  // 페이지 갯수는 0부터 시작 하므로 보완
             if (currentPage == Objects.requireNonNull(adView.getAdapter()).getItemCount()) {
                 currentPage = 1000;
             }
+            currentPage++;
             adView.setCurrentItem(currentPage);
+
         };
         timer = new Timer();
         timer.schedule(new TimerTask() {

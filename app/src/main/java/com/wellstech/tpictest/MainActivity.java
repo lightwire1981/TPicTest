@@ -1,15 +1,25 @@
 package com.wellstech.tpictest;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.wellstech.tpictest.db.DBRequestType;
 import com.wellstech.tpictest.db.DatabaseRequest;
 import com.wellstech.tpictest.fragments.CategoryFragment;
@@ -19,6 +29,8 @@ import com.wellstech.tpictest.fragments.MyPageFragment;
 import com.wellstech.tpictest.fragments.RankingFragment;
 import com.wellstech.tpictest.utils.CustomDialog;
 import com.wellstech.tpictest.utils.PreferenceSetting;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +60,44 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.iBtnMainEvaluate).setOnClickListener(onClickListener);
         findViewById(R.id.iBtnMainCategory).setOnClickListener(onClickListener);
         findViewById(R.id.iBtnMainMypage).setOnClickListener(onClickListener);
+
+        new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.POPUP_IMAGE, (response, data) -> {
+            hideNavigationBar();
+            switch (data.toString()) {
+                case "close":
+                    Log.i(TAG, data.toString());
+                    break;
+                case "today":
+                    // set today action
+                    break;
+            }
+        }, setPopupContent()).show();
+    }
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private ArrayList<Bitmap> setPopupContent() {
+        ArrayList<Bitmap> contentList = new ArrayList<>();
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(R.drawable.popup_sample01);
+        list.add(R.drawable.popup_sample02);
+        list.add(R.drawable.popup_sample03);
+        list.add(R.drawable.popup_sample04);
+        list.add(R.drawable.popup_sample05);
+
+        for (int i : list) {
+            Glide.with(getBaseContext()).asBitmap().load(i).listener(
+                    new RequestListener<Bitmap>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                            return false;
+                        }
+                        @Override
+                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                            contentList.add(resource);
+                            return true;
+                        }
+                    }).submit();
+        }
+        return contentList;
     }
 
     @SuppressLint({"NonConstantResourceId", "UseCompatLoadingForDrawables"})
@@ -144,11 +194,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.EXIT, (isAppFinish, data) -> {
-            if (!isAppFinish) {
-                hideNavigationBar();
-            }
-        }).show();
+        new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.EXIT, (isAppFinish, data) -> hideNavigationBar()).show();
     }
 
     private void getGoodsInfo() {
