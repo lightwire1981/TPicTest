@@ -1,24 +1,23 @@
 package com.wellstech.tpictest;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.wellstech.tpictest.db.DBRequestType;
 import com.wellstech.tpictest.db.DatabaseRequest;
@@ -38,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
         HOME, CATEGORY, CATEGORY_LIST, EVALUATE, RANKING, MY_PAGE, MY_CHILD, MY_CHILD_EDIT, MY_REVIEW, MY_PAGE_SUB, SEARCH, SETTING
     }
 
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+
     public static PAGES CURRENT_PAGE;
     private static final String TAG = "TAG-MainActivity";
     public static String ALL_GOODS_INFO;
@@ -49,18 +51,16 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i(TAG, new PreferenceSetting(getBaseContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO));
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        HomeFragment homeFragment = new HomeFragment();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fLyMain, homeFragment).commit();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
 
-
-        findViewById(R.id.iBtnMainHome).setOnClickListener(onClickListener);
-        findViewById(R.id.iBtnMainRank).setOnClickListener(onClickListener);
-        findViewById(R.id.iBtnMainEvaluate).setOnClickListener(onClickListener);
-        findViewById(R.id.iBtnMainCategory).setOnClickListener(onClickListener);
-        findViewById(R.id.iBtnMainMypage).setOnClickListener(onClickListener);
-
+        ((RadioGroup)findViewById(R.id.rGrpMainRadioButton)).setOnCheckedChangeListener(homeTapChangeListener);
+        ((RadioGroup)findViewById(R.id.rGrpMainRadioButton)).getChildAt(0).performClick();
+//        findViewById(R.id.iBtnMainHome).setOnClickListener(onClickListener);
+//        findViewById(R.id.iBtnMainRank).setOnClickListener(onClickListener);
+//        findViewById(R.id.iBtnMainEvaluate).setOnClickListener(onClickListener);
+//        findViewById(R.id.iBtnMainCategory).setOnClickListener(onClickListener);
+//        findViewById(R.id.iBtnMainMypage).setOnClickListener(onClickListener);
         new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.POPUP_IMAGE, (response, data) -> {
             hideNavigationBar();
             switch (data.toString()) {
@@ -73,6 +73,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }, setPopupContent()).show();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        getGoodsInfo();
+        hideNavigationBar();
+    }
+
     @SuppressLint("UseCompatLoadingForDrawables")
     private ArrayList<Bitmap> setPopupContent() {
         ArrayList<Bitmap> contentList = new ArrayList<>();
@@ -99,6 +107,69 @@ public class MainActivity extends AppCompatActivity {
         }
         return contentList;
     }
+
+    @SuppressLint("NonConstantResourceId")
+    private final RadioGroup.OnCheckedChangeListener homeTapChangeListener = (radioGroup, radiobuttonId) -> {
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        switch (radiobuttonId) {
+            case R.id.rBtnMainHome:
+                HomeFragment homeFragment = new HomeFragment();
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                fragmentTransaction.replace(R.id.fLyMain, homeFragment).commit();
+                break;
+            case R.id.rBtnMainCategory:
+                CategoryFragment categoryFragment = new CategoryFragment();
+                fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                fragmentTransaction.add(R.id.fLyMain, categoryFragment).commit();
+                break;
+            case R.id.rBtnMainEvaluate:
+                if (new PreferenceSetting(getBaseContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE).equals(LoginActivity.NO_LOGIN)) {
+                    new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.LOGIN, (response, data) -> {
+                        if (response) {
+                            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        } else {
+                            radioGroup.getChildAt(0).performClick();
+                            hideNavigationBar();
+                        }
+                    }).show();
+                } else {
+                    EvaluateFragment evaluateFragment = new EvaluateFragment();
+                    fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
+                    fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    fragmentTransaction.add(R.id.fLyMain, evaluateFragment).commit();
+                }
+                break;
+            case R.id.rBtnMainRanking:
+                RankingFragment rankingFragment = new RankingFragment();
+                fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                fragmentTransaction.add(R.id.fLyMain, rankingFragment).commit();
+                break;
+            case R.id.rBtnMainMypage:
+                if (new PreferenceSetting(getBaseContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE).equals(LoginActivity.NO_LOGIN)) {
+                    new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.LOGIN, (response, data) -> {
+                        if (response) {
+                            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        } else {
+                            radioGroup.getChildAt(0).performClick();
+                            hideNavigationBar();
+                        }
+                    }).show();
+                } else {
+                    MyPageFragment myPageFragment = new MyPageFragment();
+                    fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
+                    fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    fragmentTransaction.add(R.id.fLyMain, myPageFragment).commit();
+                }
+                break;
+        }
+    };
 
     @SuppressLint({"NonConstantResourceId", "UseCompatLoadingForDrawables"})
     View.OnClickListener onClickListener = v -> {
@@ -185,12 +256,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        getGoodsInfo();
-        hideNavigationBar();
-    }
+
 
     @Override
     public void onBackPressed() {
@@ -201,16 +267,7 @@ public class MainActivity extends AppCompatActivity {
         new DatabaseRequest(getBaseContext(), executeListener).execute(DBRequestType.GET_ALL_GOODS.name());
     }
 
-    DatabaseRequest.ExecuteListener executeListener = result -> {
-        ALL_GOODS_INFO = result[0];
-//        try {
-//            JSONArray goodsArray = new JSONArray(result[0]);
-//            JSONObject goodsInfo = goodsArray.getJSONObject(0);
-//            Log.i(TAG, goodsInfo.get("goodsNm").toString());
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-    };
+    DatabaseRequest.ExecuteListener executeListener = result -> ALL_GOODS_INFO = result[0];
 
     private void hideNavigationBar(){
         View decorView = getWindow().getDecorView();

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="#FFFFFF"
     android:orientation="vertical"
     android:weightSum="10"
     tools:context=".MainActivity">
@@ -13,162 +13,80 @@
         android:id="@+id/fLyMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_weight="1">
 
-    <LinearLayout
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="9"
-        android:background="#FFFFFF"
-        android:baselineAligned="false"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="10">
+        android:layout_weight="9">
 
-        <LinearLayout
-            style="@style/HomeButtonLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
+        <RadioGroup
+            android:id="@+id/rGrpMainRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:orientation="vertical"
-            android:weightSum="5">
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/iBtnMainHome"
-                style="@style/HomeButtonBorderless"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="2.5"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/cd_main_btn"
-                android:focusable="auto"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/btn_main_home" />
-
-            <TextView
-                android:id="@+id/tvw_MHome"
+            <RadioButton
+                android:id="@+id/rBtnMainHome"
                 style="@style/HomeButton"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="3.5"
-                android:text="@string/btn_home" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@android:color/transparent"
+                android:drawableTop="@drawable/rbtn_main_home"
+                android:text="@string/btn_home"
+                tools:ignore="TextContrastCheck" />
 
-        <LinearLayout
-            style="@style/HomeButtonLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:weightSum="5">
-
-            <ImageButton
-                android:id="@+id/iBtnMainCategory"
-                style="@style/HomeButtonBorderless"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="2.5"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/cd_category_btn"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/btn_main_category" />
-
-            <TextView
-                android:id="@+id/tvw_MCategory"
+            <RadioButton
+                android:id="@+id/rBtnMainCategory"
                 style="@style/HomeButton"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="3.5"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@android:color/transparent"
+                android:drawableTop="@drawable/rbtn_main_category"
                 android:text="@string/btn_category" />
-        </LinearLayout>
 
-        <LinearLayout
-            style="@style/HomeButtonLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:weightSum="5">
-
-            <ImageButton
-                android:id="@+id/iBtnMainEvaluate"
-                style="@style/HomeButtonBorderless"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="2.5"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/cd_evaluate_btn"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/btn_main_evaluate" />
-
-            <TextView
-                android:id="@+id/tvw_MEvaluate"
+            <RadioButton
+                android:id="@+id/rBtnMainEvaluate"
                 style="@style/HomeButton"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="3.5"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@android:color/transparent"
+                android:drawableTop="@drawable/rbtn_main_evaluate"
                 android:text="@string/btn_evaluate" />
-        </LinearLayout>
 
-        <LinearLayout
-            style="@style/HomeButtonLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:weightSum="5">
-
-            <ImageButton
-                android:id="@+id/iBtnMainRank"
-                style="@style/HomeButtonBorderless"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="2.5"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/cd_ranking_btn"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/btn_main_rank" />
-
-            <TextView
-                android:id="@+id/tvw_MRank"
+            <RadioButton
+                android:id="@+id/rBtnMainRanking"
                 style="@style/HomeButton"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="3.5"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@android:color/transparent"
+                android:drawableTop="@drawable/rbtn_main_ranking"
                 android:text="@string/btn_ranking" />
-        </LinearLayout>
 
-        <LinearLayout
-            style="@style/HomeButtonLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:weightSum="5">
-
-            <ImageButton
-                android:id="@+id/iBtnMainMypage"
-                style="@style/HomeButtonBorderless"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="2.5"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/cd_my_page_btn"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/btn_main_mypage" />
-
-            <TextView
-                android:id="@+id/tvw_Mmypage"
+            <RadioButton
+                android:id="@+id/rBtnMainMypage"
                 style="@style/HomeButton"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="3.5"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@android:color/transparent"
+                android:drawableTop="@drawable/rbtn_main_mypage"
                 android:text="@string/btn_mypage" />
-        </LinearLayout>
-    </LinearLayout>
+        </RadioGroup>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

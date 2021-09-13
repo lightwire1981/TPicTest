@@ -284,7 +284,7 @@ public class LoginActivity extends AppCompatActivity {
                             try {
                                 JSONArray data = new JSONArray(result[0]);
                                 JSONObject user = data.getJSONObject(0);
-                                userInfo.put("id", user.getString("idx"));
+                                userInfo.put("id", user.getString("user_id"));
                                 userInfo.put("name", user.getString("user_name"));
                                 userInfo.put("email", user.getString("user_email"));
                                 userInfo.put("phone", user.getString("user_phone"));

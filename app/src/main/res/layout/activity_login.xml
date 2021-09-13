@@ -76,7 +76,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
             <TextView
                 android:id="@+id/tVwEmailAt"
@@ -98,7 +98,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tVwEmailAt"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
