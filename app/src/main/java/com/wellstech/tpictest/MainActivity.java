@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.annotation.Nullable;
@@ -34,7 +33,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     public enum PAGES {
-        HOME, CATEGORY, CATEGORY_LIST, EVALUATE, RANKING, MY_PAGE, MY_CHILD, MY_CHILD_EDIT, MY_REVIEW, MY_PAGE_SUB, SEARCH, SETTING
+        HOME, CATEGORY, EVALUATE, RANKING, MY_PAGE, MY_CHILD, MY_CHILD_EDIT, MY_REVIEW, MY_PAGE_SUB, SEARCH, SETTING
     }
 
     private FragmentManager fragmentManager;
@@ -43,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     public static PAGES CURRENT_PAGE;
     private static final String TAG = "TAG-MainActivity";
     public static String ALL_GOODS_INFO;
+
+    private static RadioGroup homeRadioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +55,9 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
-        ((RadioGroup)findViewById(R.id.rGrpMainRadioButton)).setOnCheckedChangeListener(homeTapChangeListener);
-        ((RadioGroup)findViewById(R.id.rGrpMainRadioButton)).getChildAt(0).performClick();
+        homeRadioGroup = findViewById(R.id.rGrpMainRadioButton);
+        homeRadioGroup.setOnCheckedChangeListener(homeTapChangeListener);
+        homeRadioGroup.getChildAt(0).performClick();
 //        findViewById(R.id.iBtnMainHome).setOnClickListener(onClickListener);
 //        findViewById(R.id.iBtnMainRank).setOnClickListener(onClickListener);
 //        findViewById(R.id.iBtnMainEvaluate).setOnClickListener(onClickListener);
@@ -125,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
                 fragmentTransaction.add(R.id.fLyMain, categoryFragment).commit();
                 break;
             case R.id.rBtnMainEvaluate:
+                EvaluateFragment evaluateFragment = new EvaluateFragment();
+                fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
                 if (new PreferenceSetting(getBaseContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE).equals(LoginActivity.NO_LOGIN)) {
                     new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.LOGIN, (response, data) -> {
                         if (response) {
@@ -132,13 +136,11 @@ public class MainActivity extends AppCompatActivity {
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         } else {
-                            radioGroup.getChildAt(0).performClick();
+                            tabChanger(fragmentManager);
                             hideNavigationBar();
                         }
                     }).show();
                 } else {
-                    EvaluateFragment evaluateFragment = new EvaluateFragment();
-                    fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
                     fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                     fragmentTransaction.add(R.id.fLyMain, evaluateFragment).commit();
                 }
@@ -150,6 +152,8 @@ public class MainActivity extends AppCompatActivity {
                 fragmentTransaction.add(R.id.fLyMain, rankingFragment).commit();
                 break;
             case R.id.rBtnMainMypage:
+                MyPageFragment myPageFragment = new MyPageFragment();
+                fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
                 if (new PreferenceSetting(getBaseContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE).equals(LoginActivity.NO_LOGIN)) {
                     new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.LOGIN, (response, data) -> {
                         if (response) {
@@ -157,13 +161,11 @@ public class MainActivity extends AppCompatActivity {
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         } else {
-                            radioGroup.getChildAt(0).performClick();
+                            tabChanger(fragmentManager);
                             hideNavigationBar();
                         }
                     }).show();
                 } else {
-                    MyPageFragment myPageFragment = new MyPageFragment();
-                    fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
                     fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                     fragmentTransaction.add(R.id.fLyMain, myPageFragment).commit();
                 }
@@ -255,6 +257,16 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     };
+
+    public static void tabChanger(FragmentManager fragmentManager) {
+        int fragmentCount = fragmentManager.getBackStackEntryCount();
+        if (fragmentCount > 0) {
+            fragmentManager.popBackStack();
+            homeRadioGroup.getChildAt(PAGES.valueOf(CURRENT_PAGE.name()).ordinal()).performClick();
+        } else {
+            homeRadioGroup.getChildAt(0).performClick();
+        }
+    }
 
 
 

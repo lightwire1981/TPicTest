@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:drawable="@drawable/btn_activity_close"
         android:width="25dp"
-        android:height="25dp"
-        />
+        android:height="25dp">
+        <selector>
+            <item android:state_pressed="true"
+                android:drawable="@drawable/tp_btn_close03_on"/>
+            <item android:drawable="@drawable/tp_btn_close03_off"/>
+        </selector>
+    </item>
+
 </layer-list>

@@ -72,7 +72,6 @@ public class HomeFragment extends Fragment {
 
     //endregion
 
-
     public HomeFragment() {
         // Required empty public constructor
     }
