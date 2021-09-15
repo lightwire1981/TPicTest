@@ -56,10 +56,11 @@
             tools:ignore="SmallSp" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/iVwCustomFavorite"
-        android:layout_width="40dp"
-        android:layout_height="30dp"
+    <CheckBox
+        android:id="@+id/cKbCustomLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/ckb_like_tag"
         android:contentDescription="@string/cd_like_img"
         app:layout_constraintBottom_toBottomOf="@+id/iVwCustomListItem"
         app:layout_constraintEnd_toEndOf="@+id/iVwCustomListItem"
@@ -67,8 +68,7 @@
         app:layout_constraintStart_toStartOf="@+id/iVwCustomListItem"
         app:layout_constraintTop_toTopOf="@+id/iVwCustomListItem"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/tp_liked_tag_off"
-        tools:ignore="ImageContrastCheck" />
+        tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/tVwCustomListItem"

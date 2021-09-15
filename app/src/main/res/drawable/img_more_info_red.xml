@@ -5,8 +5,8 @@
         android:height="20dp">
         <selector>
             <item android:state_pressed="true"
-                android:drawable="@drawable/tp_btn_more01_on"/>
-            <item android:drawable="@drawable/tp_btn_more01_off"/>
+                android:drawable="@drawable/tp_btn_more02_on"/>
+            <item android:drawable="@drawable/tp_btn_more02_off"/>
         </selector>
     </item>
 </layer-list>

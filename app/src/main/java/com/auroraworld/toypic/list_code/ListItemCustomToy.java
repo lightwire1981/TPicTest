@@ -2,51 +2,109 @@ package com.auroraworld.toypic.list_code;
 
 import android.graphics.drawable.Drawable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class ListItemCustomToy {
+    private JSONObject item;
+    private String goodsId;
+    private String goodsName;
+    private String goodsRate;
+    private boolean isLike;
+    private String goodsImgUrl;
     private Drawable imgDrawable;
-    private String productName;
-    private String predictNumber;
-    private boolean isFavorite;
-    private String imgUrl;
+
+    public JSONObject getItem() {
+        return item;
+    }
+
+    public void setItem(JSONObject item) {
+        this.item = item;
+        setGoodsId();
+        setGoodsName();
+        setGoodsRate();
+        setGoodsImgUrl();
+    }
+
+    public String getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId() {
+        try {
+            this.goodsId = item.getString("goodsNo");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
+    }
 
     public void setImgDrawable(Drawable img) {
         imgDrawable = img;
     }
 
-    public void setProductName(String pName) {
-        productName = pName;
+    public void setGoodsName() {
+        try {
+            this.goodsName = item.getString("goodsNm");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setGoodsName(String pName) {
+        goodsName = pName;
     }
 
-    public void setPredictNumber(String pNumber) {
-        predictNumber = pNumber;
+    public void setGoodsRate() {
+        try {
+            String temp = item.getString("evaluate_avg");
+            if(temp.equals("null")) {
+                temp = "3.0";
+            }
+            this.goodsRate = temp;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setGoodsRate(String pNumber) {
+        goodsRate = pNumber;
     }
 
-    public void setFavorite(boolean favorite) {
-        isFavorite = favorite;
+    public void setLike(boolean like) {
+        isLike = like;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setGoodsImgUrl() {
+        try {
+            this.goodsImgUrl = item.getString("detailImageData");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setGoodsImgUrl(String goodsImgUrl) {
+        this.goodsImgUrl = goodsImgUrl;
     }
 
-    public boolean isFavorite() {
-        return isFavorite;
+    public boolean isLike() {
+        return isLike;
     }
 
     public Drawable getImgDrawable() {
         return imgDrawable;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getGoodsName() {
+        return goodsName;
     }
 
-    public String getPredictNumber() {
-        return predictNumber;
+    public String getGoodsRate() {
+        return goodsRate;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public String getGoodsImgUrl() {
+        return goodsImgUrl;
     }
+
 
 }

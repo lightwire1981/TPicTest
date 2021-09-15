@@ -61,8 +61,11 @@
     <string name="txt_rank_product_reviewcount">1,000</string>
     <string name="txt_custom_expect">예상</string>
     <string name="txt_expect_evaluate">0.0</string>
-    <string name="txt_test_message">기능 테스트</string>
-    <string name="txt_test_message2">기능 테스트2</string>
+    <string name="txt_custom_recommend1">&#160;아이가 좋아해요&#160;</string>
+    <string name="txt_custom_recommend2">&#160;자주 검색해요&#160;</string>
+    <string name="txt_custom_recommend3">&#160;평가가 좋아요&#160;</string>
+    <string name="txt_test_message">&#160;기능 테스트&#160;</string>
+    <string name="txt_test_message2">&#160;기능 테스트2&#160;</string>
     <string name="txt_back_message">뒤로 가기</string>
     <string name="txt_rating">평점</string>
     <string name="txt_rating_default">&#160;평점&#160;</string>

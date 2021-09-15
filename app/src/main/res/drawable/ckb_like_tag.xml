@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="35dp"
+        android:height="35dp">
+        <selector>
+            <item android:state_checked="true" android:drawable="@drawable/tp_liked_tag_on"/>
+            <item android:drawable="@drawable/tp_liked_tag_off"/>
+        </selector>
+    </item>
+</layer-list>

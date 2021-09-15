@@ -118,7 +118,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.9"
-            app:srcCompat="@drawable/img_ad_slide_stop" />
+            app:srcCompat="@drawable/img_ad_slide_stop"
+            tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -152,7 +153,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            tools:ignore="TextContrastCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -170,11 +172,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginBottom="10dp"
-            android:background="#CD7878"
-            android:text="@string/txt_test_message"
+            android:background="@drawable/btn_round"
+            android:text="@string/txt_custom_recommend1"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="TextContrastCheck" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcyclVwMainCustomToy1"
@@ -191,11 +194,12 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
-            android:background="#CD7878"
-            android:text="@string/txt_test_message"
+            android:background="@drawable/btn_round"
+            android:text="@string/txt_custom_recommend2"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="TextContrastCheck" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcyclVwMainCustomToy2"
@@ -210,10 +214,11 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
-            android:background="#CD7878"
-            android:text="@string/txt_test_message"
+            android:background="@drawable/btn_round"
+            android:text="@string/txt_custom_recommend3"
             android:textColor="#FFFFFF"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:ignore="TextContrastCheck" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcyclVwMainCustomToy3"
@@ -233,7 +238,8 @@
         android:scaleType="center"
         android:scaleX="0.5"
         android:scaleY="0.5"
-        app:srcCompat="@drawable/tp_pont_line01" />
+        app:srcCompat="@drawable/tp_pont_line01"
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:id="@+id/textView8"
@@ -242,16 +248,19 @@
         android:layout_height="wrap_content"
         android:text="@string/txt_main_ranking_toy" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tVwHomeShowRanking"
+        style="@style/MainMoreInfoTextStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/img_more_info_green"
+        android:clickable="true"
         android:contentDescription="@string/cd_more_btn"
-        android:scaleType="centerInside"
-        android:scaleX="0.4"
-        android:scaleY="0.4"
-        app:srcCompat="@drawable/btn_main_more_green" />
+        android:text="@string/txt_more_info"
+        tools:ignore="TextContrastCheck,TouchTargetSizeCheck,DuplicateSpeakableTextCheck"
+        android:focusable="true" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -692,7 +701,8 @@
         android:scaleType="center"
         android:scaleX="0.5"
         android:scaleY="0.5"
-        app:srcCompat="@drawable/tp_pont_line02" />
+        app:srcCompat="@drawable/tp_pont_line02"
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:id="@+id/textView17"
@@ -701,16 +711,19 @@
         android:layout_height="wrap_content"
         android:text="@string/txt_main_new_toy" />
 
-    <ImageButton
-        android:id="@+id/imageButton6"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tVwHomeShowNewToy"
+        style="@style/MainMoreInfoTextStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/img_more_info_red"
+        android:clickable="true"
         android:contentDescription="@string/cd_more_btn"
-        android:scaleType="centerInside"
-        android:scaleX="0.4"
-        android:scaleY="0.4"
-        app:srcCompat="@drawable/btn_main_more_red" />
+        android:text="@string/txt_more_info"
+        tools:ignore="TextContrastCheck,TouchTargetSizeCheck"
+        android:focusable="true" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcyclVwMainNewToy"
@@ -730,7 +743,8 @@
         android:scaleType="center"
         android:scaleX="0.5"
         android:scaleY="0.5"
-        app:srcCompat="@drawable/tp_pont_line01" />
+        app:srcCompat="@drawable/tp_pont_line01"
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:id="@+id/textView19"
@@ -740,7 +754,7 @@
         android:text="@string/txt_main_review_toy" />
 
     <TextView
-        android:id="@+id/textView20"
+        android:id="@+id/tVwHomeShowReview"
         style="@style/MainMoreInfoTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -749,7 +763,8 @@
         android:background="@drawable/img_more_info_green"
         android:clickable="true"
         android:focusable="true"
-        android:text="@string/txt_more_info" />
+        android:text="@string/txt_more_info"
+        tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcyclVwMainReviewToy"
@@ -822,7 +837,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button3"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="TextContrastCheck" />
 
         <TextView
             android:id="@+id/textView25"
@@ -835,7 +851,8 @@
             app:layout_constraintBottom_toTopOf="@+id/textView26"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView24" />
+            app:layout_constraintTop_toBottomOf="@+id/textView24"
+            tools:ignore="TextContrastCheck" />
 
         <TextView
             android:id="@+id/textView26"
@@ -848,7 +865,8 @@
             app:layout_constraintBottom_toTopOf="@+id/textView27"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView25" />
+            app:layout_constraintTop_toBottomOf="@+id/textView25"
+            tools:ignore="TextContrastCheck" />
 
         <TextView
             android:id="@+id/textView27"
@@ -864,7 +882,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView26"
-            tools:ignore="SmallSp" />
+            tools:ignore="SmallSp,TextContrastCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

@@ -20,6 +20,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.auroraworld.toypic.LoginActivity;
 import com.auroraworld.toypic.MainActivity;
 import com.auroraworld.toypic.R;
+import com.auroraworld.toypic.db.DBRequestType;
+import com.auroraworld.toypic.db.DatabaseRequest;
 import com.auroraworld.toypic.list_code.ListAdapterADSlider;
 import com.auroraworld.toypic.list_code.ListAdapterCustomToy;
 import com.auroraworld.toypic.list_code.ListAdapterNewToy;
@@ -33,6 +35,7 @@ import com.auroraworld.toypic.list_code.RecyclerDecoration;
 import com.auroraworld.toypic.utils.PreferenceSetting;
 import com.auroraworld.toypic.utils.ZoomOutPageTransformer;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -109,7 +112,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         ScrollView scrollView = view.findViewById(R.id.scrlVwMain);
-        scrollView.addView(inflater.inflate(R.layout.layout_home, scrollView, false));
+        scrollView.addView(inflater.inflate(R.layout.content_home, scrollView, false));
 
         adView = view.findViewById(R.id.vPgrHomeAD);
         TextView adPages = view.findViewById(R.id.tVwADtotalPage);
@@ -144,9 +147,13 @@ public class HomeFragment extends Fragment {
             RecyclerView customToy2view = view.findViewById(R.id.rcyclVwMainCustomToy2);
             RecyclerView customToy3view = view.findViewById(R.id.rcyclVwMainCustomToy3);
 
+            setLayoutManager(customToy1view, ListType.CUSTOM);
+            setLayoutManager(customToy2view, ListType.CUSTOM);
+            setLayoutManager(customToy3view, ListType.CUSTOM);
             setCustomToyList(customToy1view);
             setCustomToyList(customToy2view);
             setCustomToyList(customToy3view);
+
         }
         RecyclerView rankingToyView = view.findViewById(R.id.rcyclVwMainRankingToy);
         setRankingToyList(rankingToyView);
@@ -187,15 +194,6 @@ public class HomeFragment extends Fragment {
         pageCounter.setText(getString(R.string.txt_null, (position+1)+""));
     }
 
-
-    private void setCustomToyList(RecyclerView recyclerView) {
-
-        ArrayList<ListItemCustomToy> mList = new ArrayList<>();
-        getCustomToyList(mList);
-        recyclerView.setAdapter(new ListAdapterCustomToy(mList));
-        setLayoutManager(recyclerView, ListType.CUSTOM);
-    }
-
     private void setRankingToyList(RecyclerView recyclerView) {
         ArrayList<ListItemMainRankingToy> mList = new ArrayList<>();
         getRankingToyList(mList, "boy");
@@ -218,13 +216,30 @@ public class HomeFragment extends Fragment {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void getCustomToyList(ArrayList<ListItemCustomToy> mList) {
+    private void setCustomToyList(RecyclerView recyclerView) {
+        ArrayList<ListItemCustomToy> mList = new ArrayList<>();
+        new DatabaseRequest(getContext(), result -> {
+            if (result[0].equals("NOT_FOUND")) {
+                return;
+            }
+            try {
+                JSONArray goodsArray = new JSONArray(result[0]);
+                for (int index=0; index<goodsArray.length(); index++) {
+                    ListItemCustomToy item = new ListItemCustomToy();
+                    item.setItem(goodsArray.getJSONObject(index));
+                    mList.add(item);
+                }
+                recyclerView.setAdapter(new ListAdapterCustomToy(mList));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }).execute(DBRequestType.GET_CUSTOM_GOODS.name());
+//        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), getString(R.string.txt_main_custom_product_name1), "5.0"));
+//        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), "테스트 상품2", "4.8"));
+//        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), getString(R.string.txt_main_custom_product_name1), "4.0"));
+//        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), "테스트 상품4", "4.2"));
+//        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), getString(R.string.txt_main_custom_product_name1), "3.8"));
 
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), getString(R.string.txt_main_custom_product_name1), "5.0"));
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), "테스트 상품2", "4.8"));
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), getString(R.string.txt_main_custom_product_name1), "4.0"));
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), "테스트 상품4", "4.2"));
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), getString(R.string.txt_main_custom_product_name1), "3.8"));
 
     }
 
@@ -232,8 +247,8 @@ public class HomeFragment extends Fragment {
         ListItemCustomToy item = new ListItemCustomToy();
 
         item.setImgDrawable(img);
-        item.setProductName(pName);
-        item.setPredictNumber(predict);
+        item.setGoodsName(pName);
+        item.setGoodsRate(predict);
 
         return item;
     }

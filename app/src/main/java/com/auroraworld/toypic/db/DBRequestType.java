@@ -21,6 +21,7 @@ public enum DBRequestType {
     GET_RECENT_KEYWORD,
     DELETE_RECENT_KEYWORD,
     SEARCH_GOODS,
+    GET_CUSTOM_GOODS,
     LIKE,
     TEST
 }

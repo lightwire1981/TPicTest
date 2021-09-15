@@ -5,11 +5,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.auroraworld.toypic.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -19,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ListAdapterCustomToy extends RecyclerView.Adapter<ListAdapterCustomToy.ViewHolder> {
+    private Context context;
     private final ArrayList<ListItemCustomToy> mData;
 
     public ListAdapterCustomToy(ArrayList<ListItemCustomToy> list) {
@@ -29,7 +34,7 @@ public class ListAdapterCustomToy extends RecyclerView.Adapter<ListAdapterCustom
     @NotNull
     @Override
     public ListAdapterCustomToy.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        context = parent.getContext();
         View view = ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_item_customtoy, parent, false);
         return new ViewHolder(view);
     }
@@ -38,9 +43,26 @@ public class ListAdapterCustomToy extends RecyclerView.Adapter<ListAdapterCustom
     public void onBindViewHolder(@NonNull @NotNull ListAdapterCustomToy.ViewHolder holder, int position) {
         ListItemCustomToy item = mData.get(position);
 
-        holder.productImg.setImageDrawable(item.getImgDrawable());
-        holder.productName.setText(item.getProductName());
-        holder.predictNumber.setText(item.getPredictNumber());
+//        holder.productImg.setImageDrawable(item.getImgDrawable());
+        Glide.with(context).
+                load(item.getGoodsImgUrl()).
+                placeholder(R.drawable.tp_icon_brand01_on).
+                diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).
+                into(holder.goodsImg);
+        holder.goodsImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        holder.goodsLike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+            }
+        });
+        holder.goodsName.setText(item.getGoodsName());
+        holder.goodsRate.setText(item.getGoodsRate());
 //        if (item.isFavorite()) {
 //
 //        }
@@ -52,33 +74,17 @@ public class ListAdapterCustomToy extends RecyclerView.Adapter<ListAdapterCustom
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView productImg;
-        ImageView favorite;
-        TextView predictNumber;
-        TextView productName;
+        ImageView goodsImg;
+        CheckBox goodsLike;
+        TextView goodsRate;
+        TextView goodsName;
 
         ViewHolder(View itemView) {
             super(itemView);
-            productImg = itemView.findViewById(R.id.iVwCustomListItem);
-            productImg.setOnClickListener(onClickListener);
-            favorite = itemView.findViewById(R.id.iVwCustomFavorite);
-            favorite.setOnClickListener(onClickListener);
-            predictNumber = itemView.findViewById(R.id.tVwCustomPredictNum);
-            productName = itemView.findViewById(R.id.tVwCustomListItem);
+            goodsImg = itemView.findViewById(R.id.iVwCustomListItem);
+            goodsLike = itemView.findViewById(R.id.cKbCustomLike);
+            goodsRate = itemView.findViewById(R.id.tVwCustomPredictNum);
+            goodsName = itemView.findViewById(R.id.tVwCustomListItem);
         }
-
-        @SuppressLint("NonConstantResourceId")
-        View.OnClickListener onClickListener = v ->  {
-            switch (v.getId()) {
-                case R.id.iVwCustomFavorite:
-                    Toast.makeText(v.getContext(), v.getContext().getString(R.string.txt_test_message), Toast.LENGTH_SHORT).show();
-                    break;
-                case R.id.iVwCustomListItem:
-                    Toast.makeText(v.getContext(), v.getContext().getString(R.string.txt_test_message2), Toast.LENGTH_SHORT).show();
-                    break;
-                default:
-                    break;
-            }
-        };
     }
 }
