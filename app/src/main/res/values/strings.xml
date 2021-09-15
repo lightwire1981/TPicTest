@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TPicTest</string>
+    <string name="app_name">Toypic</string>
     <string name="splash_logo">Logo\n서비스 대표 문구</string>
 
     <!--    Content Description   -->
@@ -307,18 +307,24 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--  KAKAO NATIVE APP KEY  -->
-    <string name="kakao_native_appkey">658704b697f8ed991e142e40d859e38d</string>
+<!--    <string name="kakao_native_appkey">658704b697f8ed991e142e40d859e38d</string>-->
+    <string name="kakao_native_appkey">7fe5d97fa95e370899c5c9c0f8ce1b5a</string>
     <string name="kakao_logout">카카오 로그아웃</string>
 
     <!--  NAVER Login INFO  -->
-    <string name="naver_client_id">F4hW0qayLXGsz_QATg7V</string>
-    <string name="naver_client_secret">fqygVCwzdP</string>
-    <string name="naver_client_name">Tpic test</string>
+    <string name="naver_client_id">VEP1gGOLdXOLXg6_kz9H</string>
+    <string name="naver_client_secret">Xd9_3SB83f</string>
+    <string name="naver_client_name">Toypic</string>
+
     <string name="naver_logout">네이버 로그아웃</string>
 
     <!--  facebook Login INFO  -->
-    <string name="facebook_app_id">393843192200505</string>
-    <string name="fb_login_protocol_scheme">fb393843192200505</string>
+<!--    <string name="facebook_app_id">393843192200505</string>-->
+<!--    <string name="fb_login_protocol_scheme">fb393843192200505</string>-->
+    <string name="facebook_app_id">446553556624186</string>
+    <string name="fb_login_protocol_scheme">fb446553556624186</string>
+
+
     <string name="facebook_logout">페이스북 로그아웃</string>
 
     <string name="email_logout">이메일 로그아웃</string>

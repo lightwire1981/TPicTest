@@ -1,2 +1,2 @@
-rootProject.name = "TPicTest"
+rootProject.name = "Toypic"
 include ':app'
