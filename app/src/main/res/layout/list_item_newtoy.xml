@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/iVwMainNewToyItem1"
-        android:layout_width="180dp"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:contentDescription="@string/cd_product_default"
@@ -19,7 +20,7 @@
 
     <ImageView
         android:id="@+id/iVwMainNewToyItem2"
-        android:layout_width="180dp"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:contentDescription="@string/cd_product_default"
@@ -41,7 +42,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/iVwMainNewToyItem1"
         app:layout_constraintStart_toStartOf="@+id/iVwMainNewToyItem1"
-        app:layout_constraintTop_toBottomOf="@+id/iVwMainNewToyItem1" />
+        app:layout_constraintTop_toBottomOf="@+id/iVwMainNewToyItem1"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/tVwMainNewToyItem2"
@@ -54,7 +56,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/iVwMainNewToyItem2"
         app:layout_constraintStart_toStartOf="@+id/iVwMainNewToyItem2"
-        app:layout_constraintTop_toBottomOf="@+id/iVwMainNewToyItem2" />
+        app:layout_constraintTop_toBottomOf="@+id/iVwMainNewToyItem2"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/textView21"

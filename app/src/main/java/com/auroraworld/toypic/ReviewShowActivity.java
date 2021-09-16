@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.auroraworld.toypic.fragments.HomeFragment;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 import com.auroraworld.toypic.fragments.MyPageReviewFragment;
 import com.auroraworld.toypic.list_code.ListAdptShowPhoto;
@@ -29,6 +30,9 @@ public class ReviewShowActivity extends AppCompatActivity {
 
     private void getData() {
         switch (getIntent().getStringExtra("CALL_TYPE")) {
+            case "HomeFragment":
+                reviewData = HomeFragment.goodsReview;
+                break;
             case "PhotoActivity":
                 reviewData = PhotoActivity.goodsReview;
                 break;
@@ -84,6 +88,6 @@ public class ReviewShowActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.tVwShowLike)).setText(getString(R.string.txt_goods_info_review_like_template, reviewData.getNumberLike()));
         ((TextView)findViewById(R.id.tVwShowReviewerName)).setText(reviewData.getReviewerName());
         ((TextView)findViewById(R.id.tVwShowReviewDate)).setText(reviewData.getDate());
-        ((TextView)findViewById(R.id.tVwShowReview)).setText(reviewData.getCommentReview());
+        ((TextView)findViewById(R.id.tVwShowReview)).setText(reviewData.getReview());
     }
 }

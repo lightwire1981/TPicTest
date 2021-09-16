@@ -223,6 +223,8 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                 case GET_ALL_BRAND:
                 case GET_FAVORITE_KEYWORD:
                 case GET_CUSTOM_GOODS:
+                case GET_NEW_GOODS:
+                case GET_POPULAR_REVIEW:
                 case TEST:
                     parameterValue = USE + params[0];
                     break;

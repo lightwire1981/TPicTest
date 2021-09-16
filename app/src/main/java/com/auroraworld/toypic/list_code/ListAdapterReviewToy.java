@@ -1,6 +1,7 @@
 package com.auroraworld.toypic.list_code;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,23 +13,32 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.auroraworld.toypic.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
 public class ListAdapterReviewToy extends RecyclerView.Adapter<ListAdapterReviewToy.ViewHolder>{
+    private Context context;
     private final ArrayList<ListItemReviewToy> mData;
 
-    public ListAdapterReviewToy(ArrayList<ListItemReviewToy> list) {
+    public interface ReviewClickListener {
+        void onSelectReview(ListItemReviewToy item);
+    }
+    private final ReviewClickListener reviewClickListener;
+
+    public ListAdapterReviewToy(ArrayList<ListItemReviewToy> list, ReviewClickListener reviewClickListener) {
         mData = list;
+        this.reviewClickListener = reviewClickListener;
     }
 
     @NonNull
     @NotNull
     @Override
     public ListAdapterReviewToy.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        context = parent.getContext();
         View view = ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_item_reviewtoy, parent, false);
         return new ViewHolder(view);
     }
@@ -37,11 +47,17 @@ public class ListAdapterReviewToy extends RecyclerView.Adapter<ListAdapterReview
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
         ListItemReviewToy item = mData.get(position);
 
-        holder.imgProduct.setImageDrawable(item.getImgProduct());
-        holder.ratingBar.setRating(Float.parseFloat(item.getNumberRate()));
-        holder.rateProduct.setText(item.getNumberRate());
-        holder.likeProduct.setText(item.getNumberLike());
-        holder.commentProduct.setText(item.getCommentReview());
+        Glide.with(context).
+                load(item.getGoodsImgUrl()).
+                placeholder(R.drawable.tp_icon_brand01_on).
+                diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).
+                into(holder.goodsImg);
+        holder.goodsImg.setOnClickListener(v -> reviewClickListener.onSelectReview(item));
+        holder.evaluateBar.setRating(Float.parseFloat(item.getNumberRate()));
+        holder.evaluate.setText(item.getNumberRate());
+        holder.likeCount.setText(context.getString(R.string.txt_goods_info_review_like_template, item.getNumberLike()));
+        holder.review.setText(item.getReview());
+        holder.review.setOnClickListener(v -> reviewClickListener.onSelectReview(item));
     }
 
     @Override
@@ -50,18 +66,18 @@ public class ListAdapterReviewToy extends RecyclerView.Adapter<ListAdapterReview
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgProduct;
-        RatingBar ratingBar;
-        TextView rateProduct, likeProduct;
-        TextView commentProduct;
+        ImageView goodsImg;
+        RatingBar evaluateBar;
+        TextView evaluate, likeCount;
+        TextView review;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            imgProduct = itemView.findViewById(R.id.iVwMainRevToyItem);
-            ratingBar = itemView.findViewById(R.id.rtnbRatingPoint);
-            rateProduct = itemView.findViewById(R.id.tVwMainRevToyRatingNumber);
-            likeProduct = itemView.findViewById(R.id.tVwMainRevToyLikeTotal);
-            commentProduct = itemView.findViewById(R.id.tVwMainRevToyComment);
+            goodsImg = itemView.findViewById(R.id.iVwMainRevToyItem);
+            evaluateBar = itemView.findViewById(R.id.rtnbRatingPoint);
+            evaluate = itemView.findViewById(R.id.tVwMainRevToyRatingNumber);
+            likeCount = itemView.findViewById(R.id.tVwMainRevToyLikeTotal);
+            review = itemView.findViewById(R.id.tVwMainRevToyComment);
         }
     }
 }

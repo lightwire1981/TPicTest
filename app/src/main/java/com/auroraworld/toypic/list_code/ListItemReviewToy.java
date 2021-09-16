@@ -1,20 +1,18 @@
 package com.auroraworld.toypic.list_code;
 
-import android.graphics.drawable.Drawable;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ListItemReviewToy {
-    private Drawable imgProduct;
     private String reviewId;
     private String reviewerId;
     private String numberRate, numberLike;
-    private String commentReview;
+    private String review;
     private String urlImg1, urlImg2, urlImg3, urlImg4, urlImg5;
     private String reviewerName;
     private String date;
     private String photoCount;
+    private String goodsImgUrl;
 
     private JSONObject item;
 
@@ -45,6 +43,7 @@ public class ListItemReviewToy {
                 setUrlImg1();
                 break;
         }
+        setGoodsImgUrl();
     }
 
     public String getReviewId() {
@@ -177,29 +176,20 @@ public class ListItemReviewToy {
         this.photoCount = photoCount;
     }
 
-    public String getCommentReview() {
-        return commentReview;
+    public String getReview() {
+        return review;
     }
 
     public void setCommentReview() {
         try {
-            this.commentReview = item.getString("review");
+            this.review = item.getString("review");
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void setCommentReview(String commentReview) {
-        this.commentReview = commentReview;
-    }
-
-
-    public Drawable getImgProduct() {
-        return imgProduct;
-    }
-
-    public void setImgProduct(Drawable imgProduct) {
-        this.imgProduct = imgProduct;
+    public void setReview(String review) {
+        this.review = review;
     }
 
     public String getUrlImg2() {
@@ -256,5 +246,20 @@ public class ListItemReviewToy {
     }
     public void setUrlImg5(String urlImg5) {
         this.urlImg5 = urlImg5;
+    }
+
+    public String getGoodsImgUrl() {
+        return goodsImgUrl;
+    }
+
+    public void setGoodsImgUrl() {
+        try {
+            this.goodsImgUrl = item.getString("detailImageData");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setGoodsImgUrl(String goodsImgUrl) {
+        this.goodsImgUrl = goodsImgUrl;
     }
 }

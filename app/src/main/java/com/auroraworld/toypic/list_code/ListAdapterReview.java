@@ -60,7 +60,7 @@ public class ListAdapterReview extends RecyclerView.Adapter<ListAdapterReview.Vi
         holder.reviewerName.setText(item.getReviewerName());
         holder.reviewDate.setText(item.getDate());
         holder.photoCount.setText(item.getPhotoCount());
-        holder.review.setText(item.getCommentReview());
+        holder.review.setText(item.getReview());
         holder.review.setOnClickListener(view -> selectReviewListener.onSelectReview(item));
         holder.imgPhoto.setOnClickListener(view -> selectReviewListener.onSelectReview(item));
         String user_id = PreferenceSetting.loadPreference(context, PreferenceSetting.PREFERENCE_KEY.USER_INFO);

@@ -1,6 +1,7 @@
 package com.auroraworld.toypic.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +21,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.auroraworld.toypic.LoginActivity;
 import com.auroraworld.toypic.MainActivity;
 import com.auroraworld.toypic.R;
+import com.auroraworld.toypic.ReviewShowActivity;
 import com.auroraworld.toypic.db.DBRequestType;
 import com.auroraworld.toypic.db.DatabaseRequest;
 import com.auroraworld.toypic.list_code.ListAdapterADSlider;
@@ -66,11 +68,15 @@ public class HomeFragment extends Fragment {
         CUSTOM, RANK, NEW, REVIEW
     }
 
-    ViewPager2 adView;
+    private ViewPager2 adView;
     private Timer timer;
 
     private final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
     private final long PERIOD_MS = 3000; // time in milliseconds between successive task executions.
+
+    public static ListItemReviewToy goodsReview;
+
+    private final String TAG = getClass().getSimpleName();
 
     //endregion
 
@@ -159,9 +165,11 @@ public class HomeFragment extends Fragment {
         setRankingToyList(rankingToyView);
 
         RecyclerView newToyView = view.findViewById(R.id.rcyclVwMainNewToy);
+        setLayoutManager(newToyView, ListType.NEW);
         setNewToyList(newToyView);
 
         RecyclerView reviewToyView = view.findViewById(R.id.rcyclVwMainReviewToy);
+        setLayoutManager(reviewToyView, ListType.REVIEW);
         setReviewToyList(reviewToyView);
 
         view.findViewById(R.id.iBtn_Main_Search).setOnClickListener(onClickListener);
@@ -194,27 +202,6 @@ public class HomeFragment extends Fragment {
         pageCounter.setText(getString(R.string.txt_null, (position+1)+""));
     }
 
-    private void setRankingToyList(RecyclerView recyclerView) {
-        ArrayList<ListItemMainRankingToy> mList = new ArrayList<>();
-        getRankingToyList(mList, "boy");
-        recyclerView.setAdapter(new ListAdptMainRankingToy(mList));
-        setLayoutManager(recyclerView, ListType.RANK);
-    }
-
-    private void setNewToyList(RecyclerView recyclerView) {
-        ArrayList<ListItemNewToy> mList = new ArrayList<>();
-        getNewToyList(mList);
-        recyclerView.setAdapter(new ListAdapterNewToy(mList));
-        setLayoutManager(recyclerView, ListType.NEW);
-    }
-
-    private void setReviewToyList(RecyclerView recyclerView) {
-        ArrayList<ListItemReviewToy> mList = new ArrayList<>();
-        getReviewToyList(mList);
-        recyclerView.setAdapter(new ListAdapterReviewToy(mList));
-        setLayoutManager(recyclerView, ListType.REVIEW);
-    }
-
     @SuppressLint("UseCompatLoadingForDrawables")
     private void setCustomToyList(RecyclerView recyclerView) {
         ArrayList<ListItemCustomToy> mList = new ArrayList<>();
@@ -239,19 +226,71 @@ public class HomeFragment extends Fragment {
 //        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), getString(R.string.txt_main_custom_product_name1), "4.0"));
 //        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), "테스트 상품4", "4.2"));
 //        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), getString(R.string.txt_main_custom_product_name1), "3.8"));
-
-
     }
 
-    private ListItemCustomToy addItem(Drawable img, String pName, String predict) {
-        ListItemCustomToy item = new ListItemCustomToy();
-
-        item.setImgDrawable(img);
-        item.setGoodsName(pName);
-        item.setGoodsRate(predict);
-
-        return item;
+    private void setRankingToyList(RecyclerView recyclerView) {
+        ArrayList<ListItemMainRankingToy> mList = new ArrayList<>();
+        getRankingToyList(mList, "boy");
+        recyclerView.setAdapter(new ListAdptMainRankingToy(mList));
+        setLayoutManager(recyclerView, ListType.RANK);
     }
+
+    private void setNewToyList(RecyclerView recyclerView) {
+        ArrayList<ListItemNewToy> mList = new ArrayList<>();
+        new DatabaseRequest(getContext(), result -> {
+            if (result[0].equals("NOT_FOUND")) {
+                return;
+            }
+            try {
+                JSONArray goodsArray = new JSONArray(result[0]);
+                for (int index=0; index<goodsArray.length(); index++) {
+                    ListItemNewToy item = new ListItemNewToy();
+                    item.setItem1(goodsArray.getJSONObject(index));
+                    index++;
+                    item.setItem2(goodsArray.getJSONObject(index));
+                    mList.add(item);
+                }
+                recyclerView.setAdapter(new ListAdapterNewToy(mList));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }).execute(DBRequestType.GET_NEW_GOODS.name());
+    }
+
+    private void setReviewToyList(RecyclerView recyclerView) {
+        ArrayList<ListItemReviewToy> mList = new ArrayList<>();
+        new DatabaseRequest(getContext(), result -> {
+            if (result[0].equals("NOT_FOUND")) {
+                return;
+            }
+            try {
+                JSONArray goodsArray = new JSONArray(result[0]);
+                for (int index=0; index<goodsArray.length(); index++) {
+                    ListItemReviewToy item = new ListItemReviewToy();
+                    item.setItem(goodsArray.getJSONObject(index));
+                    mList.add(item);
+                }
+                recyclerView.setAdapter(new ListAdapterReviewToy(mList, item -> {
+                    goodsReview = item;
+                    Intent intent = new Intent(requireContext(), ReviewShowActivity.class);
+                    intent.putExtra("CALL_TYPE", TAG);
+                    startActivity(intent);
+                }));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }).execute(DBRequestType.GET_POPULAR_REVIEW.name());
+    }
+
+//    private ListItemCustomToy addItem(Drawable img, String pName, String predict) {
+//        ListItemCustomToy item = new ListItemCustomToy();
+//
+//        item.setImgDrawable(img);
+//        item.setGoodsName(pName);
+//        item.setGoodsRate(predict);
+//
+//        return item;
+//    }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void getRankingToyList(ArrayList<ListItemMainRankingToy> mList, String category) {
@@ -277,27 +316,6 @@ public class HomeFragment extends Fragment {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void getNewToyList(ArrayList<ListItemNewToy> mList) {
-        mList.add(addITem(new Drawable[]{requireContext().getDrawable(R.drawable.tp_prod_d001_thumb02), requireContext().getDrawable(R.drawable.tp_prod_d002_thumb02)},
-                new String[]{requireContext().getString(R.string.txt_main_new_product_name1), requireContext().getString(R.string.txt_main_new_product_name2)}));
-        mList.add(addITem(new Drawable[]{requireContext().getDrawable(R.drawable.tp_prod_d001_thumb02), requireContext().getDrawable(R.drawable.tp_prod_d002_thumb02)},
-                new String[]{requireContext().getString(R.string.txt_main_new_product_name1), requireContext().getString(R.string.txt_main_new_product_name2)}));
-        mList.add(addITem(new Drawable[]{requireContext().getDrawable(R.drawable.tp_prod_d001_thumb02), requireContext().getDrawable(R.drawable.tp_prod_d002_thumb02)},
-                new String[]{requireContext().getString(R.string.txt_main_new_product_name1), requireContext().getString(R.string.txt_main_new_product_name2)}));
-    }
-
-    private ListItemNewToy addITem(Drawable[] imgs, String[] pNames) {
-        ListItemNewToy item = new ListItemNewToy();
-
-        item.setImgProduct1(imgs[0]);
-        item.setImgProduct2(imgs[1]);
-        item.setNameProduct1(pNames[0]);
-        item.setNameProduct2(pNames[1]);
-
-        return item;
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
     private void getReviewToyList(ArrayList<ListItemReviewToy> mList) {
         mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb03), new String[] {"5.0", "250", requireContext().getString(R.string.txt_review_sample)} ));
         mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_e001_thumb03), new String[] {"4.5", "200", requireContext().getString(R.string.txt_review_sample)} ));
@@ -307,10 +325,9 @@ public class HomeFragment extends Fragment {
     private ListItemReviewToy addItem(Drawable img, String[] values) {
         ListItemReviewToy item = new ListItemReviewToy();
 
-        item.setImgProduct(img);
         item.setNumberRate(values[0]);
         item.setNumberLike(values[1]);
-        item.setCommentReview(values[2]);
+        item.setReview(values[2]);
         return item;
     }
 
