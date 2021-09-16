@@ -16,7 +16,7 @@
 <!--    Home Button Text Style    -->
     <style name="HomeButton">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/color_main_radiobutton</item>
+        <item name="android:textColor">@color/color_home_radiobutton</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -38,8 +38,8 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="MainCategoryRankingButtonTextStyle">
-        <item name="android:textColor">@color/black</item>
+    <style name="HomeCheckboxTextStyle">
+        <item name="android:textColor">@color/color_home_checkbox</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textStyle">bold</item>
     </style>

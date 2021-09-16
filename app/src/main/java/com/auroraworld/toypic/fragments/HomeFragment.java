@@ -315,22 +315,6 @@ public class HomeFragment extends Fragment {
         return item;
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private void getReviewToyList(ArrayList<ListItemReviewToy> mList) {
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb03), new String[] {"5.0", "250", requireContext().getString(R.string.txt_review_sample)} ));
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_e001_thumb03), new String[] {"4.5", "200", requireContext().getString(R.string.txt_review_sample)} ));
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_f001_thumb03), new String[] {"4.0", "180", requireContext().getString(R.string.txt_review_sample)} ));
-    }
-
-    private ListItemReviewToy addItem(Drawable img, String[] values) {
-        ListItemReviewToy item = new ListItemReviewToy();
-
-        item.setNumberRate(values[0]);
-        item.setNumberLike(values[1]);
-        item.setReview(values[2]);
-        return item;
-    }
-
     private void setLayoutManager(RecyclerView recyclerView, ListType type) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         switch (type) {

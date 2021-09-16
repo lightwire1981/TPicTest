@@ -276,31 +276,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/imageButton4"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/cd_design_img"
-                android:cropToPadding="true"
-                android:scaleType="centerInside"
-                app:layout_constraintBottom_toTopOf="@+id/textView11"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/btn_main_rank_boy" />
-
-            <TextView
-                android:id="@+id/textView11"
-                style="@style/MainCategoryRankingButtonTextStyle"
+            <CheckBox
+                android:id="@+id/cKbHomeRankBoy"
+                style="@style/HomeCheckboxTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:button="@android:color/transparent"
+                android:checked="true"
+                android:contentDescription="@string/cd_design_img"
+                android:drawableTop="@drawable/ckb_home_boy"
                 android:text="@string/btn_rank_boy"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton4" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imageView4"
@@ -327,31 +317,20 @@
             app:layout_constraintStart_toEndOf="@+id/cLyRankBoy"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/imageButton5"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/cd_design_img"
-                android:cropToPadding="true"
-                android:scaleType="centerInside"
-                app:layout_constraintBottom_toTopOf="@+id/textView10"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/btn_main_rank_girl" />
-
-            <TextView
-                android:id="@+id/textView10"
-                style="@style/MainCategoryRankingButtonTextStyle"
+            <CheckBox
+                android:id="@+id/cKbHomeRankGirl"
+                style="@style/HomeCheckboxTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:button="@android:color/transparent"
+                android:contentDescription="@string/cd_design_img"
+                android:drawableTop="@drawable/ckb_home_girl"
                 android:text="@string/btn_rank_girl"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton5" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -378,30 +357,20 @@
             app:layout_constraintStart_toEndOf="@+id/cLyRankGirl"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/imageButton7"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/cd_design_img"
-                android:scaleType="centerInside"
-                app:layout_constraintBottom_toTopOf="@+id/textView13"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/btn_main_rank_baby" />
-
-            <TextView
-                android:id="@+id/textView13"
-                style="@style/MainCategoryRankingButtonTextStyle"
+            <CheckBox
+                android:id="@+id/cKbHomeRankBaby"
+                style="@style/HomeCheckboxTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:button="@android:color/transparent"
+                android:contentDescription="@string/cd_design_img"
+                android:drawableTop="@drawable/ckb_home_baby"
                 android:text="@string/btn_rank_baby"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton7" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imageView7"
@@ -427,30 +396,20 @@
             app:layout_constraintStart_toEndOf="@+id/cLyRankBaby"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/imageButton8"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/cd_design_img"
-                android:scaleType="centerInside"
-                app:layout_constraintBottom_toTopOf="@+id/textView14"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/btn_main_rank_studyboard" />
-
-            <TextView
-                android:id="@+id/textView14"
-                style="@style/MainCategoryRankingButtonTextStyle"
+            <CheckBox
+                android:id="@+id/cKbHomeRankBoard"
+                style="@style/HomeCheckboxTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:button="@android:color/transparent"
+                android:contentDescription="@string/cd_design_img"
+                android:drawableTop="@drawable/ckb_home_board"
                 android:text="@string/btn_rank_board"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton8" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imageView9"
@@ -478,30 +437,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cLyRankBoy">
 
-            <ImageButton
-                android:id="@+id/imageButton10"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/cd_design_img"
-                android:scaleType="centerInside"
-                app:layout_constraintBottom_toTopOf="@+id/textView15"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/btn_main_rank_outdoor" />
-
-            <TextView
-                android:id="@+id/textView15"
-                style="@style/MainCategoryRankingButtonTextStyle"
+            <CheckBox
+                android:id="@+id/cKbHomeRankOutdoor"
+                style="@style/HomeCheckboxTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:button="@android:color/transparent"
+                android:contentDescription="@string/cd_design_img"
+                android:drawableTop="@drawable/ckb_home_outdoor"
                 android:text="@string/btn_rank_outdoor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton10" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imageView10"
@@ -529,30 +478,20 @@
             app:layout_constraintStart_toEndOf="@+id/cLyRankOutdoor"
             app:layout_constraintTop_toBottomOf="@+id/cLyRankGirl">
 
-            <ImageButton
-                android:id="@+id/imageButton11"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/cd_design_img"
-                android:scaleType="centerInside"
-                app:layout_constraintBottom_toTopOf="@+id/textView16"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/btn_main_rank_lego" />
-
-            <TextView
-                android:id="@+id/textView16"
-                style="@style/MainCategoryRankingButtonTextStyle"
+            <CheckBox
+                android:id="@+id/cKbHomeRankLego"
+                style="@style/HomeCheckboxTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:button="@android:color/transparent"
+                android:contentDescription="@string/cd_design_img"
+                android:drawableTop="@drawable/ckb_home_lego"
                 android:text="@string/btn_rank_lego"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton11" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imageView11"
@@ -580,30 +519,20 @@
             app:layout_constraintStart_toEndOf="@+id/cLyRankLego"
             app:layout_constraintTop_toBottomOf="@+id/cLyRankBaby">
 
-            <ImageButton
-                android:id="@+id/imageButton2"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/cd_design_img"
-                android:scaleType="centerInside"
-                app:layout_constraintBottom_toTopOf="@+id/textView9"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/btn_main_rank_stuffedtoy" />
-
-            <TextView
-                android:id="@+id/textView9"
-                style="@style/MainCategoryRankingButtonTextStyle"
+            <CheckBox
+                android:id="@+id/cKbHomeRankStuffedtoy"
+                style="@style/HomeCheckboxTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:button="@android:color/transparent"
+                android:contentDescription="@string/cd_design_img"
+                android:drawableTop="@drawable/ckb_home_stuffed_toy"
                 android:text="@string/btn_rank_stuffedtoy"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton2" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imageView6"
@@ -630,30 +559,20 @@
             app:layout_constraintStart_toEndOf="@+id/cLyRankStuffedToy"
             app:layout_constraintTop_toBottomOf="@+id/cLyRankBoard">
 
-            <ImageButton
-                android:id="@+id/imageButton3"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/cd_design_img"
-                android:scaleType="centerInside"
-                app:layout_constraintBottom_toTopOf="@+id/textView12"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/btn_main_rank_character" />
-
-            <TextView
-                android:id="@+id/textView12"
-                style="@style/MainCategoryRankingButtonTextStyle"
+            <CheckBox
+                android:id="@+id/cKbHomeRankCharacter"
+                style="@style/HomeCheckboxTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:button="@android:color/transparent"
+                android:contentDescription="@string/cd_design_img"
+                android:drawableTop="@drawable/ckb_home_character"
                 android:text="@string/btn_rank_character"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton3" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imageView8"

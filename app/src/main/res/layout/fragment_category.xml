@@ -76,7 +76,7 @@
 
             <TextView
                 android:id="@+id/textView11"
-                style="@style/MainCategoryRankingButtonTextStyle"
+                style="@style/HomeCheckboxTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_rank_boy"
@@ -128,7 +128,7 @@
 
             <TextView
                 android:id="@+id/textView10"
-                style="@style/MainCategoryRankingButtonTextStyle"
+                style="@style/HomeCheckboxTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_rank_girl"
@@ -180,7 +180,7 @@
 
             <TextView
                 android:id="@+id/textView13"
-                style="@style/MainCategoryRankingButtonTextStyle"
+                style="@style/HomeCheckboxTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_rank_baby"
@@ -231,7 +231,7 @@
 
             <TextView
                 android:id="@+id/textView14"
-                style="@style/MainCategoryRankingButtonTextStyle"
+                style="@style/HomeCheckboxTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_rank_board"
@@ -283,7 +283,7 @@
 
             <TextView
                 android:id="@+id/textView15"
-                style="@style/MainCategoryRankingButtonTextStyle"
+                style="@style/HomeCheckboxTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_rank_outdoor"
@@ -337,7 +337,7 @@
 
             <TextView
                 android:id="@+id/textView16"
-                style="@style/MainCategoryRankingButtonTextStyle"
+                style="@style/HomeCheckboxTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_rank_lego"
@@ -391,7 +391,7 @@
 
             <TextView
                 android:id="@+id/textView9"
-                style="@style/MainCategoryRankingButtonTextStyle"
+                style="@style/HomeCheckboxTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_rank_stuffedtoy"
@@ -444,7 +444,7 @@
 
             <TextView
                 android:id="@+id/textView12"
-                style="@style/MainCategoryRankingButtonTextStyle"
+                style="@style/HomeCheckboxTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_rank_character"
