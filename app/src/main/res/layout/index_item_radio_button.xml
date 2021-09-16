@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CheckBox xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cKbxIndexItem"
+    style="@style/CategoryDetailCheckboxTextStyle"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:button="@android:color/transparent"
-    android:drawableBottom="@drawable/img_index_item"
+    android:drawableBottom="@drawable/ckb_category_underbar"
     android:text="@string/txt_category_index"
-    android:textAlignment="center"
-    android:textColor="#000000"
-    android:textSize="16sp"
-    android:textStyle="bold">
+    tools:ignore="TouchTargetSizeCheck,TextContrastCheck">
 
 </CheckBox>

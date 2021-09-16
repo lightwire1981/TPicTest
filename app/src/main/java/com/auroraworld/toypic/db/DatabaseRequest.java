@@ -122,6 +122,7 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
         String AND = "&";
 
         String GOODS_NO = "GOODS_NO=";
+        String BRAND_CD = "BRAND_CD=";
 
         String KEY_WORD = "KEY_WORD=";
         String KEY_WORD_ID = "KEY_WORD_ID=";
@@ -223,10 +224,15 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                 case GET_ALL_BRAND:
                 case GET_FAVORITE_KEYWORD:
                 case GET_CUSTOM_GOODS:
+                case GET_RANKING_GOODS:
                 case GET_NEW_GOODS:
                 case GET_POPULAR_REVIEW:
                 case TEST:
                     parameterValue = USE + params[0];
+                    break;
+                case GET_CATEGORY_GOODS:
+                    parameterValue = USE + params[0] + AND +
+                            BRAND_CD + jsonObject.getString("brandCd");
                     break;
                 case DELETE_RECENT_KEYWORD:
                     parameterValue = USE + params[0] + AND +

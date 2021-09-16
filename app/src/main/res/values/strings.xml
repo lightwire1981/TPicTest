@@ -95,6 +95,8 @@
 
     <string name="txt_category_list_title">카테고리 목록 타이틀</string>
     <string name="txt_category_index">카테고리 항목</string>
+    <string name="txt_category_noname">오로라월드</string>
+    <string name="txt_category_eval_template">&#160;%s</string>
 
 
     <string name="txt_goods_info">상품상세</string>

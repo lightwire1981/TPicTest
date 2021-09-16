@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -32,6 +34,7 @@ import com.auroraworld.toypic.list_code.ListAdptMainRankingToy;
 import com.auroraworld.toypic.list_code.ListItemCustomToy;
 import com.auroraworld.toypic.list_code.ListItemMainRankingToy;
 import com.auroraworld.toypic.list_code.ListItemNewToy;
+import com.auroraworld.toypic.list_code.ListItemRankingToy;
 import com.auroraworld.toypic.list_code.ListItemReviewToy;
 import com.auroraworld.toypic.list_code.RecyclerDecoration;
 import com.auroraworld.toypic.utils.PreferenceSetting;
@@ -74,6 +77,7 @@ public class HomeFragment extends Fragment {
     private final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
     private final long PERIOD_MS = 3000; // time in milliseconds between successive task executions.
 
+    ArrayList<CheckBox> RankingBoxList = new ArrayList<>();
     public static ListItemReviewToy goodsReview;
 
     private final String TAG = getClass().getSimpleName();
@@ -161,8 +165,31 @@ public class HomeFragment extends Fragment {
             setCustomToyList(customToy3view);
 
         }
+        view.findViewById(R.id.tVwHomeShowRanking).setOnClickListener(view1 -> MainActivity.CallRankingFragment());
         RecyclerView rankingToyView = view.findViewById(R.id.rcyclVwMainRankingToy);
-        setRankingToyList(rankingToyView);
+        setLayoutManager(rankingToyView, ListType.RANK);
+        RankingBoxList.add(view.findViewById(R.id.cKbHomeRankBoy));
+        RankingBoxList.add(view.findViewById(R.id.cKbHomeRankGirl));
+        RankingBoxList.add(view.findViewById(R.id.cKbHomeRankBaby));
+        RankingBoxList.add(view.findViewById(R.id.cKbHomeRankBoard));
+        RankingBoxList.add(view.findViewById(R.id.cKbHomeRankOutdoor));
+        RankingBoxList.add(view.findViewById(R.id.cKbHomeRankLego));
+        RankingBoxList.add(view.findViewById(R.id.cKbHomeRankStuffedtoy));
+        RankingBoxList.add(view.findViewById(R.id.cKbHomeRankCharacter));
+        for (CheckBox cbox : RankingBoxList) {
+            cbox.setOnCheckedChangeListener((checkBox, isChecked) -> {
+                if (isChecked) {
+                    int id = checkBox.getId();
+                    for (CheckBox cb : RankingBoxList) {
+                        if (cb.getId()!=id) {
+                            cb.setChecked(false);
+                        }
+                    }
+                    setRankingToyList(rankingToyView, id);
+                }
+            });
+        }
+        setRankingToyList(rankingToyView, R.id.cKbHomeRankBoy);
 
         RecyclerView newToyView = view.findViewById(R.id.rcyclVwMainNewToy);
         setLayoutManager(newToyView, ListType.NEW);
@@ -221,18 +248,26 @@ public class HomeFragment extends Fragment {
                 e.printStackTrace();
             }
         }).execute(DBRequestType.GET_CUSTOM_GOODS.name());
-//        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), getString(R.string.txt_main_custom_product_name1), "5.0"));
-//        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), "테스트 상품2", "4.8"));
-//        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), getString(R.string.txt_main_custom_product_name1), "4.0"));
-//        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), "테스트 상품4", "4.2"));
-//        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01), getString(R.string.txt_main_custom_product_name1), "3.8"));
     }
 
-    private void setRankingToyList(RecyclerView recyclerView) {
+    private void setRankingToyList(RecyclerView recyclerView, int categoryId) {
         ArrayList<ListItemMainRankingToy> mList = new ArrayList<>();
-        getRankingToyList(mList, "boy");
-        recyclerView.setAdapter(new ListAdptMainRankingToy(mList));
-        setLayoutManager(recyclerView, ListType.RANK);
+        new DatabaseRequest(getContext(), result -> {
+            if (result[0].equals("NOT_FOUND")) {
+                return;
+            }
+            try {
+                JSONArray goodsArray = new JSONArray(result[0]);
+                for (int index=0; index<goodsArray.length(); index++) {
+                    ListItemMainRankingToy item = new ListItemMainRankingToy();
+                    item.setItem(goodsArray.getJSONObject(index));
+                    mList.add(item);
+                }
+                recyclerView.setAdapter(new ListAdptMainRankingToy(mList));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }).execute(DBRequestType.GET_RANKING_GOODS.name());
     }
 
     private void setNewToyList(RecyclerView recyclerView) {
@@ -280,39 +315,6 @@ public class HomeFragment extends Fragment {
                 e.printStackTrace();
             }
         }).execute(DBRequestType.GET_POPULAR_REVIEW.name());
-    }
-
-//    private ListItemCustomToy addItem(Drawable img, String pName, String predict) {
-//        ListItemCustomToy item = new ListItemCustomToy();
-//
-//        item.setImgDrawable(img);
-//        item.setGoodsName(pName);
-//        item.setGoodsRate(predict);
-//
-//        return item;
-//    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private void getRankingToyList(ArrayList<ListItemMainRankingToy> mList, String category) {
-        /*
-            get Ranking Data by [category]
-         */
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01),getString(R.string.txt_main_custom_product_name1), "1", "5.0"));
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_c001_thumb01),getString(R.string.txt_main_custom_product_name1), "2", "4.8"));
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a004_thumb01),getString(R.string.txt_main_custom_product_name1), "3", "4.7"));
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a005_thumb01),getString(R.string.txt_main_custom_product_name1), "4", "4.5"));
-        mList.add(addItem(requireContext().getDrawable(R.drawable.tp_prod_a002_thumb01),getString(R.string.txt_main_custom_product_name1), "5", "4.2"));
-    }
-
-    private ListItemMainRankingToy addItem(Drawable img, String pName, String rank, String rate) {
-        ListItemMainRankingToy item = new ListItemMainRankingToy();
-
-        item.setImgDrawable(img);
-        item.setProductName(pName);
-        item.setRanking(rank);
-        item.setRatingNumber(rate);
-
-        return item;
     }
 
     private void setLayoutManager(RecyclerView recyclerView, ListType type) {

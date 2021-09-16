@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class ListAdapterCtgDetailIndex extends RecyclerView.Adapter<ListAdapterCtgDetailIndex.ViewHolder> {
     private final ArrayList<ListItemCtgDetailIndex> mData;
+    private static final ArrayList<CheckBox> indexBoxList = new ArrayList<>();
 
     public ListAdapterCtgDetailIndex(ArrayList<ListItemCtgDetailIndex> list) {
         mData = list;
@@ -37,18 +38,26 @@ public class ListAdapterCtgDetailIndex extends RecyclerView.Adapter<ListAdapterC
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
         ListItemCtgDetailIndex item = mData.get(position);
 
+        indexBoxList.add(position, holder.checkBox);
         holder.checkBox.setText(item.getIndexName());
         holder.checkBox.setTag(item.getIndexId());
         holder.checkBox.setOnCheckedChangeListener(listener);
+        if (position ==0) {
+            holder.checkBox.performClick();
+        }
     }
 
     private final CompoundButton.OnCheckedChangeListener listener = (checkbox, isChecked) -> {
-        if(isChecked) {
-            checkbox.setTextAppearance(R.style.CategoryCheckBoxFocusStyle);
-        } else {
-            checkbox.setTextAppearance(R.style.CategoryCheckBoxNormalStyle);
+        if (isChecked) {
+            String label = checkbox.getText().toString();
+            for (CheckBox ckb : indexBoxList) {
+                String temp = ckb.getText().toString();
+                if (!temp.equals(label)) {
+                    ckb.setChecked(false);
+                }
+            }
         }
-        Log.i("<<<<<<<<<< Parent Layout ID : ",((View)checkbox.getParent()).getId()+"");
+//        Log.i("<<<<<<<<<< Parent Layout ID : ",((View)checkbox.getParent()).getId()+"");
     };
 
     @Override

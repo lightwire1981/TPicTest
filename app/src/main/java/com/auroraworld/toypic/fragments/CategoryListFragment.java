@@ -10,12 +10,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.auroraworld.toypic.MainActivity;
 import com.auroraworld.toypic.R;
+import com.auroraworld.toypic.db.DBRequestType;
+import com.auroraworld.toypic.db.DatabaseRequest;
 import com.auroraworld.toypic.list_code.ListAdapterCtgDetailIndex;
+import com.auroraworld.toypic.list_code.ListAdptCategoryGoods;
+import com.auroraworld.toypic.list_code.ListItemCategoryGoods;
 import com.auroraworld.toypic.list_code.ListItemCtgDetailIndex;
 import com.auroraworld.toypic.list_code.RecyclerDecoration;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -27,13 +36,12 @@ import java.util.ArrayList;
 public class CategoryListFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String CATEGORY_CD = "param1";
+    private static final String CATEGORY_NM = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String categoryCd;
+    private String categoryNm;
 
     public CategoryListFragment() {
         // Required empty public constructor
@@ -43,16 +51,16 @@ public class CategoryListFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param categoryCd Parameter 1.
+     * @param categoryNm Parameter 2.
      * @return A new instance of fragment CategoryListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CategoryListFragment newInstance(String param1, String param2) {
+    public static CategoryListFragment newInstance(String categoryCd, String categoryNm) {
         CategoryListFragment fragment = new CategoryListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(CATEGORY_CD, categoryCd);
+        args.putString(CATEGORY_NM, categoryNm);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,8 +69,11 @@ public class CategoryListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            categoryCd = getArguments().getString(CATEGORY_CD);
+            categoryNm = getArguments().getString(CATEGORY_NM);
+            if (categoryNm.isEmpty()) {
+                categoryNm = getContext().getString(R.string.txt_category_noname);
+            }
         }
     }
 
@@ -74,9 +85,16 @@ public class CategoryListFragment extends Fragment {
         View view =inflater.inflate(R.layout.fragment_category_list, container, false);
 
         view.findViewById(R.id.iBtnCListBack).setOnClickListener(onClickListener);
+        ((TextView)view.findViewById(R.id.tVwCategoryListTitle)).setText(categoryNm);
 
         RecyclerView recyclerView = view.findViewById(R.id.rcyclVwCategoryIndex);
+        setLayoutManager(recyclerView);
         setCategoryIndexList(recyclerView);
+
+        RecyclerView categoryGoodsView = view.findViewById(R.id.rcyclVwCategoryGoods);
+        setLayoutManager(categoryGoodsView);
+        setCategoryGoodsList(categoryGoodsView);
+
         return view;
     }
 
@@ -84,13 +102,12 @@ public class CategoryListFragment extends Fragment {
         ArrayList<ListItemCtgDetailIndex> mList = new ArrayList<>();
 
         mList.add(addItem("0", "전체"));
-        mList.add(addItem("1", "로봇"));
-        mList.add(addItem("2", "자동차/기차"));
-        mList.add(addItem("3", "액션"));
+        mList.add(addItem("1", "인기"));
+        mList.add(addItem("2", "캐릭터"));
+        mList.add(addItem("3", "장르"));
         mList.add(addItem("4", "기타"));
 
         recyclerView.setAdapter(new ListAdapterCtgDetailIndex(mList));
-        setLayoutManager(recyclerView);
     }
     private ListItemCtgDetailIndex addItem(String... values) {
         ListItemCtgDetailIndex item = new ListItemCtgDetailIndex();
@@ -99,10 +116,51 @@ public class CategoryListFragment extends Fragment {
         return item;
     }
 
+    private void setCategoryGoodsList(RecyclerView recyclerView) {
+        JSONObject brandData = new JSONObject();
+        try {
+            brandData.put("brandCd", categoryCd);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new DatabaseRequest(getContext(), result -> {
+            JSONArray goodsList = new JSONArray();
+            try {
+                goodsList = new JSONArray(result[0]);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (goodsList.length() < 1) {
+                return;
+            }
+            ArrayList<ListItemCategoryGoods> mList = new ArrayList<>();
+            for (int index=0; index < goodsList.length(); index++) {
+                ListItemCategoryGoods item = new ListItemCategoryGoods();
+                try {
+                    item.setItem(goodsList.getJSONObject(index));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                mList.add(item);
+            }
+            recyclerView.setAdapter(new ListAdptCategoryGoods(mList));
+        }).execute(DBRequestType.GET_CATEGORY_GOODS.name(), brandData.toString());
+    }
+
+    @SuppressLint("NonConstantResourceId")
     private void setLayoutManager(RecyclerView recyclerView) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.addItemDecoration(new RecyclerDecoration(5, 10));
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        switch (recyclerView.getId()) {
+            case R.id.rcyclVwCategoryIndex:
+                recyclerView.addItemDecoration(new RecyclerDecoration(5, 10));
+                linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                break;
+            case R.id.rcyclVwCategoryGoods:
+                recyclerView.addItemDecoration(new RecyclerDecoration(0, 25));
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                break;
+        }
+
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 

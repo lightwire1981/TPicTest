@@ -6,6 +6,7 @@ public class ListItemCategoryBrand {
     private int itemCount;
     private Drawable brandDrawable1, brandDrawable2, brandDrawable3, brandDrawable4;
     private String brandId1, brandId2, brandId3, brandId4;
+    private String brandNm1, brandNm2, brandNm3, brandNm4;
     private String imgUrl1, imgUrl2, imgUrl3, imgUrl4;
 
 
@@ -111,5 +112,37 @@ public class ListItemCategoryBrand {
 
     public void setItemCount(int itemCount) {
         this.itemCount = itemCount;
+    }
+
+    public String getBrandNm1() {
+        return brandNm1;
+    }
+
+    public void setBrandNm1(String brandNm1) {
+        this.brandNm1 = brandNm1;
+    }
+
+    public String getBrandNm2() {
+        return brandNm2;
+    }
+
+    public void setBrandNm2(String brandNm2) {
+        this.brandNm2 = brandNm2;
+    }
+
+    public String getBrandNm3() {
+        return brandNm3;
+    }
+
+    public void setBrandNm3(String brandNm3) {
+        this.brandNm3 = brandNm3;
+    }
+
+    public String getBrandNm4() {
+        return brandNm4;
+    }
+
+    public void setBrandNm4(String brandNm4) {
+        this.brandNm4 = brandNm4;
     }
 }

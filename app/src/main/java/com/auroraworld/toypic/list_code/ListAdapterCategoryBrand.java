@@ -8,24 +8,26 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.auroraworld.toypic.MainActivity;
 import com.auroraworld.toypic.R;
-import com.auroraworld.toypic.fragments.CategoryListFragment;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class ListAdapterCategoryBrand extends RecyclerView.Adapter<ListAdapterCategoryBrand.ViewHolder> {
 
     private final ArrayList<ListItemCategoryBrand> mData;
-    private FragmentManager fragmentManager;
 
-    public ListAdapterCategoryBrand(ArrayList<ListItemCategoryBrand> list, FragmentManager fragmentManager) {
+    public interface SelectBrandListener {
+        void onSelectBrand(String brandCd, String brandNm);
+    }
+    private SelectBrandListener selectBrandListener;
+
+    public ListAdapterCategoryBrand(ArrayList<ListItemCategoryBrand> list, SelectBrandListener selectBrandListener) {
         mData = list;
-        this.fragmentManager = fragmentManager;
+        this.selectBrandListener = selectBrandListener;
     }
 
     @NonNull
@@ -37,20 +39,24 @@ public class ListAdapterCategoryBrand extends RecyclerView.Adapter<ListAdapterCa
     }
 
     private static class BrandInfo {
-        final String branID;
+        final String brandId;
         final String imgUrl;
-        public BrandInfo(String id, String url) {
-            this.branID = id;
+        final String brandNm;
+        public BrandInfo(String id, String url, String brandNm) {
+            this.brandId = id;
             this.imgUrl = url;
+            this.brandNm = brandNm;
         }
 
-        public String getBranID() {
-            return branID;
+        public String getBrandId() {
+            return brandId;
         }
 
         public String getImgUrl() {
             return imgUrl;
         }
+
+        public String getBrandNm() { return brandNm; }
     }
 
     @Override
@@ -60,55 +66,46 @@ public class ListAdapterCategoryBrand extends RecyclerView.Adapter<ListAdapterCa
         switch (item.getItemCount()) {
             case 1:
                 holder.brandImg1.setImageDrawable(item.getBrandDrawable1());
-                holder.brandImg1.setTag(new BrandInfo(item.getBrandId1(), item.getImgUrl1()));
+                holder.brandImg1.setTag(new BrandInfo(item.getBrandId1(), item.getImgUrl1(), item.getBrandNm1()));
                 holder.brandImg1.setOnClickListener(listener);
                 break;
             case 2:
                 holder.brandImg2.setVisibility(View.VISIBLE);
-                holder.brandImg1.setTag(new BrandInfo(item.getBrandId1(), item.getImgUrl1()));
-                holder.brandImg2.setTag(new BrandInfo(item.getBrandId2(), item.getImgUrl2()));
+                holder.brandImg1.setTag(new BrandInfo(item.getBrandId1(), item.getImgUrl1(), item.getBrandNm1()));
+                holder.brandImg2.setTag(new BrandInfo(item.getBrandId2(), item.getImgUrl2(), item.getBrandNm2()));
                 holder.brandImg1.setOnClickListener(listener);
-//                holder.brandImg1.setImageDrawable(item.getBrandDrawable1());
-//                holder.brandImg2.setImageDrawable(item.getBrandDrawable2());
+                holder.brandImg2.setOnClickListener(listener);
                 break;
             case 3:
                 holder.brandImg2.setVisibility(View.VISIBLE);
                 holder.brandImg3.setVisibility(View.VISIBLE);
-                holder.brandImg1.setTag(new BrandInfo(item.getBrandId1(), item.getImgUrl1()));
-                holder.brandImg2.setTag(new BrandInfo(item.getBrandId2(), item.getImgUrl2()));
-                holder.brandImg3.setTag(new BrandInfo(item.getBrandId3(), item.getImgUrl3()));
+                holder.brandImg1.setTag(new BrandInfo(item.getBrandId1(), item.getImgUrl1(), item.getBrandNm1()));
+                holder.brandImg2.setTag(new BrandInfo(item.getBrandId2(), item.getImgUrl2(), item.getBrandNm2()));
+                holder.brandImg3.setTag(new BrandInfo(item.getBrandId3(), item.getImgUrl3(), item.getBrandNm3()));
                 holder.brandImg1.setOnClickListener(listener);
-//                holder.brandImg1.setImageDrawable(item.getBrandDrawable1());
-//                holder.brandImg2.setImageDrawable(item.getBrandDrawable2());
-//                holder.brandImg3.setImageDrawable(item.getBrandDrawable3());
+                holder.brandImg2.setOnClickListener(listener);
+                holder.brandImg3.setOnClickListener(listener);
                 break;
             case 4:
                 holder.brandImg2.setVisibility(View.VISIBLE);
                 holder.brandImg3.setVisibility(View.VISIBLE);
                 holder.brandImg4.setVisibility(View.VISIBLE);
-                holder.brandImg1.setTag(new BrandInfo(item.getBrandId1(), item.getImgUrl1()));
-                holder.brandImg2.setTag(new BrandInfo(item.getBrandId2(), item.getImgUrl2()));
-                holder.brandImg3.setTag(new BrandInfo(item.getBrandId3(), item.getImgUrl3()));
-                holder.brandImg4.setTag(new BrandInfo(item.getBrandId4(), item.getImgUrl4()));
+                holder.brandImg1.setTag(new BrandInfo(item.getBrandId1(), item.getImgUrl1(), item.getBrandNm1()));
+                holder.brandImg2.setTag(new BrandInfo(item.getBrandId2(), item.getImgUrl2(), item.getBrandNm2()));
+                holder.brandImg3.setTag(new BrandInfo(item.getBrandId3(), item.getImgUrl3(), item.getBrandNm3()));
+                holder.brandImg4.setTag(new BrandInfo(item.getBrandId4(), item.getImgUrl4(), item.getBrandNm4()));
                 holder.brandImg1.setOnClickListener(listener);
-//                holder.brandImg1.setImageDrawable(item.getBrandDrawable1());
-//                holder.brandImg2.setImageDrawable(item.getBrandDrawable2());
-//                holder.brandImg3.setImageDrawable(item.getBrandDrawable3());
-//                holder.brandImg4.setImageDrawable(item.getBrandDrawable4());
+                holder.brandImg2.setOnClickListener(listener);
+                holder.brandImg3.setOnClickListener(listener);
+                holder.brandImg4.setOnClickListener(listener);
                 break;
             default:
                 break;
         }
 
     }
-    private final View.OnClickListener listener = view -> {
-        Toast.makeText(view.getContext(), ((BrandInfo)view.getTag()).getBranID(), Toast.LENGTH_SHORT).show();
-        FragmentManager fragmentManager = this.fragmentManager;
-        CategoryListFragment categoryListFragment = new CategoryListFragment();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.addToBackStack(MainActivity.PAGES.CATEGORY.name());
-        fragmentTransaction.add(R.id.fLyMain, categoryListFragment).commit();
-    };
+    private final View.OnClickListener listener = view -> selectBrandListener.onSelectBrand(((BrandInfo) view.getTag()).getBrandId(),
+            ((BrandInfo) view.getTag()).getBrandNm());
 
     @Override
     public int getItemCount() {

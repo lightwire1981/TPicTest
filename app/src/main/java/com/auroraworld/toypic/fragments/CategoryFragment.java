@@ -2,15 +2,17 @@ package com.auroraworld.toypic.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.auroraworld.toypic.MainActivity;
 import com.auroraworld.toypic.R;
@@ -41,6 +43,8 @@ public class CategoryFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private final ArrayList<CheckBox> CategoryBoxList = new ArrayList<>();
 
     private JSONArray brandList = new JSONArray();
     private RecyclerView brandListView;
@@ -79,12 +83,31 @@ public class CategoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_category, container, false);
         view.findViewById(R.id.iBtnCategoryBack).setOnClickListener(onClickListener);
 
+        CategoryBoxList.add(view.findViewById(R.id.cKbCategoryBoy));
+        CategoryBoxList.add(view.findViewById(R.id.cKbCategoryGirl));
+        CategoryBoxList.add(view.findViewById(R.id.cKbCategoryBaby));
+        CategoryBoxList.add(view.findViewById(R.id.cKbCategoryBoard));
+        CategoryBoxList.add(view.findViewById(R.id.cKbCategoryOutdoor));
+        CategoryBoxList.add(view.findViewById(R.id.cKbCategoryLego));
+        CategoryBoxList.add(view.findViewById(R.id.cKbCategoryStuffed));
+        CategoryBoxList.add(view.findViewById(R.id.cKbCategoryCharacter));
+        for (CheckBox cbox : CategoryBoxList) {
+            cbox.setOnCheckedChangeListener((checkBox, isChecked) -> {
+                if (isChecked) {
+                    FragmentManager fragmentManager = getParentFragmentManager();
+                    CategoryListFragment categoryListFragment = CategoryListFragment.newInstance("0", checkBox.getText().toString());
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.addToBackStack(MainActivity.CURRENT_PAGE.name());
+                    fragmentTransaction.add(R.id.fLyMain, categoryListFragment).commit();
+                    checkBox.setChecked(false);
+                }
+            });
+        }
         brandListView = view.findViewById(R.id.rcyclVwCategoryBrand);
-//        setBrandListTemp(brandList);
+        setLayoutManager(brandListView);
         setBrandList();
         return view;
     }
@@ -95,127 +118,112 @@ public class CategoryFragment extends Fragment {
         MainActivity.CURRENT_PAGE = MainActivity.PAGES.CATEGORY;
     }
 
-    private void setBrandListTemp(RecyclerView recyclerView) {
-        ArrayList<ListItemCategoryBrand> mList = new ArrayList<>();
-
-        // 브랜드 8개 가정하여 셋팅
-        int index = 0;
-
-        for (int i=0; i < 4; i++) {
-            ListItemCategoryBrand item = new ListItemCategoryBrand();
-            item.setItemCount(4);
-            item.setBrandId1("temp_id"+index);
-            item.setImgUrl1("temp_url"+index);
-            index++;
-            item.setBrandId2("temp_id"+index);
-            item.setImgUrl2("temp_url"+index);
-            index++;
-            item.setBrandId3("temp_id"+index);
-            item.setImgUrl3("temp_url"+index);
-            index++;
-            item.setBrandId4("temp_id"+index);
-            item.setImgUrl4("temp_url"+index);
-            index++;
-            mList.add(item);
-        }
-        ListAdapterCategoryBrand listAdapterCategoryBrand = new ListAdapterCategoryBrand(mList, getParentFragmentManager());
-        recyclerView.setAdapter(listAdapterCategoryBrand);
-        setLayoutManager(recyclerView);
-    }
-
     private void setBrandList() {
 
-        new DatabaseRequest(getContext(), executeListener).execute(DBRequestType.GET_ALL_BRAND.name());
-    }
+        new DatabaseRequest(getContext(), result -> {
+            try {
+                brandList = new JSONArray(result[0]);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (brandList.length() < 1) {
+                return;
+            }
+            ArrayList<ListItemCategoryBrand> mList = new ArrayList<>();
+            int count = brandList.length();
 
-    private final DatabaseRequest.ExecuteListener executeListener = result -> {
-        try {
-            brandList = new JSONArray(result[0]);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if (brandList.length() < 1) {
-            return;
-        }
-        ArrayList<ListItemCategoryBrand> mList = new ArrayList<>();
-        int count = brandList.length();
+            int quotient = count/4;
+            int remainder = count%4;
 
-        int quotient = count/4;
-        int remainder = count%4;
-
-        // 나누어 떨어지면 4개씩 작업
-        int index = 0;
-        if (quotient > 0) {
-            for (int x=0; x<quotient; x++) {
-                ListItemCategoryBrand item = new ListItemCategoryBrand();
-                item.setItemCount(4);
-                try {
-                    JSONObject brandInfo = brandList.getJSONObject(index);
-                    item.setBrandId1(brandInfo.getString("brandCd"));
-                    index++;
-                    brandInfo = brandList.getJSONObject(index);
-                    item.setBrandId2(brandInfo.getString("brandCd"));
-                    index++;
-                    brandInfo = brandList.getJSONObject(index);
-                    item.setBrandId3(brandInfo.getString("brandCd"));
-                    index++;
-                    brandInfo = brandList.getJSONObject(index);
-                    item.setBrandId4(brandInfo.getString("brandCd"));
-                    index++;
-                    mList.add(item);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            // 나누어 떨어지면 4개씩 작업
+            int index = 0;
+            if (quotient > 0) {
+                for (int x=0; x<quotient; x++) {
+                    ListItemCategoryBrand item = new ListItemCategoryBrand();
+                    item.setItemCount(4);
+                    try {
+                        JSONObject brandInfo = brandList.getJSONObject(index);
+                        item.setBrandId1(brandInfo.getString("brandCd"));
+                        item.setBrandNm1(brandInfo.getString("makerNm"));
+                        index++;
+                        brandInfo = brandList.getJSONObject(index);
+                        item.setBrandId2(brandInfo.getString("brandCd"));
+                        item.setBrandNm2(brandInfo.getString("makerNm"));
+                        index++;
+                        brandInfo = brandList.getJSONObject(index);
+                        item.setBrandId3(brandInfo.getString("brandCd"));
+                        item.setBrandNm3(brandInfo.getString("makerNm"));
+                        index++;
+                        brandInfo = brandList.getJSONObject(index);
+                        item.setBrandId4(brandInfo.getString("brandCd"));
+                        item.setBrandNm4(brandInfo.getString("makerNm"));
+                        index++;
+                        mList.add(item);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-        }
-        // 4개 이하 작업
-        ListItemCategoryBrand item = new ListItemCategoryBrand();
-        if (remainder > 0) item.setItemCount(remainder);
-        JSONObject brandInfo;
-        switch (remainder) {
-            case 1:
-                try {
-                    brandInfo = brandList.getJSONObject(index);
-                    item.setBrandId1(brandInfo.getString("brandCd"));
-                    mList.add(item);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 2:
-                try {
-                    brandInfo = brandList.getJSONObject(index);
-                    item.setBrandId1(brandInfo.getString("brandCd"));
-                    index++;
-                    brandInfo = brandList.getJSONObject(index);
-                    item.setBrandId2(brandInfo.getString("brandCd"));
-                    mList.add(item);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            // 4개 이하 작업
+            ListItemCategoryBrand item = new ListItemCategoryBrand();
+            if (remainder > 0) item.setItemCount(remainder);
+            JSONObject brandInfo;
+            switch (remainder) {
+                case 1:
+                    try {
+                        brandInfo = brandList.getJSONObject(index);
+                        item.setBrandId1(brandInfo.getString("brandCd"));
+                        item.setBrandNm1(brandInfo.getString("makerNm"));
+                        mList.add(item);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 2:
+                    try {
+                        brandInfo = brandList.getJSONObject(index);
+                        item.setBrandId1(brandInfo.getString("brandCd"));
+                        item.setBrandNm1(brandInfo.getString("makerNm"));
+                        index++;
+                        brandInfo = brandList.getJSONObject(index);
+                        item.setBrandId2(brandInfo.getString("brandCd"));
+                        item.setBrandNm2(brandInfo.getString("makerNm"));
+                        mList.add(item);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
-                break;
-            case 3:
-                try {
-                    brandInfo = brandList.getJSONObject(index);
-                    item.setBrandId1(brandInfo.getString("brandCd"));
-                    index++;
-                    brandInfo = brandList.getJSONObject(index);
-                    item.setBrandId2(brandInfo.getString("brandCd"));
-                    index++;
-                    brandInfo = brandList.getJSONObject(index);
-                    item.setBrandId3(brandInfo.getString("brandCd"));
-                    mList.add(item);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                break;
-            default:
-                break;
-        }
-        brandListView.setAdapter(new ListAdapterCategoryBrand(mList, getParentFragmentManager()));
-        setLayoutManager(brandListView);
-    };
+                    break;
+                case 3:
+                    try {
+                        brandInfo = brandList.getJSONObject(index);
+                        item.setBrandId1(brandInfo.getString("brandCd"));
+                        item.setBrandNm1(brandInfo.getString("makerNm"));
+                        index++;
+                        brandInfo = brandList.getJSONObject(index);
+                        item.setBrandId2(brandInfo.getString("brandCd"));
+                        item.setBrandNm2(brandInfo.getString("makerNm"));
+                        index++;
+                        brandInfo = brandList.getJSONObject(index);
+                        item.setBrandId3(brandInfo.getString("brandCd"));
+                        item.setBrandNm3(brandInfo.getString("makerNm"));
+                        mList.add(item);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                default:
+                    break;
+            }
+            brandListView.setAdapter(new ListAdapterCategoryBrand(mList, (brandCd, brandNm) -> {
+                FragmentManager fragmentManager = getParentFragmentManager();
+                CategoryListFragment categoryListFragment = CategoryListFragment.newInstance(brandCd, brandNm);
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.addToBackStack(MainActivity.CURRENT_PAGE.name());
+                fragmentTransaction.add(R.id.fLyMain, categoryListFragment).commit();
+            }));
+        }).execute(DBRequestType.GET_ALL_BRAND.name());
+    }
 
     private void setLayoutManager(RecyclerView recyclerView) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

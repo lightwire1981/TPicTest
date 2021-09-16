@@ -286,7 +286,6 @@
                 android:contentDescription="@string/cd_design_img"
                 android:drawableTop="@drawable/ckb_home_boy"
                 android:text="@string/btn_rank_boy"
-                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

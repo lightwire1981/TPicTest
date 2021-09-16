@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        getGoodsInfo();
         hideNavigationBar();
     }
 
@@ -268,18 +267,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public static void CallRankingFragment() {
+        homeRadioGroup.getChildAt(3).performClick();
+    }
+
 
 
     @Override
     public void onBackPressed() {
         new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.EXIT, (isAppFinish, data) -> hideNavigationBar()).show();
     }
-
-    private void getGoodsInfo() {
-        new DatabaseRequest(getBaseContext(), executeListener).execute(DBRequestType.GET_ALL_GOODS.name());
-    }
-
-    DatabaseRequest.ExecuteListener executeListener = result -> ALL_GOODS_INFO = result[0];
 
     private void hideNavigationBar(){
         View decorView = getWindow().getDecorView();

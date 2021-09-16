@@ -27,7 +27,8 @@
             android:src="@drawable/btn_fragment_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/tVwCategoryListTitle"
