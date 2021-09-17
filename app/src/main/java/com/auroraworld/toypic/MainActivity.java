@@ -14,13 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.auroraworld.toypic.db.DBRequestType;
-import com.auroraworld.toypic.db.DatabaseRequest;
 import com.auroraworld.toypic.fragments.CategoryFragment;
 import com.auroraworld.toypic.fragments.EvaluateFragment;
 import com.auroraworld.toypic.fragments.HomeFragment;
@@ -28,6 +21,11 @@ import com.auroraworld.toypic.fragments.MyPageFragment;
 import com.auroraworld.toypic.fragments.RankingFragment;
 import com.auroraworld.toypic.utils.CustomDialog;
 import com.auroraworld.toypic.utils.PreferenceSetting;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.ArrayList;
 
@@ -42,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static PAGES CURRENT_PAGE;
     private static final String TAG = "TAG-MainActivity";
-    public static String ALL_GOODS_INFO;
 
-    private static RadioGroup homeRadioGroup;
+    @SuppressLint("StaticFieldLeak")
+    public static RadioGroup homeRadioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +57,7 @@ public class MainActivity extends AppCompatActivity {
         homeRadioGroup = findViewById(R.id.rGrpMainRadioButton);
         homeRadioGroup.setOnCheckedChangeListener(homeTapChangeListener);
         homeRadioGroup.getChildAt(0).performClick();
-//        findViewById(R.id.iBtnMainHome).setOnClickListener(onClickListener);
-//        findViewById(R.id.iBtnMainRank).setOnClickListener(onClickListener);
-//        findViewById(R.id.iBtnMainEvaluate).setOnClickListener(onClickListener);
-//        findViewById(R.id.iBtnMainCategory).setOnClickListener(onClickListener);
-//        findViewById(R.id.iBtnMainMypage).setOnClickListener(onClickListener);
+
         new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.POPUP_IMAGE, (response, data) -> {
             hideNavigationBar();
             switch (data.toString()) {
@@ -169,91 +163,6 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                     fragmentTransaction.add(R.id.fLyMain, myPageFragment).commit();
                 }
-                break;
-        }
-    };
-
-    @SuppressLint({"NonConstantResourceId", "UseCompatLoadingForDrawables"})
-    View.OnClickListener onClickListener = v -> {
-        Log.i(TAG, CURRENT_PAGE.name());
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        switch (v.getId()) {
-            case R.id.iBtnMainHome:
-                if (CURRENT_PAGE.equals(PAGES.HOME)) {
-                    return;
-                }
-                HomeFragment homeFragment = new HomeFragment();
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                fragmentTransaction.replace(R.id.fLyMain, homeFragment).commit();
-                break;
-            case R.id.iBtnMainCategory:
-                Log.i(TAG, CURRENT_PAGE.name());
-                if (CURRENT_PAGE.equals(PAGES.CATEGORY)) {
-                    return;
-                }
-                CategoryFragment categoryFragment = new CategoryFragment();
-                fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                fragmentTransaction.add(R.id.fLyMain, categoryFragment).commit();
-                break;
-            case R.id.iBtnMainEvaluate:
-                Log.i(TAG, CURRENT_PAGE.name());
-                if (CURRENT_PAGE.equals(PAGES.EVALUATE)) {
-                    return;
-                }
-                if (new PreferenceSetting(getBaseContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE).equals(LoginActivity.NO_LOGIN)) {
-                    new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.LOGIN, (response, data) -> {
-                        if (response) {
-                            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        } else {
-                            hideNavigationBar();
-                        }
-                    }).show();
-                } else {
-                    EvaluateFragment evaluateFragment = new EvaluateFragment();
-                    fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
-                    fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                    fragmentTransaction.add(R.id.fLyMain, evaluateFragment).commit();
-                }
-                break;
-            case R.id.iBtnMainRank:
-                Log.i(TAG, CURRENT_PAGE.name());
-                if (CURRENT_PAGE.equals(PAGES.RANKING)) {
-                    return;
-                }
-                RankingFragment rankingFragment = new RankingFragment();
-                fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                fragmentTransaction.add(R.id.fLyMain, rankingFragment).commit();
-                break;
-            case R.id.iBtnMainMypage:
-                if (CURRENT_PAGE.equals(PAGES.MY_PAGE)) {
-                    return;
-                }
-                if (new PreferenceSetting(getBaseContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE).equals(LoginActivity.NO_LOGIN)) {
-                    new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.LOGIN, (response, data) -> {
-                        if (response) {
-                            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        } else {
-                            hideNavigationBar();
-                        }
-                    }).show();
-                } else {
-                    MyPageFragment myPageFragment = new MyPageFragment();
-                    fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
-                    fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                    fragmentTransaction.add(R.id.fLyMain, myPageFragment).commit();
-//                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(intent);
-                }
-                break;
-            default:
                 break;
         }
     };

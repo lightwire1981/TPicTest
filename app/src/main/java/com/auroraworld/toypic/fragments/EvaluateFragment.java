@@ -138,6 +138,7 @@ public class EvaluateFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        MainActivity.CURRENT_PAGE = MainActivity.PAGES.EVALUATE;
         setChildList();
     }
 
