@@ -17,7 +17,8 @@ public class PreferenceSetting {
     public enum PREFERENCE_KEY {
         SERVER_ADDRESS,
         USER_INFO,
-        LOGIN_TYPE
+        LOGIN_TYPE,
+        TODAY
     }
     private final String[] USER_INFO_TYPE = {
             "id", "name", "email", "phone"
@@ -67,6 +68,9 @@ public class PreferenceSetting {
             case LOGIN_TYPE:
                 returnValue = preferences.getString(PREFERENCE_KEY.LOGIN_TYPE.name(), LoginActivity.NO_LOGIN);
                 break;
+            case TODAY:
+                returnValue = preferences.getString(PREFERENCE_KEY.TODAY.name(), "0");
+                break;
             default:
                 returnValue = null;
                 break;
@@ -75,6 +79,26 @@ public class PreferenceSetting {
     }
 
     public void savePreference(PREFERENCE_KEY category, String value) {
+        SharedPreferences preferences = context.getSharedPreferences("prefInfo", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(category.name(), value);
+//        switch (category) {
+//            case USER_INFO:
+//                editor.putString(PREFERENCE_KEY.USER_INFO.name(), value);
+//                break;
+//            case SERVER_ADDRESS:
+//                editor.putString(PREFERENCE_KEY.USER_INFO.name(), value);
+//                break;
+//            default:
+//                editor.putString("ServerAddress", value);
+//                break;
+//        }
+        editor.apply();
+        Log.i(TAG, "정보 반영 됨");
+//        Toast.makeText(context, "정보 반영 됨", Toast.LENGTH_SHORT).show();
+    }
+
+    public static void savePreference(Context context, PREFERENCE_KEY category, String value) {
         SharedPreferences preferences = context.getSharedPreferences("prefInfo", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(category.name(), value);

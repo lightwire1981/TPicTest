@@ -27,7 +27,9 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
 
     public static PAGES CURRENT_PAGE;
+    private String strFormat = "0";
+
     private static final String TAG = "TAG-MainActivity";
 
     @SuppressLint("StaticFieldLeak")
@@ -58,23 +62,36 @@ public class MainActivity extends AppCompatActivity {
         homeRadioGroup.setOnCheckedChangeListener(homeTapChangeListener);
         homeRadioGroup.getChildAt(0).performClick();
 
-        new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.POPUP_IMAGE, (response, data) -> {
-            hideNavigationBar();
-            switch (data.toString()) {
-                case "close":
-                    Log.i(TAG, data.toString());
-                    break;
-                case "today":
-                    // set today action
-                    break;
-            }
-        }, setPopupContent()).show();
+        popupShow();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         hideNavigationBar();
+    }
+
+    private void popupShow() {
+        long currentTime = System.currentTimeMillis();
+        Date todayDate = new Date(currentTime);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd");
+        strFormat = simpleDateFormat.format(todayDate);
+
+        String saveDay = PreferenceSetting.loadPreference(getBaseContext(), PreferenceSetting.PREFERENCE_KEY.TODAY);
+
+        if ((Integer.parseInt(strFormat) - Integer.parseInt(saveDay)) != 0) {
+            new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.POPUP_IMAGE, (response, data) -> {
+                hideNavigationBar();
+                switch (data.toString()) {
+                    case "close":
+                        Log.i(TAG, data.toString());
+                        break;
+                    case "today":
+                        PreferenceSetting.savePreference(getBaseContext(), PreferenceSetting.PREFERENCE_KEY.TODAY, strFormat);
+                        break;
+                }
+            }, setPopupContent()).show();
+        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
