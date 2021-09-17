@@ -13,11 +13,16 @@ import android.view.ViewGroup;
 
 import com.auroraworld.toypic.MainActivity;
 import com.auroraworld.toypic.R;
+import com.auroraworld.toypic.db.DBRequestType;
+import com.auroraworld.toypic.db.DatabaseRequest;
 import com.auroraworld.toypic.list_code.ListAdapterRCategory;
-import com.auroraworld.toypic.list_code.ListAdptRankingToy;
+import com.auroraworld.toypic.list_code.ListAdptRankingGoods;
 import com.auroraworld.toypic.list_code.ListItemRCategory;
-import com.auroraworld.toypic.list_code.ListItemRankingToy;
+import com.auroraworld.toypic.list_code.ListItemRankingGoods;
 import com.auroraworld.toypic.list_code.RecyclerDecoration;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -36,6 +41,8 @@ public class RankingFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView goodsRankingList;
 
     public RankingFragment() {
         // Required empty public constructor
@@ -75,9 +82,11 @@ public class RankingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ranking, container, false);
 
         RecyclerView rankingCategory = view.findViewById(R.id.rcyclVwRankCategory);
+        setLayoutManager(rankingCategory);
         setRankCategory(rankingCategory);
-        RecyclerView rankingProduct = view.findViewById(R.id.rcyclVwRankToyList);
-        setRankProduct(rankingProduct);
+
+        goodsRankingList = view.findViewById(R.id.rcyclVwRankToyList);
+        setLayoutManager(goodsRankingList);
 
         view.findViewById(R.id.iBtnRankingBack).setOnClickListener(onClickListener);
 
@@ -110,41 +119,43 @@ public class RankingFragment extends Fragment {
             item.setRankCategory(list);
             mList.add(item);
         }
-        recyclerView.setAdapter(new ListAdapterRCategory(mList));
-        setLayoutManager(recyclerView);
+        recyclerView.setAdapter(new ListAdapterRCategory(mList, categoryName -> setRankGoods(categoryName, goodsRankingList)));
     }
 
-    private void setRankProduct(RecyclerView recyclerView) {
-        ArrayList<ListItemRankingToy> mList = new ArrayList<>();
-        getRankingToyList(mList);
-        recyclerView.setAdapter(new ListAdptRankingToy(mList));
-        setLayoutManager(recyclerView);
+    private void setRankGoods(String categoryNm, RecyclerView recyclerView) {
+
+        new DatabaseRequest(getContext(), result -> {
+            JSONArray goodsList = new JSONArray();
+            try {
+                goodsList = new JSONArray(result[0]);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (goodsList.length() < 1) {
+                return;
+            }
+            ArrayList<ListItemRankingGoods> mList = new ArrayList<>();
+            for (int index=0; index < goodsList.length(); index++) {
+                ListItemRankingGoods item = new ListItemRankingGoods();
+                // temporary setting
+                item.setGoodsCategory(categoryNm);
+                try {
+                    item.setItem(goodsList.getJSONObject(index));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                mList.add(item);
+            }
+            recyclerView.setAdapter(new ListAdptRankingGoods(mList));
+        }).execute(DBRequestType.GET_RANKING_GOODS_MORE.name());
     }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private void getRankingToyList(ArrayList<ListItemRankingToy> mList) {
-        for (int index=0; index < 30; index++) {
-            ListItemRankingToy item = new ListItemRankingToy();
-
-            item.setNumberRank(String.valueOf(index+1));
-            item.setImgProduct(requireContext().getDrawable(R.drawable.tp_prod_a001_thumb01));
-            item.setRankCategory(getString(R.string.btn_rank_boy));
-            item.setNameProduct(getString(R.string.txt_rank_product_name1));
-            item.setPriceProduct(getString(R.string.txt_rank_product_price1));
-            item.setNumberRate(getString(R.string.txt_rating_default));
-            item.setReviewCount(getString(R.string.txt_rank_product_reviewcount));
-
-            mList.add(item);
-        }
-    }
-
 
     @SuppressLint("NonConstantResourceId")
     private void setLayoutManager(RecyclerView recyclerView) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         switch(recyclerView.getId()) {
             case R.id.rcyclVwRankCategory:
-                recyclerView.addItemDecoration(new RecyclerDecoration(25, 25));
+                recyclerView.addItemDecoration(new RecyclerDecoration(5, 10));
                 linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
                 break;
             case R.id.rcyclVwRankToyList:
@@ -161,8 +172,10 @@ public class RankingFragment extends Fragment {
     private final View.OnClickListener onClickListener = v -> {
         switch (v.getId()) {
             case R.id.iBtnRankingBack:
-                MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(0).getName());
+                int fragmentCount = getParentFragmentManager().getBackStackEntryCount();
+                MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(fragmentCount-1).getName());
                 getParentFragmentManager().popBackStack();
+                MainActivity.tabChanger(getParentFragmentManager());
                 break;
             default:
                 break;

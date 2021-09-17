@@ -225,6 +225,7 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                 case GET_FAVORITE_KEYWORD:
                 case GET_CUSTOM_GOODS:
                 case GET_RANKING_GOODS:
+                case GET_RANKING_GOODS_MORE:
                 case GET_NEW_GOODS:
                 case GET_POPULAR_REVIEW:
                 case TEST:

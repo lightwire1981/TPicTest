@@ -1,17 +1,21 @@
 package com.auroraworld.toypic.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.auroraworld.toypic.GoodsInfoActivity;
 import com.auroraworld.toypic.MainActivity;
 import com.auroraworld.toypic.R;
 import com.auroraworld.toypic.db.DBRequestType;
@@ -42,6 +46,9 @@ public class CategoryListFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String categoryCd;
     private String categoryNm;
+
+    private RecyclerView categoryGoodsView;
+    private final String TAG = getClass().getSimpleName();
 
     public CategoryListFragment() {
         // Required empty public constructor
@@ -81,7 +88,6 @@ public class CategoryListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_category_list, container, false);
 
         view.findViewById(R.id.iBtnCListBack).setOnClickListener(onClickListener);
@@ -91,9 +97,9 @@ public class CategoryListFragment extends Fragment {
         setLayoutManager(recyclerView);
         setCategoryIndexList(recyclerView);
 
-        RecyclerView categoryGoodsView = view.findViewById(R.id.rcyclVwCategoryGoods);
+        categoryGoodsView = view.findViewById(R.id.rcyclVwCategoryGoods);
         setLayoutManager(categoryGoodsView);
-        setCategoryGoodsList(categoryGoodsView);
+//        setCategoryGoodsList(categoryGoodsView);
 
         return view;
     }
@@ -107,7 +113,10 @@ public class CategoryListFragment extends Fragment {
         mList.add(addItem("3", "장르"));
         mList.add(addItem("4", "기타"));
 
-        recyclerView.setAdapter(new ListAdapterCtgDetailIndex(mList));
+        recyclerView.setAdapter(new ListAdapterCtgDetailIndex(mList, indexId -> {
+            //TODO: switching category goods
+            setCategoryGoodsList(categoryGoodsView);
+        }));
     }
     private ListItemCtgDetailIndex addItem(String... values) {
         ListItemCtgDetailIndex item = new ListItemCtgDetailIndex();
@@ -143,7 +152,24 @@ public class CategoryListFragment extends Fragment {
                 }
                 mList.add(item);
             }
-            recyclerView.setAdapter(new ListAdptCategoryGoods(mList));
+            recyclerView.setAdapter(new ListAdptCategoryGoods(mList, goodsNo -> {
+                JSONObject goodsData = new JSONObject();
+                try {
+                    goodsData.put("goodsNo", goodsNo);
+                    new DatabaseRequest(getContext(), result1 -> {
+                        if (result1[0].equals("null")) {
+                            Toast.makeText(getContext(), "상품데이터가 없습니다.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Intent intent = new Intent(getContext(), GoodsInfoActivity.class);
+                        intent.putExtra("goodsInfo", result1[0]);
+                        getContext().startActivity(intent);
+                    }).execute(DBRequestType.GET_GOODS_INFO.name(), goodsData.toString());
+                    Log.i(TAG, goodsData.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }));
         }).execute(DBRequestType.GET_CATEGORY_GOODS.name(), brandData.toString());
     }
 

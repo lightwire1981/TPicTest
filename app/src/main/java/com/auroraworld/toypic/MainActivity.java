@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.annotation.Nullable;
@@ -261,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
         int fragmentCount = fragmentManager.getBackStackEntryCount();
         if (fragmentCount > 0) {
             fragmentManager.popBackStack();
-            homeRadioGroup.getChildAt(PAGES.valueOf(CURRENT_PAGE.name()).ordinal()).performClick();
+            ((RadioButton)homeRadioGroup.getChildAt(PAGES.valueOf(CURRENT_PAGE.name()).ordinal())).setChecked(true);
         } else {
             homeRadioGroup.getChildAt(0).performClick();
         }

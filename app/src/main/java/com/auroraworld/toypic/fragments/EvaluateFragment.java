@@ -119,6 +119,7 @@ public class EvaluateFragment extends Fragment {
             int fragmentCount = getParentFragmentManager().getBackStackEntryCount();
             MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(fragmentCount-1).getName());
             getParentFragmentManager().popBackStack();
+            MainActivity.tabChanger(getParentFragmentManager());
         });
         return view;
     }

@@ -1,12 +1,10 @@
 package com.auroraworld.toypic.list_code;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,8 +19,14 @@ public class ListAdapterCtgDetailIndex extends RecyclerView.Adapter<ListAdapterC
     private final ArrayList<ListItemCtgDetailIndex> mData;
     private static final ArrayList<CheckBox> indexBoxList = new ArrayList<>();
 
-    public ListAdapterCtgDetailIndex(ArrayList<ListItemCtgDetailIndex> list) {
+    public interface CategorySelectListener {
+        void onSelectCategory(String indexId);
+    }
+    private final CategorySelectListener categorySelectListener;
+
+    public ListAdapterCtgDetailIndex(ArrayList<ListItemCtgDetailIndex> list, CategorySelectListener categorySelectListener) {
         mData = list;
+        this.categorySelectListener = categorySelectListener;
     }
 
     @NonNull
@@ -41,24 +45,22 @@ public class ListAdapterCtgDetailIndex extends RecyclerView.Adapter<ListAdapterC
         indexBoxList.add(position, holder.checkBox);
         holder.checkBox.setText(item.getIndexName());
         holder.checkBox.setTag(item.getIndexId());
-        holder.checkBox.setOnCheckedChangeListener(listener);
+        holder.checkBox.setOnCheckedChangeListener((checkbox, isChecked) -> {
+            if (isChecked) {
+                String label = checkbox.getText().toString();
+                for (CheckBox ckb : indexBoxList) {
+                    String temp = ckb.getText().toString();
+                    if (!temp.equals(label)) {
+                        ckb.setChecked(false);
+                    }
+                }
+                categorySelectListener.onSelectCategory(checkbox.getTag().toString());
+            }
+        });
         if (position ==0) {
             holder.checkBox.performClick();
         }
     }
-
-    private final CompoundButton.OnCheckedChangeListener listener = (checkbox, isChecked) -> {
-        if (isChecked) {
-            String label = checkbox.getText().toString();
-            for (CheckBox ckb : indexBoxList) {
-                String temp = ckb.getText().toString();
-                if (!temp.equals(label)) {
-                    ckb.setChecked(false);
-                }
-            }
-        }
-//        Log.i("<<<<<<<<<< Parent Layout ID : ",((View)checkbox.getParent()).getId()+"");
-    };
 
     @Override
     public int getItemCount() {
@@ -67,7 +69,7 @@ public class ListAdapterCtgDetailIndex extends RecyclerView.Adapter<ListAdapterC
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        CheckBox checkBox;
+        private final CheckBox checkBox;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);

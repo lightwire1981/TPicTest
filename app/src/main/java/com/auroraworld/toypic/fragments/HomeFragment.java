@@ -2,14 +2,12 @@ package com.auroraworld.toypic.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -34,7 +32,6 @@ import com.auroraworld.toypic.list_code.ListAdptMainRankingToy;
 import com.auroraworld.toypic.list_code.ListItemCustomToy;
 import com.auroraworld.toypic.list_code.ListItemMainRankingToy;
 import com.auroraworld.toypic.list_code.ListItemNewToy;
-import com.auroraworld.toypic.list_code.ListItemRankingToy;
 import com.auroraworld.toypic.list_code.ListItemReviewToy;
 import com.auroraworld.toypic.list_code.RecyclerDecoration;
 import com.auroraworld.toypic.utils.PreferenceSetting;

@@ -61,8 +61,13 @@ public class MyInfoChangeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_info_change, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_info_change, container, false);
+        view.findViewById(R.id.iBtnMyInfoChangeBack).setOnClickListener(v -> {
+            int fragmentCount = getParentFragmentManager().getBackStackEntryCount();
+            MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(fragmentCount-1).getName());
+            getParentFragmentManager().popBackStack();
+        });
+        return view;
     }
 
     @Override

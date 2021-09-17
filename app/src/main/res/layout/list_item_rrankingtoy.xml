@@ -43,7 +43,8 @@
         android:textAlignment="center"
         android:textColor="#F86666"
         app:layout_constraintStart_toEndOf="@+id/iVwRankListProductImg"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/tVwRankListProductName"
@@ -68,30 +69,28 @@
         android:text="@string/txt_rank_product_price1"
         android:textColor="#454545"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tVwRankListRate"
+        app:layout_constraintBottom_toTopOf="@+id/tVwRankListEval"
         app:layout_constraintStart_toEndOf="@+id/iVwRankListProductImg"
         app:layout_constraintTop_toBottomOf="@+id/tVwRankListProductName" />
 
     <TextView
-        android:id="@+id/tVwRankListRate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/txt_rating_default"
         android:textColor="#000000"
         app:drawableStartCompat="@drawable/img_rate_star"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView32"
+        app:layout_constraintEnd_toStartOf="@+id/tVwRankListEval"
         app:layout_constraintStart_toEndOf="@+id/iVwRankListProductImg" />
 
     <TextView
-        android:id="@+id/textView32"
+        android:id="@+id/tVwRankListEval"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/txt_null"
         android:textColor="@android:color/holo_red_dark"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tVwRankListReviewCount"
-        app:layout_constraintStart_toEndOf="@+id/tVwRankListRate" />
+        app:layout_constraintEnd_toStartOf="@+id/tVwRankListReviewCount"/>
 
     <TextView
         android:id="@+id/tVwRankListReviewCount"
@@ -105,6 +104,6 @@
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView32"
+        app:layout_constraintStart_toEndOf="@+id/tVwRankListEval"
         tools:ignore="TextContrastCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,8 +22,14 @@ public class ListAdptCategoryGoods extends RecyclerView.Adapter<ListAdptCategory
 
     private final String TAG = getClass().getSimpleName();
 
-    public ListAdptCategoryGoods(ArrayList<ListItemCategoryGoods> list) {
+    public interface GoodsListSelectListener {
+        void onSelectGoods(String goodsNo);
+    }
+    private final GoodsListSelectListener goodsListSelectListener;
+
+    public ListAdptCategoryGoods(ArrayList<ListItemCategoryGoods> list, GoodsListSelectListener goodsListSelectListener) {
         mData = list;
+        this.goodsListSelectListener = goodsListSelectListener;
     }
 
     @NonNull
@@ -43,19 +49,9 @@ public class ListAdptCategoryGoods extends RecyclerView.Adapter<ListAdptCategory
                 placeholder(R.drawable.tp_icon_brand01_on).
                 diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).
                 into(holder.goodsImg);
-        holder.goodsImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        holder.goodsImg.setOnClickListener(view -> goodsListSelectListener.onSelectGoods(item.getGoodsId()));
         holder.goodsName.setText(item.getGoodsName());
-        holder.goodsName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        holder.goodsName.setOnClickListener(view -> goodsListSelectListener.onSelectGoods(item.getGoodsId()));
         holder.goodsEvaluate.setText(context.getString(R.string.txt_category_eval_template, item.getGoodsEvaluate()));
         holder.goodsReviewCount.setText(item.getGoodsReviewCount());
         holder.goodsPrice.setText(item.getGoodsPrice());
@@ -68,8 +64,11 @@ public class ListAdptCategoryGoods extends RecyclerView.Adapter<ListAdptCategory
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView goodsImg;
-        private TextView goodsName, goodsEvaluate, goodsReviewCount, goodsPrice;
+        private final ImageView goodsImg;
+        private final TextView goodsName;
+        private final TextView goodsEvaluate;
+        private final TextView goodsReviewCount;
+        private final TextView goodsPrice;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

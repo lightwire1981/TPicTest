@@ -4,9 +4,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/tVwRankCategory"
-        style="@style/HomeButtonBorderless"
+    <CheckBox
+        android:id="@+id/cKbRankCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btn_dummy"

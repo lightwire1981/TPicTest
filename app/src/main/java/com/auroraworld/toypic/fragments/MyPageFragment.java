@@ -110,8 +110,8 @@ public class MyPageFragment extends Fragment {
             case R.id.iBtnMyPageChangeInfo:
                 MyInfoChangeFragment myInfoChangeFragment = new MyInfoChangeFragment();
                 fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(getId(), myInfoChangeFragment).commit();
+                fragmentTransaction.addToBackStack(MainActivity.CURRENT_PAGE.name());
+                fragmentTransaction.add(getId(), myInfoChangeFragment).commit();
                 break;
             case R.id.btnMyPageChild:
                 MyPageChildFragment myPageChildFragment = new MyPageChildFragment();

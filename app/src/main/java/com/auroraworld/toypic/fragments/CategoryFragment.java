@@ -84,7 +84,12 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
-        view.findViewById(R.id.iBtnCategoryBack).setOnClickListener(onClickListener);
+        view.findViewById(R.id.iBtnCategoryBack).setOnClickListener(v -> {
+            int fragmentCount = getParentFragmentManager().getBackStackEntryCount();
+            MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(fragmentCount-1).getName());
+            getParentFragmentManager().popBackStack();
+            MainActivity.tabChanger(getParentFragmentManager());
+        });
 
         CategoryBoxList.add(view.findViewById(R.id.cKbCategoryBoy));
         CategoryBoxList.add(view.findViewById(R.id.cKbCategoryGirl));
@@ -232,17 +237,4 @@ public class CategoryFragment extends Fragment {
 
         recyclerView.setLayoutManager(linearLayoutManager);
     }
-
-    @SuppressLint("NonConstantResourceId")
-    private final View.OnClickListener onClickListener = view -> {
-        switch (view.getId()) {
-            case R.id.iBtnCategoryBack:
-                Log.i("<<<<<<<<<<<< Backstack Entry : ", getParentFragmentManager().getBackStackEntryCount()+"");
-                Log.i("<<<<<<<<<<<< Backstack Entry : ", getParentFragmentManager().getBackStackEntryAt(0).getName());
-
-                MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(0).getName());
-                getParentFragmentManager().popBackStack();
-                break;
-        }
-    };
 }
