@@ -53,6 +53,16 @@
     </style>
 
 
+    <style name="CategoryButtonStyle"
+        parent="Widget.AppCompat.Button.Borderless">
+        <item name="minHeight">-10dp</item>
+        <item name="minWidth">-10dp</item>
+        <item name="android:textColor">@color/color_category_button</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
 
 
 <!--    Main Custom List Item Text Style    -->

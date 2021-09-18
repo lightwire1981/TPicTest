@@ -1,12 +1,10 @@
 package com.auroraworld.toypic.fragments;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -44,7 +42,7 @@ public class CategoryFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private final ArrayList<CheckBox> CategoryBoxList = new ArrayList<>();
+    private final ArrayList<Button> CategoryButtonList = new ArrayList<>();
 
     private JSONArray brandList = new JSONArray();
     private RecyclerView brandListView;
@@ -91,24 +89,21 @@ public class CategoryFragment extends Fragment {
             MainActivity.tabChanger(getParentFragmentManager());
         });
 
-        CategoryBoxList.add(view.findViewById(R.id.cKbCategoryBoy));
-        CategoryBoxList.add(view.findViewById(R.id.cKbCategoryGirl));
-        CategoryBoxList.add(view.findViewById(R.id.cKbCategoryBaby));
-        CategoryBoxList.add(view.findViewById(R.id.cKbCategoryBoard));
-        CategoryBoxList.add(view.findViewById(R.id.cKbCategoryOutdoor));
-        CategoryBoxList.add(view.findViewById(R.id.cKbCategoryLego));
-        CategoryBoxList.add(view.findViewById(R.id.cKbCategoryStuffed));
-        CategoryBoxList.add(view.findViewById(R.id.cKbCategoryCharacter));
-        for (CheckBox cbox : CategoryBoxList) {
-            cbox.setOnCheckedChangeListener((checkBox, isChecked) -> {
-                if (isChecked) {
-                    FragmentManager fragmentManager = getParentFragmentManager();
-                    CategoryListFragment categoryListFragment = CategoryListFragment.newInstance("0", checkBox.getText().toString());
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.addToBackStack(MainActivity.CURRENT_PAGE.name());
-                    fragmentTransaction.add(R.id.fLyMain, categoryListFragment).commit();
-                    checkBox.setChecked(false);
-                }
+        CategoryButtonList.add(view.findViewById(R.id.btnCategoryBoy));
+        CategoryButtonList.add(view.findViewById(R.id.btnCategoryGirl));
+        CategoryButtonList.add(view.findViewById(R.id.btnCategoryBaby));
+        CategoryButtonList.add(view.findViewById(R.id.btnCategoryBoard));
+        CategoryButtonList.add(view.findViewById(R.id.btnCategoryOutdoor));
+        CategoryButtonList.add(view.findViewById(R.id.btnCategoryLego));
+        CategoryButtonList.add(view.findViewById(R.id.btnCategoryStuffed));
+        CategoryButtonList.add(view.findViewById(R.id.btnCategoryCharacter));
+        for (Button btn : CategoryButtonList) {
+            btn.setOnClickListener(view1 -> {
+                FragmentManager fragmentManager = getParentFragmentManager();
+                CategoryListFragment categoryListFragment = CategoryListFragment.newInstance("0", btn.getText().toString());
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.addToBackStack(MainActivity.CURRENT_PAGE.name());
+                fragmentTransaction.add(R.id.fLyMain, categoryListFragment).commit();
             });
         }
         brandListView = view.findViewById(R.id.rcyclVwCategoryBrand);

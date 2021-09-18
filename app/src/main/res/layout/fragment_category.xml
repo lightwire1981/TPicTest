@@ -59,19 +59,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <CheckBox
-                android:id="@+id/cKbCategoryBoy"
-                style="@style/HomeCheckboxTextStyle"
+            <Button
+                android:id="@+id/btnCategoryBoy"
+                style="@style/CategoryButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:button="@android:color/transparent"
-                android:contentDescription="@string/cd_design_img"
-                android:drawableTop="@drawable/ckb_home_boy"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/btn_category_boy"
                 android:text="@string/btn_rank_boy"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TextContrastCheck" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imageView4"
@@ -99,16 +98,15 @@
             app:layout_constraintStart_toEndOf="@+id/cLyCategoryBoy"
             app:layout_constraintTop_toTopOf="parent">
 
-            <CheckBox
-                android:id="@+id/cKbCategoryGirl"
-                style="@style/HomeCheckboxTextStyle"
+            <Button
+                android:id="@+id/btnCategoryGirl"
+                style="@style/CategoryButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:button="@android:color/transparent"
-                android:contentDescription="@string/cd_design_img"
-                android:drawableTop="@drawable/ckb_home_girl"
+                android:drawableTop="@drawable/btn_category_girl"
                 android:text="@string/btn_rank_girl"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -140,16 +138,15 @@
             app:layout_constraintStart_toEndOf="@+id/cLyCategoryGirl"
             app:layout_constraintTop_toTopOf="parent">
 
-            <CheckBox
-                android:id="@+id/cKbCategoryBaby"
-                style="@style/HomeCheckboxTextStyle"
+            <Button
+                android:id="@+id/btnCategoryBaby"
+                style="@style/CategoryButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:button="@android:color/transparent"
-                android:contentDescription="@string/cd_design_img"
-                android:drawableTop="@drawable/ckb_home_baby"
+                android:drawableTop="@drawable/btn_category_baby"
                 android:text="@string/btn_rank_baby"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -180,16 +177,15 @@
             app:layout_constraintStart_toEndOf="@+id/cLyCategoryBaby"
             app:layout_constraintTop_toTopOf="parent">
 
-            <CheckBox
-                android:id="@+id/cKbCategoryBoard"
-                style="@style/HomeCheckboxTextStyle"
+            <Button
+                android:id="@+id/btnCategoryBoard"
+                style="@style/CategoryButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:button="@android:color/transparent"
-                android:contentDescription="@string/cd_design_img"
-                android:drawableTop="@drawable/ckb_home_board"
+                android:drawableTop="@drawable/btn_category_board"
                 android:text="@string/btn_rank_board"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -221,16 +217,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cLyCategoryBoy">
 
-            <CheckBox
-                android:id="@+id/cKbCategoryOutdoor"
-                style="@style/HomeCheckboxTextStyle"
+            <Button
+                android:id="@+id/btnCategoryOutdoor"
+                style="@style/CategoryButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:button="@android:color/transparent"
-                android:contentDescription="@string/cd_design_img"
-                android:drawableTop="@drawable/ckb_home_outdoor"
+                android:drawableTop="@drawable/btn_category_outdoor"
                 android:text="@string/btn_rank_outdoor"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -264,16 +259,15 @@
             app:layout_constraintStart_toEndOf="@+id/cLyCategoryOutdoor"
             app:layout_constraintTop_toBottomOf="@+id/cLyCategoryGirl">
 
-            <CheckBox
-                android:id="@+id/cKbCategoryLego"
-                style="@style/HomeCheckboxTextStyle"
+            <Button
+                android:id="@+id/btnCategoryLego"
+                style="@style/CategoryButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:button="@android:color/transparent"
-                android:contentDescription="@string/cd_design_img"
-                android:drawableTop="@drawable/ckb_home_lego"
+                android:drawableTop="@drawable/btn_category_lego"
                 android:text="@string/btn_rank_lego"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -307,16 +301,15 @@
             app:layout_constraintStart_toEndOf="@+id/cLyCategoryLego"
             app:layout_constraintTop_toBottomOf="@+id/cLyCategoryBaby">
 
-            <CheckBox
-                android:id="@+id/cKbCategoryStuffed"
-                style="@style/HomeCheckboxTextStyle"
+            <Button
+                android:id="@+id/btnCategoryStuffed"
+                style="@style/CategoryButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:button="@android:color/transparent"
-                android:contentDescription="@string/cd_design_img"
-                android:drawableTop="@drawable/ckb_home_stuffed_toy"
+                android:drawableTop="@drawable/btn_category_stuffedtoy"
                 android:text="@string/btn_rank_stuffedtoy"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -340,7 +333,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cLyCategoryChar"
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
@@ -349,16 +342,15 @@
             app:layout_constraintStart_toEndOf="@+id/cLyCategoryStuffedToy"
             app:layout_constraintTop_toBottomOf="@+id/cLyCategoryBoard">
 
-            <CheckBox
-                android:id="@+id/cKbCategoryCharacter"
-                style="@style/HomeCheckboxTextStyle"
+            <Button
+                android:id="@+id/btnCategoryCharacter"
+                style="@style/CategoryButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:button="@android:color/transparent"
-                android:contentDescription="@string/cd_design_img"
-                android:drawableTop="@drawable/ckb_home_character"
+                android:drawableTop="@drawable/btn_category_character"
                 android:text="@string/btn_rank_character"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
