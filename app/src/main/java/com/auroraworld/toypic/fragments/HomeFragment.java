@@ -20,6 +20,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.auroraworld.toypic.LoginActivity;
 import com.auroraworld.toypic.MainActivity;
+import com.auroraworld.toypic.PopularReviewActivity;
 import com.auroraworld.toypic.R;
 import com.auroraworld.toypic.ReviewShowActivity;
 import com.auroraworld.toypic.db.DBRequestType;
@@ -192,6 +193,7 @@ public class HomeFragment extends Fragment {
         setLayoutManager(newToyView, ListType.NEW);
         setNewToyList(newToyView);
 
+        view.findViewById(R.id.tVwHomeShowReview).setOnClickListener(onClickListener);
         RecyclerView reviewToyView = view.findViewById(R.id.rcyclVwMainReviewToy);
         setLayoutManager(reviewToyView, ListType.REVIEW);
         setReviewToyList(reviewToyView);
@@ -346,6 +348,10 @@ public class HomeFragment extends Fragment {
                 fragmentTransaction.addToBackStack(MainActivity.CURRENT_PAGE.name());
                 fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 fragmentTransaction.add(getId(), searchFragment).commit();
+                break;
+            case R.id.tVwHomeShowReview:
+                Intent intent = new Intent(getContext(), PopularReviewActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
 
     <ImageView
         android:id="@+id/iVwCustomListItem"
@@ -78,6 +79,7 @@
         android:clickable="true"
         android:ellipsize="end"
         android:ems="9"
+        android:focusable="true"
         android:gravity="center"
         android:lines="2"
         android:maxLines="2"
@@ -87,7 +89,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iVwCustomListItem"
         app:layout_constraintVertical_bias="0.0"
-        tools:ignore="TouchTargetSizeCheck"
-        android:focusable="true" />
+        tools:ignore="TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

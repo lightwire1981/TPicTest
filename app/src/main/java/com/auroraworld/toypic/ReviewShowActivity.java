@@ -42,6 +42,9 @@ public class ReviewShowActivity extends AppCompatActivity {
             case "MyPageReviewFragment":
                 reviewData = MyPageReviewFragment.goodsReview;
                 break;
+            case "PopularReviewActivity":
+                reviewData = PopularReviewActivity.goodsReview;
+                break;
         }
     }
 

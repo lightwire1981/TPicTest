@@ -75,10 +75,6 @@ public class ChildRegistActivity extends AppCompatActivity {
             case CHARACTER:
                 selectCount = CharacterSelectFragment.getSelectedChar();
                 Log.i(TAG, CHILD_DATA.toString());
-//                if (!CHILD_DATA.has("child_character")) {
-//                    // Alert Dialog Show
-//                    return;
-//                }
                 if (selectCount < 3) {
                     // Alert Dialog Show
                     new CustomDialog(ChildRegistActivity.this, CustomDialog.DIALOG_CATEGORY.SELECT_INVALID).show();

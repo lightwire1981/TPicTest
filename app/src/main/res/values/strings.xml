@@ -174,6 +174,8 @@
     <string name="txt_kids_order_suffix">%s 아이</string>
     <string name="txt_kids_info_change">정보 변경</string>
     <string name="txt_kids_info_delete">삭제</string>
+    <string name="txt_kids_delete_confirm">자녀 정보 삭제 </string>
+    <string name="txt_kids_delete_notice">자녀 정보를 삭제 하시겠습니까?\n</string>
 
     <string name="txt_kids_order_sample">첫째</string>
     <string name="txt_kids_nick_sample">장남이</string>
@@ -309,13 +311,18 @@
     <string name="txt_modify_notice">회원님의 개인정보를 안전하게 보호하기 위해\n비밀번호를 한번 더 입력해 주세요.</string>
 
 
+    <string name="txt_notice_title_sample">에그 박사와 함께하는 슈퍼클래스 경품 이벤트 당첨자 안내입니다.</string>
+    <string name="txt_notice_content_sample">안녕하세요.\n\n에그박사와 함께하는 슈퍼클래스 경품 이벤트 당첨자 안내드립니다.\n당첨되신 모든 분들 진심으로 축하 드립니다!\n\n
+    경품 배송 및 포인트 지급은 6월 1일 부터 진행 될 예정이며 일정은 당사 사정에 따라 변경될 수 있습니다.\n\n■ 에그박사 사연 도서 당첨자 명단\n\n이름 (전화번호 마지막 4자리)\n
+    김*객(1111)\n이*객(2222)\n박*객(3333)\n\n\n참여해 주신 모든 분들께 감사드리며 더욱 새롭고 재밌는 이벤트도 많은 기대 부탁드립니다.\n\n감사합니다.</string>
+
     <!--    EditText Hint    -->
     <string name="hint_search">검색어를 입력하세요</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--  KAKAO NATIVE APP KEY  -->
-<!--    <string name="kakao_native_appkey">658704b697f8ed991e142e40d859e38d</string>-->
+    <!--    <string name="kakao_native_appkey">658704b697f8ed991e142e40d859e38d</string>-->
     <string name="kakao_native_appkey">7fe5d97fa95e370899c5c9c0f8ce1b5a</string>
     <string name="kakao_logout">카카오 로그아웃</string>
 
@@ -327,8 +334,8 @@
     <string name="naver_logout">네이버 로그아웃</string>
 
     <!--  facebook Login INFO  -->
-<!--    <string name="facebook_app_id">393843192200505</string>-->
-<!--    <string name="fb_login_protocol_scheme">fb393843192200505</string>-->
+    <!--    <string name="facebook_app_id">393843192200505</string>-->
+    <!--    <string name="fb_login_protocol_scheme">fb393843192200505</string>-->
     <string name="facebook_app_id">446553556624186</string>
     <string name="fb_login_protocol_scheme">fb446553556624186</string>
 

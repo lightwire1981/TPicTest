@@ -143,6 +143,11 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
+    <style name="SelectChildStyle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/color_child_checkbox</item>
+    </style>
 
 
     <style name="CategoryDetailCheckboxTextStyle">

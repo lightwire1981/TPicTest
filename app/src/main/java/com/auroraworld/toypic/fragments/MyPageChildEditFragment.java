@@ -20,7 +20,10 @@ import com.auroraworld.toypic.MainActivity;
 import com.auroraworld.toypic.R;
 import com.auroraworld.toypic.db.DBRequestType;
 import com.auroraworld.toypic.db.DatabaseRequest;
+import com.auroraworld.toypic.list_code.ListAdapterChildInfo;
 import com.auroraworld.toypic.utils.ChildOrderConvert;
+import com.auroraworld.toypic.utils.CustomDialog;
+import com.auroraworld.toypic.utils.PreferenceSetting;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,6 +49,9 @@ public class MyPageChildEditFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String childId;
     private String childAllInfo;
+    private JSONObject childInfo;
+
+    private View view;
 
     private EditText childNickVw;
     private CalendarView childBirthVw;
@@ -86,48 +92,68 @@ public class MyPageChildEditFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        MainActivity.CURRENT_PAGE = MainActivity.PAGES.MY_CHILD_EDIT;
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_my_page_child_edit, container, false);
+        view =inflater.inflate(R.layout.fragment_my_page_child_edit, container, false);
         childNickVw = view.findViewById(R.id.eTxtChildNickName);
         childBirthVw = view.findViewById(R.id.calendarVwChildBirth);
         childBirthVw.setOnDateChangeListener(onDateChangeListener);
-        JSONObject child = getChild();
-        if (child == null) {
-            Log.e(TAG, "NO Child error");
-            return view;
-        }
-        setChildInfo(view, child);
+
         view.findViewById(R.id.iBtnChildEditBack).setOnClickListener(onClickListener);
         view.findViewById(R.id.btnChildEdit).setOnClickListener(onClickListener);
         view.findViewById(R.id.btnChildDelete).setOnClickListener(onClickListener);
         return view;
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MainActivity.CURRENT_PAGE = MainActivity.PAGES.MY_CHILD_EDIT;
+        getChild();
+        if (childInfo == null) {
+            Log.e(TAG, "NO Child error");
+        }
+    }
+
     /**
      * 수정하려는 자녀 선택
      * @return 선택 된 자녀 정보
      */
-    private JSONObject getChild() {
+    private void getChild() {
+//        try {
+//            JSONArray childList = new JSONArray(childAllInfo);
+//            for (int index=0; index < childList.length(); index++) {
+//                JSONObject child = childList.getJSONObject(index);
+//                if (child.getString("idx").equals(childId)) {
+//                    return child;
+//                }
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+        String userInfo = new PreferenceSetting(getContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO);
+        JSONObject object = new JSONObject();
         try {
-            JSONArray childList = new JSONArray(childAllInfo);
-            for (int index=0; index < childList.length(); index++) {
-                JSONObject child = childList.getJSONObject(index);
-                if (child.getString("idx").equals(childId)) {
-                    return child;
-                }
-            }
+            object.put("id", (new JSONObject(userInfo)).get("id"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return null;
+
+        new DatabaseRequest(getContext(), result -> {
+            try {
+                JSONArray childList = new JSONArray(result[0]);
+                for (int index=0; index < childList.length(); index++) {
+                    JSONObject child = childList.getJSONObject(index);
+                    if (child.getString("idx").equals(childId)) {
+                        setChildInfo(view, child);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }).execute(DBRequestType.GET_CHILD.name(), object.toString());
     }
 
     private void setChildInfo(View view, JSONObject child) {
@@ -144,9 +170,21 @@ public class MyPageChildEditFragment extends Fragment {
                 e.printStackTrace();
             }
             String[] favorChars = child.getString("child_character").split(",");
-            ((TextView)view.findViewById(R.id.tVwChildFavorChar)).setText(getString(R.string.txt_kids_favor_char_count, favorChars.length+""));
-            ((TextView)view.findViewById(R.id.tVwChildPersonality)).setText(child.getString("child_personality"));
-            ((TextView)view.findViewById(R.id.tVwChildEvaluateAvgr)).setText(getString(R.string.txt_kids_evaluate_template, "0", "0"));
+            TextView tvwChar = view.findViewById(R.id.tVwChildFavorChar);
+            tvwChar.setText(getString(R.string.txt_kids_favor_char_count, favorChars.length+""));
+            tvwChar.setOnClickListener(onClickListener);
+            TextView tvwPerson = view.findViewById(R.id.tVwChildPersonality);
+            tvwPerson.setText(child.getString("child_personality"));
+            tvwPerson.setOnClickListener(onClickListener);
+            String temp1 = child.getString("evaluate_avg");
+            String temp2 = child.getString("evaluate_sum");
+            if (temp1.isEmpty()||temp1.equals("null")) {
+                temp1 = "0";
+                temp2 = "0";
+            }
+            String eAvg = String.format("%.1f", Float.parseFloat(temp1));
+            ((TextView)view.findViewById(R.id.tVwChildEvaluateAvgr)).
+                    setText(getString(R.string.txt_kids_evaluate_template, eAvg, temp2));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -160,6 +198,7 @@ public class MyPageChildEditFragment extends Fragment {
 
     @SuppressLint("NonConstantResourceId")
     private final View.OnClickListener onClickListener = view -> {
+        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         switch (view.getId()) {
             case R.id.iBtnChildEditBack:
                 fragmentBack();
@@ -183,20 +222,38 @@ public class MyPageChildEditFragment extends Fragment {
                 }).execute(DBRequestType.UPDATE_CHILD.name(), editedData.toString());
                 break;
             case R.id.btnChildDelete:
-                JSONObject deleteChild = new JSONObject();
-                try {
-                    deleteChild.put("idx", childId);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                new DatabaseRequest(getContext(), result -> {
-                    if (result[0].equals("OK")) {
-                        Toast.makeText(getContext(), "자녀 정보가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                        fragmentBack();
+                new CustomDialog(getContext(), CustomDialog.DIALOG_CATEGORY.DELETE_CHILD_CONFIRM, (response, data) -> {
+                    if (response) {
+                        JSONObject deleteChild = new JSONObject();
+                        try {
+                            deleteChild.put("idx", childId);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        new DatabaseRequest(getContext(), result -> {
+                            if (result[0].equals("OK")) {
+                                Toast.makeText(getContext(), "자녀 정보가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                                fragmentBack();
+                            } else {
+                                Toast.makeText(getContext(), "자녀 정보 삭제에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        }).execute(DBRequestType.DELETE_CHILD.name(), deleteChild.toString());
                     } else {
-                        Toast.makeText(getContext(), "자녀 정보 삭제에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                        hideNavigationBar();
                     }
-                }).execute(DBRequestType.DELETE_CHILD.name(), deleteChild.toString());
+                }).show();
+                break;
+            case R.id.tVwChildFavorChar:
+                CharacterEditFragment characterEditFragment= CharacterEditFragment.newInstance(childId);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                fragmentTransaction.add(getId(), characterEditFragment).commit();
+                break;
+            case R.id.tVwChildPersonality:
+                PersonalEditFragment personalEditFragment= PersonalEditFragment.newInstance(childId);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                fragmentTransaction.add(getId(), personalEditFragment).commit();
                 break;
             default:
                 break;
@@ -212,5 +269,10 @@ public class MyPageChildEditFragment extends Fragment {
         MyPageChildFragment myPageChildFragment = new MyPageChildFragment();
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.replace(getId(), myPageChildFragment).commit();
+    }
+
+    private void hideNavigationBar(){
+        View decorView = getActivity().getWindow().getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 }

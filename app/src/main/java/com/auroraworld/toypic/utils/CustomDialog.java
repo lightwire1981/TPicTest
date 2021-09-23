@@ -44,6 +44,7 @@ public class CustomDialog extends Dialog {
         FORM_INVALID,
         SELECT_INVALID,
         NO_CHILD_INFORM,
+        DELETE_CHILD_CONFIRM,
         EVALUATE_CONFIRM,
         EXIT
     }
@@ -146,6 +147,11 @@ public class CustomDialog extends Dialog {
                 setContentView(R.layout.dialog_no_child_inform);
                 findViewById(R.id.btnNoChildConfirm).setOnClickListener(onClickListener);
                 break;
+            case DELETE_CHILD_CONFIRM:
+                setContentView(R.layout.dialog_delete_child_confirm);
+                findViewById(R.id.btnDlgChildDeleteNo).setOnClickListener(onClickListener);
+                findViewById(R.id.btnDlgChildDeleteYes).setOnClickListener(onClickListener);
+                break;
             case EVALUATE_CONFIRM:
                 setContentView(R.layout.dialog_evaluate_confirm);
                 findViewById(R.id.btnDlgEvaluateNo).setOnClickListener(onClickListener);
@@ -197,6 +203,7 @@ public class CustomDialog extends Dialog {
             case R.id.btnDlgExitNo:
             case R.id.btnDlgEvaluateNo:
             case R.id.btnDlgReviewDeleteNo:
+            case R.id.btnDlgChildDeleteNo:
                 dialogResponseListener.getResponse(false, null);
                 dismiss();
                 break;
@@ -210,6 +217,7 @@ public class CustomDialog extends Dialog {
             case R.id.btnNoChildSelectConfirm:
             case R.id.btnInsertComfirm:
             case R.id.btnDlgReviewDeleteYes:
+            case R.id.btnDlgChildDeleteYes:
                 dialogResponseListener.getResponse(true, null);
                 dismiss();
                 break;
@@ -251,6 +259,7 @@ public class CustomDialog extends Dialog {
             case FORM_INVALID:
             case SELECT_INVALID:
             case NO_CHILD_INFORM:
+            case DELETE_CHILD_CONFIRM:
             case EVALUATE_CONFIRM:
             case JOIN_AGREE_CONFIRM:
             case EMAIL:

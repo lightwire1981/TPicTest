@@ -639,9 +639,10 @@
         android:background="@drawable/img_more_info_red"
         android:clickable="true"
         android:contentDescription="@string/cd_more_btn"
+        android:focusable="true"
         android:text="@string/txt_more_info"
-        tools:ignore="TextContrastCheck,TouchTargetSizeCheck"
-        android:focusable="true" />
+        android:visibility="gone"
+        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcyclVwMainNewToy"

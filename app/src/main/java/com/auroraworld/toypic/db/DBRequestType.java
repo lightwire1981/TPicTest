@@ -7,6 +7,8 @@ public enum DBRequestType {
     CREATE_CHILD,
     GET_CHILD,
     UPDATE_CHILD,
+    UPDATE_CHILD_CHAR,
+    UPDATE_CHILD_PERSON,
     DELETE_CHILD,
     GET_ALL_GOODS,
     GET_GOODS_INFO,

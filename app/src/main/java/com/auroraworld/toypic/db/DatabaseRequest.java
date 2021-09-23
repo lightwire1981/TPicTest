@@ -205,6 +205,16 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                             CHILD_NICK +jsonObject.get("child_nick").toString() + AND +
                             CHILD_BIRTH +jsonObject.get("child_birth").toString();
                     break;
+                case UPDATE_CHILD_CHAR:
+                    parameterValue = USE + params[0] + AND +
+                            CHILD_IDX +jsonObject.getString("idx") + AND +
+                            CHILD_CHAR +jsonObject.getString("child_character");
+                    break;
+                case UPDATE_CHILD_PERSON:
+                    parameterValue = USE + params[0] + AND +
+                            CHILD_IDX +jsonObject.getString("idx") + AND +
+                            CHILD_PERSON +jsonObject.getString("child_personality");
+                    break;
                 case GET_EVALUATE_GOODS:
                 case DELETE_CHILD:
                     parameterValue = USE + params[0] + AND +

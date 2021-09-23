@@ -132,8 +132,7 @@ public class MyPageChildFragment extends Fragment {
             new DatabaseRequest(getContext(), result -> {
                 ListAdapterChildInfo listAdapterChildInfo = getChildInfo(result[0]);
                 childListView.setAdapter(listAdapterChildInfo);
-            }).execute(DBRequestType.GET_CHILD.name(),
-                    object.toString());
+            }).execute(DBRequestType.GET_CHILD.name(), object.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }

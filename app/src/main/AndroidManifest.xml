@@ -20,7 +20,7 @@
     </queries>
 
     <application
-        android:name="com.auroraworld.toypic.utils.GlobalApplication"
+        android:name=".utils.GlobalApplication"
         android:allowBackup="true"
         android:appComponentFactory="whateverString"
         android:icon="@mipmap/ic_launcher"
@@ -33,30 +33,33 @@
         tools:replace="android:appComponentFactory"
         tools:targetApi="p">
         <activity
-            android:name="com.auroraworld.toypic.JoinActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity
-            android:name="com.auroraworld.toypic.ReviewShowActivity"
+            android:name=".PopularReviewActivity"
             android:exported="true" />
         <activity
-            android:name="com.auroraworld.toypic.PhotoActivity"
+            android:name=".JoinActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ReviewShowActivity"
             android:exported="true" />
         <activity
-            android:name="com.auroraworld.toypic.ReviewWriteActivity"
+            android:name=".PhotoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ReviewWriteActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.auroraworld.toypic.GoodsInfoActivity"
+            android:name=".GoodsInfoActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.auroraworld.toypic.ChildRegistActivity"
+            android:name=".ChildRegistActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name="com.auroraworld.toypic.IntermediateActivity" />
-        <activity android:name="com.auroraworld.toypic.LoginActivity" />
+        <activity android:name=".IntermediateActivity" />
+        <activity android:name=".LoginActivity" />
         <activity
-            android:name="com.auroraworld.toypic.SplashActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -65,7 +68,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.auroraworld.toypic.MainActivity"
+            android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
