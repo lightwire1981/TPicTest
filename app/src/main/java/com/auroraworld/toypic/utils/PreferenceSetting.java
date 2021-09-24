@@ -17,6 +17,7 @@ public class PreferenceSetting {
     public enum PREFERENCE_KEY {
         SERVER_ADDRESS,
         USER_INFO,
+        USER_ID,
         LOGIN_TYPE,
         TODAY
     }
@@ -34,6 +35,19 @@ public class PreferenceSetting {
         switch (category) {
             case USER_INFO:
                 returnValue = preferences.getString(PREFERENCE_KEY.USER_INFO.name(), "");
+                break;
+            case USER_ID:
+                JSONObject userInfo;
+                returnValue = "";
+                try {
+                    userInfo = new JSONObject(preferences.getString(PREFERENCE_KEY.USER_INFO.name(), ""));
+                    returnValue = userInfo.getString("id");
+                    if (returnValue.isEmpty()) {
+                        return "";
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 break;
             case SERVER_ADDRESS:
                 returnValue = preferences.getString(PREFERENCE_KEY.SERVER_ADDRESS.name(), DEFAULT_SERVER_IP);
@@ -61,6 +75,19 @@ public class PreferenceSetting {
         switch (category) {
             case USER_INFO:
                 returnValue = preferences.getString(PREFERENCE_KEY.USER_INFO.name(), "");
+                break;
+            case USER_ID:
+                JSONObject userInfo;
+                returnValue = "";
+                try {
+                    userInfo = new JSONObject(preferences.getString(PREFERENCE_KEY.USER_INFO.name(), ""));
+                    returnValue = userInfo.getString("id");
+                    if (returnValue.isEmpty()) {
+                        return "";
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 break;
             case SERVER_ADDRESS:
                 returnValue = preferences.getString(PREFERENCE_KEY.SERVER_ADDRESS.name(), DEFAULT_SERVER_IP);

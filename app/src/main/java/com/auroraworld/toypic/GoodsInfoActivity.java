@@ -3,7 +3,10 @@ package com.auroraworld.toypic;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -262,6 +265,40 @@ public class GoodsInfoActivity extends AppCompatActivity {
             intent.putExtra("CALL_TYPE", TAG);
             intent.putExtra("goodsInfo", GoodsInfo.toString());
             startActivity(intent);
+        });
+
+        ((CheckBox)findViewById(R.id.cKbGoodsInfoLike)).setOnCheckedChangeListener((checkBox, isChecked) -> {
+            try {
+                JSONObject userInfo = new JSONObject(PreferenceSetting.loadPreference(getBaseContext(), PreferenceSetting.PREFERENCE_KEY.USER_INFO));
+                String userId = userInfo.getString("id");
+                String goodsNo = GoodsInfo.getString("goodsNo");
+                JSONObject likeData = new JSONObject();
+                likeData.put("id", userId);
+                likeData.put("goodsNo", goodsNo);
+                if (isChecked) {
+                    likeData.put("like", "1");
+                } else {
+                    likeData.put("like", "0");
+                }
+                new DatabaseRequest(getBaseContext(), result -> {
+                    switch (result[0]) {
+                        case "INSERT_FAIL":
+                        case "UPDATE_FAIL":
+                            Toast.makeText(getBaseContext(), "정보 처리 실패", Toast.LENGTH_SHORT).show();
+                            break;
+                        case "INSERT_OK":
+                        case "UPDATE_OK":
+                            if (isChecked) {
+                                Log.i(TAG, "좋아요 등록");
+                            } else {
+                                Log.i(TAG, "좋아요 해제");
+                            }
+                            break;
+                    }
+                }).execute(DBRequestType.LIKE.name(), likeData.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         });
     }
 

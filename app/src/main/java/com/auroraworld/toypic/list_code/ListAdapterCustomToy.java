@@ -18,6 +18,7 @@ import com.auroraworld.toypic.GoodsInfoActivity;
 import com.auroraworld.toypic.R;
 import com.auroraworld.toypic.db.DBRequestType;
 import com.auroraworld.toypic.db.DatabaseRequest;
+import com.auroraworld.toypic.utils.PreferenceSetting;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
@@ -73,8 +74,38 @@ public class ListAdapterCustomToy extends RecyclerView.Adapter<ListAdapterCustom
             }
         });
 
-        holder.goodsLike.setOnCheckedChangeListener((compoundButton, b) -> {
-
+        holder.goodsLike.setOnCheckedChangeListener((checkBox, isChecked) -> {
+            try {
+                JSONObject userInfo = new JSONObject(PreferenceSetting.loadPreference(context, PreferenceSetting.PREFERENCE_KEY.USER_INFO));
+                String userId = userInfo.getString("id");
+                String goodsNo = item.getGoodsId();
+                JSONObject likeData = new JSONObject();
+                likeData.put("id", userId);
+                likeData.put("goodsNo", goodsNo);
+                if (isChecked) {
+                    likeData.put("like", "1");
+                } else {
+                    likeData.put("like", "0");
+                }
+                new DatabaseRequest(context, result -> {
+                    switch (result[0]) {
+                        case "INSERT_FAIL":
+                        case "UPDATE_FAIL":
+                            Toast.makeText(context, "정보 처리 실패", Toast.LENGTH_SHORT).show();
+                            break;
+                        case "INSERT_OK":
+                        case "UPDATE_OK":
+                            if (isChecked) {
+                                Log.i(TAG, "좋아요 등록");
+                            } else {
+                                Log.i(TAG, "좋아요 해제");
+                            }
+                            break;
+                    }
+                }).execute(DBRequestType.LIKE.name(), likeData.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         });
 
         holder.goodsName.setText(item.getGoodsName());

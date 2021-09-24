@@ -151,6 +151,8 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
         String CHILD_CHAR = "CHILD_CHAR=";
         String CHILD_PERSON = "CHILD_PERSON=";
 
+        String LIKE = "LIKE=";
+
 
         //endregion
 
@@ -266,6 +268,12 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                 case DELETE_REVIEW:
                     parameterValue = USE + params[0] + AND +
                             REVIEW_ID + jsonObject.getString("review_id");
+                    break;
+                case LIKE:
+                    parameterValue = USE + params[0] + AND +
+                            USER_ID + jsonObject.getString("id") + AND +
+                            GOODS_NO + jsonObject.getString("goodsNo") + AND +
+                            LIKE + jsonObject.getString("like");
                     break;
                 default:
                     parameterValue = null;
