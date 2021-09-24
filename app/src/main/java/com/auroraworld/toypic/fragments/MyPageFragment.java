@@ -41,6 +41,7 @@ public class MyPageFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        view.findViewById(R.id.btnMyPageLike).setOnClickListener(onClickListener);
         view.findViewById(R.id.btnMyPageReview).setOnClickListener(onClickListener);
         view.findViewById(R.id.iBtnMyPageChangeInfo).setOnClickListener(onClickListener);
         view.findViewById(R.id.btnMyPageChild).setOnClickListener(onClickListener);
@@ -63,6 +64,13 @@ public class MyPageFragment extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         switch (v.getId()) {
+            case R.id.btnMyPageLike:
+                MyPageLikeFragment myPageLikeFragment = MyPageLikeFragment.newInstance(
+                        PreferenceSetting.loadPreference(requireContext(), PreferenceSetting.PREFERENCE_KEY.USER_ID));
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                fragmentTransaction.addToBackStack(MainActivity.CURRENT_PAGE.name());
+                fragmentTransaction.add(getId(), myPageLikeFragment).commit();
+                break;
             case R.id.btnMyPageReview:
                 MyPageReviewFragment myPageReviewFragment = new MyPageReviewFragment();
                 fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);

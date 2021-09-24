@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         HOME, CATEGORY, EVALUATE, RANKING, MY_PAGE, MY_CHILD, MY_CHILD_EDIT, MY_REVIEW, MY_PAGE_SUB, SEARCH, SETTING
     }
 
-    private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
     public static PAGES CURRENT_PAGE;
@@ -55,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i(TAG, new PreferenceSetting(getBaseContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.USER_INFO));
 
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         homeRadioGroup = findViewById(R.id.rGrpMainRadioButton);
         homeRadioGroup.setOnCheckedChangeListener(homeTapChangeListener);
@@ -123,8 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("NonConstantResourceId")
     private final RadioGroup.OnCheckedChangeListener homeTapChangeListener = (radioGroup, radiobuttonId) -> {
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
         switch (radiobuttonId) {
             case R.id.rBtnMainHome:
                 HomeFragment homeFragment = new HomeFragment();
@@ -139,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.rBtnMainEvaluate:
                 EvaluateFragment evaluateFragment = new EvaluateFragment();
-                fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
                 if (new PreferenceSetting(getBaseContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE).equals(LoginActivity.NO_LOGIN)) {
                     new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.LOGIN, (response, data) -> {
                         if (response) {
@@ -147,11 +143,12 @@ public class MainActivity extends AppCompatActivity {
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         } else {
-                            tabChanger(fragmentManager);
+                            tabChanger(getSupportFragmentManager());
                             hideNavigationBar();
                         }
                     }).show();
                 } else {
+                    fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
                     fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                     fragmentTransaction.add(R.id.fLyMain, evaluateFragment).commit();
                 }
@@ -164,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.rBtnMainMypage:
                 MyPageFragment myPageFragment = new MyPageFragment();
-                fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
                 if (new PreferenceSetting(getBaseContext()).loadPreference(PreferenceSetting.PREFERENCE_KEY.LOGIN_TYPE).equals(LoginActivity.NO_LOGIN)) {
                     new CustomDialog(MainActivity.this, CustomDialog.DIALOG_CATEGORY.LOGIN, (response, data) -> {
                         if (response) {
@@ -172,11 +168,12 @@ public class MainActivity extends AppCompatActivity {
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         } else {
-                            tabChanger(fragmentManager);
+                            tabChanger(getSupportFragmentManager());
                             hideNavigationBar();
                         }
                     }).show();
                 } else {
+                    fragmentTransaction.addToBackStack(CURRENT_PAGE.name());
                     fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                     fragmentTransaction.add(R.id.fLyMain, myPageFragment).commit();
                 }
@@ -188,10 +185,14 @@ public class MainActivity extends AppCompatActivity {
         int fragmentCount = fragmentManager.getBackStackEntryCount();
         if (fragmentCount > 0) {
             fragmentManager.popBackStack();
-            ((RadioButton)homeRadioGroup.getChildAt(PAGES.valueOf(CURRENT_PAGE.name()).ordinal())).setChecked(true);
+            ((RadioButton)homeRadioGroup.getChildAt(
+                    PAGES.valueOf(CURRENT_PAGE.name()).ordinal() > 4 ? 0:PAGES.valueOf(CURRENT_PAGE.name()).ordinal())).setChecked(true);
         } else {
             homeRadioGroup.getChildAt(0).performClick();
         }
+    }
+    public static void tabChanger() {
+        ((RadioButton)homeRadioGroup.getChildAt(0)).setChecked(true);
     }
 
     public static void CallRankingFragment() {

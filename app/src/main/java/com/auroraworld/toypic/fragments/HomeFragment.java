@@ -341,10 +341,8 @@ public class HomeFragment extends Fragment {
         switch (v.getId()) {
             case R.id.iBtn_Main_Search:
                 timer.cancel();
-                FragmentManager fragmentManager = getParentFragmentManager();
                 SearchFragment searchFragment = new SearchFragment();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
                 fragmentTransaction.addToBackStack(MainActivity.CURRENT_PAGE.name());
                 fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 fragmentTransaction.add(getId(), searchFragment).commit();

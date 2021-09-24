@@ -100,7 +100,6 @@ public class EvaluateFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_evaluate, container, false);
         evaluateChildList = view.findViewById(R.id.rcyclVwEvaluateChild);
         evaluateGoodsList = view.findViewById(R.id.rcyclVwEvaluateGoods);
@@ -118,7 +117,7 @@ public class EvaluateFragment extends Fragment {
         view.findViewById(R.id.iBtnEvaluateBack).setOnClickListener(button -> {
             int fragmentCount = getParentFragmentManager().getBackStackEntryCount();
             MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(fragmentCount-1).getName());
-            getParentFragmentManager().popBackStack();
+//            getParentFragmentManager().popBackStack();
             MainActivity.tabChanger(getParentFragmentManager());
         });
         return view;

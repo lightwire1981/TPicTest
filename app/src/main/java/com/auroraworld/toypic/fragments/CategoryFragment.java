@@ -85,7 +85,7 @@ public class CategoryFragment extends Fragment {
         view.findViewById(R.id.iBtnCategoryBack).setOnClickListener(v -> {
             int fragmentCount = getParentFragmentManager().getBackStackEntryCount();
             MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(fragmentCount-1).getName());
-            getParentFragmentManager().popBackStack();
+//            getParentFragmentManager().popBackStack();
             MainActivity.tabChanger(getParentFragmentManager());
         });
 

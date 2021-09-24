@@ -1,10 +1,12 @@
 package com.auroraworld.toypic.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +17,15 @@ import com.auroraworld.toypic.R;
 import com.auroraworld.toypic.db.DBRequestType;
 import com.auroraworld.toypic.db.DatabaseRequest;
 import com.auroraworld.toypic.list_code.ListAdapterNull;
+import com.auroraworld.toypic.list_code.ListAdptLikeGoods;
+import com.auroraworld.toypic.list_code.ListItemLikeGoods;
 import com.auroraworld.toypic.list_code.RecyclerDecoration;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +42,9 @@ public class MyPageLikeFragment extends Fragment {
     private String userId;
 
     private RecyclerView myLikeListVw;
+    private ProgressDialog progressDialog;
+
+    private SwipeRefreshLayout refreshLayout;
 
     public MyPageLikeFragment() {
         // Required empty public constructor
@@ -70,6 +80,14 @@ public class MyPageLikeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_page_like, container, false);
         myLikeListVw = view.findViewById(R.id.rclVwMyLikeList);
         setLayoutManager(myLikeListVw);
+
+        refreshLayout = view.findViewById(R.id.swRefLikeGoods);
+        refreshLayout.setColorSchemeResources(
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_red_dark,
+                android.R.color.holo_green_dark
+        );
+        refreshLayout.setOnRefreshListener(this::getMyLikes);
         view.findViewById(R.id.iBtnMypageLikeBack).setOnClickListener(view1 -> {
             int fragmentCount = getParentFragmentManager().getBackStackEntryCount();
             MainActivity.CURRENT_PAGE = MainActivity.PAGES.valueOf(getParentFragmentManager().getBackStackEntryAt(fragmentCount-1).getName());
@@ -81,6 +99,11 @@ public class MyPageLikeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        getMyLikes();
+        progressDialog = new ProgressDialog(requireContext());
+        progressDialog.setOnDismissListener(dialogInterface -> hideNavigationBar());
+        progressDialog.setMessage("리뷰를 조회 중입니다...");
+        progressDialog.show();
     }
 
     private void getMyLikes() {
@@ -88,11 +111,31 @@ public class MyPageLikeFragment extends Fragment {
             new DatabaseRequest(getContext(), result -> {
                 if (result[0].equals("null")) {
                     myLikeListVw.setAdapter(new ListAdapterNull(getString(R.string.txt_like_null)));
+                    progressDialog.dismiss();
+                    refreshLayout.setRefreshing(false);
                     return;
                 }
-            }).execute(DBRequestType.LIKE.name(), new JSONObject().put("id", userId).toString());
+                try {
+                    JSONArray likeList = new JSONArray(result[0]);
+                    ArrayList<ListItemLikeGoods> likeInfo = new ArrayList<>();
+                    for (int i=0; i < likeList.length(); i++) {
+                        ListItemLikeGoods item = new ListItemLikeGoods();
+                        item.setItem(likeList.getJSONObject(i));
+                        likeInfo.add(item);
+                    }
+                    ListAdptLikeGoods adapter = new ListAdptLikeGoods(likeInfo);
+                    myLikeListVw.setAdapter(adapter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                }
+                progressDialog.dismiss();
+                refreshLayout.setRefreshing(false);
+            }).execute(DBRequestType.GET_MY_LIKE.name(), new JSONObject().put("id", userId).toString());
         } catch (JSONException e) {
             e.printStackTrace();
+            progressDialog.dismiss();
+            refreshLayout.setRefreshing(false);
         }
     }
 
@@ -101,5 +144,10 @@ public class MyPageLikeFragment extends Fragment {
         recyclerView.addItemDecoration(new RecyclerDecoration(0, 25));
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+    }
+
+    private void hideNavigationBar(){
+        View decorView = requireActivity().getWindow().getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 }

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -52,6 +51,7 @@ public class GoodsInfoActivity extends AppCompatActivity {
     private com.hedgehog.ratingbar.RatingBar goodsTotalEval;
     private TextView goodsPrice, goodsReviewJump;
     private TextView reviewPhotoCount;
+    private CheckBox ckbGoodsLike;
 
     public static ArrayList<ListItemReviewToy> reviewInfo;
     public static ArrayList<ListItemReviewImage> imgList;
@@ -266,8 +266,8 @@ public class GoodsInfoActivity extends AppCompatActivity {
             intent.putExtra("goodsInfo", GoodsInfo.toString());
             startActivity(intent);
         });
-
-        ((CheckBox)findViewById(R.id.cKbGoodsInfoLike)).setOnCheckedChangeListener((checkBox, isChecked) -> {
+        ckbGoodsLike = findViewById(R.id.cKbGoodsInfoLike);
+        ckbGoodsLike.setOnCheckedChangeListener((checkBox, isChecked) -> {
             try {
                 JSONObject userInfo = new JSONObject(PreferenceSetting.loadPreference(getBaseContext(), PreferenceSetting.PREFERENCE_KEY.USER_INFO));
                 String userId = userInfo.getString("id");

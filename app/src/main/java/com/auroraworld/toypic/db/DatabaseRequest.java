@@ -198,6 +198,7 @@ public class DatabaseRequest extends AsyncTask<String, String, String> {
                 case GET_CHILD:
                 case GET_RECENT_KEYWORD:
                 case GET_MY_REVIEW:
+                case GET_MY_LIKE:
                     parameterValue = USE + params[0] + AND +
                             USER_ID +jsonObject.get("id").toString();
                     break;
